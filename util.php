@@ -13,7 +13,7 @@ function businessCardCreator_createPage($slug)
         'comment_status' => 'closed',                                                //'closed' means no comments.
         'ping_status' => 'closed',                                                    //Ping status?
         'post_author' => $user_id,                                                    //The user ID number of the author.
-        'post_content' => '<div>[BusinessCardCreator]</div>',                        //The full text of the post.
+        'post_content' => '<div id="business-card-creator">[BusinessCardCreator]</div>',
         'post_date' => $post_date,                                                    //The time post was made.
         'post_excerpt' => 'constructor for creating perfect business cards',            //For all your post excerpt needs.
         'post_name' => $slug,                                                        //The name (slug) for your post
@@ -23,30 +23,42 @@ function businessCardCreator_createPage($slug)
         'post_type' => 'page',                                                        //Sometimes you want to post a page.
         'tags_input' => 'BusinessCard'                                                //For tags.
     );
+    // Insert the post into the database
+    $page_id = wp_insert_post($options);
+    update_post_meta($page_id, '_wp_page_template', 'template.php');
 
-// Insert the post into the database
-    return wp_insert_post($options);
+    return $page_id;
 }
 
 function businessCardCreator_updatePage($slug, $prevSlug)
 {
-//    TODO раскоментить после тестирования
-//    if ($slug == $prevSlug) return 0;
+    if ($slug == $prevSlug) return 0;
 
     $old = get_page_by_path($prevSlug);
     if ($old !== null)
         wp_delete_post($old->ID, true);
 
-    return businessCardCreator_createPage($slug);
+    $id = businessCardCreator_createPage($slug);
+    businessCardCreator_set_page_template();
+    return $id;
+}
+
+function businessCardCreator_set_page_template()
+{
+    $slug = get_option('BusinessCardCreator_url');
+    $page = get_page_by_path($slug);
+    if ($page !== null)
+        update_post_meta($page->ID, '_wp_page_template', 'template.php');
 }
 
 //создаем объект опций
 function businessCardCreator_createOptions()
 {
     $imgPath = plugins_url() . '/business-card-creator' . '/BusinessCardCreator/assets/img';
+    $hash = get_option('BusinessCardCreator_hash');
     return '
 {
-  "hash": "111222333",
+  "hash": "' . $hash . '",
   "host": {
     "db":{
       "endpoint": "https://businesscardeditor.firebaseio.com",

@@ -1,0 +1,8 @@
+:host{
+  width: 10px;
+  height: 10px;
+  background-color: rebeccapurple;
+  position: absolute;
+  z-index: 50;
+  /*cursor: nw-resize;*/
+}

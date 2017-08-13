@@ -1,0 +1,212 @@
+<div>
+  <form #cardForm="ngForm">
+    <div>
+      <card-background-editor></card-background-editor><br>
+      <card-style-editor [item]="selectedItem" (returnFocus)="onFocusReturn()"></card-style-editor>
+
+      <div class="form-group">
+        <ul>
+          <li *ngFor="let item of model.owners; let i = index" class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              name="owner"
+              [(ngModel)]="item.text"
+              (focus)="focusItem(item, $event)"
+              (blur)="blurItem()">
+            <a class="input-group-addon" (click)="addTextField(model.owners, i)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" (click)="removeItem(model.owners, i)"><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+          <li *ngIf="!model.owners || !model.owners.length">
+            <input
+              type="text"
+              class="form-control" disabled>
+            <a class="input-group-addon" (click)="addTextField(model.owners)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+        </ul>
+
+        <ul>
+          <li *ngFor="let item of model.positions; let i = index" class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              name="position"
+              [(ngModel)]="item.text"
+              (focus)="focusItem(item, $event)"
+              (blur)="blurItem()">
+            <a class="input-group-addon" (click)="addTextField(model.positions, i)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" (click)="removeItem(model.positions, i)"><i
+              class="glyphicon glyphicon-minus"></i></a>
+          </li>
+          <li *ngIf="!model.positions || !model.positions.length">
+            <input
+              type="text"
+              class="form-control" disabled>
+            <a class="input-group-addon" (click)="addTextField(model.positions)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-group">
+        <ul>
+          <li *ngFor="let item of model.organisations; let i = index" class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              name="organisation"
+              [(ngModel)]="item.text"
+              (focus)="focusItem(item, $event)"
+              (blur)="blurItem()">
+            <a class="input-group-addon" (click)="addTextField(model.organisations, i)"><i
+              class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" (click)="removeItem(model.organisations, i)"><i
+              class="glyphicon glyphicon-minus"></i></a>
+          </li>
+          <li *ngIf="!model.organisations || !model.organisations.length">
+            <input
+              type="text"
+              class="form-control" disabled>
+            <a class="input-group-addon" (click)="addTextField(model.organisations)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+        </ul>
+
+        <ul>
+          <li *ngFor="let item of model.addresses; let i = index" class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              name="address"
+              [(ngModel)]="item.text"
+              (focus)="focusItem(item, $event)"
+              (blur)="blurItem()">
+            <a class="input-group-addon" (click)="addTextField(model.addresses, i)"><i
+              class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" (click)="removeItem(model.addresses, i)"><i
+              class="glyphicon glyphicon-minus"></i></a>
+          </li>
+          <li *ngIf="!model.addresses || !model.addresses.length">
+            <input
+              type="text"
+              class="form-control" disabled>
+            <a class="input-group-addon" (click)="addTextField(model.addresses)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+        </ul>
+
+        <ul>
+          <li *ngFor="let item of model.phones; let i = index" class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              name="phone"
+              [(ngModel)]="item.text"
+              (focus)="focusItem(item, $event)"
+              (blur)="blurItem()">
+            <a class="input-group-addon" (click)="addTextField(model.phones, i)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" (click)="removeItem(model.phones, i)"><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+          <li *ngIf="!model.phones || !model.phones.length">
+            <input
+              type="text"
+              class="form-control" disabled>
+            <a class="input-group-addon" (click)="addTextField(model.phones)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-group">
+        <ul>
+          <li *ngFor="let item of model.emails; let i = index" class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              name="email"
+              [(ngModel)]="item.text"
+              (focus)="focusItem(item, $event)"
+              (blur)="blurItem()">
+            <a class="input-group-addon" (click)="addTextField(model.emails, i)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" (click)="removeItem(model.emails, i)"><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+          <li *ngIf="!model.emails || !model.emails.length">
+            <input
+              type="text"
+              class="form-control" disabled>
+            <a class="input-group-addon" (click)="addTextField(model.emails)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-group">
+        <ul>
+          <li *ngFor="let item of model.sites; let i = index" class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              name="site"
+              [(ngModel)]="item.text"
+              (focus)="focusItem(item, $event)"
+              (blur)="blurItem()">
+            <a class="input-group-addon" (click)="addTextField(model.sites, i)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" (click)="removeItem(model.sites, i)"><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+          <li *ngIf="!model.sites || !model.sites.length">
+            <input
+              type="text"
+              class="form-control" disabled>
+            <a class="input-group-addon" (click)="addTextField(model.sites)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-group">
+        <ul>
+          <li *ngFor="let item of model.logos; let i = index" class="input-group">
+            <input
+              type="file"
+              class="form-control"
+              name="logo"
+              (change)="uploadImage(item, $event)">
+            <a class="input-group-addon" (click)="addLogo(model.logos, i)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" (click)="removeItem(model.logos, i)"><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+          <li *ngIf="!model.logos || !model.logos.length">
+            <input
+              type="text"
+              class="form-control" disabled>
+            <a class="input-group-addon" (click)="addLogo(model.logos)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="form-group">
+        <ul>
+          <li *ngFor="let item of model.lines; let i = index" class="input-group">
+            <card-hr-editor [hr]="item"></card-hr-editor>
+            <a class="input-group-addon" (click)="addLine(model.lines, i)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" (click)="removeItem(model.lines, i)"><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+          <li *ngIf="!model.lines || !model.lines.length">
+            <input
+              type="text"
+              class="form-control" disabled>
+            <a class="input-group-addon" (click)="addLine(model.lines)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-success" (click)="save()">Save design</button>
+    <button type="button" class="btn btn-danger" (click)="getPDF()">Get PDF</button>
+
+  </form>
+</div>

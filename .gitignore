@@ -44,6 +44,9 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# dependencies
+*/node_modules
+
 .gitignore
 .idea/misc.xml
 .idea/modules.xml

@@ -1,0 +1,40 @@
+.unselectable * {
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.card-wrap {
+  display: block;
+  float: left;
+  padding: 20px;
+  background-color: darkgray;
+}
+
+.business-card {
+  position: relative;
+}
+
+.card-field {
+  position: absolute;
+}
+
+.card-field span {
+  cursor: default;
+}
+
+.card-field.selected-field {
+  outline: 5px dashed darkgray;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.has-advanced-upload{
+  background-color: #0000CC;
+  outline: 1px dashed black;
+  outline-offset: 3px;
+}
+.is-dragover {
+  background-color: grey;
+}

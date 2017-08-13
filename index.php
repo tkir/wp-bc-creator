@@ -52,12 +52,17 @@ function businessCardCreator_plugin_activation()
     add_option('BusinessCardCreator_url', 'business-card-creator');
     add_option('BusinessCardCreator_hash', null);
 
-    //echo businessCardCreator_createPage(get_option('BusinessCardCreator_url'));
+    businessCardCreator_createPage(get_option('BusinessCardCreator_url'));
+    businessCardCreator_set_page_template();
 }
 
 //при деактивации плагина
 function businessCardCreator_plugin_deactivation()
 {
+    $slug = get_option('BusinessCardCreator_url');
+    $old = get_page_by_path($slug);
+    if ($old !== null)
+        wp_delete_post($old->ID, true);
 }
 
 //при удалении плагина
@@ -90,6 +95,7 @@ function businessCardCreator_add_short()
     include_once('content-load.php');
     return ob_get_clean();
 }
+
 //добавляем в <head>
 function businessCardCreator_add_head()
 {
@@ -99,11 +105,11 @@ function businessCardCreator_add_head()
 //проверяем переадресацию на страницу business-card-creator
 function businessCardCreator_get_query($query)
 {
-    $url = get_option('BusinessCardCreator_url');
+    $slug = get_option('BusinessCardCreator_url');
     $pageName = $query->query_vars['pagename'];
 
-    if ($pageName != $url && strpos($pageName, $url) !== false) {
-        $query->query_vars['pagename'] = $url;
+    if ($pageName != $slug && strpos($pageName, $slug) !== false) {
+        $query->query_vars['pagename'] = $slug;
     }
 }
 
@@ -114,3 +120,9 @@ add_action('admin_menu', 'businessCardCreator_add_menu_page');
 add_shortcode('BusinessCardCreator', 'businessCardCreator_add_short');
 add_action('wp_head', 'businessCardCreator_add_head');
 add_action('parse_request', 'businessCardCreator_get_query');
+
+/**
+ * Template creation
+ */
+include_once 'page-templater.php';
+add_action('plugins_loaded', array('PageTemplater', 'get_instance'));

@@ -1,0 +1,15 @@
+.background-color-preview{
+  width: 30px;
+  height: 18px;
+  border: 1px solid black;
+}
+
+.background-image-upload{
+  width: 60px;
+  height: 20px;
+  float: left;
+}
+
+#background-image-input{
+  display: none;
+}
