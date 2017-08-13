@@ -126,3 +126,8 @@ add_action('parse_request', 'businessCardCreator_get_query');
  */
 include_once 'page-templater.php';
 add_action('plugins_loaded', array('PageTemplater', 'get_instance'));
+
+/**
+ * API
+ */
+include_once 'router-api.php';

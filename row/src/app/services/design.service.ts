@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Observable} from "rxjs/Observable";
 import {AppConfigService} from "./app-config.service";
 import {DbService} from "./db.service";
 import {CardDesignData, CardFieldsData} from "../data/interfaces";
@@ -15,7 +16,7 @@ export class DesignService {
 
   private path: string;
 
-  getDesign(design: string) {
+  getDesign(design: string):Observable<any> {
     return this.db.get(`${this.path}/${design}`);
   }
 

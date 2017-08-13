@@ -17,7 +17,7 @@ export class AppConfigService {
   private headers: Headers;
 
   constructor(private http: Http,
-              private location: PlatformLocation,) {
+              private location: PlatformLocation) {
     this.base = this.location.getBaseHrefFromDOM();
     this.configPath = `${this.base}assets/config.`;
     this.envPath = `${this.base}assets/env.json`;

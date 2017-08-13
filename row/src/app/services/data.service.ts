@@ -14,8 +14,7 @@ export class DataService {
               private store: Store,
               private config: AppConfigService,
               private router: Router,
-              private designService: DesignService,
-              private fDataService: FieldsDataService) {
+              private designService: DesignService) {
 
     let designs = this.config.get('allowedDesigns');
 
@@ -29,10 +28,9 @@ export class DataService {
             .subscribe(d => {
               //проверка, есть ли какие-то данные в карте, если нет - загружаем default fieldsData
               if (this.isDesignLoad)
-                this.setCardData(d, this.cData.fieldsData);
+                this.setCardData(d.designData, this.cData.fieldsData);
               else
-                this.fDataService.getFieldsData()
-                  .subscribe(fData => this.setCardData(d, fData));
+                this.setCardData(d.designData, d.fieldsData);
             });
         }
         //если роут неизвестен - грузим базовый
