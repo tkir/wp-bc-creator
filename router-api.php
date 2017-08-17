@@ -1,6 +1,6 @@
 <?php
 
-class RouterAPI
+class BC_Creator_RouterAPI
 {
     /**
      * A reference to an instance of this class.
@@ -14,7 +14,7 @@ class RouterAPI
     public static function get_instance()
     {
         if (null == self::$instance) {
-            self::$instance = new RouterAPI();
+            self::$instance = new BC_Creator_RouterAPI();
         }
         return self::$instance;
     }
@@ -38,5 +38,3 @@ class RouterAPI
 
     }
 }
-
-add_action('rest_api_init', array('RouterAPI', 'get_instance'));

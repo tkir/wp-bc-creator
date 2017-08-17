@@ -1,60 +1,48 @@
 <?php
 
-class Initialize
+class BC_Creator_Initializer
 {
-    protected $config;
-    protected $tableDesign;
 
-    private static $instance;
+    protected static $instance;
+    protected static $tableDesign = 'BusinessCardCreator_design';
 
-    /**
-     * Returns an instance of this class.
-     */
-    public static function get_instance()
+    public static function init()
     {
-        if (null == self::$instance) {
-            self::$instance = new Initialize();
-        }
+        is_null(self::$instance) AND self::$instance = new self;
         return self::$instance;
     }
 
-    private function __construct()
+    public static function on_activation()
     {
-        global $wpdb;
+        if (!current_user_can('activate_plugins')) return;
 
-        register_deactivation_hook(__FILE__, array($this, 'deactivation'));
-        register_uninstall_hook(__FILE__, array($this, 'uninstall'));
-        add_action('admin_menu', array($this, 'add_menu_page'));
+        $plugin = isset($_REQUEST['plugin']) ? $_REQUEST['plugin'] : '';
+        check_admin_referer("activate-plugin_{$plugin}");
 
-        $this->activation();
-
-        $this->config = json_decode(file_get_contents("config.json"), true);
-        $this->tableDesign = $wpdb->prefix . 'BusinessCardCreator_design';
+        BC_Creator_Initializer::activation();
     }
 
-
-    //при активации плагина
-    public function activation()
+    public static function activation()
     {
-        include_once('util.php');
 
 //    если таблицы нет, создаем
         global $wpdb;
+        $table = $wpdb->prefix . BC_Creator_Initializer::$tableDesign;
 
-        if ($wpdb->get_var("SHOW TABLES LIKE $this->tableDesign") != $this->tableDesign) {
-            $sql = "CREATE TABLE IF NOT EXISTS `$this->tableDesign`(
+        if ($wpdb->get_var("SHOW TABLES LIKE $table") != $table) {
+            $sql = "CREATE TABLE IF NOT EXISTS `$table`(
 			`id` INT NOT NULL AUTO_INCREMENT,
 			`Name` VARCHAR(255),
 			`Version` FLOAT,
 			`Slug` VARCHAR(255) NOT NULL,
 			`UserId` INT,
-			`FieldData` TEXT NOT NULL,
+			`FieldsData` TEXT NOT NULL,
 			`DesignData` TEXT NOT NULL,
 			`Preview` VARCHAR(255),
 			`Create_Date` DATETIME,
 			PRIMARY KEY(`id`)
 		)
-		ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+		ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
             $wpdb->query($sql);
         }
@@ -63,54 +51,106 @@ class Initialize
         update_option('BusinessCardCreator_url', 'business-card-creator');
         update_option('BusinessCardCreator_hash', null);
 
+        include_once('util.php');
         businessCardCreator_createPage(get_option('BusinessCardCreator_url'));
-        businessCardCreator_set_page_template();
+
+        BC_Creator_Initializer::set_pageNotFound_design();
     }
 
-    protected function set_padeNotFound_design()
+    protected static function set_pageNotFound_design()
     {
-        $name = $this->config['pageNotFound']['name'];
-        $version = $this->config['pageNotFound']['version'];
-        $slug = $this->config['pageNotFound']['slug'];
-        $fieldData = $this->config['pageNotFound']['fieldsData'];
-        $designData = $this->config['pageNotFound']['designData'];
-
         global $wpdb;
-        $wpdb->query("INSERT INTO $this->tableDesign 
-(Name, Version, Slug, FieldData, DesignData) VALUES 
-($name, $version, $slug, $fieldData, $designData)");
+        $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
+        $table = $wpdb->prefix . BC_Creator_Initializer::$tableDesign;
+
+        $name = $config->pageNotFound->name;
+        $version = $config->pageNotFound->version;
+        $slug = $config->pageNotFound->slug;
+        $fieldsData = json_encode($config->pageNotFound->fieldsData);
+        $designData = json_encode($config->pageNotFound->designData);
+
+        $wpdb->query("DELETE FROM $table WHERE `Name`='$name'");
+
+        $wpdb->query("
+INSERT INTO $table
+(`Name`,  `Version`, `Slug`,  `FieldsData`,  `DesignData`) VALUES
+('$name', $version, '$slug', '$fieldsData', '$designData')
+");
+
     }
 
-//при деактивации плагина
-    public function deactivation()
+    public static function on_deactivation()
+    {
+        if (!current_user_can('activate_plugins'))
+            return;
+        $plugin = isset($_REQUEST['plugin']) ? $_REQUEST['plugin'] : '';
+        check_admin_referer("deactivate-plugin_{$plugin}");
+
+        BC_Creator_Initializer::deactivation();
+    }
+
+    public static function on_uninstall()
+    {
+        if (!current_user_can('activate_plugins'))
+            return;
+        check_admin_referer('bulk-plugins');
+
+        // Важно: проверим тот ли это файл, который
+        // был зарегистрирован во время удаления плагина.
+        if (__FILE__ != WP_UNINSTALL_PLUGIN)
+            return;
+
+        BC_Creator_Initializer::uninstall();
+    }
+
+    public function __construct()
+    {
+        /**
+         * Template creation
+         */
+        include_once 'page-templater.php';
+        PageTemplater::get_instance();
+
+        /**
+         * Menu page
+         */
+        include_once 'menu_creator.php';
+        add_action('admin_menu', array('Menu_Creator', 'add_menu_page'));
+
+        /**
+         * Creator page
+         */
+        include_once 'bc_creator.php';
+        add_shortcode('BusinessCardCreator', array('BC_Creator', 'add_short'));
+        add_action('wp_head', array('BC_Creator', 'add_head'));
+        add_action('parse_request', array('BC_Creator', 'get_query'));
+
+
+
+        /**
+         * API
+         */
+        include_once 'router-api.php';
+        add_action('rest_api_init', array('BC_Creator_RouterAPI', 'get_instance'));
+    }
+
+    //при деактивации плагина
+    public static function deactivation()
     {
         $slug = get_option('BusinessCardCreator_url');
         $old = get_page_by_path($slug);
         if ($old !== null)
             wp_delete_post($old->ID, true);
+    }
 
-        ///////////////////////////////////////
+    //при удалении плагина
+    public static function uninstall()
+    {
         global $wpdb;
-        $tableName = $wpdb->prefix . 'BusinessCardCreator_design';
-        $wpdb->query("DROP TABLE IF EXISTS $tableName");
+        $tableDesign = $wpdb->prefix . 'BusinessCardCreator_design';
+        $wpdb->query("DROP TABLE IF EXISTS $tableDesign");
 
         delete_option('BusinessCardCreator_url');
         delete_option('BusinessCardCreator_hash');
-    }
-
-//при удалении плагина
-    public function uninstall()
-    {
-        global $wpdb;
-        $wpdb->query("DROP TABLE IF EXISTS $this->tableDesign");
-
-        delete_option('BusinessCardCreator_url');
-        delete_option('BusinessCardCreator_hash');
-    }
-
-//добавляем субменю
-    public function add_menu_page()
-    {
-        add_submenu_page('options-general.php', 'BusinessCardCreator', 'BC_Creator', 8, 'BusinessCardCreator', 'businessCardCreator_menu');
     }
 }

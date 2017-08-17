@@ -6,7 +6,7 @@
  * Date: 16.08.2017
  * Time: 21:59
  */
-class DB
+class BC_Creator_DB
 {
     private static $instance;
 
@@ -16,7 +16,7 @@ class DB
     public static function get_instance()
     {
         if (null == self::$instance) {
-            self::$instance = new DB();
+            self::$instance = new BC_Creator_DB();
         }
         return self::$instance;
     }
