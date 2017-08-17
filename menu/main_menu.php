@@ -15,18 +15,26 @@ $hash = get_option('BusinessCardCreator_hash');
 ?>
 
 
-    <form method="post">
-        <label><input type="text" name="page_url" value="<?= $page_url ?>"> Page URL</label><br>
-        <label><input type="text" name="hash" value="<?= $hash ?>"> Personal hash</label><br>
-        <input type="submit" value="Update">
-    </form>
+<link href="<?= plugins_url() . '/business-card-creator' . '/menu/main_menu.css'; ?>" rel="stylesheet"/>
 
-<?php
-//$page=get_page_by_path('business-card-creator');
-//echo '<pre>';
-//if($page===null)echo 'no';
-//print_r($page->ID);
-//echo '</pre>';
-//
-//echo plugin_dir_path(__DIR__);
-?>
+<div id="bc-creator-menu">
+    <div class="tab">
+        <button class="tablinks active" onclick="open_BC_Creator_menu_tab(event, 0)">General</button>
+        <button class="tablinks" onclick="open_BC_Creator_menu_tab(event, 1)">Design</button>
+    </div>
+
+    <div class="tabcontent active">
+        <form method="post">
+            <label><input type="text" name="page_url" value="<?= $page_url ?>"> Page URL</label><br>
+            <label><input type="text" name="hash" value="<?= $hash ?>"> Personal hash</label><br>
+            <input type="submit" value="Update">
+        </form>
+    </div>
+
+    <div class="tabcontent">
+        <h3>Paris</h3>
+        <p>Paris is the capital of France.</p>
+    </div>
+</div>
+
+<script src="<?= plugins_url() . '/business-card-creator' . '/menu/main_menu_tabs.js'; ?>"></script>
