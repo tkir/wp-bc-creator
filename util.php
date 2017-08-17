@@ -1,62 +1,74 @@
 <?php
 
-function businessCardCreator_createPage($slug)
-{
+class BC_Creator_util{
 
-    if ($slug === null || $slug === '' || get_page_by_path($slug) !== null) return 0;
+    protected static $tableDesign = 'BusinessCardCreator_design';
 
-    $user_id = get_current_user_id();
-    $post_date = current_time('mysql');
+    public static function createPage($slug)
+    {
 
-    $options = array(
-        'menu_order' => 0,                                                            //If new post is a page, sets the order should it appear in the tabs.
-        'comment_status' => 'closed',                                                //'closed' means no comments.
-        'ping_status' => 'closed',                                                    //Ping status?
-        'post_author' => $user_id,                                                    //The user ID number of the author.
-        'post_content' => '<div id="business-card-creator">[BusinessCardCreator]</div>',
-        'post_date' => $post_date,                                                    //The time post was made.
-        'post_excerpt' => 'constructor for creating perfect business cards',            //For all your post excerpt needs.
-        'post_name' => $slug,                                                        //The name (slug) for your post
-        'post_parent' => 0,                                                            //Sets the parent of the new post.
-        'post_status' => 'publish',                                                    //Set the status of the new post.
-        'post_title' => 'Business Card Creator',                                        //The title of your post.
-        'post_type' => 'page',                                                        //Sometimes you want to post a page.
-        'tags_input' => 'BusinessCard'                                                //For tags.
-    );
-    // Insert the post into the database
-    $page_id = wp_insert_post($options);
-    update_post_meta($page_id, '_wp_page_template', 'template.php');
+        if ($slug === null || $slug === '' || get_page_by_path($slug) !== null) return 0;
 
-    return $page_id;
-}
+        $user_id = get_current_user_id();
+        $post_date = current_time('mysql');
 
-function businessCardCreator_updatePage($slug, $prevSlug)
-{
-    if ($slug == $prevSlug) return 0;
+        $options = array(
+            'menu_order' => 0,                                                            //If new post is a page, sets the order should it appear in the tabs.
+            'comment_status' => 'closed',                                                //'closed' means no comments.
+            'ping_status' => 'closed',                                                    //Ping status?
+            'post_author' => $user_id,                                                    //The user ID number of the author.
+            'post_content' => '<div id="business-card-creator">[BusinessCardCreator]</div>',
+            'post_date' => $post_date,                                                    //The time post was made.
+            'post_excerpt' => 'constructor for creating perfect business cards',            //For all your post excerpt needs.
+            'post_name' => $slug,                                                        //The name (slug) for your post
+            'post_parent' => 0,                                                            //Sets the parent of the new post.
+            'post_status' => 'publish',                                                    //Set the status of the new post.
+            'post_title' => 'Business Card Creator',                                        //The title of your post.
+            'post_type' => 'page',                                                        //Sometimes you want to post a page.
+            'tags_input' => 'BusinessCard'                                                //For tags.
+        );
+        // Insert the post into the database
+        $page_id = wp_insert_post($options);
+        update_post_meta($page_id, '_wp_page_template', 'template.php');
 
-    $old = get_page_by_path($prevSlug);
-    if ($old !== null)
-        wp_delete_post($old->ID, true);
+        return $page_id;
+    }
 
-    $id = businessCardCreator_createPage($slug);
-    businessCardCreator_set_page_template();
-    return $id;
-}
+    public static function updatePage($slug, $prevSlug)
+    {
+        if ($slug == $prevSlug) return 0;
 
-function businessCardCreator_set_page_template()
-{
-    $slug = get_option('BusinessCardCreator_url');
-    $page = get_page_by_path($slug);
-    if ($page !== null)
-        update_post_meta($page->ID, '_wp_page_template', 'template.php');
-}
+        $old = get_page_by_path($prevSlug);
+        if ($old !== null)
+            wp_delete_post($old->ID, true);
+
+        $id = BC_Creator_util::createPage($slug);
+        BC_Creator_util::set_page_template();
+        return $id;
+    }
+
+    public static function set_page_template()
+    {
+        $slug = get_option('BusinessCardCreator_url');
+        $page = get_page_by_path($slug);
+        if ($page !== null)
+            update_post_meta($page->ID, '_wp_page_template', 'template.php');
+    }
+
+    public static function getDesigns(){
+        global $wpdb;
+        $table = $wpdb->prefix . BC_Creator_util::$tableDesign;
+        return $wpdb->get_results("
+          SELECT * FROM $table;
+        ");
+    }
 
 //создаем объект опций
-function businessCardCreator_createOptions()
-{
-    $imgPath = plugins_url() . '/business-card-creator' . '/BusinessCardCreator/assets/img';
-    $hash = get_option('BusinessCardCreator_hash');
-    return '
+    public static function createOptions()
+    {
+        $imgPath = plugins_url() . '/business-card-creator' . '/BusinessCardCreator/assets/img';
+        $hash = get_option('BusinessCardCreator_hash');
+        return '
 {
   "hash": "' . $hash . '",
   "host": {
@@ -118,4 +130,5 @@ function businessCardCreator_createOptions()
   "imagePath": "' . $imgPath . '"
 }
 ';
+    }
 }

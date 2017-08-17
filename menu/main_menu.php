@@ -27,13 +27,41 @@ $hash = get_option('BusinessCardCreator_hash');
         <form method="post">
             <label><input type="text" name="page_url" value="<?= $page_url ?>"> Page URL</label><br>
             <label><input type="text" name="hash" value="<?= $hash ?>"> Personal hash</label><br>
+            <h3>Page template</h3>
+            <select>
+                <option value="default">Default</option>
+                <option value="full_screen">Full screen</option>
+            </select><br>
             <input type="submit" value="Update">
         </form>
     </div>
 
     <div class="tabcontent">
-        <h3>Paris</h3>
-        <p>Paris is the capital of France.</p>
+        <h3>Design</h3>
+        <div class="menu-design-container">
+            <div class="menu-previews-container">
+                <!-- form design preview -->
+                <form method="post" class="bc-creator-previews">
+                    `
+                    <ul>
+                        <?php
+                        include_once (WP_PLUGIN_DIR.'/business-card-creator'.'/util.php');
+                        $designs = BC_Creator_util::getDesigns();
+                        foreach ($designs as $design): ?>
+                        <li>
+                            <input type="hidden" name="id" value="<?= $design->id ?>">
+                            <input type="checkbox" checked="<?= $design->isActive ?>" name="design-<?= $design->id ?>">
+<!--                        TODO заманить на preview-->
+                            <div><?= $design->Name ?></div>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <input type="submit" value="Update">
+                </form>
+
+            </div>
+            <div class="menu-sidebar-container"></div>
+        </div>
     </div>
 </div>
 

@@ -40,6 +40,7 @@ class BC_Creator_Initializer
 			`DesignData` TEXT NOT NULL,
 			`Preview` VARCHAR(255),
 			`Create_Date` DATETIME,
+			`isActive` BOOLEAN NOT NULL DEFAULT 1,
 			PRIMARY KEY(`id`)
 		)
 		ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
@@ -52,7 +53,7 @@ class BC_Creator_Initializer
         update_option('BusinessCardCreator_hash', null);
 
         include_once('util.php');
-        businessCardCreator_createPage(get_option('BusinessCardCreator_url'));
+        BC_Creator_util::createPage(get_option('BusinessCardCreator_url'));
 
         BC_Creator_Initializer::set_pageNotFound_design();
     }

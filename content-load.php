@@ -1,7 +1,7 @@
 <business-card-editor></business-card-editor>
 <?php
 include_once('util.php');
-$opt = (businessCardCreator_createOptions());
+$opt = BC_Creator_util::createOptions();
 ?>
 <script>
     var businessCardCreatorOptions;
