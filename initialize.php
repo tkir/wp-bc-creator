@@ -3,6 +3,7 @@
 class Initialize
 {
     protected $config;
+    protected $tableDesign;
 
     private static $instance;
 
@@ -19,27 +20,29 @@ class Initialize
 
     private function __construct()
     {
-        register_activation_hook(__FILE__, array($this, 'plugin_activation'));
-        register_deactivation_hook(__FILE__, array($this, 'plugin_deactivation'));
-        register_uninstall_hook(__FILE__, array($this, 'plugin_uninstall'));
+        global $wpdb;
+
+        register_deactivation_hook(__FILE__, array($this, 'deactivation'));
+        register_uninstall_hook(__FILE__, array($this, 'uninstall'));
         add_action('admin_menu', array($this, 'add_menu_page'));
 
-        $this->plugin_activation();
+        $this->activation();
 
         $this->config = json_decode(file_get_contents("config.json"), true);
+        $this->tableDesign = $wpdb->prefix . 'BusinessCardCreator_design';
     }
 
 
     //при активации плагина
-    public function plugin_activation()
+    public function activation()
     {
         include_once('util.php');
 
 //    если таблицы нет, создаем
         global $wpdb;
-        $tableName = $wpdb->prefix . 'BusinessCardCreator_design';
-        if ($wpdb->get_var("SHOW TABLES LIKE $tableName") != $tableName) {
-            $sql = "CREATE TABLE IF NOT EXISTS `$tableName`(
+
+        if ($wpdb->get_var("SHOW TABLES LIKE $this->tableDesign") != $this->tableDesign) {
+            $sql = "CREATE TABLE IF NOT EXISTS `$this->tableDesign`(
 			`id` INT NOT NULL AUTO_INCREMENT,
 			`Name` VARCHAR(255),
 			`Version` FLOAT,
@@ -57,8 +60,8 @@ class Initialize
         }
 
 //    добавляем записи в опции: url & hash
-        add_option('BusinessCardCreator_url', 'business-card-creator');
-        add_option('BusinessCardCreator_hash', null);
+        update_option('BusinessCardCreator_url', 'business-card-creator');
+        update_option('BusinessCardCreator_hash', null);
 
         businessCardCreator_createPage(get_option('BusinessCardCreator_url'));
         businessCardCreator_set_page_template();
@@ -66,15 +69,14 @@ class Initialize
 
     protected function set_padeNotFound_design()
     {
-        $name=$this->config['pageNotFound']->name;
-        $version=$this->config['pageNotFound']->version;
-        $slug = $this->config['pageNotFound']->slug;
-        $fieldData=$this->config['pageNotFound']->fieldsData;
-        $designData=$this->config['pageNotFound']->designData;
+        $name = $this->config['pageNotFound']['name'];
+        $version = $this->config['pageNotFound']['version'];
+        $slug = $this->config['pageNotFound']['slug'];
+        $fieldData = $this->config['pageNotFound']['fieldsData'];
+        $designData = $this->config['pageNotFound']['designData'];
 
         global $wpdb;
-        $tableName = $wpdb->prefix . 'BusinessCardCreator_design';
-        $wpdb->query("INSERT INTO $tableName 
+        $wpdb->query("INSERT INTO $this->tableDesign 
 (Name, Version, Slug, FieldData, DesignData) VALUES 
 ($name, $version, $slug, $fieldData, $designData)");
     }
@@ -87,15 +89,20 @@ class Initialize
         if ($old !== null)
             wp_delete_post($old->ID, true);
 
-        $this->plugin_uninstall();
-    }
-
-//при удалении плагина
-    public function plugin_uninstall()
-    {
+        ///////////////////////////////////////
         global $wpdb;
         $tableName = $wpdb->prefix . 'BusinessCardCreator_design';
         $wpdb->query("DROP TABLE IF EXISTS $tableName");
+
+        delete_option('BusinessCardCreator_url');
+        delete_option('BusinessCardCreator_hash');
+    }
+
+//при удалении плагина
+    public function uninstall()
+    {
+        global $wpdb;
+        $wpdb->query("DROP TABLE IF EXISTS $this->tableDesign");
 
         delete_option('BusinessCardCreator_url');
         delete_option('BusinessCardCreator_hash');
@@ -107,5 +114,3 @@ class Initialize
         add_submenu_page('options-general.php', 'BusinessCardCreator', 'BC_Creator', 8, 'BusinessCardCreator', 'businessCardCreator_menu');
     }
 }
-
-register_activation_hook(__FILE__, array('Initialize', 'get_instance'));
