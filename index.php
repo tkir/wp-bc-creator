@@ -25,63 +25,6 @@ Author URI: http://github.com/tkir/
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
-//при активации плагина
-function businessCardCreator_plugin_activation()
-{
-    include_once('util.php');
-
-//    если таблицы нет, создаем
-    global $wpdb;
-    $tableName = $wpdb->prefix . 'BusinessCardCreator';
-    if ($wpdb->get_var("SHOW TABLES LIKE $tableName") != $tableName) {
-        $sql = "CREATE TABLE IF NOT EXISTS `$tableName`(
-			`id` INT NOT NULL AUTO_INCREMENT, 
-			`UserId` INT NOT NULL,
-			`FieldData` TEXT NOT NULL,
-			`DesignData` TEXT NOT NULL,
-			`Preview` VARCHAR(255) NOT NULL,
-			PRIMARY KEY(`id`)
-		)
-		ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
-
-        $wpdb->query($sql);
-    }
-
-//    добавляем записи в опции: url & hash
-    add_option('BusinessCardCreator_url', 'business-card-creator');
-    add_option('BusinessCardCreator_hash', null);
-
-    businessCardCreator_createPage(get_option('BusinessCardCreator_url'));
-    businessCardCreator_set_page_template();
-}
-
-//при деактивации плагина
-function businessCardCreator_plugin_deactivation()
-{
-    $slug = get_option('BusinessCardCreator_url');
-    $old = get_page_by_path($slug);
-    if ($old !== null)
-        wp_delete_post($old->ID, true);
-}
-
-//при удалении плагина
-function businessCardCreator_plugin_uninstall()
-{
-    global $wpdb;
-    $tableName = $wpdb->prefix . 'BusinessCardCreator';
-    $wpdb->query("DROP TABLE IF EXISTS $tableName");
-
-    delete_option('BusinessCardCreator_url');
-    delete_option('BusinessCardCreator_hash');
-}
-
-//добавляем субменю
-function businessCardCreator_add_menu_page()
-{
-    add_submenu_page('options-general.php', 'BusinessCardCreator', 'BC_Creator', 8, 'BusinessCardCreator', 'businessCardCreator_menu');
-}
-
 //вход в меню
 function businessCardCreator_menu()
 {
@@ -113,10 +56,7 @@ function businessCardCreator_get_query($query)
     }
 }
 
-register_activation_hook(__FILE__, 'businessCardCreator_plugin_activation');
-register_deactivation_hook(__FILE__, 'businessCardCreator_plugin_deactivation');
-register_uninstall_hook(__FILE__, 'businessCardCreator_plugin_uninstall');
-add_action('admin_menu', 'businessCardCreator_add_menu_page');
+include_once  'initialize.php';
 add_shortcode('BusinessCardCreator', 'businessCardCreator_add_short');
 add_action('wp_head', 'businessCardCreator_add_head');
 add_action('parse_request', 'businessCardCreator_get_query');

@@ -1,0 +1,50 @@
+{
+  "api":{
+    "endpoint": "http://localhost:3000"
+  },
+  "pageNotFound": {
+    "name": "pageNotFound",
+    "version": 1.0,
+    "slug": "pageNotFound",
+    "description": "loads when card design not found, or no permission",
+    "author": "",
+    "fieldsData": {
+      "addresses": [],
+      "emails": [],
+      "logos": [],
+      "organisations": [],
+      "owners": ["DESIGN NOT FOUND"],
+      "phones": [],
+      "positions": [],
+      "sites": []
+    },
+    "designData": {
+      "addresses": [],
+      "background": {
+        "_backgroundColor": "#fff",
+        "height_mm": 55,
+        "src": "",
+        "width_mm": 85
+      },
+      "emails": [],
+      "lines": [],
+      "logos": [],
+      "organisations": [],
+      "owners": [
+        {
+          "colorStr": "000",
+          "fontFamily": "Open Sans",
+          "fontSize_mm": 6.0,
+          "fontStyle": "normal",
+          "fontWeight": "bold",
+          "left_mm": 10,
+          "textDecoration": "none",
+          "top_mm": 10
+        }
+      ],
+      "phones": [],
+      "positions": [],
+      "sites": []
+    }
+  }
+}
