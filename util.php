@@ -63,6 +63,14 @@ class BC_Creator_util{
         ");
     }
 
+    public static function getDesignsForUpdate(){
+        global $wpdb;
+        $table = $wpdb->prefix . BC_Creator_util::$tableDesign;
+        return $wpdb->get_results("
+          SELECT `Name`, `Version` FROM $table;
+        ");
+    }
+
 //создаем объект опций
     public static function createOptions()
     {

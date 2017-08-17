@@ -1,6 +1,7 @@
 {
   "api":{
-    "endpoint": "http://localhost:3000"
+    "endpoint": "http://localhost:3000",
+    "designs": "/designs"
   },
   "pageNotFound": {
     "name": "pageNotFound",

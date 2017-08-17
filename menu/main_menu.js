@@ -11,3 +11,14 @@ function open_BC_Creator_menu_tab(evt, tabNam) {
     tabcontent[tabNam].classList.add('active');
     evt.currentTarget.className += " active";
 }
+
+function onUpdateDesignPreview() {
+    var oReq = new XMLHttpRequest(); //New request object
+    oReq.onload = function() {
+        //This is where you handle what to do with the response.
+        //The actual data is found on this.responseText
+        alert(this.responseText); //Will alert: 42
+    };
+    oReq.open("get", "get-data.php", true);
+    oReq.send();
+}

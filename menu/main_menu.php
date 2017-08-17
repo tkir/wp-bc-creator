@@ -56,7 +56,7 @@ $hash = get_option('BusinessCardCreator_hash');
                         </li>
                         <?php endforeach; ?>
                     </ul>
-                    <input type="submit" value="Update">
+                    <button type="button" onclick="onUpdateDesignPreview()">Update</button>
                 </form>
 
             </div>
@@ -65,4 +65,4 @@ $hash = get_option('BusinessCardCreator_hash');
     </div>
 </div>
 
-<script src="<?= plugins_url() . '/business-card-creator' . '/menu/main_menu_tabs.js'; ?>"></script>
+<script src="<?= plugins_url() . '/business-card-creator' . '/menu/main_menu.js'; ?>"></script>
