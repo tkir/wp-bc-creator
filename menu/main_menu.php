@@ -2,7 +2,7 @@
 //если зашли с данными: обновляем существующюю страницу, устанавливаем новый hash
 if (!empty($_POST)) {
     include_once(plugin_dir_path(__DIR__) . 'util.php');
-    echo businessCardCreator_updatePage($_POST['page_url'], get_option('BusinessCardCreator_url'));
+    echo BC_Creator_util::updatePage($_POST['page_url'], get_option('BusinessCardCreator_url'));
 
     update_option('BusinessCardCreator_url', str_replace(' ', '', $_POST['page_url']));
     update_option('BusinessCardCreator_hash', str_replace(' ', '', $_POST['hash']));

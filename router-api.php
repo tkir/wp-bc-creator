@@ -32,7 +32,7 @@ class BC_Creator_RouterAPI
             'callback' => array($this, 'check_permission'),
         ));
 
-        register_rest_route('business-card-creator/updateDesigns', '/.*/', array(
+        register_rest_route('business-card-creator/', '/updateDesigns/', array(
             // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
             'methods' => WP_REST_Server::READABLE,
             // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
@@ -47,14 +47,17 @@ class BC_Creator_RouterAPI
 
     public function updateDesigns()
     {
+//        проверяем, может ли редактировать плагины не работает
+//        if (!current_user_can('read')) return 'Goodbuy';
+
         include_once 'util.php';
         $designs = BC_Creator_util::getDesignsForUpdate();
-        $data='{"designs:"'.json_encode($designs).', "url": '.get_option('siteurl').'}';
+        $data='{"designs":'.json_encode($designs).', "url": "'.get_option('siteurl').'"}';
 
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         $path = $config->api->designs . '/' . get_option('BusinessCardCreator_hash');
 
         include_once 'api.php';
-        $res = BC_Creator_API::post($path, $data);
+        return $res = BC_Creator_API::post($path, $data);
     }
 }
