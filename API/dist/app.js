@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const pdf_creator_1 = require("./pdf-creator");
 const config_1 = require("./config");
+const dataAccess_1 = require("./dataAccess");
 let express = require('express');
 let cors = require('cors');
 let bodyParser = require('body-parser');
@@ -45,9 +46,11 @@ app.post('/preview/:hash', (req, res) => {
     });
 });
 app.post('/bc-creator/designs/:hash', (req, res) => {
-    console.log(req.body);
+    dataAccess_1.DataAccess.Instance.getDesignsExcept(req.body.designs, (err, desResult) => {
+        res.send(`{"err": ${err ? err.message : null}, "designs":${JSON.stringify(desResult)}}`);
+    });
 });
 app.post('/bc-creator/designs/', (req, res) => {
-    res.send('{"string":"noHashError"}');
+    res.send('{"err":"noHashError"}');
 });
 //# sourceMappingURL=app.js.map

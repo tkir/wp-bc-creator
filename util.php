@@ -67,8 +67,12 @@ class BC_Creator_util{
         global $wpdb;
         $table = $wpdb->prefix . BC_Creator_util::$tableDesign;
         return $wpdb->get_results("
-          SELECT `Name`, `Version` FROM $table;
+          SELECT `Slug`, `Version` FROM $table;
         ");
+    }
+
+    public static function blobToJpg($blob, $path){
+
     }
 
 //создаем объект опций

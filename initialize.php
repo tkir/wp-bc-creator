@@ -33,14 +33,16 @@ class BC_Creator_Initializer
             $sql = "CREATE TABLE IF NOT EXISTS `$table`(
 			`id` INT NOT NULL AUTO_INCREMENT,
 			`Name` VARCHAR(255),
-			`Version` FLOAT,
+			`Version` INT NOT NULL,
 			`Slug` VARCHAR(255) NOT NULL,
+			`Description` TEXT,
 			`UserId` INT,
-			`FieldsData` TEXT NOT NULL,
-			`DesignData` TEXT NOT NULL,
-			`Preview` VARCHAR(255),
+			`FieldsData` MEDIUMTEXT NOT NULL,
+			`DesignData` MEDIUMTEXT NOT NULL,
+			`Preview` MEDIUMTEXT,
 			`Create_Date` DATETIME,
 			`isActive` BOOLEAN NOT NULL DEFAULT 1,
+			`_Order` INT NOT NULL,
 			PRIMARY KEY(`id`)
 		)
 		ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";

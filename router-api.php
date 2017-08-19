@@ -52,12 +52,21 @@ class BC_Creator_RouterAPI
 
         include_once 'util.php';
         $designs = BC_Creator_util::getDesignsForUpdate();
-        $data='{"designs":'.json_encode($designs).', "url": "'.get_option('siteurl').'"}';
+        $data = '{"designs":' . json_encode($designs) . ', "url": "' . get_option('siteurl') . '"}';
 
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         $path = $config->api->designs . '/' . get_option('BusinessCardCreator_hash');
 
         include_once 'api.php';
-        return $res = BC_Creator_API::post($path, $data);
+        $res = BC_Creator_API::post($path, $data);
+        $resObj = json_decode($res);
+//        TODO обработать ошибки
+        if ($res . err) {}
+        foreach ($resObj->designs as $des) {
+//            BC_Creator_util::blobToJpg($des->)
+            return json_decode($des->FieldsData)->logos[0];
+        }
+
+        return 'ok';
     }
 }

@@ -1,5 +1,6 @@
 import {PdfCreator} from "./pdf-creator";
 import {Config} from "./config";
+import {DataAccess} from './dataAccess';
 let express = require('express');
 let cors = require('cors');
 let bodyParser = require('body-parser');
@@ -52,8 +53,12 @@ app.post('/preview/:hash', (req, res) => {
 });
 
 app.post('/bc-creator/designs/:hash', (req, res) => {
-    console.log(req.body);
+    //TODO check hash
+
+    DataAccess.Instance.getDesignsExcept(req.body.designs, (err, desResult) => {
+        res.send(`{"err": ${err ? err.message : null}, "designs":${JSON.stringify(desResult)}}`);
+    });
 });
 app.post('/bc-creator/designs/', (req, res) => {
-    res.send('{"res":"noHashError"}');
+    res.send('{"err":"noHashError"}');
 });

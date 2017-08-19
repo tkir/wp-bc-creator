@@ -9,6 +9,8 @@
     "slug": "pageNotFound",
     "description": "loads when card design not found, or no permission",
     "author": "",
+    "isActive": 1,
+    "Order": -1,
     "fieldsData": {
       "addresses": [],
       "emails": [],
