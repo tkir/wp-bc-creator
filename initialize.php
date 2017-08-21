@@ -42,7 +42,7 @@ class BC_Creator_Initializer
 			`Preview` MEDIUMTEXT,
 			`Create_Date` DATETIME,
 			`isActive` BOOLEAN NOT NULL DEFAULT 1,
-			`_Order` INT NOT NULL,
+			`Preview_Order` INT NOT NULL,
 			PRIMARY KEY(`id`)
 		)
 		ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";

@@ -16,8 +16,13 @@ class DataAccess {
             database: 'bc-creator-api'
         });
     }
-    getDesignsExcept(designs, cb) {
-        this.connection.query(`
+    getDesignsExcept(body, hash, cb) {
+        this.getPermission(hash, body.url, (err, permission) => {
+            if (err) {
+                cb(err, null);
+                return;
+            }
+            this.connection.query(`
         SELECT 
             Name,
             Version,
@@ -29,11 +34,31 @@ class DataAccess {
             Preview,
             Create_Date,
             isActive,
-            _Order
-        FROM Designs`, function (err, rows, fields) {
-            if (err)
+            Preview_Order
+        FROM Designs WHERE isActive = 1 AND permission <= ${permission}`, (err, rows, fields) => {
+                if (err) {
+                    cb(err, null);
+                    return;
+                }
+                cb(null, rows.filter(r => !body.designs.some(d => d.Slug == r.Slug && d.Version == r.Version)));
+            });
+        });
+    }
+    getPermission(hash, site, cb) {
+        hash = hash.replace(/[^a-zA-Z0-9]/, '');
+        if (hash.length !== 32) {
+            cb(new Error('hash error'));
+            return;
+        }
+        this.connection.query(`SELECT permission FROM Customers WHERE hash = '${hash}' AND site = '${site}'`, (err, rows, fields) => {
+            if (err) {
                 cb(err, null);
-            cb(null, rows.filter(r => !designs.some(d => d.Slug == r.Slug && d.Version == r.Version)));
+                return;
+            }
+            if (rows.length)
+                cb(null, rows[0].permission);
+            else
+                cb(new Error('no update'), null);
         });
     }
 }

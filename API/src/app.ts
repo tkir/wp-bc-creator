@@ -53,10 +53,10 @@ app.post('/preview/:hash', (req, res) => {
 });
 
 app.post('/bc-creator/designs/:hash', (req, res) => {
-    //TODO check hash
 
-    DataAccess.Instance.getDesignsExcept(req.body.designs, (err, desResult) => {
-        res.send(`{"err": ${err ? err.message : null}, "designs":${JSON.stringify(desResult)}}`);
+    DataAccess.Instance.getDesignsExcept(req.body, req.params.hash, (err, desResult) => {
+        if (err) err = err.message;
+        res.send(`{"err": ${JSON.stringify(err)}, "designs":${JSON.stringify(desResult)}}`);
     });
 });
 app.post('/bc-creator/designs/', (req, res) => {

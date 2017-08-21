@@ -47,8 +47,6 @@ class BC_Creator_RouterAPI
 
     public function updateDesigns()
     {
-//        проверяем, может ли редактировать плагины не работает
-//        if (!current_user_can('read')) return 'Goodbuy';
 
         include_once 'util.php';
         $designs = BC_Creator_util::getDesignsForUpdate();
@@ -60,13 +58,41 @@ class BC_Creator_RouterAPI
         include_once 'api.php';
         $res = BC_Creator_API::post($path, $data);
         $resObj = json_decode($res);
+
 //        TODO обработать ошибки
-        if ($res . err) {}
+        if ($resObj->err) {
+            return $resObj->err;
+        }
+
         foreach ($resObj->designs as $des) {
-//            BC_Creator_util::blobToJpg($des->)
-            return json_decode($des->FieldsData)->logos[0];
+            $fieldsData = json_decode($des->FieldsData);
+            $designData = json_decode($des->DesignData);
+
+//            create images from blobs
+            $path = wp_normalize_path(__DIR__ . '/img/-1/' . $des->Slug);
+
+            if ($designData->background->src !== "") {
+                BC_Creator_util::blobToImg($designData->background->src, $path, "bg");
+            }
+            if ($fieldsData->logos != []) {
+                for ($i = 0; $i < count($fieldsData->logos); $i++) {
+                    BC_Creator_util::blobToImg($fieldsData->logos[$i], $path, "logo_$i");
+                }
+            }
+            if ($des->Preview) {
+                BC_Creator_util::blobToImg($des->Preview, $path, "preview");
+            }
+
+            return $des;
         }
 
         return 'ok';
+    }
+
+    protected function removeDesigns($designs)
+    {
+        foreach ($designs as $design){
+
+        }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-class BC_Creator_util{
+class BC_Creator_util
+{
 
     protected static $tableDesign = 'BusinessCardCreator_design';
 
@@ -55,7 +56,8 @@ class BC_Creator_util{
             update_post_meta($page->ID, '_wp_page_template', 'template.php');
     }
 
-    public static function getDesigns(){
+    public static function getDesigns()
+    {
         global $wpdb;
         $table = $wpdb->prefix . BC_Creator_util::$tableDesign;
         return $wpdb->get_results("
@@ -63,7 +65,8 @@ class BC_Creator_util{
         ");
     }
 
-    public static function getDesignsForUpdate(){
+    public static function getDesignsForUpdate()
+    {
         global $wpdb;
         $table = $wpdb->prefix . BC_Creator_util::$tableDesign;
         return $wpdb->get_results("
@@ -71,8 +74,18 @@ class BC_Creator_util{
         ");
     }
 
-    public static function blobToJpg($blob, $path){
+    public static function blobToImg($blob, $path, $filename)
+    {
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
 
+        $matches = array();
+        preg_match("/^data:image\/([a-z]{3})/i", $blob, $matches);
+        $filename="$filename.$matches[1]";
+
+        $blob = preg_replace("/^data:image\/([a-z]{3});base64,/i","", $blob);
+        file_put_contents($path."/$filename", base64_decode($blob));
     }
 
 //создаем объект опций
