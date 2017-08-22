@@ -1,4 +1,4 @@
-let mysql = require('mysql');
+let mysql=require('mysql');
 
 export class DataAccess {
     private static instance: DataAccess;
@@ -25,7 +25,7 @@ export class DataAccess {
 
         this.getPermission(hash, body.url, (err, permission) => {
 
-            if(err){
+            if (err) {
                 cb(err, null);
                 return;
             }
@@ -49,14 +49,44 @@ export class DataAccess {
                     return;
                 }
 
-                cb(null, rows.filter(
+                let newDesigns = rows.filter(
                     r => !body.designs.some(
                         d => d.Slug == r.Slug && d.Version == r.Version)
-                ));
+                );
+
+                this.getDesignsForDelete(body.designs, permission, (err, res) => {
+                    if (err) {
+                        cb(err, null);
+                        return;
+                    }
+
+                    cb(null, `"designs":${JSON.stringify(newDesigns)}, "deleteDesigns":${JSON.stringify(res)}`);
+                });
             });
         });
 
 
+    }
+
+    //TODO проверитть этот метод
+    public getDesignsForDelete(designs: { Slug: string, Version: number }[], permission, cb) {
+        this.connection.query(`
+        SELECT 
+            Version,
+            Slug,
+            isActive,
+            Permission
+        FROM Designs`, (err, rows, fields) => {
+            if (err) {
+                cb(err, null);
+                return;
+            }
+
+            cb(null, rows.filter(
+                r => designs.some(
+                    d => d.Slug == r.Slug && (d.Version != r.Version || permission < r.Permission || r.isActive == false))
+            ));
+        });
     }
 
     public getPermission(hash: string, site: string, cb) {
