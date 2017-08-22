@@ -1,4 +1,5 @@
 {
+  "tableDesign":"BusinessCardCreator_design",
   "api":{
     "endpoint": "http://localhost:3000/bc-creator",
     "designs": "/designs"

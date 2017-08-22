@@ -40,8 +40,30 @@ class DataAccess {
                     cb(err, null);
                     return;
                 }
-                cb(null, rows.filter(r => !body.designs.some(d => d.Slug == r.Slug && d.Version == r.Version)));
+                let newDesigns = rows.filter(r => !body.designs.some(d => d.Slug == r.Slug && d.Version == r.Version));
+                this.getDesignsForDelete(body.designs, permission, (err, res) => {
+                    if (err) {
+                        cb(err, null);
+                        return;
+                    }
+                    cb(null, `"designs":${JSON.stringify(newDesigns)}, "deleteDesigns":${JSON.stringify(res)}`);
+                });
             });
+        });
+    }
+    getDesignsForDelete(designs, permission, cb) {
+        this.connection.query(`
+        SELECT 
+            Version,
+            Slug,
+            isActive,
+            Permission
+        FROM Designs`, (err, rows, fields) => {
+            if (err) {
+                cb(err, null);
+                return;
+            }
+            cb(null, rows.filter(r => designs.some(d => d.Slug == r.Slug && (d.Version != r.Version || permission < r.Permission || r.isActive == false))));
         });
     }
     getPermission(hash, site, cb) {

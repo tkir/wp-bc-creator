@@ -24,25 +24,15 @@ class BC_Creator_RouterAPI
      */
     private function __construct()
     {
-
-        register_rest_route('business-card-creator/design', '/.*/', array(
-            // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
-            'methods' => WP_REST_Server::READABLE,
-            // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
-            'callback' => array($this, 'check_permission'),
-        ));
-
         register_rest_route('business-card-creator/', '/updateDesigns/', array(
-            // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
             'methods' => WP_REST_Server::READABLE,
-            // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
             'callback' => array($this, 'updateDesigns'),
+            'permission_callback' => array($this, 'checkPermission')
         ));
     }
 
-    public function check_permission(WP_REST_Request $request)
-    {
-
+    public function checkPermission(){
+        return current_user_can( 'edit_plugins' );
     }
 
     public function updateDesigns()
@@ -64,26 +54,30 @@ class BC_Creator_RouterAPI
             return $resObj->err;
         }
 
-        foreach ($resObj->designs as $des) {
+        foreach ($resObj->designs as &$des) {
             $fieldsData = json_decode($des->FieldsData);
             $designData = json_decode($des->DesignData);
 
 //            create images from blobs
-            $path = wp_normalize_path(__DIR__ . '/img/-1/' . $des->Slug);
-
             if ($designData->background->src !== "") {
-                BC_Creator_util::blobToImg($designData->background->src, $path, "bg");
+                $imgPath = BC_Creator_util::blobToImg($designData->background->src, $des->Slug, "bg");
+                $designData->background->src = $imgPath;
+                $des->DesignData=json_encode($designData);
             }
             if ($fieldsData->logos != []) {
                 for ($i = 0; $i < count($fieldsData->logos); $i++) {
-                    BC_Creator_util::blobToImg($fieldsData->logos[$i], $path, "logo_$i");
+                    $imgPath = BC_Creator_util::blobToImg($fieldsData->logos[$i], $des->Slug, "logo_$i");
+                    $fieldsData->logos[$i] = $imgPath;
                 }
+                $des->FieldsData=json_encode($fieldsData);
             }
             if ($des->Preview) {
-                BC_Creator_util::blobToImg($des->Preview, $path, "preview");
+                $imgPath = BC_Creator_util::blobToImg($des->Preview, $des->Slug, "preview");
+                $des->Preview = $imgPath;
             }
 
-            return $des;
+            include_once 'db.php';
+            return BC_Creator_DB::get_instance()->addDesign($des, NULL);
         }
 
         return 'ok';
@@ -91,7 +85,7 @@ class BC_Creator_RouterAPI
 
     protected function removeDesigns($designs)
     {
-        foreach ($designs as $design){
+        foreach ($designs as $design) {
 
         }
     }

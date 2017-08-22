@@ -74,18 +74,22 @@ class BC_Creator_util
         ");
     }
 
-    public static function blobToImg($blob, $path, $filename)
+    public static function blobToImg($blob, $slug, $filename)
     {
+        $imgPth = '/img/-1/';
+        $path = wp_normalize_path(__DIR__ . $imgPth . $slug);
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
 
         $matches = array();
         preg_match("/^data:image\/([a-z]{3})/i", $blob, $matches);
-        $filename="$filename.$matches[1]";
+        $filename = "$filename.$matches[1]";
 
-        $blob = preg_replace("/^data:image\/([a-z]{3});base64,/i","", $blob);
-        file_put_contents($path."/$filename", base64_decode($blob));
+        $blob = preg_replace("/^data:image\/([a-z]{3});base64,/i", "", $blob);
+        file_put_contents($path . "/$filename", base64_decode($blob));
+
+        return (plugin_dir_url(__FILE__) . $imgPth . $slug . "/$filename");
     }
 
 //создаем объект опций

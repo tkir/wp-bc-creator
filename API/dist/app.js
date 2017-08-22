@@ -49,7 +49,7 @@ app.post('/bc-creator/designs/:hash', (req, res) => {
     dataAccess_1.DataAccess.Instance.getDesignsExcept(req.body, req.params.hash, (err, desResult) => {
         if (err)
             err = err.message;
-        res.send(`{"err": ${JSON.stringify(err)}, "designs":${JSON.stringify(desResult)}}`);
+        res.send(`{"err": ${JSON.stringify(err)}, ${desResult}}`);
     });
 });
 app.post('/bc-creator/designs/', (req, res) => {

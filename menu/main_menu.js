@@ -17,10 +17,11 @@ function onUpdateDesignPreview() {
     oReq.onload = function () {
         //This is where you handle what to do with the response.
         //The actual data is found on this.responseText
-        alert(this.responseText); //Will alert: 42
+        console.log(this.responseText); //Will alert: 42
     };
     oReq.open("get",
-        location.protocol + '//' + location.hostname + "/wordpress/wp-json/business-card-creator/updateDesigns",
+        bc_creator_api.path + "business-card-creator/updateDesigns",
         true);
+    oReq.setRequestHeader('X-WP-Nonce', bc_creator_api.nonce);
     oReq.send();
 }

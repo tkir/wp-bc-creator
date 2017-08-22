@@ -127,7 +127,7 @@ INSERT INTO $table
         add_shortcode('BusinessCardCreator', array('BC_Creator', 'add_short'));
         add_action('wp_head', array('BC_Creator', 'add_head'));
         add_action('parse_request', array('BC_Creator', 'get_query'));
-
+        add_action('admin_enqueue_scripts', array('BC_Creator', 'localize_admin_scripts'));
 
 
         /**

@@ -27,4 +27,14 @@ class BC_Creator
         }
     }
 
+//    регистрируем скипты
+    public static function localize_admin_scripts()
+    {
+        wp_enqueue_script('main_menu', wp_normalize_path(__DIR__ . '/menu/main_menu.js'));
+        wp_localize_script('main_menu', 'bc_creator_api', array(
+            'path' => esc_url_raw(rest_url()),
+            'nonce' => wp_create_nonce('wp_rest')
+        ));
+    }
+
 }
