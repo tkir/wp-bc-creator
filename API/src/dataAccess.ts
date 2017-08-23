@@ -1,4 +1,4 @@
-let mysql=require('mysql');
+let mysql = require('mysql');
 
 export class DataAccess {
     private static instance: DataAccess;
@@ -84,8 +84,8 @@ export class DataAccess {
 
             cb(null, rows.filter(
                 r => designs.some(
-                    d => d.Slug == r.Slug && (d.Version != r.Version || permission < r.Permission || r.isActive == false))
-            ));
+                    d => d.Slug == r.Slug && (d.Version != r.Version || permission < r.Permission || r.isActive == false)))
+                .map(r => r.Slug));
         });
     }
 

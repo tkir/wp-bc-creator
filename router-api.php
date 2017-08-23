@@ -49,6 +49,9 @@ class BC_Creator_RouterAPI
         $res = BC_Creator_API::post($path, $data);
         $resObj = json_decode($res);
 
+//        delete unused designs
+        $this->deleteDesigns($resObj->deleteDesigns, null);
+
 //        TODO обработать ошибки
         if ($resObj->err) {
             return $resObj->err;
@@ -76,17 +79,21 @@ class BC_Creator_RouterAPI
                 $des->Preview = $imgPath;
             }
 
-            include_once 'db.php';
-            return BC_Creator_DB::get_instance()->addDesign($des, NULL);
+            BC_Creator_DB::get_instance()->addDesign($des, NULL);
         }
 
         return 'ok';
     }
 
-    protected function removeDesigns($designs)
+    protected function deleteDesigns($slugs, $userID)
     {
-        foreach ($designs as $design) {
+        if(!$userID)$userID=-1;
+        include_once 'util.php';
+        include_once 'db.php';
 
+        foreach ($slugs as $slug){
+            BC_Creator_DB::get_instance()->deleteDesign($slug);
+            BC_Creator_util::deleteDir(wp_normalize_path(__DIR__."/img/$userID/$slug"));
         }
     }
 }

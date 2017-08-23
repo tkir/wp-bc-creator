@@ -63,7 +63,8 @@ class DataAccess {
                 cb(err, null);
                 return;
             }
-            cb(null, rows.filter(r => designs.some(d => d.Slug == r.Slug && (d.Version != r.Version || permission < r.Permission || r.isActive == false))));
+            cb(null, rows.filter(r => designs.some(d => d.Slug == r.Slug && (d.Version != r.Version || permission < r.Permission || r.isActive == false)))
+                .map(r => r.Slug));
         });
     }
     getPermission(hash, site, cb) {

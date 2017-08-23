@@ -19,8 +19,9 @@ class BC_Creator_DB
 
     private function __construct()
     {
+        global $wpdb;
         $this->config = json_decode(file_get_contents(__DIR__ . "/config.json"));
-        $this->tableDesign = $this->config->tableDesign;
+        $this->tableDesign = $wpdb->prefix . $this->config->tableDesign;
     }
 
     public static function get_design($design, $user = '')
@@ -35,10 +36,41 @@ class BC_Creator_DB
         $userID = !empty($userID) ? "$userID" : "NULL";
 
         global $wpdb;
-        $table = $wpdb->prefix . $this->tableDesign;
 
         return $wpdb->query("
-INSERT INTO $table (`Name`, `Version`, `Slug`, `Description`, `UserId`, `FieldsData`, `DesignData`, `Preview`, `Preview_Order`) 
+INSERT INTO $this->tableDesign (`Name`, `Version`, `Slug`, `Description`, `UserId`, `FieldsData`, `DesignData`, `Preview`, `Preview_Order`) 
 VALUES ('$design->Name', $design->Version, '$design->Slug', '$design->Description', $userID, '$design->FieldsData', '$design->DesignData','$design->Preview',$design->Preview_Order);");
+    }
+
+    public function deleteDesign($slug)
+    {
+        global $wpdb;
+        return $wpdb->query("DELETE FROM `$this->tableDesign` WHERE Slug = '$slug'");
+    }
+
+    public function createTebleDesign()
+    {
+        global $wpdb;
+
+        if ($wpdb->get_var("SHOW TABLES LIKE $this->tableDesign") != $this->tableDesign) {
+            $sql = "CREATE TABLE IF NOT EXISTS `$this->tableDesign`(
+			`id` INT NOT NULL AUTO_INCREMENT,
+			`Name` VARCHAR(255),
+			`Version` INT NOT NULL,
+			`Slug` VARCHAR(255) NOT NULL,
+			`Description` TEXT,
+			`UserId` INT,
+			`FieldsData` MEDIUMTEXT NOT NULL,
+			`DesignData` MEDIUMTEXT NOT NULL,
+			`Preview` MEDIUMTEXT,
+			`Create_Date` DATETIME,
+			`isActive` BOOLEAN NOT NULL DEFAULT 1,
+			`Preview_Order` INT NOT NULL,
+			PRIMARY KEY(`id`)
+		)
+		ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+
+            $wpdb->query($sql);
+        }
     }
 }

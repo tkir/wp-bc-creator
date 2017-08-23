@@ -26,29 +26,8 @@ class BC_Creator_Initializer
     {
 
 //    если таблицы нет, создаем
-        global $wpdb;
-        $table = $wpdb->prefix . BC_Creator_Initializer::$tableDesign;
-
-        if ($wpdb->get_var("SHOW TABLES LIKE $table") != $table) {
-            $sql = "CREATE TABLE IF NOT EXISTS `$table`(
-			`id` INT NOT NULL AUTO_INCREMENT,
-			`Name` VARCHAR(255),
-			`Version` INT NOT NULL,
-			`Slug` VARCHAR(255) NOT NULL,
-			`Description` TEXT,
-			`UserId` INT,
-			`FieldsData` MEDIUMTEXT NOT NULL,
-			`DesignData` MEDIUMTEXT NOT NULL,
-			`Preview` MEDIUMTEXT,
-			`Create_Date` DATETIME,
-			`isActive` BOOLEAN NOT NULL DEFAULT 1,
-			`Preview_Order` INT NOT NULL,
-			PRIMARY KEY(`id`)
-		)
-		ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
-
-            $wpdb->query($sql);
-        }
+        include_once 'db.php';
+        BC_Creator_DB::get_instance()->createTebleDesign();
 
 //    добавляем записи в опции: url & hash
         update_option('BusinessCardCreator_url', 'business-card-creator');
@@ -144,6 +123,8 @@ INSERT INTO $table
         $old = get_page_by_path($slug);
         if ($old !== null)
             wp_delete_post($old->ID, true);
+
+        BC_Creator_Initializer::uninstall();
     }
 
     //при удалении плагина
