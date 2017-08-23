@@ -48,7 +48,12 @@ VALUES ('$design->Name', $design->Version, '$design->Slug', '$design->Descriptio
         return $wpdb->query("DELETE FROM `$this->tableDesign` WHERE Slug = '$slug'");
     }
 
-    public function createTebleDesign()
+    public function getPreviews(){
+        global $wpdb;
+        return $wpdb->get_results("SELECT Preview FROM `$this->tableDesign`");
+    }
+
+    public function createTableDesign()
     {
         global $wpdb;
 

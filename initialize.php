@@ -27,7 +27,7 @@ class BC_Creator_Initializer
 
 //    если таблицы нет, создаем
         include_once 'db.php';
-        BC_Creator_DB::get_instance()->createTebleDesign();
+        BC_Creator_DB::get_instance()->createTableDesign();
 
 //    добавляем записи в опции: url & hash
         update_option('BusinessCardCreator_url', 'business-card-creator');

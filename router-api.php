@@ -39,13 +39,15 @@ class BC_Creator_RouterAPI
     {
 
         include_once 'util.php';
+        include_once 'api.php';
+        include_once 'db.php';
+
         $designs = BC_Creator_util::getDesignsForUpdate();
         $data = '{"designs":' . json_encode($designs) . ', "url": "' . get_option('siteurl') . '"}';
 
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         $path = $config->api->designs . '/' . get_option('BusinessCardCreator_hash');
 
-        include_once 'api.php';
         $res = BC_Creator_API::post($path, $data);
         $resObj = json_decode($res);
 
@@ -82,7 +84,7 @@ class BC_Creator_RouterAPI
             BC_Creator_DB::get_instance()->addDesign($des, NULL);
         }
 
-        return 'ok';
+        return BC_Creator_DB::get_instance()->getPreviews();
     }
 
     protected function deleteDesigns($slugs, $userID)
