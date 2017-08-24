@@ -65,7 +65,8 @@ class PageTemplater
      */
     public function add_new_template($posts_templates)
     {
-        $posts_templates = array_merge($posts_templates, $this->templates);
+//        adds template to select in page edit options
+//        $posts_templates = array_merge($posts_templates, $this->templates);
         return $posts_templates;
     }
 
