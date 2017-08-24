@@ -56,14 +56,14 @@ class BC_Creator_util
             update_post_meta($page->ID, '_wp_page_template', 'template.php');
     }
 
-    public static function getDesigns()
-    {
-        global $wpdb;
-        $table = $wpdb->prefix . BC_Creator_util::$tableDesign;
-        return $wpdb->get_results("
-          SELECT * FROM $table;
-        ");
-    }
+//    public static function getDesigns()
+//    {
+//        global $wpdb;
+//        $table = $wpdb->prefix . BC_Creator_util::$tableDesign;
+//        return $wpdb->get_results("
+//          SELECT * FROM $table;
+//        ");
+//    }
 
     public static function getDesignsForUpdate()
     {
@@ -76,8 +76,8 @@ class BC_Creator_util
 
     public static function blobToImg($blob, $slug, $filename)
     {
-        $imgPth = '/img/-1/';
-        $path = wp_normalize_path(__DIR__ . $imgPth . $slug);
+        $imgPth = 'img/-1';
+        $path = wp_normalize_path(__DIR__ ."/$imgPth/$slug");
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
@@ -89,7 +89,7 @@ class BC_Creator_util
         $blob = preg_replace("/^data:image\/([a-z]{3});base64,/i", "", $blob);
         file_put_contents($path . "/$filename", base64_decode($blob));
 
-        return (plugin_dir_url(__FILE__) . $imgPth . $slug . "/$filename");
+        return plugin_dir_url(__FILE__) ."$imgPth/$slug/$filename";
     }
 
     public static function deleteDir($dirPath) {

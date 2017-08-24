@@ -29,10 +29,17 @@ class BC_Creator_RouterAPI
             'callback' => array($this, 'updateDesigns'),
             'permission_callback' => array($this, 'checkPermission')
         ));
+
+        register_rest_route('business-card-creator/toggleActive/', '/(?P<id>\d+)/', array(
+            'methods' => WP_REST_Server::READABLE,
+            'callback' => array($this, 'toggleActive'),
+            'permission_callback' => array($this, 'checkPermission')
+        ));
     }
 
-    public function checkPermission(){
-        return current_user_can( 'edit_plugins' );
+    public function checkPermission()
+    {
+        return current_user_can('edit_plugins');
     }
 
     public function updateDesigns()
@@ -67,14 +74,14 @@ class BC_Creator_RouterAPI
             if ($designData->background->src !== "") {
                 $imgPath = BC_Creator_util::blobToImg($designData->background->src, $des->Slug, "bg");
                 $designData->background->src = $imgPath;
-                $des->DesignData=json_encode($designData);
+                $des->DesignData = json_encode($designData);
             }
             if ($fieldsData->logos != []) {
                 for ($i = 0; $i < count($fieldsData->logos); $i++) {
                     $imgPath = BC_Creator_util::blobToImg($fieldsData->logos[$i], $des->Slug, "logo_$i");
                     $fieldsData->logos[$i] = $imgPath;
                 }
-                $des->FieldsData=json_encode($fieldsData);
+                $des->FieldsData = json_encode($fieldsData);
             }
             if ($des->Preview) {
                 $imgPath = BC_Creator_util::blobToImg($des->Preview, $des->Slug, "preview");
@@ -89,13 +96,21 @@ class BC_Creator_RouterAPI
 
     protected function deleteDesigns($slugs, $userID)
     {
-        if(!$userID)$userID=-1;
+        if (!$userID) $userID = -1;
         include_once 'util.php';
         include_once 'db.php';
 
-        foreach ($slugs as $slug){
+        foreach ($slugs as $slug) {
             BC_Creator_DB::get_instance()->deleteDesign($slug);
-            BC_Creator_util::deleteDir(wp_normalize_path(__DIR__."/img/$userID/$slug"));
+            BC_Creator_util::deleteDir(wp_normalize_path(__DIR__ . "/img/$userID/$slug"));
         }
+    }
+
+    public function toggleActive($request)
+    {
+
+        include_once 'db.php';
+        $res = BC_Creator_DB::get_instance()->toggleActive((int)$request['id']);
+        return array('result'=>$res);
     }
 }

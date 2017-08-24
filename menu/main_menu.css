@@ -37,3 +37,7 @@
 #bc-creator-menu .tabcontent.active {
     display: block;
 }
+
+#bc-creator-menu img.inactive{
+    filter: grayscale(80%);
+}

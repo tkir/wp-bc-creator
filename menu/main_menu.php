@@ -38,26 +38,23 @@ $hash = get_option('BusinessCardCreator_hash');
 
     <div class="tabcontent">
         <h3>Design</h3>
-        <div class="menu-design-container">
-            <div class="menu-previews-container">
-                <!-- form design preview -->
-                <form method="post" class="bc-creator-previews">
-                    `
-                    <ul>
-                        <?php
-                        include_once (WP_PLUGIN_DIR.'/business-card-creator'.'/util.php');
-                        $designs = BC_Creator_util::getDesigns();
-                        foreach ($designs as $design): ?>
-                        <li>
-                            <input type="hidden" name="id" value="<?= $design->id ?>">
-                            <input type="checkbox" checked="<?= $design->isActive ?>" name="design-<?= $design->id ?>">
-<!--                        TODO заманить на preview-->
-                            <div><?= $design->Name ?></div>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                    <button type="button" onclick="onUpdateDesignPreview()">Update</button>
-                </form>
+        <div class="bc-creator-menu-design-container">
+            <div class="bc-creator-menu-previews-container">
+
+                <template id="bc-creator-menu-preview-tpl">
+                    <div id="bc-creator-menu-preview">
+                        <h3>Name</h3>
+                        <div class="bc-creator-preview-img">
+                            <img>
+                            <span class="bc-creator-preview-isActive"
+                                  onclick="bc_creator_toggleActive(event)">&times;</span>
+                        </div>
+                        <div hidden>id</div>
+                </template>
+
+                <div class="bc-creator-menu-previews">
+                </div>
+                <button type="button" onclick="onUpdateDesignPreview()">Update</button>
 
             </div>
             <div class="menu-sidebar-container"></div>
@@ -66,3 +63,7 @@ $hash = get_option('BusinessCardCreator_hash');
 </div>
 
 <script src="<?= plugins_url() . '/business-card-creator' . '/menu/main_menu.js'; ?>"></script>
+<script>
+    bc_creator_api.previews.sort((a, b) => a['Preview_Order'] - b['Preview_Order']);
+        createPreviews(bc_creator_api.previews);
+</script>
