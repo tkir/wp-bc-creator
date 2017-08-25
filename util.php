@@ -48,22 +48,28 @@ class BC_Creator_util
         return $id;
     }
 
-    public static function set_page_template()
+    public static function set_page_template($tpl)
     {
+        $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
+        if ($config->template == $tpl) return;
+
+        switch ($tpl) {
+            case 'bc_creator':
+                $tplFile = 'template.php';
+                break;
+            case 'default':
+            default:
+                $tplFile = '';
+        }
+
         $slug = get_option('BusinessCardCreator_url');
         $page = get_page_by_path($slug);
         if ($page !== null)
-            update_post_meta($page->ID, '_wp_page_template', 'template.php');
-    }
+            update_post_meta($page->ID, '_wp_page_template', $tplFile);
 
-//    public static function getDesigns()
-//    {
-//        global $wpdb;
-//        $table = $wpdb->prefix . BC_Creator_util::$tableDesign;
-//        return $wpdb->get_results("
-//          SELECT * FROM $table;
-//        ");
-//    }
+        $config->template = $tpl;
+        file_put_contents(__DIR__ . "/config.json", json_encode($config), LOCK_EX);
+    }
 
     public static function getDesignsForUpdate()
     {
@@ -77,7 +83,7 @@ class BC_Creator_util
     public static function blobToImg($blob, $slug, $filename)
     {
         $imgPth = 'img/-1';
-        $path = wp_normalize_path(__DIR__ ."/$imgPth/$slug");
+        $path = wp_normalize_path(__DIR__ . "/$imgPth/$slug");
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
@@ -89,11 +95,12 @@ class BC_Creator_util
         $blob = preg_replace("/^data:image\/([a-z]{3});base64,/i", "", $blob);
         file_put_contents($path . "/$filename", base64_decode($blob));
 
-        return plugin_dir_url(__FILE__) ."$imgPth/$slug/$filename";
+        return plugin_dir_url(__FILE__) . "$imgPth/$slug/$filename";
     }
 
-    public static function deleteDir($dirPath) {
-        if (! is_dir($dirPath)) {
+    public static function deleteDir($dirPath)
+    {
+        if (!is_dir($dirPath)) {
             throw new InvalidArgumentException("$dirPath must be a directory");
         }
         if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {

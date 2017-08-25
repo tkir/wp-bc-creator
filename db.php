@@ -3,7 +3,6 @@
 class BC_Creator_DB
 {
     private static $instance;
-    protected $config;
     protected $tableDesign;
 
     /**

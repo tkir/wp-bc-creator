@@ -2,10 +2,13 @@
 //если зашли с данными: обновляем существующюю страницу, устанавливаем новый hash
 if (!empty($_POST)) {
     include_once(plugin_dir_path(__DIR__) . 'util.php');
-    echo BC_Creator_util::updatePage($_POST['page_url'], get_option('BusinessCardCreator_url'));
+    BC_Creator_util::updatePage($_POST['page_url'], get_option('BusinessCardCreator_url'));
+    BC_Creator_util::set_page_template($_POST['template']);
 
     update_option('BusinessCardCreator_url', str_replace(' ', '', $_POST['page_url']));
     update_option('BusinessCardCreator_hash', str_replace(' ', '', $_POST['hash']));
+
+
 }
 ?>
 
@@ -28,9 +31,9 @@ $hash = get_option('BusinessCardCreator_hash');
             <label><input type="text" name="page_url" value="<?= $page_url ?>"> Page URL</label><br>
             <label><input type="text" name="hash" value="<?= $hash ?>"> Personal hash</label><br>
             <h3>Page template</h3>
-            <select>
+            <select name="template">
                 <option value="default">Default</option>
-                <option value="full_screen">Full screen</option>
+                <option value="bc_creator">Full screen</option>
             </select><br>
             <input type="submit" value="Update">
         </form>
@@ -65,5 +68,8 @@ $hash = get_option('BusinessCardCreator_hash');
 <script src="<?= plugins_url() . '/business-card-creator' . '/menu/main_menu.js'; ?>"></script>
 <script>
     bc_creator_api.previews.sort((a, b) => a['Preview_Order'] - b['Preview_Order']);
-        createPreviews(bc_creator_api.previews);
+    createPreviews(bc_creator_api.previews);
+
+    document.querySelector('#bc-creator-menu select option[value="' + bc_creator_api.template + '"]')
+        .setAttribute('selected', 'true');
 </script>
