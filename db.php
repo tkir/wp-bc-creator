@@ -47,10 +47,14 @@ VALUES ('$design->Name', $design->Version, '$design->Slug', '$design->Descriptio
         return $wpdb->query("DELETE FROM `$this->tableDesign` WHERE Slug = '$slug'");
     }
 
-    public function getPreviews()
+    public function getPreviews($isActive)
     {
         global $wpdb;
-        return $wpdb->get_results("SELECT id, Name, Slug, Description, Preview, Preview_Order, isActive FROM `$this->tableDesign`");
+        $query = "SELECT id, Name, Slug, Description, Preview, isActive FROM `$this->tableDesign`";
+        if ($isActive) $query = $query . " WHERE isActive = 1 ";
+        $query = $query . "ORDER BY Preview_Order";
+
+        return $wpdb->get_results($query);
     }
 
     public function createTableDesign()
@@ -87,5 +91,12 @@ VALUES ('$design->Name', $design->Version, '$design->Slug', '$design->Descriptio
             array('isActive' => !$isActive),
             array('id' => $id)
         );
+    }
+
+    public function getDesign($slug)
+    {
+        global $wpdb;
+        return $wpdb->get_row(
+            $wpdb->prepare("SELECT * FROM `$this->tableDesign` WHERE Slug = %s", $slug));
     }
 }

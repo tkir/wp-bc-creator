@@ -12,7 +12,7 @@ export class CardService {
 
   public getCard(fData:CardFieldsData, dData:CardDesignData, config):CardData{
 
-    let owners: TextField[] = this.createText(fData.owners, dData.owners);
+    let owners: TextField[] = this.createText(fData['owners'], dData['owners']);
     let positions:TextField[]=this.createText(fData.positions, dData.positions);
     let organisations:TextField[]= this.createText(fData.organisations, dData.organisations);
     let addresses:TextField[]=this.createText(fData.addresses, dData.addresses);

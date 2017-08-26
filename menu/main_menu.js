@@ -15,8 +15,7 @@ function open_BC_Creator_menu_tab(evt, tabNam) {
 function onUpdateDesignPreview() {
     var oReq = new XMLHttpRequest();
     oReq.onload = function () {
-        var res = JSON.parse(this.responseText)
-            .sort((a, b) => a['Preview_Order'] - b['Preview_Order']);
+        var res = JSON.parse(this.responseText);
         createPreviews(res);
     };
     oReq.open("get",

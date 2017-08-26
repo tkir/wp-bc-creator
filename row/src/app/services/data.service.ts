@@ -4,8 +4,8 @@ import {Store} from "./store";
 import {AppConfigService} from "./app-config.service";
 import {NavigationStart, Router} from "@angular/router";
 import {DesignService} from "./design.service";
-import {FieldsDataService} from "./fields-data.service";
 import {CardService} from "./card.service";
+declare const bc_creator_config: any;
 
 @Injectable()
 export class DataService {
@@ -16,26 +16,29 @@ export class DataService {
               private router: Router,
               private designService: DesignService) {
 
-    let designs = this.config.get('allowedDesigns');
+    let designs = bc_creator_config.previews
+      .map(p => p['Slug']);
 
     //вариант с router events
     router.events.subscribe((val: any) => {
       if (NavigationStart.prototype.isPrototypeOf(val)) {
         let url = val.url[0] == '/' ? val.url.slice(1) : val.url;
-        if (url === '') url = 'default';
+        if (url === '') url = bc_creator_config['defaultDesign'];
         if (designs.indexOf(url) !== -1) {
           this.designService.getDesign(url)
             .subscribe(d => {
+              d['DesignData']=JSON.parse(d['DesignData']);
+              d['FieldsData']=JSON.parse(d['FieldsData']);
               //проверка, есть ли какие-то данные в карте, если нет - загружаем default fieldsData
               if (this.isDesignLoad)
-                this.setCardData(d.designData, this.cData.fieldsData);
+                this.setCardData(d['DesignData'], this.cData.fieldsData);
               else
-                this.setCardData(d.designData, d.fieldsData);
+                this.setCardData(d['DesignData'], d['FieldsData']);
             });
         }
-        //если роут неизвестен - грузим базовый
+        //если роут неизвестен - грузим pageNotFound
         else {
-          this.router.navigate(['/']);
+          this.router.navigate(['/pageNotFound']);
         }
       }
     });

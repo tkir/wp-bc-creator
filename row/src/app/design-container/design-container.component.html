@@ -1,7 +1,7 @@
 <a type="button"
-   *ngFor="let design of allowedDesigns"
-   routerLink="/{{design}}">
-  <img src="{{imagePath}}/{{design}}.jpg">
+   *ngFor="let preview of previews"
+   routerLink="/{{preview.Slug}}">
+  <img src="{{preview.Preview}}">
 </a>
 
 

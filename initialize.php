@@ -107,6 +107,7 @@ INSERT INTO $table
         add_action('wp_head', array('BC_Creator', 'add_head'));
         add_action('parse_request', array('BC_Creator', 'get_query'));
         add_action('admin_enqueue_scripts', array('BC_Creator', 'localize_admin_scripts'));
+        add_action('wp_enqueue_scripts',  array('BC_Creator', 'localize_page_scripts'));
 
 
         /**

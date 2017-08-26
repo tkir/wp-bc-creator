@@ -54,63 +54,63 @@ export class AppConfigService {
     return new Promise((resolve, reject) => {
 
       //TODO wordpress plugin
-      // this.configPath = '';
-      // this.config = businessCardCreatorOptions;
-      // resolve(true);
+      this.configPath = '';
+      this.config = businessCardCreatorOptions;
+      resolve(true);
 
-      this.http.get(this.envPath, {headers: this.headers})
-        .map(res => res.json())
-        .catch((error: any): any => {
-          console.log('Configuration file "env.json" could not be read');
-          resolve(true);
-          return Observable.throw(error.json().error || 'Server error');
-        }).subscribe((envResponse) => {
-        this.env = envResponse;
-        let request: any = null;
+      // this.http.get(this.envPath, {headers: this.headers})
+      //   .map(res => res.json())
+      //   .catch((error: any): any => {
+      //     console.log('Configuration file "env.json" could not be read');
+      //     resolve(true);
+      //     return Observable.throw(error.json().error || 'Server error');
+      //   }).subscribe((envResponse) => {
+      //   this.env = envResponse;
+      //   let request: any = null;
+      //
+      //
+      //   switch (envResponse.env) {
+      //     case 'production': {
+      //       this.configPath = '';
+      //       this.config = businessCardCreatorOptions;
+      //       resolve(true);
+      //     }
+      //       break;
+      //
+      //     case 'development': {
+      //       this.configPath += envResponse.env + '.json';
+      //       request = this.http.get(this.configPath);
+      //     }
+      //
+      //       if (request) {
+      //         request
+      //           .map(res => res.json())
+      //           .catch((error: any) => {
+      //             console.error('Error reading ' + envResponse.env + ' configuration file');
+      //             resolve(error);
+      //             return Observable.throw(error.json().error || 'Server error');
+      //           })
+      //           .subscribe((responseData) => {
+      //             this.config = responseData;
+      //             this.config.imagePath = this.imagePath;
+      //             resolve(true);
+      //           });
+      //       } else {
+      //         console.error('Env config file "env.json" is not valid');
+      //         resolve(true);
+      //       }
+      //
+      //       break;
+      //
+      //     case 'default': {
+      //       console.error('Environment file is not set or invalid');
+      //       resolve(true);
+      //     }
+      //       break;
+      //   }
 
 
-        switch (envResponse.env) {
-          case 'production': {
-            this.configPath = '';
-            this.config = businessCardCreatorOptions;
-            resolve(true);
-          }
-            break;
-
-          case 'development': {
-            this.configPath += envResponse.env + '.json';
-            request = this.http.get(this.configPath);
-          }
-
-            if (request) {
-              request
-                .map(res => res.json())
-                .catch((error: any) => {
-                  console.error('Error reading ' + envResponse.env + ' configuration file');
-                  resolve(error);
-                  return Observable.throw(error.json().error || 'Server error');
-                })
-                .subscribe((responseData) => {
-                  this.config = responseData;
-                  this.config.imagePath = this.imagePath;
-                  resolve(true);
-                });
-            } else {
-              console.error('Env config file "env.json" is not valid');
-              resolve(true);
-            }
-
-            break;
-
-          case 'default': {
-            console.error('Environment file is not set or invalid');
-            resolve(true);
-          }
-            break;
-        }
-
-
-      });
+      // });
 
     });
   }

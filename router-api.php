@@ -35,6 +35,12 @@ class BC_Creator_RouterAPI
             'callback' => array($this, 'toggleActive'),
             'permission_callback' => array($this, 'checkPermission')
         ));
+
+        register_rest_route('business-card-creator/design/', '/(?P<slug>\S+)/', array(
+            'methods' => WP_REST_Server::READABLE,
+            'callback' => array($this, 'getDesign'),
+            'permission_callback' => array($this, 'checkPermission')
+        ));
     }
 
     public function checkPermission()
@@ -108,9 +114,15 @@ class BC_Creator_RouterAPI
 
     public function toggleActive($request)
     {
-
         include_once 'db.php';
         $res = BC_Creator_DB::get_instance()->toggleActive((int)$request['id']);
         return array('result'=>$res);
+    }
+
+    public function getDesign($request)
+    {
+        include_once 'db.php';
+        $res = BC_Creator_DB::get_instance()->getDesign((string)$request['slug']);
+        return $res;
     }
 }

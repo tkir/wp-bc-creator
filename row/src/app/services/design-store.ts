@@ -2,8 +2,21 @@ import 'rxjs/Rx';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Injectable} from "@angular/core";
 
+export class Preview {
+  id: number;
+  Name: string;
+  Slug: string;
+  Description: string;
+  Preview: string;
+  isActive: boolean;
+
+  constructor(obj) {
+    Object.keys(obj).forEach(key => this[key] = obj[key]);
+  }
+}
+
 export interface DesignState {
-  data: string[]
+  data: Preview[]
 }
 
 const defaultState: DesignState = {

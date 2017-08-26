@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Headers, Http, Response, ResponseContentType} from '@angular/http';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/Rx';
+declare const bc_creator_config: any;
 
 @Injectable()
 export class ApiService {
@@ -12,6 +13,7 @@ export class ApiService {
   private headers: Headers = new Headers({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
+    'X-WP-Nonce': bc_creator_config['nonce'],
     responseType: ResponseContentType.Blob
   });
 

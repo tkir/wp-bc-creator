@@ -27,18 +27,34 @@ class BC_Creator
         }
     }
 
-//    регистрируем скипты
+//    регистрируем скипты admin
     public static function localize_admin_scripts()
     {
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
-
         include_once 'db.php';
+
         wp_enqueue_script('main_menu', wp_normalize_path(__DIR__ . '/menu/main_menu.js'));
         wp_localize_script('main_menu', 'bc_creator_api', array(
             'path' => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest'),
-            'previews' => BC_Creator_DB::get_instance()->getPreviews(),
+            'previews' => BC_Creator_DB::get_instance()->getPreviews(false),
             'template' => $config->template
+        ));
+    }
+
+//    регистрируем скипты page
+    public static function localize_page_scripts()
+    {
+        $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
+        include_once 'db.php';
+
+        wp_enqueue_script('bc_creator_main', wp_normalize_path(__DIR__ . '/BusinessCardCreator/main.bundle.js'));
+        wp_localize_script('bc_creator_main', 'bc_creator_config', array(
+            'path' => esc_url_raw(rest_url()),
+            'nonce' => wp_create_nonce('wp_rest'),
+            'previews' => BC_Creator_DB::get_instance()->getPreviews(true),
+            'defaultDesign'=>$config->defaultDesign,
+            'settings' => $config->creatorSettings
         ));
     }
 
