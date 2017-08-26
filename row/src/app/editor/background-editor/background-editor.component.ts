@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {Store} from "../../services/store";
 import {ImageService} from "../../services/image.service";
 import {Background} from "../../data/Background";
-import {AppConfigService} from "../../services/app-config.service";
+declare const bc_creator_config: any;
 
 @Component({
   selector: 'card-background-editor',
@@ -19,8 +19,7 @@ export class BackgroundEditorComponent implements OnInit, OnDestroy {
   allowedSizes: { width: number, height: number }[] = [];
 
   constructor(private store: Store,
-              private imageService: ImageService,
-              private config: AppConfigService) {
+              private imageService: ImageService) {
   }
 
   ngOnInit() {
@@ -30,7 +29,7 @@ export class BackgroundEditorComponent implements OnInit, OnDestroy {
         this.background = cardData.background;
       });
 
-    this.allowedSizes = this.config.get('allowedSizes');
+    this.allowedSizes = bc_creator_config['settings']['allowedSizes'];
   }
 
   ngOnDestroy(): void {

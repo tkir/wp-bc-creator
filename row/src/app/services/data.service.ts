@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CardData} from "../data/CardData";
 import {Store} from "./store";
-import {AppConfigService} from "./app-config.service";
 import {NavigationStart, Router} from "@angular/router";
 import {DesignService} from "./design.service";
 import {CardService} from "./card.service";
@@ -12,7 +11,6 @@ export class DataService {
 
   constructor(private cardService: CardService,
               private store: Store,
-              private config: AppConfigService,
               private router: Router,
               private designService: DesignService) {
 
@@ -27,8 +25,8 @@ export class DataService {
         if (designs.indexOf(url) !== -1) {
           this.designService.getDesign(url)
             .subscribe(d => {
-              d['DesignData']=JSON.parse(d['DesignData']);
-              d['FieldsData']=JSON.parse(d['FieldsData']);
+              d['DesignData'] = JSON.parse(d['DesignData']);
+              d['FieldsData'] = JSON.parse(d['FieldsData']);
               //проверка, есть ли какие-то данные в карте, если нет - загружаем default fieldsData
               if (this.isDesignLoad)
                 this.setCardData(d['DesignData'], this.cData.fieldsData);
@@ -54,7 +52,7 @@ export class DataService {
   }
 
   public setCardData(design?, fieldsData?) {
-    this.cData = this.cardService.getCard(fieldsData, design, this.config);
+    this.cData = this.cardService.getCard(fieldsData, design);
     this.isDesignLoad = true;
     this.updateCard(this.cData);
   }

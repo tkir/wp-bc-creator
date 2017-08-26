@@ -2,7 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Line} from "../../data/Line";
 import {Store} from "../../services/store";
 import {Subscription} from "rxjs/Subscription";
-import {AppConfigService} from "../../services/app-config.service";
+declare const bc_creator_config: any;
 
 @Component({
   selector: 'card-hr-editor',
@@ -17,7 +17,7 @@ export class HrEditorComponent implements OnInit, OnDestroy {
   background: any;
   allowedHrDesigns: string[] = [];
 
-  constructor(private config:AppConfigService,
+  constructor(
               private store: Store) {
   }
 
@@ -27,7 +27,7 @@ export class HrEditorComponent implements OnInit, OnDestroy {
         this.background = cardData.background
       );
 
-    this.allowedHrDesigns=this.config.get('allowedHrDesigns');
+    this.allowedHrDesigns=bc_creator_config['settings']['allowedHrDesigns'];
   }
 
   ngOnDestroy(): void {

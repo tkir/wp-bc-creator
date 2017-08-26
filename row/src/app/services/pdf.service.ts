@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
-import {AppConfigService} from "./app-config.service";
+import {AppConfigService} from "./app-config.service1";
 import {PlatformLocation} from "@angular/common";
 import {Http} from "@angular/http";
 import * as FileSaver from 'file-saver';

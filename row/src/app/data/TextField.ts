@@ -1,7 +1,6 @@
 import {CardField} from "./interfaces";
-import {ReflectiveInjector} from '@angular/core';
-import {AppConfigService} from "../services/app-config.service";
 import {getMaxPosition, getMaxSize} from "../utils/size.util";
+declare const bc_creator_config: any;
 
 export class TextField implements CardField {
 
@@ -20,17 +19,12 @@ export class TextField implements CardField {
   public left_mm: number;
   public top_mm: number;
 
-  private k: number;
-  private fontSizeStep: number;
+  private k: number = bc_creator_config['settings']['ratio'];
+  private fontSizeStep: number = bc_creator_config['settings']['fontSizeStep'];
 
   public isSelected: boolean = false;
   public isStyling: boolean = false;
   public div: Element = null;
-
-  public setConstants(config) {
-    this.k = config.get('ratio');
-    this.fontSizeStep = config.get('fontSizeStep');
-  }
 
   public onChangeBgSize(bg: { width, height, indent }) {
     let max = getMaxSize(this.instanceOf, bg);

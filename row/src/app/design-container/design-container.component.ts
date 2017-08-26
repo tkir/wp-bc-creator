@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 import {DesignService} from "../services/design.service";
-import {AppConfigService} from "../services/app-config.service";
 import {Preview} from "../services/design-store";
 
 @Component({
@@ -15,8 +14,7 @@ export class DesignContainerComponent implements OnInit, OnDestroy {
 
   public previews: Preview[];
 
-  constructor(private designService: DesignService,
-              private config: AppConfigService) {
+  constructor(private designService: DesignService) {
   }
 
   ngOnInit() {

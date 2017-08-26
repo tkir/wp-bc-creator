@@ -1,3 +1,5 @@
+declare const bc_creator_config: any;
+
 export class Background {
 
   public dataType: string;
@@ -11,13 +13,8 @@ export class Background {
   public width_mm: number;
   public height_mm: number;
 
-  private k: number;
-  private polygraphPadding: number;
-
-  public setConstants(config) {
-    this.k = config.get('ratio');
-    this.polygraphPadding = config.get('polygraphPadding');
-  }
+  private k: number = bc_creator_config['settings']['ratio'];
+  private polygraphPadding: number = bc_creator_config['settings']['polygraphPadding'];
 
   get indent(): number {
     return this.polygraphPadding * this.k;

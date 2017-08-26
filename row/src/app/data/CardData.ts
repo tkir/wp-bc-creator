@@ -40,11 +40,6 @@ export class CardData {
     })
   }
 
-  public setConstants(config) {
-    this.config = config;
-    this.fields.forEach(field => field.setConstants(config));
-  }
-
   private updateSize() {
     this.logos.forEach(logo => logo.setMax(this.background.width, this.background.height));
   }

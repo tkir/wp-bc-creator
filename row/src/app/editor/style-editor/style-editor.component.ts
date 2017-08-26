@@ -2,8 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {TextField} from "../../data/TextField";
 import {AlignService} from "../../services/align.service";
-import {AppConfigService} from "../../services/app-config.service";
 let WebFont = require('webfontloader');
+declare const bc_creator_config: any;
 
 @Component({
   selector: 'card-style-editor',
@@ -23,11 +23,10 @@ export class StyleEditorComponent implements OnInit{
     if (this.item) this.item.isStyling = true;
   }
 
-  constructor(public alService: AlignService,
-              private config:AppConfigService) {
+  constructor(public alService: AlignService) {
   }
   ngOnInit(){
-    this.allowedFonts=this.config.get('allowedFonts');
+    this.allowedFonts=bc_creator_config['settings']['allowedFonts'];
   }
 
   toggleStyle(style: string) {

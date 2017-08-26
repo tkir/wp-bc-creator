@@ -1,5 +1,7 @@
 import {CardField} from "./interfaces";
 import {getMaxPosition, getMaxSize} from "../utils/size.util";
+declare const bc_creator_config: any;
+
 export class Line implements CardField {
 
   constructor(obj) {
@@ -14,12 +16,8 @@ export class Line implements CardField {
   public design: string = 'solid';
   public _color: string = '000';
 
-  private k;
+  private k: number = bc_creator_config['settings']['ratio'];
   public isSelected: boolean = false;
-
-  public setConstants(config) {
-    this.k = config.get('ratio');
-  }
 
   get left() {
     return Math.round(this.left_mm * this.k);

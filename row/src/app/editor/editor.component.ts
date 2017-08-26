@@ -7,9 +7,7 @@ import {Store} from "../services/store";
 import {ImageService} from "../services/image.service";
 import {Logo} from "../data/Logo";
 import {Line} from "../data/Line";
-import {AppConfigService} from "../services/app-config.service";
 import {PdfService} from "../services/pdf.service";
-import * as FileSaver from 'file-saver';
 import {DesignService} from "../services/design.service";
 
 @Component({
@@ -29,8 +27,7 @@ export class EditorComponent implements OnInit, OnDestroy {
               private store: Store,
               private imageService: ImageService,
               private designService:DesignService,
-              private pdfService: PdfService,
-              private config: AppConfigService) {
+              private pdfService: PdfService) {
   }
 
   ngOnInit() {
@@ -62,14 +59,13 @@ export class EditorComponent implements OnInit, OnDestroy {
       newText.top += 20;
     }
 
-    newText.setConstants(this.config);
     items.push(newText);
     this.dataService.updateCard(this.model);
   }
 
   addLogo(items: Logo[], i?: number) {
 
-    let newLogo: Logo = new Logo(this.config.get('default.logo'),
+    let newLogo: Logo = new Logo('',
       {
         width_mm: 22,
         height_mm: 10,
@@ -77,7 +73,6 @@ export class EditorComponent implements OnInit, OnDestroy {
         top_mm: 5
       });
 
-    newLogo.setConstants(this.config);
     items.push(newLogo);
     this.dataService.updateCard(this.model);
   }
@@ -93,7 +88,6 @@ export class EditorComponent implements OnInit, OnDestroy {
         design: 'solid',
         _color: '00f'
       });
-    newLine.setConstants(this.config);
     lines.push(newLine);
     this.dataService.updateCard(this.model);
   }

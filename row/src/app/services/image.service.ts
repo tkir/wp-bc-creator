@@ -1,8 +1,8 @@
-import {Injectable, OnDestroy, OnInit} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {ImageResult} from "../utils/image/interfaces";
 import {ImageUpload} from "../utils/image/image-upload";
 import {Subscription} from "rxjs/Subscription";
-import {AppConfigService} from "./app-config.service";
+declare const bc_creator_config: any;
 
 @Injectable()
 export class ImageService implements OnDestroy {
@@ -14,7 +14,7 @@ export class ImageService implements OnDestroy {
   private resizeType: string;
   private allowedExtensions: string[] = [];
 
-  constructor(private config: AppConfigService) {
+  constructor() {
     this.imageUpload = new ImageUpload();
     this.subscription = this.imageUpload.imageSelected
       .subscribe((res: ImageResult) => {
@@ -22,9 +22,9 @@ export class ImageService implements OnDestroy {
         else if (this.item.instanceOf == 'Background') this.updateBg(res)
       });
 
-    this.resizeQuality = this.config.get('imageUpload.resizeQuality');
-    this.resizeType = this.config.get('imageUpload.resizeType');
-    this.allowedExtensions = this.config.get('imageUpload.allowedExtensions');
+    this.resizeQuality = bc_creator_config['settings']['imageUpload']['resizeQuality'];
+    this.resizeType = bc_creator_config['settings']['imageUpload']['resizeType'];
+    this.allowedExtensions = bc_creator_config['settings']['imageUpload']['allowedExtensions'];
   }
 
   ngOnDestroy() {

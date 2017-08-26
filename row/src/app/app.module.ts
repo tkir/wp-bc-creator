@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {EditorComponent} from './editor/editor.component';
 import {DesignComponent} from './design/design.component';
 import {EditorContainerComponent} from './editor-container/editor-container.component';
-import {Http, HttpModule} from "@angular/http";
+import {HttpModule} from "@angular/http";
 
 import {DataService} from "./services/data.service";
 import {ResultComponent} from './result/result.component';
@@ -23,15 +23,15 @@ import {FieldResizeComponent} from './result/field-resize/field-resize.component
 import {AddResizeDirective} from './result/directives/add-resize.directive';
 import {AlignableDirective} from './result/directives/alignable.directive';
 import {AlignService} from "./services/align.service";
-import {AppConfigService} from "./services/app-config.service";
+import {AppConfigService} from "./services/app-config.service1";
 import { CardContainerComponent } from './card-container/card-container.component';
 import { DesignContainerComponent } from './design-container/design-container.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {ApiService} from "./services/api.service";
 import {DesignService} from "./services/design.service";
-import {FieldsDataService} from "./services/fields-data.service";
+import {FieldsDataService} from "./services/fields-data.service1";
 import {CardService} from "./services/card.service";
-import {DbService} from "./services/db.service";
+import {DbService} from "./services/db.service1";
 import {PdfService} from "./services/pdf.service";
 import {DesignStore} from "./services/design-store";
 
