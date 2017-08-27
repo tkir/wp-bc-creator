@@ -117,6 +117,26 @@ class BC_Creator_util
         rmdir($dirPath);
     }
 
+    public static function prepareObjForPdfAPI($str)
+    {
+        $data = json_decode($str);
+        foreach ($data->Logo as &$logo) {
+            if (preg_match('/^(https?:\/\/)?([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/', $logo->src)) {
+                $imgLogo = addslashes(file_get_contents($logo->src));
+                if ($imgLogo) $logo->src = $imgLogo;
+            }
+        }
+        if (preg_match('/^(https?:\/\/)?([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/', $data->Background[0]->src)) {
+            $imgBg = addslashes(file_get_contents($data->Background[0]->src));
+            if ($imgBg) $data->Background[0]->src = $imgBg;
+        }
+
+        return array(
+            'base_href' => get_option('siteurl'),
+            'data' => $data
+        );
+    }
+
 //создаем объект опций
     public static function createOptions()
     {

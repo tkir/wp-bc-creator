@@ -61,11 +61,4 @@ export class ApiService {
       .catch(err => Observable.throw(err))
       .map(this.getRes);
   }
-
-  postBlob(path: string, body: any): Observable<any> {
-    return this.http.post(path, body, {responseType: ResponseContentType.Blob})
-      .map(this.checkForError)
-      .catch(err => Observable.throw(err))
-      .map(res => res.blob());
-  }
 }

@@ -18,7 +18,7 @@ let server = app.listen(process.env.PORT || 3000, function () {
     console.log('PDF app listening on port 3000');
 });
 
-app.post('/pdf/:hash', (req, res) => {
+app.post('/bc-creator/pdf/:hash', (req, res) => {
 
     config.get('pdf.k', (err, k) => {
         PdfCreator.getPDF(req.body.data, k, (err, buffer) => {
@@ -37,7 +37,7 @@ app.post('/pdf/:hash', (req, res) => {
     })
 });
 
-app.post('/preview/:hash', (req, res) => {
+app.post('/bc-creator/preview/:hash', (req, res) => {
     PdfCreator.getPreview(req.body.data, (err, buffer) => {
         if (err) {
             console.error(err);

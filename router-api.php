@@ -27,25 +27,41 @@ class BC_Creator_RouterAPI
         register_rest_route('business-card-creator/', '/updateDesigns/', array(
             'methods' => WP_REST_Server::READABLE,
             'callback' => array($this, 'updateDesigns'),
-            'permission_callback' => array($this, 'checkPermission')
+            'permission_callback' => array($this, 'checkAdminPermission')
         ));
 
         register_rest_route('business-card-creator/toggleActive/', '/(?P<id>\d+)/', array(
             'methods' => WP_REST_Server::READABLE,
             'callback' => array($this, 'toggleActive'),
-            'permission_callback' => array($this, 'checkPermission')
+            'permission_callback' => array($this, 'checkAdminPermission')
         ));
 
         register_rest_route('business-card-creator/design/', '/(?P<slug>\S+)/', array(
             'methods' => WP_REST_Server::READABLE,
             'callback' => array($this, 'getDesign'),
-            'permission_callback' => array($this, 'checkPermission')
+            'permission_callback' => array($this, 'checkReadPermission')
+        ));
+
+        register_rest_route('business-card-creator/', '/pdf/', array(
+            'methods' => WP_REST_Server::EDITABLE,
+            'callback' => array($this, 'getPdf'),
+            'permission_callback' => array($this, 'checkAuthorPermission')
         ));
     }
 
-    public function checkPermission()
+    public function checkAdminPermission()
     {
         return current_user_can('edit_plugins');
+    }
+
+    public function checkReadPermission()
+    {
+        return current_user_can('read');
+    }
+
+    public function checkAuthorPermission()
+    {
+        return current_user_can('publish_posts');
     }
 
     public function updateDesigns()
@@ -116,7 +132,7 @@ class BC_Creator_RouterAPI
     {
         include_once 'db.php';
         $res = BC_Creator_DB::get_instance()->toggleActive((int)$request['id']);
-        return array('result'=>$res);
+        return array('result' => $res);
     }
 
     public function getDesign($request)
@@ -124,5 +140,19 @@ class BC_Creator_RouterAPI
         include_once 'db.php';
         $res = BC_Creator_DB::get_instance()->getDesign((string)$request['slug']);
         return $res;
+    }
+
+    public function getPdf($request)
+    {
+        include_once 'util.php';
+        include_once 'api.php';
+
+        $data = BC_Creator_util::prepareObjForPdfAPI($request->get_body());
+
+        $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
+        $path = $config->api->pdf . '/' . get_option('BusinessCardCreator_hash');
+        $res = BC_Creator_API::post($path, json_encode($data));
+
+        return array('file' => base64_encode($res));
     }
 }

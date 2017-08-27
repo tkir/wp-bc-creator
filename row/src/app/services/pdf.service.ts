@@ -4,9 +4,12 @@ import {AppConfigService} from "./app-config.service1";
 import {PlatformLocation} from "@angular/common";
 import {Http} from "@angular/http";
 import * as FileSaver from 'file-saver';
+declare const bc_creator_config: any;
 
 @Injectable()
 export class PdfService {
+
+  private path = `${bc_creator_config['path']}business-card-creator`;
 
   private pdfAPI: string;
   private pdfPath: string;
@@ -23,9 +26,8 @@ export class PdfService {
   }
 
   getPdf(data) {
-
-    return this.api.postBlob(`${this.pdfAPI}${this.pdfPath}/${this.hash}`,
-      {base_href: this.location.getBaseHrefFromDOM(), data: data})
+    return this.api.post(`${this.path}/pdf`,data)
+      .map(res => atob(res.file))
       .subscribe(
         data => {
           FileSaver.saveAs(new Blob([data], {type: 'application/pdf'}), "BusinessCard.pdf");
@@ -35,8 +37,8 @@ export class PdfService {
   }
 
   getPreview(data) {
-    return this.api.postBlob(`${this.pdfAPI}${this.previewPath}/${this.hash}`,
-      {base_href: this.location.getBaseHrefFromDOM(), data: data})
+    return this.api.post(`${this.path}/preview`,data)
+      .map(res => atob(res.file))
       .subscribe(
         data => {
           FileSaver.saveAs(new Blob([data], {type: 'image/jpeg'}), "Preview.jpg");

@@ -10,31 +10,34 @@ class PdfCreator {
         let lineArr = [];
         let bg = '';
         Object.keys(obj)
-            .forEach(key => obj[key].forEach(it => {
-            let item;
-            switch (key) {
-                case 'Text':
-                    item = new classes_1.TextField(it);
-                    textArr.push(`
+            .forEach(key => {
+            if (obj[key])
+                obj[key].forEach(it => {
+                    let item;
+                    switch (key) {
+                        case 'Text':
+                            item = new classes_1.TextField(it);
+                            textArr.push(`
 <div style="${item.getDivStyle(k, ++z)}">
   <span style="${item.getSpanStyle(k)}">${item.text}</span>
 </div>
               `);
-                    break;
-                case 'Logo':
-                    item = new classes_1.Logo(it);
-                    logoArr.push(`<div style="${item.getDivStyle(k, ++z - 60)}"></div>`);
-                    break;
-                case 'Line':
-                    item = new classes_1.Line(it);
-                    lineArr.push(`<div style="${item.getDivStyle(k, ++z - 50)}"></div>`);
-                    break;
-                case 'Background':
-                    item = new classes_1.Background(it);
-                    bg = `<body style="${item.getDivStyle(k, 0)}">`;
-                    break;
-            }
-        }));
+                            break;
+                        case 'Logo':
+                            item = new classes_1.Logo(it);
+                            logoArr.push(`<div style="${item.getDivStyle(k, ++z - 60)}"></div>`);
+                            break;
+                        case 'Line':
+                            item = new classes_1.Line(it);
+                            lineArr.push(`<div style="${item.getDivStyle(k, ++z - 50)}"></div>`);
+                            break;
+                        case 'Background':
+                            item = new classes_1.Background(it);
+                            bg = `<body style="${item.getDivStyle(k, 0)}">`;
+                            break;
+                    }
+                });
+        });
         if (bg != '') {
             logoArr.forEach(logo => bg += logo);
             lineArr.forEach(line => bg += line);

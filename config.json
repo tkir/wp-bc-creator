@@ -5,7 +5,8 @@
   "defaultDesign": "des2",
   "api": {
     "endpoint": "http://localhost:3000/bc-creator",
-    "designs": "/designs"
+    "designs": "/designs",
+    "pdf":"/pdf"
   },
   "pageNotFound": {
     "name": "pageNotFound",

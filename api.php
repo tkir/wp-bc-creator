@@ -6,7 +6,6 @@ class BC_Creator_API
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         $url = $config->api->endpoint . $path;
 
-// use key 'http' even if you send the request to https://...
         $options = array(
             'http' => array(
                 'header'  => "Content-type: application/json
