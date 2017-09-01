@@ -6,7 +6,8 @@
   "api": {
     "endpoint": "http://localhost:3000/bc-creator",
     "designs": "/designs",
-    "pdf":"/pdf"
+    "pdf":"/pdf",
+    "preview": "/preview"
   },
   "pageNotFound": {
     "name": "pageNotFound",

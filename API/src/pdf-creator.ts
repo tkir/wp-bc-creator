@@ -16,7 +16,7 @@ export class PdfCreator {
         Object.keys(obj)
             .forEach(key => {
                     if (obj[key])
-                    obj[key].forEach(it => {
+                    obj[key].forEach(it =>{
                         let item;
 
                         switch (key) {
@@ -75,8 +75,6 @@ export class PdfCreator {
 
         pdf.create(html, config)
             .toBuffer((err, buffer) => {
-                //можно сохранить себе pdf
-                // fs.writeFile('q123.pdf', buffer);
                 cb(err, buffer);
             });
     }
