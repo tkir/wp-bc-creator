@@ -29,7 +29,6 @@ app.post('/bc-creator/pdf/:hash', (req, res) => {
 
             res.writeHead(200, {
                 'Content-Type': 'application/pdf',
-                'Content-Disposition': 'attachment; filename=test.pdf',
                 'Content-Length': buffer.length
             });
             res.end(buffer, 'binary');

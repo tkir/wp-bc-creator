@@ -61,6 +61,7 @@ export class PdfCreator {
     <html lang="en">
     <head>
       <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     </head>
     ${bg}
     </html>`;

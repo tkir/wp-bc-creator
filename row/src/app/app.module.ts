@@ -23,15 +23,12 @@ import {FieldResizeComponent} from './result/field-resize/field-resize.component
 import {AddResizeDirective} from './result/directives/add-resize.directive';
 import {AlignableDirective} from './result/directives/alignable.directive';
 import {AlignService} from "./services/align.service";
-import {AppConfigService} from "./services/app-config.service1";
 import { CardContainerComponent } from './card-container/card-container.component';
 import { DesignContainerComponent } from './design-container/design-container.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {ApiService} from "./services/api.service";
 import {DesignService} from "./services/design.service";
-import {FieldsDataService} from "./services/fields-data.service1";
 import {CardService} from "./services/card.service";
-import {DbService} from "./services/db.service1";
 import {PdfService} from "./services/pdf.service";
 import {DesignStore} from "./services/design-store";
 
@@ -69,25 +66,12 @@ import {DesignStore} from "./services/design-store";
     DataService,
     ImageService,
     AlignService,
-    AppConfigService,
     ApiService,
-    DbService,
     DesignService,
-    FieldsDataService,
-    PdfService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: httpFactory,
-      deps: [AppConfigService],
-      multi: true
-    }
+    PdfService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-}
-
-export function httpFactory(config: AppConfigService) {
-  return () => config.load();
 }
 

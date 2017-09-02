@@ -12,13 +12,10 @@ export class DesignService {
 
   constructor(private store: DesignStore,
               private api: ApiService) {
-    this.path = `${bc_creator_config['path']}business-card-creator/design`;
   }
 
-  private path: string;
-
   getDesign(design: string): Observable<any> {
-    return this.api.get(`${this.path}/${design}`);
+    return this.api.get(`/design/${design}`);
   }
 
   saveDesign(fieldsData: CardFieldsData, designData: CardDesignData, preview: any) {
