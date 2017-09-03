@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs/Observable";
-import {CardDesignData, CardFieldsData} from "../data/interfaces";
 import {DesignStore} from "./design-store";
 import {ApiService} from "./api.service";
-const objectHash = require('object-hash');
+import {CardData} from "../data/CardData";
 declare const bc_creator_config: any;
 
 
@@ -18,18 +17,14 @@ export class DesignService {
     return this.api.get(`/design/${design}`);
   }
 
-  saveDesign(fieldsData: CardFieldsData, designData: CardDesignData, preview: any) {
-    // let obj = {
-    //   fieldsData: fieldsData,
-    //   designData: designData
-    // };
-    //
-    // let cardHash = objectHash(obj);
-    //
-    // this.config.post('allowedDesigns', cardHash);
-    // this.updateDesigns(this.config.get('allowedDesigns'));
-    // return this.db.post(
-    //   `${this.path}/${this.config.get('hash')}/${cardHash}`, obj);
+  saveDesign(card: CardData) {
+
+    return this.api.post('/save', {
+      FieldsData: card.fieldsData,
+      DesignData: card.designData,
+      card: card.json
+    });
+
   }
 
   getPreviews() {

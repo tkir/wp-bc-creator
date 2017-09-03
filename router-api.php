@@ -48,9 +48,9 @@ class BC_Creator_RouterAPI
             'permission_callback' => array($this, 'checkAuthorPermission')
         ));
 
-        register_rest_route('business-card-creator/', '/preview/', array(
+        register_rest_route('business-card-creator/', '/save/', array(
             'methods' => WP_REST_Server::EDITABLE,
-            'callback' => array($this, 'getPreview'),
+            'callback' => array($this, 'saveDesign'),
             'permission_callback' => array($this, 'checkAuthorPermission')
         ));
     }
@@ -95,31 +95,35 @@ class BC_Creator_RouterAPI
         }
 
         foreach ($resObj->designs as &$des) {
-            $fieldsData = json_decode($des->FieldsData);
-            $designData = json_decode($des->DesignData);
-
-//            create images from blobs
-            if ($designData->background->src !== "") {
-                $imgPath = BC_Creator_util::blobToImg($designData->background->src, $des->Slug, "bg");
-                $designData->background->src = $imgPath;
-                $des->DesignData = json_encode($designData);
-            }
-            if ($fieldsData->logos != []) {
-                for ($i = 0; $i < count($fieldsData->logos); $i++) {
-                    $imgPath = BC_Creator_util::blobToImg($fieldsData->logos[$i], $des->Slug, "logo_$i");
-                    $fieldsData->logos[$i] = $imgPath;
-                }
-                $des->FieldsData = json_encode($fieldsData);
-            }
-            if ($des->Preview) {
-                $imgPath = BC_Creator_util::blobToImg($des->Preview, $des->Slug, "preview");
-                $des->Preview = $imgPath;
-            }
-
-            BC_Creator_DB::get_instance()->addDesign($des, NULL);
+            $this->prepareDesignToDB($des, '-1');
+            BC_Creator_DB::get_instance()->addDesign($des, null);
         }
 
         return BC_Creator_DB::get_instance()->getPreviews();
+    }
+
+    protected function prepareDesignToDB($des, $userID)
+    {
+        $fieldsData = json_decode($des->FieldsData);
+        $designData = json_decode($des->DesignData);
+
+//            create images from blobs
+        if ($designData->background->src !== "") {
+            $imgPath = BC_Creator_util::blobToImg($designData->background->src, $des->Slug, "bg", $userID);
+            $designData->background->src = $imgPath;
+            $des->DesignData = json_encode($designData);
+        }
+        if ($fieldsData->logos != []) {
+            for ($i = 0; $i < count($fieldsData->logos); $i++) {
+                $imgPath = BC_Creator_util::blobToImg($fieldsData->logos[$i], $des->Slug, "logo_$i", $userID);
+                $fieldsData->logos[$i] = $imgPath;
+            }
+            $des->FieldsData = json_encode($fieldsData);
+        }
+        if ($des->Preview) {
+            $imgPath = BC_Creator_util::blobToImg($des->Preview, $des->Slug, "preview", $userID);
+            $des->Preview = $imgPath;
+        }
     }
 
     protected function deleteDesigns($slugs, $userID)
@@ -153,26 +157,38 @@ class BC_Creator_RouterAPI
         include_once 'util.php';
         include_once 'api.php';
 
-        $data = BC_Creator_util::prepareObjForPdfAPI($request->get_body());
+        $data = BC_Creator_util::prepareObjForPdfAPI(json_decode($request->get_body()));
 
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         $path = $config->api->pdf . '/' . get_option('BusinessCardCreator_hash');
         $res = BC_Creator_API::post($path, json_encode($data));
 
-        return array('file' => base64_encode($res));
+//        TODO save pdf to file
+//        file_put_contents('test.pdf', $res);
+
+        return array('file' => $res);
     }
 
-    public function getPreview($request)
+    public function saveDesign($request)
     {
         include_once 'util.php';
         include_once 'api.php';
+        include_once 'db.php';
 
-        $data = BC_Creator_util::prepareObjForPdfAPI($request->get_body());
+        $body = json_decode($request->get_body());
+        $data = BC_Creator_util::prepareObjForPdfAPI($body->card);
 
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         $path = $config->api->preview . '/' . get_option('BusinessCardCreator_hash');
         $res = BC_Creator_API::post($path, json_encode($data));
 
-        return array('file' => base64_encode($res));
+        $des = array(
+            FieldsData => $body->FieldsData,
+            DesignData => $body->DesignData,
+            Slug => spl_object_hash($body->card),
+            Preview => base64_encode($res)
+        );return $des;
+
+        $this->prepareDesignToDB($des, get_current_user_id());
     }
 }

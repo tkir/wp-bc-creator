@@ -80,10 +80,9 @@ class BC_Creator_util
         ");
     }
 
-    public static function blobToImg($blob, $slug, $filename)
+    public static function blobToImg($blob, $slug, $filename, $userID)
     {
-        $imgPth = 'img/-1';
-        $path = wp_normalize_path(__DIR__ . "/$imgPth/$slug");
+        $path = wp_normalize_path(__DIR__ . "/img/$userID/$slug");
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
@@ -95,7 +94,7 @@ class BC_Creator_util
         $blob = preg_replace("/^data:image\/([a-z]{3});base64,/i", "", $blob);
         file_put_contents($path . "/$filename", base64_decode($blob));
 
-        return plugin_dir_url(__FILE__) . "$imgPth/$slug/$filename";
+        return plugin_dir_url(__FILE__) . "/img/$userID/$slug/$filename";
     }
 
     public static function deleteDir($dirPath)
@@ -117,9 +116,8 @@ class BC_Creator_util
         rmdir($dirPath);
     }
 
-    public static function prepareObjForPdfAPI($str)
+    public static function prepareObjForPdfAPI($data)
     {
-        $data = json_decode($str);
         foreach ($data->Logo as &$logo) {
             if (preg_match('/^(https?:\/\/)?([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/', $logo->src)) {
                 $imgLogo = addslashes(file_get_contents($logo->src));
@@ -135,74 +133,5 @@ class BC_Creator_util
             'base_href' => get_option('siteurl'),
             'data' => $data
         );
-    }
-
-//создаем объект опций
-    public static function createOptions()
-    {
-        $imgPath = plugins_url() . '/business-card-creator' . '/BusinessCardCreator/assets/img';
-        $hash = get_option('BusinessCardCreator_hash');
-        return '
-{
-  "hash": "' . $hash . '",
-  "host": {
-    "db":{
-      "endpoint": "https://businesscardeditor.firebaseio.com",
-      "design": "/design",
-      "data": "/data"
-    },
-    "api":{
-      "endpoint": "https://html-pdf-api.appspot.com",
-      "pdf": "/pdf",
-      "preview": "/preview"
-    }
-  },
-  "allowedFonts": [
-    "Work Sans",
-    "Playfair Display",
-    "Open Sans",
-    "Josefin Slab",
-    "Arvo",
-    "Lato"
-  ],
-  "allowedDesigns": [
-    "default",
-    "des1",
-    "des2"
-  ],
-  "allowedSizes": [
-    {
-      "width": 85,
-      "height": 55
-    },
-    {
-      "width": 55,
-      "height": 85
-    }
-  ],
-  "allowedHrDesigns": [
-    "solid",
-    "dashed",
-    "dotted",
-    "double"
-  ],
-  "ratio": 7,
-  "fontSizeStep": 0.2,
-  "polygraphPadding": 5,
-  "imageUpload": {
-    "resizeQuality": 1,
-    "resizeType": "image/png",
-    "allowedExtensions": [
-      "jpg",
-      "jpeg",
-      "png"
-    ]
-  },
-  "default": {
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/6/69/Marvel_Cinematic_Universe_Logo.png"
-  },
-  "imagePath": "' . $imgPath . '"
-}
-';
     }
 }

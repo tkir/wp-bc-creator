@@ -135,15 +135,11 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.designService.saveDesign(
-      this.model.fieldsData,
-      this.model.designData,
-      this.pdfService.getPreview(this.model.json)
-    );
+    this.designService.saveDesign(this.model)
+      .subscribe(res=>console.log(res));
   }
 
   getPDF() {
-    this.pdfService.getPdf(this.model.json)
-      // .subscribe(r=>console.log(r));
+    this.pdfService.getPdf(this.model.json);
   }
 }

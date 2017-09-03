@@ -27,11 +27,7 @@ export class DataService {
             .subscribe(d => {
               d['DesignData'] = JSON.parse(d['DesignData']);
               d['FieldsData'] = JSON.parse(d['FieldsData']);
-              //проверка, есть ли какие-то данные в карте, если нет - загружаем default fieldsData
-              if (this.isDesignLoad)
-                this.setCardData(d['DesignData'], this.cData.fieldsData);
-              else
-                this.setCardData(d['DesignData'], d['FieldsData']);
+              this.setCardData(d['DesignData'], d['FieldsData']);
             });
         }
         //если роут неизвестен - грузим pageNotFound
