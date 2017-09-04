@@ -33,7 +33,7 @@ class BC_Creator
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         include_once 'db.php';
 
-        wp_enqueue_script('main_menu', wp_normalize_path(__DIR__ . '/menu/main_menu.js'));
+        wp_enqueue_script('main_menu', wp_normalize_path('/menu/main_menu.js'));
         wp_localize_script('main_menu', 'bc_creator_api', array(
             'path' => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest'),
@@ -48,7 +48,7 @@ class BC_Creator
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         include_once 'db.php';
 
-        wp_enqueue_script('bc_creator_main', wp_normalize_path(__DIR__ . '/BusinessCardCreator/main.bundle.js'));
+        wp_enqueue_script('bc_creator_main', wp_normalize_path('/BusinessCardCreator/main.bundle.js'));
         wp_localize_script('bc_creator_main', 'bc_creator_config', array(
             'path' => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest'),
