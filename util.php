@@ -87,14 +87,23 @@ class BC_Creator_util
             mkdir($path, 0777, true);
         }
 
-        $matches = array();
-        preg_match("/^data:image\/([a-z]{3})/i", $blob, $matches);
-        $filename = "$filename.$matches[1]";
+//        проверяем, если записан URL то копируем файл с URL или создаем из blob или пустая строка
+        if (preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $blob)) {
+            $ext = preg_replace("#(.+)?\.(\w+)(\?.+)?#", "$2", $blob);
+            copy($blob, $path . "/$filename.$ext");
+        } else if (preg_match("/^data:image/i", $blob)) {
+            $ext = array();
+            preg_match("/^data:image\/([a-z]{3})/i", $blob, $ext);
+            $filename = "$filename.$ext[1]";
 
-        $blob = preg_replace("/^data:image\/([a-z]{3});base64,/i", "", $blob);
-        file_put_contents($path . "/$filename", base64_decode($blob));
+            $blob = preg_replace("/^data:image\/([a-z]{3});base64,/i", "", $blob);
+            file_put_contents($path . "/$filename", base64_decode($blob));
+        } else {
+            $filename = "$filename.jpg";
+            file_put_contents($path . "/$filename", $blob);
+        }
 
-        return plugin_dir_url(__FILE__) . "/img/$userID/$slug/$filename";
+        return plugin_dir_url(__FILE__) . "img/$userID/$slug/$filename";
     }
 
     public static function deleteDir($dirPath)

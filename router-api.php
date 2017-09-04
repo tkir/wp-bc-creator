@@ -182,13 +182,20 @@ class BC_Creator_RouterAPI
         $path = $config->api->preview . '/' . get_option('BusinessCardCreator_hash');
         $res = BC_Creator_API::post($path, json_encode($data));
 
-        $des = array(
-            FieldsData => $body->FieldsData,
-            DesignData => $body->DesignData,
-            Slug => spl_object_hash($body->card),
-            Preview => base64_encode($res)
-        );return $des;
+        $des = (object)array(
+            'FieldsData' => json_encode($body->FieldsData),
+            'DesignData' => json_encode($body->DesignData),
+            'Slug' => md5(json_encode($body->card)),
+            'Preview' => $res,
+
+            'Name' => '',
+            'Version' => 0,
+            'Description' => '',
+            'Preview_Order' => 100
+        );
 
         $this->prepareDesignToDB($des, get_current_user_id());
+        BC_Creator_DB::get_instance()->deleteDesign($des->Slug);
+        return BC_Creator_DB::get_instance()->addDesign($des, get_current_user_id());
     }
 }
