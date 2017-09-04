@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {getCoords, getMaxSize} from "../../utils/size.util";
+import {getCoords, getMaxSize, calculateAspectRatioFit} from "../../utils/size.util";
 import {CardField} from "../../data/interfaces";
 import {Line} from "../../data/Line";
 
@@ -47,15 +47,28 @@ export class FieldResizeComponent {
 
   resize(event: MouseEvent) {
 
+    let isWidthResizable = false;
+    let isHeightResizable = false;
     let coords = getCoords(this.item, this.el);
 
     if (this.item.width + this.item.left < this.max.x || event.pageX - coords.right < 0)
       if (this.item.width > 0 || event.pageX - coords.right > 0)
-        this.item.width += event.pageX - coords.right;
+        isWidthResizable = true;
 
 
     if (this.item.height + this.item.top < this.max.y || event.pageY - coords.bottom < 0)
       if (this.item.height > 0 || event.pageY - coords.bottom > 0)
-        this.item.height += event.pageY - coords.bottom;
+        isHeightResizable = true;
+
+    if (isWidthResizable && isHeightResizable) {
+      let newSize = calculateAspectRatioFit(this.item.width, this.item.height,
+        this.item.width + event.pageX - coords.right,
+        this.item.height + event.pageY - coords.bottom);
+
+      this.item.width=newSize.width;
+      this.item.height=newSize.height;
+    }
   }
+
+
 }

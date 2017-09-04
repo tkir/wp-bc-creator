@@ -185,7 +185,7 @@ class BC_Creator_RouterAPI
         $des = (object)array(
             'FieldsData' => json_encode($body->FieldsData),
             'DesignData' => json_encode($body->DesignData),
-            'Slug' => md5(json_encode($body->card)),
+            'Slug' => md5($res),
             'Preview' => $res,
 
             'Name' => '',

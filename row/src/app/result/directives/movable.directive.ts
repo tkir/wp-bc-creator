@@ -192,7 +192,7 @@ export class MovableDirective implements OnInit {
     fieldResizeRef: null,
     item: null,
     fieldResize: null
-  }
+  };
   private fieldResizeComponent: Type<any> = FieldResizeComponent;
 
   //вставляем fieldResize
