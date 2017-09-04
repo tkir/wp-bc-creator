@@ -35,10 +35,17 @@ class BC_Creator_DB
         $userID = !empty($userID) ? "$userID" : "NULL";
 
         global $wpdb;
-
-        return $wpdb->query("
+        return $wpdb->query($wpdb->prepare("
 INSERT INTO $this->tableDesign (`Name`, `Version`, `Slug`, `Description`, `UserId`, `FieldsData`, `DesignData`, `Preview`, `Preview_Order`) 
-VALUES ('$design->Name', $design->Version, '$design->Slug', '$design->Description', $userID, '$design->FieldsData', '$design->DesignData','$design->Preview',$design->Preview_Order);");
+VALUES ('%s', %d, '%s', '%s', $userID, '%s', '%s','%s',%d);",
+            $design->Name,
+            $design->Version,
+            $design->Slug,
+            $design->Description,
+            $design->FieldsData,
+            $design->DesignData,
+            $design->Preview,
+            $design->Preview_Order));
     }
 
     public function deleteDesign($slug)
