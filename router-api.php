@@ -48,6 +48,12 @@ class BC_Creator_RouterAPI
             'permission_callback' => array($this, 'checkAuthorPermission')
         ));
 
+        register_rest_route('business-card-creator/', '/preview/', array(
+            'methods' => WP_REST_Server::EDITABLE,
+            'callback' => array($this, 'getPreview'),
+            'permission_callback' => array($this, 'checkAuthorPermission')
+        ));
+
         register_rest_route('business-card-creator/', '/save/', array(
             'methods' => WP_REST_Server::EDITABLE,
             'callback' => array($this, 'saveDesign'),
@@ -165,6 +171,23 @@ class BC_Creator_RouterAPI
 
 //        TODO save pdf to file
 //        file_put_contents('test.pdf', $res);
+
+        return array('file' => $res);
+    }
+
+    public function getPreview($request)
+    {
+        include_once 'util.php';
+        include_once 'api.php';
+
+        $data = BC_Creator_util::prepareObjForPdfAPI(json_decode($request->get_body()));
+
+        $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
+        $path = $config->api->preview . '/' . get_option('BusinessCardCreator_hash');
+        $res = BC_Creator_API::post($path, json_encode($data));
+
+//        TODO save preview to file
+//        file_put_contents('preview.jpg', $res);
 
         return array('file' => $res);
     }

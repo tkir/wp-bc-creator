@@ -37,7 +37,7 @@ class BC_Creator
         wp_localize_script('main_menu', 'bc_creator_api', array(
             'path' => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest'),
-            'previews' => BC_Creator_DB::get_instance()->getPreviews(false),
+            'previews' => BC_Creator_DB::get_instance()->getPreviews(true),
             'template' => $config->template
         ));
     }
@@ -52,7 +52,7 @@ class BC_Creator
         wp_localize_script('bc_creator_main', 'bc_creator_config', array(
             'path' => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest'),
-            'previews' => BC_Creator_DB::get_instance()->getPreviews(true),
+            'previews' => BC_Creator_DB::get_instance()->getPreviews(false, get_current_user_id()),
             'defaultDesign'=>$config->defaultDesign,
             'settings' => $config->creatorSettings
         ));

@@ -54,12 +54,14 @@ VALUES ('%s', %d, '%s', '%s', $userID, '%s', '%s','%s',%d);",
         return $wpdb->query("DELETE FROM `$this->tableDesign` WHERE Slug = '$slug'");
     }
 
-    public function getPreviews($isActive)
+    public function getPreviews($isAdmin, $userID = null)
     {
         global $wpdb;
         $query = "SELECT id, Name, Slug, Description, Preview, isActive FROM `$this->tableDesign`";
-        if ($isActive) $query = $query . " WHERE isActive = 1 ";
-        $query = $query . "ORDER BY Preview_Order";
+
+        if ($isAdmin) $query = $query . " WHERE UserId IS NULL ";
+        else $query = $query . " WHERE isActive = 1 AND UserId = $userID OR UserId IS NULL ";
+        $query = $query . " ORDER BY Preview_Order";
 
         return $wpdb->get_results($query);
     }
