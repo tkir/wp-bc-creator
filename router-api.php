@@ -187,9 +187,9 @@ class BC_Creator_RouterAPI
         $res = BC_Creator_API::post($path, json_encode($data));
 
 //        TODO save preview to file
-//        file_put_contents('preview.jpg', $res);
+        file_put_contents(__DIR__.'/preview.jpg', $res);
 
-        return array('file' => $res);
+        return array('file' => base64_encode($res));
     }
 
     public function saveDesign($request)

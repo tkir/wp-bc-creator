@@ -26,7 +26,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   constructor(private dataService: DataService,
               private store: Store,
               private imageService: ImageService,
-              private designService:DesignService,
+              private designService: DesignService,
               private pdfService: PdfService) {
   }
 
@@ -142,7 +142,10 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.pdfService.getPdf(this.model.json);
   }
 
-  getPreview(){
-    this.pdfService.getPreview(this.model.json);
+  preview: string = null;
+
+  getPreview() {
+    this.pdfService.getPreview(this.model.json)
+      .subscribe(data => this.preview = "data:image/png;base64," + data);
   }
 }
