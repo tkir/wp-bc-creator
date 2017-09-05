@@ -186,9 +186,6 @@ class BC_Creator_RouterAPI
         $path = $config->api->preview . '/' . get_option('BusinessCardCreator_hash');
         $res = BC_Creator_API::post($path, json_encode($data));
 
-//        TODO save preview to file
-        file_put_contents(__DIR__.'/preview.jpg', $res);
-
         return array('file' => base64_encode($res));
     }
 

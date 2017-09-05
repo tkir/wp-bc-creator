@@ -1,4 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {
+  Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {DataService} from "../services/data.service";
 import {CardData} from "../data/CardData";
 import {TextField} from "../data/TextField";
@@ -9,11 +12,16 @@ import {Logo} from "../data/Logo";
 import {Line} from "../data/Line";
 import {PdfService} from "../services/pdf.service";
 import {DesignService} from "../services/design.service";
+import {PreviewService} from "../services/preview.service";
+import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
 
 @Component({
   selector: 'card-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css']
+  styleUrls: ['./editor.component.css'],
+  host: {
+    '(window:mouseup)': 'onMouseUp($event)'
+  }
 })
 export class EditorComponent implements OnInit, OnDestroy {
 
@@ -27,7 +35,9 @@ export class EditorComponent implements OnInit, OnDestroy {
               private store: Store,
               private imageService: ImageService,
               private designService: DesignService,
-              private pdfService: PdfService) {
+              private pdfService: PdfService,
+              private previewService: PreviewService,
+              private resolver: ComponentFactoryResolver) {
   }
 
   ngOnInit() {
@@ -38,6 +48,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.subscription)
       this.subscription.unsubscribe();
+    if (this.componentRef)
+      this.componentRef.destroy();
   }
 
   addTextField(items: TextField[], i?: number) {
@@ -142,10 +154,35 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.pdfService.getPdf(this.model.json);
   }
 
-  preview: string = null;
-
   getPreview() {
-    this.pdfService.getPreview(this.model.json)
-      .subscribe(data => this.preview = "data:image/png;base64," + data);
+    this.previewService.getPreview(this.model.json);
+    this.openModal();
+  }
+
+  @ViewChild("previewModalContainer", {read: ViewContainerRef}) container;
+  componentRef: ComponentRef<PreviewModalComponent> = null;
+  public modalId = 'bc-creator-preview';
+
+  openModal() {
+    this.container.clear();
+    const factory = this.resolver.resolveComponentFactory(PreviewModalComponent);
+    this.componentRef = this.container.createComponent(factory);
+    this.componentRef.instance.id = this.modalId;
+    this.componentRef.instance.open();
+    this.previewService.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.previewService.isModalOpen = false;
+    this.componentRef.instance.close();
+    this.componentRef.destroy();
+    this.container.clear();
+    this.componentRef = null;
+  }
+
+  onMouseUp(event) {
+    if (!this.previewService.isModalOpen)return;
+    if (!event.target.closest(`#${this.modalId}`))
+      this.closeModal();
   }
 }

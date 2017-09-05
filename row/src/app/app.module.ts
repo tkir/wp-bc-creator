@@ -31,6 +31,8 @@ import {DesignService} from "./services/design.service";
 import {CardService} from "./services/card.service";
 import {PdfService} from "./services/pdf.service";
 import {DesignStore} from "./services/design-store";
+import {PreviewService} from "./services/preview.service";
+import { PreviewModalComponent } from './preview-modal/preview-modal.component';
 
 @NgModule({
   declarations: [
@@ -50,9 +52,10 @@ import {DesignStore} from "./services/design-store";
     FieldResizeComponent,
     AlignableDirective,
     CardContainerComponent,
-    DesignContainerComponent
+    DesignContainerComponent,
+    PreviewModalComponent
   ],
-  entryComponents: [FieldResizeComponent],
+  entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -68,7 +71,8 @@ import {DesignStore} from "./services/design-store";
     AlignService,
     ApiService,
     DesignService,
-    PdfService
+    PdfService,
+    PreviewService
   ],
   bootstrap: [AppComponent]
 })

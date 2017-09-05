@@ -19,15 +19,4 @@ export class PdfService {
         err => console.error(err)
       );
   }
-
-  getPreview(data) {
-    return this.api.post('/preview', data)
-      .map(res => res.file)
-      // .subscribe(
-      //   data => {
-      //     console.log(data);
-      //   },
-      //   err => console.error(err)
-      // );
-  }
 }
