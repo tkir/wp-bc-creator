@@ -1,14 +1,18 @@
-import {Component, ElementRef, Inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
 import {PreviewService} from "../services/preview.service";
 
 @Component({
   selector: 'card-preview-modal',
   templateUrl: './preview-modal.component.html',
-  styleUrls: ['./preview-modal.component.css']
+  styleUrls: ['./preview-modal.component.scss'],
+  host: {
+    '(window:mouseup)': 'onMouseUp($event)'
+  }
 })
 export class PreviewModalComponent implements OnInit, OnDestroy {
-  @Input() id: string;
+
+  @Output() closeModal = new EventEmitter();
   private element: Element;
 
   constructor(@Inject(DOCUMENT) private document: any,
@@ -17,13 +21,12 @@ export class PreviewModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (!this.id) {
-      console.error('modal must have an id');
-      return;
-    }
-
     this.element = this.el.nativeElement;
     this.document.body.appendChild(this.element);
+
+    this.element.classList.add('active');
+    this.element.querySelector('.bc-creator-modal-overlay')
+      .classList.add('active');
   }
 
   ngOnDestroy(): void {
@@ -38,5 +41,12 @@ export class PreviewModalComponent implements OnInit, OnDestroy {
   // close modal
   close() {
     this.document.body.classList.remove('modal-open');
+    this.closeModal.emit();
+  }
+
+  onMouseUp(event) {
+    event.preventDefault();
+    if (!this.element.contains(event.target))
+      this.close();
   }
 }

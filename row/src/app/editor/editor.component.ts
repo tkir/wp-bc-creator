@@ -18,10 +18,7 @@ import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
 @Component({
   selector: 'card-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css'],
-  host: {
-    '(window:mouseup)': 'onMouseUp($event)'
-  }
+  styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit, OnDestroy {
 
@@ -161,28 +158,27 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   @ViewChild("previewModalContainer", {read: ViewContainerRef}) container;
   componentRef: ComponentRef<PreviewModalComponent> = null;
-  public modalId = 'bc-creator-preview';
+  private modalSubscription: Subscription = null;
+
 
   openModal() {
     this.container.clear();
     const factory = this.resolver.resolveComponentFactory(PreviewModalComponent);
     this.componentRef = this.container.createComponent(factory);
-    this.componentRef.instance.id = this.modalId;
+    this.modalSubscription = this.componentRef.instance.closeModal
+      .subscribe(() => this.closeModal());
     this.componentRef.instance.open();
     this.previewService.isModalOpen = true;
   }
 
   closeModal() {
     this.previewService.isModalOpen = false;
-    this.componentRef.instance.close();
+
+    this.modalSubscription.unsubscribe();
+    this.modalSubscription = null;
+
     this.componentRef.destroy();
     this.container.clear();
     this.componentRef = null;
-  }
-
-  onMouseUp(event) {
-    if (!this.previewService.isModalOpen)return;
-    if (!event.target.closest(`#${this.modalId}`))
-      this.closeModal();
   }
 }
