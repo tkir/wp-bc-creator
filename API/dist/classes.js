@@ -75,6 +75,7 @@ class Background {
             `background-image: url('${this.src}');
       background-size: cover;`;
         return `
+      position: relative;
       background-color: ${this.backgroundColor};
       ${bgImg}
       margin: 0;

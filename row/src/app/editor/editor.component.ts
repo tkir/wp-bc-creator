@@ -15,6 +15,7 @@ import {DesignService} from "../services/design.service";
 import {PreviewService} from "../services/preview.service";
 import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
 
+
 @Component({
   selector: 'card-editor',
   templateUrl: './editor.component.html',

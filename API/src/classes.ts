@@ -106,9 +106,10 @@ export class Background {
   getDivStyle(k: number, z: number) {
     let bgImg = this.src == '' ? '' :
       `background-image: url('${this.src}');
-      background-size: cover;`
+      background-size: cover;`;
 
     return `
+      position: relative;
       background-color: ${this.backgroundColor};
       ${bgImg}
       margin: 0;
