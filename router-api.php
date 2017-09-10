@@ -64,11 +64,6 @@ class BC_Creator_RouterAPI
         return current_user_can('edit_plugins');
     }
 
-    public function checkReadPermission()
-    {
-        return current_user_can('read');
-    }
-
     public function checkAuthorPermission()
     {
         return current_user_can('publish_posts');
