@@ -5,10 +5,7 @@ import {PreviewService} from "../services/preview.service";
 @Component({
   selector: 'card-preview-modal',
   templateUrl: './preview-modal.component.html',
-  styleUrls: ['./preview-modal.component.scss'],
-  host: {
-    '(window:mouseup)': 'onMouseUp($event)'
-  }
+  styleUrls: ['./preview-modal.component.scss']
 })
 export class PreviewModalComponent implements OnInit, OnDestroy {
 
@@ -42,11 +39,5 @@ export class PreviewModalComponent implements OnInit, OnDestroy {
   close() {
     this.document.body.classList.remove('modal-open');
     this.closeModal.emit();
-  }
-
-  onMouseUp(event) {
-    event.preventDefault();
-    if (!this.element.contains(event.target))
-      this.close();
   }
 }
