@@ -38,8 +38,7 @@ class BC_Creator_RouterAPI
 
         register_rest_route('business-card-creator/design/', '/(?P<slug>\S+)/', array(
             'methods' => WP_REST_Server::READABLE,
-            'callback' => array($this, 'getDesign'),
-            'permission_callback' => array($this, 'checkReadPermission')
+            'callback' => array($this, 'getDesign')
         ));
 
         register_rest_route('business-card-creator/', '/pdf/', array(
@@ -50,8 +49,7 @@ class BC_Creator_RouterAPI
 
         register_rest_route('business-card-creator/', '/preview/', array(
             'methods' => WP_REST_Server::EDITABLE,
-            'callback' => array($this, 'getPreview'),
-            'permission_callback' => array($this, 'checkAuthorPermission')
+            'callback' => array($this, 'getPreview')
         ));
 
         register_rest_route('business-card-creator/', '/save/', array(
