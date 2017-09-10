@@ -33,6 +33,7 @@ import {PdfService} from "./services/pdf.service";
 import {DesignStore} from "./services/design-store";
 import {PreviewService} from "./services/preview.service";
 import { PreviewModalComponent } from './preview-modal/preview-modal.component';
+import {OrderFormComponent} from "./order-form/order-form.component";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { PreviewModalComponent } from './preview-modal/preview-modal.component';
     AlignableDirective,
     CardContainerComponent,
     DesignContainerComponent,
-    PreviewModalComponent
+    PreviewModalComponent,
+    OrderFormComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
