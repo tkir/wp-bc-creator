@@ -15,6 +15,9 @@ if (!empty($_POST)) {
 <?php
 $page_url = get_option('BusinessCardCreator_url');
 $hash = get_option('BusinessCardCreator_hash');
+
+include_once(plugin_dir_path(__DIR__) . 'util.php');
+$options = BC_Creator_util::getOrderOptions();
 ?>
 
 
@@ -24,6 +27,7 @@ $hash = get_option('BusinessCardCreator_hash');
     <div class="tab">
         <button class="tablinks active" onclick="open_BC_Creator_menu_tab(event, 0)">General</button>
         <button class="tablinks" onclick="open_BC_Creator_menu_tab(event, 1)">Design</button>
+        <button class="tablinks" onclick="open_BC_Creator_menu_tab(event, 2)">Order</button>
     </div>
 
     <div class="tabcontent active">
@@ -63,6 +67,27 @@ $hash = get_option('BusinessCardCreator_hash');
             <div class="menu-sidebar-container"></div>
         </div>
     </div>
+
+    <div class="tabcontent">
+        <h3>Order detail</h3>
+
+        <?php foreach ($options as $option): $values=json_decode($option->Values)?>
+        <div class="bc-creator-menu-order-detail">
+            <a>X</a><input type="text" value="<?=$option->Name?>">
+            <div class="bc-creator-menu-order-detail-option">
+
+                <?php foreach ($values as $value): ?>
+                <div>
+                    <a>X</a><input type="text" value="<?=$value?>">
+                </div>
+                <?php endforeach;?>
+
+            </div>
+        </div>
+        <?php endforeach;?>
+
+    </div>
+
 </div>
 
 <script src="<?= plugins_url() . '/business-card-creator' . '/menu/main_menu.js'; ?>"></script>

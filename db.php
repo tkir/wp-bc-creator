@@ -4,6 +4,8 @@ class BC_Creator_DB
 {
     private static $instance;
     protected $tableDesign;
+    protected $tableOrderOptions;
+    protected $config;
 
     /**
      * Returns an instance of this class.
@@ -21,6 +23,7 @@ class BC_Creator_DB
         global $wpdb;
         $this->config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         $this->tableDesign = $wpdb->prefix . $this->config->tableDesign;
+        $this->tableOrderOptions = $wpdb->prefix . $this->config->tableOrderOptions;
     }
 
     public static function get_design($design, $user = '')
@@ -66,6 +69,17 @@ VALUES ('%s', %d, '%s', '%s', $userID, '%s', '%s','%s',%d);",
         return $wpdb->get_results($query);
     }
 
+    public function getOrderOptions()
+    {
+        global $wpdb;
+        return $wpdb->get_results("SELECT id, `Name`, `Values` FROM `$this->tableOrderOptions`");
+    }
+
+    public function updateOrderOption($options)
+    {
+        global $wpdb;
+    }
+
     public function createTableDesign()
     {
         global $wpdb;
@@ -92,6 +106,30 @@ VALUES ('%s', %d, '%s', '%s', $userID, '%s', '%s','%s',%d);",
         }
     }
 
+    public function createTableOrderOptions()
+    {
+        global $wpdb;
+
+        if ($wpdb->get_var("SHOW TABLES LIKE $this->tableOrderOptions") != $this->tableOrderOptions) {
+            $sql = "CREATE TABLE IF NOT EXISTS `$this->tableOrderOptions`(
+			`id` INT NOT NULL AUTO_INCREMENT,
+			`Name` VARCHAR(255),
+			`Values` TEXT,			
+			`isActive` BOOLEAN NOT NULL DEFAULT 1,
+			PRIMARY KEY(`id`)
+		)
+		ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+
+            $wpdb->query($sql);
+
+            foreach ($this->config->orderOptions as $option) {
+                $wpdb->query("
+INSERT INTO `$this->tableOrderOptions` (`Name`, `Values`) VALUES ('$option->name', '" . json_encode($option->values) . "');
+                ");
+            }
+        }
+    }
+
     public function toggleActive($id)
     {
         global $wpdb;
@@ -107,5 +145,12 @@ VALUES ('%s', %d, '%s', '%s', $userID, '%s', '%s','%s',%d);",
         global $wpdb;
         return $wpdb->get_row(
             $wpdb->prepare("SELECT * FROM `$this->tableDesign` WHERE Slug = %s", $slug));
+    }
+
+    public function deleteTablesOnUninstall(){
+        global $wpdb;
+
+        $wpdb->query("DROP TABLE IF EXISTS $this->tableDesign");
+        $wpdb->query("DROP TABLE IF EXISTS $this->tableOrderOptions");
     }
 }

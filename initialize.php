@@ -28,6 +28,7 @@ class BC_Creator_Initializer
 //    если таблицы нет, создаем
         include_once 'db.php';
         BC_Creator_DB::get_instance()->createTableDesign();
+        BC_Creator_DB::get_instance()->createTableOrderOptions();
 
 //    добавляем записи в опции: url & hash
         update_option('BusinessCardCreator_url', 'business-card-creator');
@@ -131,9 +132,8 @@ INSERT INTO $table
     //при удалении плагина
     public static function uninstall()
     {
-        global $wpdb;
-        $tableDesign = $wpdb->prefix . 'BusinessCardCreator_design';
-        $wpdb->query("DROP TABLE IF EXISTS $tableDesign");
+        include_once 'db.php';
+        BC_Creator_DB::get_instance()->deleteTablesOnUninstall();
 
         delete_option('BusinessCardCreator_url');
         delete_option('BusinessCardCreator_hash');

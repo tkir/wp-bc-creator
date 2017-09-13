@@ -143,4 +143,15 @@ class BC_Creator_util
             'data' => $data
         );
     }
+
+    public static function getOrderOptions()
+    {
+        include_once 'db.php';
+        return BC_Creator_DB::get_instance()->getOrderOptions();
+    }
+
+    public static function updateOrderOption($options){
+        include_once 'db.php';
+        return BC_Creator_DB::get_instance()->updateOrderOption($options);
+    }
 }
