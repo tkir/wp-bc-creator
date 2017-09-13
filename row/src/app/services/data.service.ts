@@ -12,7 +12,7 @@ export class DataService {
   constructor(private cardService: CardService,
               private store: Store,
               private router: Router,
-              private designService: DesignService) {console.log(bc_creator_config['path']);
+              private designService: DesignService) {
 
     let designs = bc_creator_config.previews
       .map(p => p['Slug']);
