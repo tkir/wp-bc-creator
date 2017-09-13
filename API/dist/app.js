@@ -11,7 +11,7 @@ let app = express();
 app.use(cors());
 app.use(bodyParser.json({ limit: '5mb' }));
 app.get('/', function (req, res) {
-    res.send('Hello World!');
+    res.send('Ok!');
 });
 let server = app.listen(process.env.PORT || 3000, function () {
     console.log('PDF app listening on port 3000');

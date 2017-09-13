@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `Customers` (
   AUTO_INCREMENT = 1;
 
 
-INSERT INTO `customers`
+INSERT INTO `Customers`
 (`fName`, `lName`, `email`, `site`, `password_hash`, `hash`, `permission`, `permission_ext`) VALUES
   ('Kirill',
    'Titenko',

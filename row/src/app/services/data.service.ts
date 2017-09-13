@@ -12,7 +12,7 @@ export class DataService {
   constructor(private cardService: CardService,
               private store: Store,
               private router: Router,
-              private designService: DesignService) {
+              private designService: DesignService) {console.log(bc_creator_config['path']);
 
     let designs = bc_creator_config.previews
       .map(p => p['Slug']);
@@ -21,7 +21,7 @@ export class DataService {
     router.events.subscribe((val: any) => {
       if (NavigationStart.prototype.isPrototypeOf(val)) {
         let url = val.url[0] == '/' ? val.url.slice(1) : val.url;
-        if (url === '') url = bc_creator_config['defaultDesign'];
+        if (url === '' || url==='business-card-creator') url = bc_creator_config['defaultDesign'];
         if (designs.indexOf(url) !== -1) {
           this.designService.getDesign(url)
             .subscribe(d => {

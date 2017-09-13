@@ -14,10 +14,10 @@ export class DataAccess {
 
     constructor() {
         this.connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'bc-creator-api'
+            host: 'sql11.freemysqlhosting.net',
+            user: 'sql11194181',
+            password: 'b4gMLBa8uZ',
+            database: 'sql11194181'
         });
     }
 

@@ -18,7 +18,7 @@ $hash = get_option('BusinessCardCreator_hash');
 ?>
 
 
-<link href="<?= plugins_url() . '/business-card-creator' . '/menu/main_menu.css'; ?>" rel="stylesheet"/>
+<link href="<?= plugins_url(__FILE__) . '/menu/main_menu.css'; ?>" rel="stylesheet"/>
 
 <div id="bc-creator-menu">
     <div class="tab">
