@@ -7,8 +7,6 @@ if (!empty($_POST)) {
 
     update_option('BusinessCardCreator_url', str_replace(' ', '', $_POST['page_url']));
     update_option('BusinessCardCreator_hash', str_replace(' ', '', $_POST['hash']));
-
-
 }
 ?>
 

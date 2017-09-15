@@ -9,6 +9,9 @@ import { TabGeneralComponent } from './tab-general/tab-general.component';
 import { TabDesignComponent } from './tab-design/tab-design.component';
 import { TabOrderDetailComponent } from './tab-order-detail/tab-order-detail.component';
 import { Page404Component } from './page-404/page-404.component';
+import {OptionsService} from "./services/options.service";
+import {FormsModule} from "@angular/forms";
+import {ApiService} from "./services/api.service";
 
 @NgModule({
   declarations: [
@@ -22,9 +25,10 @@ import { Page404Component } from './page-404/page-404.component';
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [OptionsService, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

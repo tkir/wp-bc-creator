@@ -1,3 +1,11 @@
-<p>
-  tab-general works!
-</p>
+<label><input type="text" name="page_url" value="{{options.page_url}}"> Page URL</label><br>
+<label><input type="text" name="hash" value="{{options.hash}}"> Personal hash</label><br>
+<h3>Page template</h3>
+<select name="template">
+  <option *ngFor="let template of options.allowedTemplates"
+          [ngValue]="template.value"
+          [selected]="template.isActive">
+    {{template.name}}
+  </option>
+</select><br>
+<button type="button" (click)="onGeneralUpdate()">Update</button>
