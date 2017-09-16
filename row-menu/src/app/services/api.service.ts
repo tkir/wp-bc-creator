@@ -8,7 +8,8 @@ import {OptionsService} from "./options.service";
 export class ApiService {
 
   constructor(private http: Http,
-              private options: OptionsService) {
+              private options: OptionsService
+  ) {
   }
 
   private restPath = `${this.options.path}business-card-creator/menu`;

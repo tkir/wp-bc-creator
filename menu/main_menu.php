@@ -54,6 +54,7 @@ $options = BC_Creator_util::getOrderOptions();
                             <span class="bc-creator-preview-isActive"
                                   onclick="bc_creator_toggleActive(event)">&times;</span>
                         </div>
+                    </div>
                         <div hidden>id</div>
                 </template>
 

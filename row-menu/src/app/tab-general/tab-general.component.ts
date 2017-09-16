@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import {OptionsService} from "../services/options.service";
+import {Component} from '@angular/core';
+import {OptionsService} from '../services/options.service';
+import {UpdateService} from '../services/update.service';
 
 @Component({
   selector: 'menu-tab-general',
@@ -8,10 +9,12 @@ import {OptionsService} from "../services/options.service";
 })
 export class TabGeneralComponent {
 
-  constructor(public options:OptionsService) { }
+  constructor(public options: OptionsService,
+              private updateService: UpdateService) {
+  }
 
-  public onGeneralUpdate(){
-
+  public onGeneralUpdate(pageUrl, hash, templIndex) {
+    this.updateService.generalUpdate(pageUrl, hash, this.options.allowedTemplates[+templIndex].value);
   }
 
 }

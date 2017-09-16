@@ -12,6 +12,7 @@ import { Page404Component } from './page-404/page-404.component';
 import {OptionsService} from "./services/options.service";
 import {FormsModule} from "@angular/forms";
 import {ApiService} from "./services/api.service";
+import {UpdateService} from './services/update.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,10 @@ import {ApiService} from "./services/api.service";
     FormsModule,
     AppRoutingModule
   ],
-  providers: [OptionsService, ApiService],
+  providers: [OptionsService,
+    ApiService,
+    UpdateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
