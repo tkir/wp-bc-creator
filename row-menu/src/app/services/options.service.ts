@@ -33,7 +33,8 @@ const bc_creator_menu_options: any = {
       'Name': 'Quantity',
       'Values': '[{"Value":"100", "Rate":"1.0"},{"Value":"500", "Rate":"4.5"},{"Value":"1000", "Rate":"8.0"},{"Value":"2000", "Rate":"15.0"}]'
     }
-  ]
+  ],
+  "price": 100
 };
 
 @Injectable()
@@ -50,6 +51,7 @@ export class OptionsService {
   public hash: string;
   public allowedTemplates: [{ name: string, value: string, isActive: boolean }];
   public previews: [{ id: number, Name: string, Slug: string, Description: string, Preview: string, isActive: boolean }];
+  public price:number;
   private orderOptions: any;
   private _OrderOptions: [{ id: number, Name: string, Values: [{ Value: string, Rate: number }] }];
 

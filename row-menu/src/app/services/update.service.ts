@@ -37,4 +37,8 @@ export class UpdateService {
   public toggleActive(id){
     return this.api.get(`/toggleActive/${id}`);
   }
+
+  public updatePrice(price){
+    return this.api.post('/price', price);
+  }
 }

@@ -3,7 +3,7 @@
 <h3>Page template</h3>
 <select #template>
   <option *ngFor="let template of options.allowedTemplates"
-          [ngValue]="template.value"
+          [value]="template.value"
           [selected]="template.isActive">
     {{template.name}}
   </option>

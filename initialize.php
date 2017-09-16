@@ -108,7 +108,7 @@ INSERT INTO $table
         add_action('wp_head', array('BC_Creator', 'add_head'));
         add_action('parse_request', array('BC_Creator', 'get_query'));
         add_action('admin_enqueue_scripts', array('BC_Creator', 'localize_admin_scripts'));
-        add_action('wp_enqueue_scripts',  array('BC_Creator', 'localize_page_scripts'));
+        add_action('wp_enqueue_scripts', array('BC_Creator', 'localize_page_scripts'));
 
 
         /**
@@ -116,6 +116,9 @@ INSERT INTO $table
          */
         include_once 'router-api.php';
         add_action('rest_api_init', array('BC_Creator_RouterAPI', 'get_instance'));
+
+        include_once 'ajax.php';
+        BC_Creator_AJAX::get_instance();
     }
 
     //при деактивации плагина

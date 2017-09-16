@@ -1,13 +1,18 @@
 <h3>Order detail</h3>
+<div>
+<h4>Price</h4>
+  <input type="text" [value]="options.price" #price>
+  <button type="button" (click)="updatePrice(price.value)">Update Price</button>
+</div>
 
-<div *ngFor="let option of options.OrderOptions" class="bc-creator-menu-order-detail">
-  <a>X</a><input type="text" [value]="option.Name">
+<div *ngFor="let option of model" class="bc-creator-menu-order-detail">
+  <a>X</a><input type="text" [(ngModel)]="option.Name">
   <div class="bc-creator-menu-order-detail-option">
 
     <div *ngFor="let val of option.Values">
       <a>X</a>
-      <input type="text" [value]="val.Value">
-      <input type="text" [value]="val.Rate">
+      <input type="text" [(ngModel)]="val.Value">
+      <input type="text" [(ngModel)]="val.Rate">
     </div>
 
   </div>
