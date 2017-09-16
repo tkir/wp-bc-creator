@@ -1,3 +1,17 @@
-<p>
-  tab-order-detail works!
-</p>
+<h3>Order detail</h3>
+
+<div *ngFor="let option of options.OrderOptions" class="bc-creator-menu-order-detail">
+  <a>X</a><input type="text" [value]="option.Name">
+  <div class="bc-creator-menu-order-detail-option">
+
+    <div *ngFor="let val of option.Values">
+      <a>X</a>
+      <input type="text" [value]="val.Value">
+      <input type="text" [value]="val.Rate">
+    </div>
+
+  </div>
+</div>
+
+<button type="button" (click)="orderOptionsUpdate()">Update</button>
+
