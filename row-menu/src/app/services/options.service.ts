@@ -8,7 +8,25 @@ const bc_creator_menu_options: any = {
     {value: 'default', name: 'Default', isActive: false},
     {value: 'bc_creator', name: 'Full screen', isActive: true}
   ],
-  previews: [],
+  previews: [
+    {"id": "1", "Name": "pageNotFound", "Slug": "pageNotFound", "Description": null, "Preview": null, "isActive": "1"},
+    {
+      "id": "2",
+      "Name": "Design 2",
+      "Slug": "des2",
+      "Description": "",
+      "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/des2/preview.jpg",
+      "isActive": "1"
+    },
+    {
+      "id": "3",
+      "Name": "Design 3",
+      "Slug": "des3",
+      "Description": "",
+      "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/des3/preview.jpg",
+      "isActive": "1"
+    }
+  ],
   orderOptions: [
     {
       'id': 0,
@@ -38,6 +56,7 @@ export class OptionsService {
   public get OrderOptions() {
     return this._OrderOptions;
   }
+
   public setOrderOptions(val) {
     this.orderOptions = val;
     this._OrderOptions = this.orderOptions

@@ -4,11 +4,15 @@
     <div class="bc-creator-menu-previews-container">
 
       <div *ngFor="let preview of options.previews">
-        <h3 *ngIf="preview.Name && preview.Name!=''">{{preview.Name}}</h3>
-        <div class="bc-creator-preview-img">
-          <img [src]="preview.Preview">
-          <span [class.active]="preview.isActive"
-                (click)="toggleActive(preview)">&times;</span>
+        <div *ngIf="preview.Preview">
+
+          <h3 *ngIf="preview.Name && preview.Name!=''">{{preview.Name}}</h3>
+          <div class="bc-creator-preview-img">
+            <img [src]="preview.Preview">
+            <span [class.active]="preview.isActive"
+                  (click)="toggleActive(preview)">&times;</span>
+          </div>
+
         </div>
       </div>
 

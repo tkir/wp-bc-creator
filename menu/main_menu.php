@@ -91,7 +91,7 @@ $options = BC_Creator_util::getOrderOptions();
 <script src="<?= plugins_url() . '/business-card-creator' . '/menu/main_menu.js'; ?>"></script>
 <script>
     bc_creator_api.previews.sort((a, b) => a['Preview_Order'] - b['Preview_Order']);
-    createPreviews(bc_creator_api.previews);
+    createPreviews(bc_creator_api.previews);console.log(JSON.stringify(bc_creator_api.previews));
 
     document.querySelector('#bc-creator-menu select option[value="' + bc_creator_api.template + '"]')
         .setAttribute('selected', 'true');
