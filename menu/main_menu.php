@@ -95,23 +95,4 @@ $options = BC_Creator_util::getOrderOptions();
 
     document.querySelector('#bc-creator-menu select option[value="' + bc_creator_api.template + '"]')
         .setAttribute('selected', 'true');
-
-
-
-    var url = '<?= admin_url('/admin-ajax.php?action=get_order_options') ?>';
-//        + '&_wpnonce=<?//= wp_create_nonce('get_order_options') ?>//';
-
-    jQuery(function($) {
-        $('#btnTest').click(function(e) {
-            var requestData = {
-//                action: 'get_order_options',
-                _wpnonce: '<?= wp_create_nonce('get_order_options') ?>',
-                my_other_papams: {text:'Hello AJAX!'}
-            };
-
-            $.post(url, requestData, function(response) { // $.get OR $.post
-                console.log(response);
-            });
-        });
-    });
 </script>

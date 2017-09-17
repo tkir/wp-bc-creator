@@ -13,7 +13,7 @@ export class PreviewService {
   getPreview(data) {
     return this.api.post('/preview', data)
       .map(res => res.file)
-      .subscribe(data => this.modalPreview = "data:image/png;base64," + data);
+      .subscribe(data => {console.log(data);this.modalPreview = "data:image/png;base64," + data;});
   }
 
   modalClosed() {

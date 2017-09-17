@@ -98,7 +98,7 @@ class BC_Creator_RouterAPI
             BC_Creator_DB::get_instance()->addDesign($des, null);
         }
 
-        return BC_Creator_DB::get_instance()->getPreviews();
+        return BC_Creator_DB::get_instance()->getPreviews(true);
     }
 
     protected function prepareDesignToDB($des, $userID)
