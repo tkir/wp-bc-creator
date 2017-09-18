@@ -22,6 +22,23 @@ export class TabOrderDetailComponent implements OnInit {
   public orderOptionsUpdate() {
   }
 
+  public deleteOption(option) {
+    this.model.splice(this.model.indexOf(option), 1);
+  }
+
+  deleteValue(option, val) {
+    option.Values.splice(option.Values.indexOf(val), 1);
+  }
+
+  public addValue(option, val) {
+    option.Values.push(val);
+    option.Values.sort((a, b) => a.Rate - b.Rate);
+  }
+
+  public addOption() {
+    this.model.push({id: -1, Name: '', Values: []});
+  }
+
   public updatePrice(price) {
     if (this.options.price != +price) {
       this.updateService.updatePrice(price)

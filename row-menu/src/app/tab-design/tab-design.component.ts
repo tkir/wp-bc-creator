@@ -32,8 +32,7 @@ export class TabDesignComponent implements OnDestroy {
   public toggleActive(preview) {
     this.updateService.toggleActive(preview.id)
       .subscribe(res => {
-        if (res)
-          preview.isActive = !preview.isActive;
+        if (res) preview.isActive = !preview.isActive;
       });
   }
 }

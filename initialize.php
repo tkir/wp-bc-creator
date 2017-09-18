@@ -116,9 +116,6 @@ INSERT INTO $table
          */
         include_once 'router-api.php';
         add_action('rest_api_init', array('BC_Creator_RouterAPI', 'get_instance'));
-
-        include_once 'ajax.php';
-        BC_Creator_AJAX::get_instance();
     }
 
     //при деактивации плагина

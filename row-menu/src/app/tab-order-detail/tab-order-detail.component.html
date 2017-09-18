@@ -6,17 +6,25 @@
 </div>
 
 <div *ngFor="let option of model" class="bc-creator-menu-order-detail">
-  <a>X</a><input type="text" [(ngModel)]="option.Name">
+  <input type="text" [(ngModel)]="option.Name">
+  <button type="button" (click)="deleteOption(option)">Remove option</button>
   <div class="bc-creator-menu-order-detail-option">
 
     <div *ngFor="let val of option.Values">
-      <a>X</a>
       <input type="text" [(ngModel)]="val.Value">
       <input type="text" [(ngModel)]="val.Rate">
+      <button type="button" (click)="deleteValue(option, val)">-</button>
+    </div>
+
+    <div>
+      <input type="text" #newVal>
+      <input type="text" #newRate>
+      <button type="button" (click)="addValue(option, {Value:newVal.value, Rate:newRate.value}); newVal.value=''; newRate.value='';">+</button>
     </div>
 
   </div>
 </div>
+<button type="button" (click)="addOption()">Add option</button>
 
 <button type="button" (click)="orderOptionsUpdate()">Update</button>
 
