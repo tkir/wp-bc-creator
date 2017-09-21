@@ -1,30 +1,36 @@
-<h3>Order detail</h3>
-<div>
-<h4>Price</h4>
-  <input type="text" [value]="options.price" #price>
-  <button type="button" (click)="updatePrice(price.value)">Update Price</button>
-</div>
+<!--<form>-->
 
-<div *ngFor="let option of model" class="bc-creator-menu-order-detail">
-  <input type="text" [(ngModel)]="option.Name">
-  <button type="button" (click)="deleteOption(option)">Remove option</button>
-  <div class="bc-creator-menu-order-detail-option">
-
-    <div *ngFor="let val of option.Values">
-      <input type="text" [(ngModel)]="val.Value">
-      <input type="text" [(ngModel)]="val.Rate">
-      <button type="button" (click)="deleteValue(option, val)">-</button>
-    </div>
-
-    <div>
-      <input type="text" #newVal>
-      <input type="text" #newRate>
-      <button type="button" (click)="addValue(option, {Value:newVal.value, Rate:newRate.value}); newVal.value=''; newRate.value='';">+</button>
-    </div>
-
+  <h3>Order detail</h3>
+  <div>
+    <h4>Price</h4>
+    <input type="text" [value]="options.price" #price>
+    <button type="button" (click)="updatePrice(price.value)">Update Price</button>
   </div>
-</div>
-<button type="button" (click)="addOption()">Add option</button>
 
-<button type="button" (click)="orderOptionsUpdate()">Update</button>
+  <div *ngFor="let option of model" class="bc-creator-menu-order-detail">
+    <input type="text" [(ngModel)]="option.Name">
+    <button type="button" (click)="deleteOption(option)">Remove option</button>
+    <div class="bc-creator-menu-order-detail-option">
 
+      <div *ngFor="let val of option.Values; let i=index;">
+        <input type="text" [(ngModel)]="val.Value">
+        <input type="text" [(ngModel)]="val.Rate">
+        <button type="button" (click)="deleteValue(option, val)">-</button>
+      </div>
+
+      <div>
+        <input type="text" #newVal required ngModel>
+        <input type="text" #newRate required pattern="[0-9.]+" ngModel>
+        <button type="button" [disabled]="!newVal.validity.valid || !newRate.validity.valid"
+                (click)="addValue(option, {Value:newVal.value, Rate:newRate.value}); newVal.value=''; newRate.value='';">
+          +
+        </button>
+      </div>
+
+    </div>
+  </div>
+  <button type="button" (click)="addOption()">Add option</button>
+
+  <button type="button" (click)="updateOrderOptions()" [disabled]="!isFormValid">Update options</button>
+
+<!--</form>-->

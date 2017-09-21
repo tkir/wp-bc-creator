@@ -41,4 +41,8 @@ export class UpdateService {
   public updatePrice(price){
     return this.api.post('/price', price);
   }
+
+  public updateOrderOptions(options){
+    return this.api.post('/options', options);
+  }
 }

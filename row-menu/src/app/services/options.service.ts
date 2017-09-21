@@ -9,22 +9,22 @@ const bc_creator_menu_options: any = {
     {value: 'bc_creator', name: 'Full screen', isActive: true}
   ],
   previews: [
-    {"id": "1", "Name": "pageNotFound", "Slug": "pageNotFound", "Description": null, "Preview": null, "isActive": "1"},
+    {'id': '1', 'Name': 'pageNotFound', 'Slug': 'pageNotFound', 'Description': null, 'Preview': null, 'isActive': '1'},
     {
-      "id": "2",
-      "Name": "Design 2",
-      "Slug": "des2",
-      "Description": "",
-      "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/des2/preview.jpg",
-      "isActive": "1"
+      'id': '2',
+      'Name': 'Design 2',
+      'Slug': 'des2',
+      'Description': '',
+      'Preview': 'http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/des2/preview.jpg',
+      'isActive': '1'
     },
     {
-      "id": "3",
-      "Name": "Design 3",
-      "Slug": "des3",
-      "Description": "",
-      "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/des3/preview.jpg",
-      "isActive": "1"
+      'id': '3',
+      'Name': 'Design 3',
+      'Slug': 'des3',
+      'Description': '',
+      'Preview': 'http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/des3/preview.jpg',
+      'isActive': '1'
     }
   ],
   orderOptions: [
@@ -34,7 +34,7 @@ const bc_creator_menu_options: any = {
       'Values': '[{"Value":"100", "Rate":"1.0"},{"Value":"500", "Rate":"4.5"},{"Value":"1000", "Rate":"8.0"},{"Value":"2000", "Rate":"15.0"}]'
     }
   ],
-  "price": 100
+  price: 100
 };
 
 @Injectable()
@@ -51,9 +51,9 @@ export class OptionsService {
   public hash: string;
   public allowedTemplates: [{ name: string, value: string, isActive: boolean }];
   public previews: [{ id: number, Name: string, Slug: string, Description: string, Preview: string, isActive: boolean }];
-  public price:number;
+  public price: number;
   private orderOptions: any;
-  private _OrderOptions: [{ id: number, Name: string, Values: [{ Value: string, Rate: number }] }];
+  private _OrderOptions: [{ id: number, Name: string, Values: [{ Value: string, Rate: string }] }];
 
   public get OrderOptions() {
     return this._OrderOptions;
@@ -61,10 +61,9 @@ export class OptionsService {
 
   public setOrderOptions(val) {
     this.orderOptions = val;
+
     this._OrderOptions = this.orderOptions
-      .map(option => {
-        return {id: option.id, Name: option.Name, Values: JSON.parse(option.Values)};
-      });
+      .map(option => {return {id: option.id, Name: option.Name, Values: JSON.parse(option.Values)};});
   }
 
 }
