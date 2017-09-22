@@ -51,6 +51,27 @@ VALUES ('%s', %d, '%s', '%s', $userID, '%s', '%s','%s',%d);",
             $design->Preview_Order));
     }
 
+    public function set_pageNotFound_design()
+    {
+        global $wpdb;
+        $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
+
+        $name = $config->pageNotFound->name;
+        $version = $config->pageNotFound->version;
+        $slug = $config->pageNotFound->slug;
+        $fieldsData = json_encode($config->pageNotFound->fieldsData);
+        $designData = json_encode($config->pageNotFound->designData);
+
+        $wpdb->query("DELETE FROM `$this->tableDesign` WHERE `Name`='$name'");
+
+        $wpdb->query("
+INSERT INTO `$this->tableDesign`
+(`Name`,  `Version`, `Slug`,  `FieldsData`,  `DesignData`) VALUES
+('$name', $version, '$slug', '$fieldsData', '$designData')
+");
+
+    }
+
     public function deleteDesign($slug)
     {
         global $wpdb;

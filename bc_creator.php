@@ -27,20 +27,7 @@ class BC_Creator
         }
     }
 
-//    регистрируем скипты admin
-    public static function localize_admin_scripts()
-    {
-        $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
-        include_once 'db.php';
 
-        wp_enqueue_script('main_menu', wp_normalize_path('/menu/main_menu.js'));
-        wp_localize_script('main_menu', 'bc_creator_api', array(
-            'path' => esc_url_raw(rest_url()),
-            'nonce' => wp_create_nonce('wp_rest'),
-            'previews' => BC_Creator_DB::get_instance()->getPreviews(true),
-            'template' => $config->template
-        ));
-    }
 
 //    регистрируем скипты page
     public static function localize_page_scripts()

@@ -4,7 +4,6 @@ class BC_Creator_Initializer
 {
 
     protected static $instance;
-    protected static $tableDesign = 'BusinessCardCreator_design';
 
     public static function init()
     {
@@ -37,29 +36,8 @@ class BC_Creator_Initializer
         include_once('util.php');
         BC_Creator_util::createPage(get_option('BusinessCardCreator_url'));
 
-        BC_Creator_Initializer::set_pageNotFound_design();
-    }
-
-    protected static function set_pageNotFound_design()
-    {
-        global $wpdb;
-        $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
-        $table = $wpdb->prefix . BC_Creator_Initializer::$tableDesign;
-
-        $name = $config->pageNotFound->name;
-        $version = $config->pageNotFound->version;
-        $slug = $config->pageNotFound->slug;
-        $fieldsData = json_encode($config->pageNotFound->fieldsData);
-        $designData = json_encode($config->pageNotFound->designData);
-
-        $wpdb->query("DELETE FROM $table WHERE `Name`='$name'");
-
-        $wpdb->query("
-INSERT INTO $table
-(`Name`,  `Version`, `Slug`,  `FieldsData`,  `DesignData`) VALUES
-('$name', $version, '$slug', '$fieldsData', '$designData')
-");
-
+        include_once 'db.php';
+        BC_Creator_DB::get_instance()->set_pageNotFound_design();
     }
 
     public static function on_deactivation()
@@ -97,8 +75,8 @@ INSERT INTO $table
         /**
          * Menu page
          */
-        include_once 'menu_creator.php';
-        add_action('admin_menu', array('Menu_Creator', 'add_menu_page'));
+        include_once 'menu/initialize.php';
+        add_action('admin_menu', array('BC_Creator_MenuInit', 'get_instance'));
 
         /**
          * Creator page
@@ -107,9 +85,7 @@ INSERT INTO $table
         add_shortcode('BusinessCardCreator', array('BC_Creator', 'add_short'));
         add_action('wp_head', array('BC_Creator', 'add_head'));
         add_action('parse_request', array('BC_Creator', 'get_query'));
-        add_action('admin_enqueue_scripts', array('BC_Creator', 'localize_admin_scripts'));
         add_action('wp_enqueue_scripts', array('BC_Creator', 'localize_page_scripts'));
-
 
         /**
          * API
@@ -126,6 +102,7 @@ INSERT INTO $table
         if ($old !== null)
             wp_delete_post($old->ID, true);
 
+//        TODO remove in production
         BC_Creator_Initializer::uninstall();
     }
 

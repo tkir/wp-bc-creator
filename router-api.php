@@ -14,24 +14,7 @@ class BC_Creator_RouterAPI
 
     private function __construct()
     {
-        include_once 'router-menu-api.php';
-        BC_Creator_RouterMenuAPI::get_instance();
-
         $this->registerRoutes();
-
-//        register_rest_route('business-card-creator/', '/updateDesigns/', array(
-//            'methods' => WP_REST_Server::READABLE,
-//            'callback' => array($this, 'updateDesigns'),
-//            'permission_callback' => array($this, 'checkAdminPermission')
-//        ));
-//
-//        register_rest_route('business-card-creator/toggleActive/', '/(?P<id>\d+)/', array(
-//            'methods' => WP_REST_Server::READABLE,
-//            'callback' => array($this, 'toggleActive'),
-//            'permission_callback' => array($this, 'checkAdminPermission')
-//        ));
-
-
     }
 
     private function registerRoutes(){
