@@ -51,7 +51,7 @@ export class TabOrderDetailComponent implements OnInit, OnDestroy {
   public updatePrice(price) {
     if (this.options.price != +price) {
       this.subs.push(this.updateService.updatePrice(price)
-        .subscribe(p => this.options.price = p));
+        .subscribe(p => this.options.price = +p));
     }
   }
 

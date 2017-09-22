@@ -34,15 +34,15 @@ export class UpdateService {
     return this.api.post('/updateDesigns', this.options.previews);
   }
 
-  public toggleActive(id){
+  public toggleActive(id):Observable<any>{
     return this.api.get(`/toggleActive/${id}`);
   }
 
-  public updatePrice(price){
+  public updatePrice(price):Observable<any>{
     return this.api.post('/price', price);
   }
 
-  public updateOrderOptions(options){
+  public updateOrderOptions(options:Observable<any>){
     return this.api.post('/options', options);
   }
 }

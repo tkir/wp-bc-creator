@@ -104,10 +104,16 @@
   },
   "orderOptions":[
     {
+      "OptionType": "settings",
       "name":"Quantity",
       "values":[
         "100","500","1000","2000","5000"
       ]
+    },
+    {
+      "OptionType": "price",
+      "name": "Price",
+      "Values": "100"
     }
   ]
 }

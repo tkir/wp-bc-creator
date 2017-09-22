@@ -80,6 +80,33 @@ VALUES ('%s', %d, '%s', '%s', $userID, '%s', '%s','%s',%d);",
         global $wpdb;
     }
 
+    public function updatePrice($price){
+        global $wpdb;
+        return $wpdb->query($wpdb->prepare("UPDATE `$this->tableOrderOptions` SET 'Values' = %f WHERE `Name`='Price'", floatval($price)));
+    }
+
+    public function getPrice(){
+        global $wpdb;
+        return $wpdb->get_var("SELECT 'Values' FROM `$this->tableOrderOptions` WHERE 'Name'='Price'");
+    }
+
+    public function toggleActive($id)
+    {
+        global $wpdb;
+        $isActive = (bool)$wpdb->get_var("SELECT isActive FROM `$this->tableDesign` WHERE id = $id");
+        return $wpdb->update($this->tableDesign,
+            array('isActive' => !$isActive),
+            array('id' => $id)
+        );
+    }
+
+    public function getDesign($slug)
+    {
+        global $wpdb;
+        return $wpdb->get_row(
+            $wpdb->prepare("SELECT * FROM `$this->tableDesign` WHERE Slug = %s", $slug));
+    }
+
     public function createTableDesign()
     {
         global $wpdb;
@@ -113,6 +140,7 @@ VALUES ('%s', %d, '%s', '%s', $userID, '%s', '%s','%s',%d);",
         if ($wpdb->get_var("SHOW TABLES LIKE $this->tableOrderOptions") != $this->tableOrderOptions) {
             $sql = "CREATE TABLE IF NOT EXISTS `$this->tableOrderOptions`(
 			`id` INT NOT NULL AUTO_INCREMENT,
+			`OptionType` VARCHAR(255) NOT NULL,
 			`Name` VARCHAR(255),
 			`Values` TEXT,			
 			`isActive` BOOLEAN NOT NULL DEFAULT 1,
@@ -124,30 +152,14 @@ VALUES ('%s', %d, '%s', '%s', $userID, '%s', '%s','%s',%d);",
 
             foreach ($this->config->orderOptions as $option) {
                 $wpdb->query("
-INSERT INTO `$this->tableOrderOptions` (`Name`, `Values`) VALUES ('$option->name', '" . json_encode($option->values) . "');
+INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES ('$option->name', '" . json_encode($option->values) . "');
                 ");
             }
         }
     }
 
-    public function toggleActive($id)
+    public function deleteTablesOnUninstall()
     {
-        global $wpdb;
-        $isActive = (bool)$wpdb->get_var("SELECT isActive FROM `$this->tableDesign` WHERE id = $id");
-        return $wpdb->update($this->tableDesign,
-            array('isActive' => !$isActive),
-            array('id' => $id)
-        );
-    }
-
-    public function getDesign($slug)
-    {
-        global $wpdb;
-        return $wpdb->get_row(
-            $wpdb->prepare("SELECT * FROM `$this->tableDesign` WHERE Slug = %s", $slug));
-    }
-
-    public function deleteTablesOnUninstall(){
         global $wpdb;
 
         $wpdb->query("DROP TABLE IF EXISTS $this->tableDesign");
