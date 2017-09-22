@@ -34,7 +34,7 @@ class BC_Creator_MenuInit
         $config = json_decode(file_get_contents(dirname(__DIR__) . "/config.json"));
         include_once dirname(__DIR__) . '/db.php';
 
-        wp_enqueue_script('main_menu', wp_normalize_path('main.bundle.js'));
+        wp_enqueue_script('main_menu', wp_normalize_path('/main.bundle.js'));
         wp_localize_script('main_menu', 'bc_creator_api', array(
             'path' => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest'),
