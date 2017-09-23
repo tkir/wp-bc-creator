@@ -26,13 +26,6 @@ class BC_Creator_DB
         $this->tableOrderOptions = $wpdb->prefix . $this->config->tableOrderOptions;
     }
 
-    public static function get_design($design, $user = '')
-    {
-        global $wpdb;
-        $query = "SELECT * FROM Designes WHERE author = %s AND name=%s";
-        $wpdb->prepare($query, $user, $design);
-    }
-
     public function addDesign($design, $userID)
     {
         $userID = !empty($userID) ? "$userID" : "NULL";
@@ -93,7 +86,7 @@ INSERT INTO `$this->tableDesign`
     public function getOrderOptions()
     {
         global $wpdb;
-        return $wpdb->get_results("SELECT id, `Name`, `Values` FROM `$this->tableOrderOptions`");
+        return $wpdb->get_results("SELECT id, 'Name', 'Values' FROM `$this->tableOrderOptions` WHERE 'OptionType' = 'settings'");
     }
 
     public function updateOrderOption($options)

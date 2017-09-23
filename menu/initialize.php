@@ -35,11 +35,15 @@ class BC_Creator_MenuInit
         include_once dirname(__DIR__) . '/db.php';
 
         wp_enqueue_script('main_menu', wp_normalize_path('/main.bundle.js'));
-        wp_localize_script('main_menu', 'bc_creator_api', array(
-            'path' => esc_url_raw(rest_url()),
+        wp_localize_script('main_menu', 'bc_creator_menu_options', array(
+            'path' => esc_url_raw(rest_url()) . 'business-card-creator/menu',
             'nonce' => wp_create_nonce('wp_rest'),
+            'page_url' => get_option('BusinessCardCreator_url'),
+            'hash' => get_option('BusinessCardCreator_hash'),
+            'allowedTemplates' => $config->allowedTemplates,
             'previews' => BC_Creator_DB::get_instance()->getPreviews(true),
-            'template' => $config->template
+            'orderOptions' => BC_Creator_DB::get_instance()->getOrderOptions(),
+            'price' => BC_Creator_DB::get_instance()->getPrice()
         ));
     }
 }
