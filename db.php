@@ -7,9 +7,6 @@ class BC_Creator_DB
     protected $tableOrderOptions;
     protected $config;
 
-    /**
-     * Returns an instance of this class.
-     */
     public static function get_instance()
     {
         if (null == self::$instance) {
@@ -86,7 +83,7 @@ INSERT INTO `$this->tableDesign`
     public function getOrderOptions()
     {
         global $wpdb;
-        return $wpdb->get_results("SELECT id, 'Name', 'Values' FROM `$this->tableOrderOptions` WHERE 'OptionType' = 'settings'");
+        return $wpdb->get_results("SELECT id, `Name`, `Values` FROM `$this->tableOrderOptions` WHERE `OptionType` = 'settings'");
     }
 
     public function updateOrderOption($options)
@@ -101,7 +98,7 @@ INSERT INTO `$this->tableDesign`
 
     public function getPrice(){
         global $wpdb;
-        return $wpdb->get_var("SELECT 'Values' FROM `$this->tableOrderOptions` WHERE 'Name'='Price'");
+        return $wpdb->get_var("SELECT `Values` FROM `$this->tableOrderOptions` WHERE `Name`='Price'");
     }
 
     public function toggleActive($id)
@@ -166,7 +163,7 @@ INSERT INTO `$this->tableDesign`
 
             foreach ($this->config->orderOptions as $option) {
                 $wpdb->query("
-INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES ('$option->name', '" . json_encode($option->values) . "');
+INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES ('$option->OptionType','$option->Name', '" . json_encode($option->Values) . "');
                 ");
             }
         }

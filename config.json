@@ -108,15 +108,18 @@
   "orderOptions":[
     {
       "OptionType": "settings",
-      "name":"Quantity",
-      "values":[
-        "100","500","1000","2000","5000"
+      "Name":"Quantity",
+      "Values":[
+        {"Value":"100", "Rate":"1.0"},
+        {"Value":"500", "Rate":"4.5"},
+        {"Value":"1000", "Rate":"8.0"},
+        {"Value":"2000", "Rate":"15.0"}
       ]
     },
     {
       "OptionType": "price",
-      "name": "Price",
-      "Values": "100"
+      "Name": "Price",
+      "Values": 100
     }
   ]
 }
