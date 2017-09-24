@@ -92,6 +92,8 @@ class BC_Creator_Initializer
          */
         include_once 'router-api.php';
         add_action('rest_api_init', array('BC_Creator_RouterAPI', 'get_instance'));
+        include_once 'menu/router-menu-api.php';
+        add_action('rest_api_init', array('BC_Creator_RouterMenuAPI', 'get_instance'));
     }
 
     //при деактивации плагина

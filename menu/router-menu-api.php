@@ -1,11 +1,4 @@
 <?php
-
-/**
- * Created by IntelliJ IDEA.
- * User: tkir
- * Date: 22.09.2017
- * Time: 14:59
- */
 class BC_Creator_RouterMenuAPI
 {
     private static $instance;
@@ -68,9 +61,9 @@ class BC_Creator_RouterMenuAPI
     public function updateDesigns()
     {
 
-        include_once 'util.php';
-        include_once 'api.php';
-        include_once 'db.php';
+        include_once dirname(__DIR__) . '/util.php';
+        include_once dirname(__DIR__) . '/api.php';
+        include_once dirname(__DIR__) . '/db.php';
 
         $designs = BC_Creator_util::getDesignsForUpdate();
         $data = '{"designs":' . json_encode($designs) . ', "url": "' . get_option('siteurl') . '"}';
@@ -124,8 +117,8 @@ class BC_Creator_RouterMenuAPI
     protected function deleteDesigns($slugs, $userID)
     {
         if (!$userID) $userID = -1;
-        include_once 'util.php';
-        include_once 'db.php';
+        include_once dirname(__DIR__) . '/util.php';
+        include_once dirname(__DIR__) . '/db.php';
 
         foreach ($slugs as $slug) {
             BC_Creator_DB::get_instance()->deleteDesign($slug);
@@ -135,13 +128,13 @@ class BC_Creator_RouterMenuAPI
 
     public function toggleActive($request)
     {
-        include_once 'db.php';
+        include_once dirname(__DIR__) . '/db.php';
         $res = BC_Creator_DB::get_instance()->toggleActive((int)$request['id']);
         return array('result' => $res);
     }
 
     public function updatePrice($request){
-        include_once 'db.php';
+        include_once dirname(__DIR__) . '/db.php';
         if(BC_Creator_DB::get_instance()->updatePrice(json_decode($request->get_body())))
             return BC_Creator_DB::get_instance()->getPrice();
     }

@@ -15,11 +15,7 @@ class BC_Creator_MenuInit
     private function __construct()
     {
         add_options_page('BusinessCardCreator', 'BC_Creator', 'edit_plugins', 'BC_Creator', array($this, 'menuInsert'));
-
-        include_once 'router-menu-api.php';
-        add_action('rest_api_init', array('BC_Creator_RouterMenuAPI', 'get_instance'));
         add_action('admin_enqueue_scripts', array($this, 'localize_admin_scripts'));
-
     }
 
     //вход в меню
