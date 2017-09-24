@@ -62,24 +62,6 @@ class BC_Creator_RouterMenuAPI
             'callback' => array($this, 'updateOrderOptions'),
             'permission_callback' => array($this, 'checkAdminPermission')
         ));
-
-
-        register_rest_route('business-card-creator/design/', '/(?P<slug>\S+)/', array(
-            'methods' => WP_REST_Server::READABLE,
-            'callback' => array($this, 'getDesign')
-        ));
-
-
-        register_rest_route('business-card-creator/', '/preview/', array(
-            'methods' => WP_REST_Server::EDITABLE,
-            'callback' => array($this, 'getPreview')
-        ));
-
-        register_rest_route('business-card-creator/', '/save/', array(
-            'methods' => WP_REST_Server::EDITABLE,
-            'callback' => array($this, 'saveDesign'),
-            'permission_callback' => array($this, 'checkAuthorPermission')
-        ));
     }
 
     public function checkAdminPermission()
