@@ -2,7 +2,7 @@ import {Injectable, OnDestroy} from '@angular/core';
 import {ImageResult} from "../utils/image/interfaces";
 import {ImageUpload} from "../utils/image/image-upload";
 import {Subscription} from "rxjs/Subscription";
-declare const bc_creator_config: any;
+import {OptionsService} from "./options.service";
 
 @Injectable()
 export class ImageService implements OnDestroy {
@@ -14,7 +14,7 @@ export class ImageService implements OnDestroy {
   private resizeType: string;
   private allowedExtensions: string[] = [];
 
-  constructor() {
+  constructor(private options:OptionsService) {
     this.imageUpload = new ImageUpload();
     this.subscription = this.imageUpload.imageSelected
       .subscribe((res: ImageResult) => {
@@ -22,9 +22,9 @@ export class ImageService implements OnDestroy {
         else if (this.item.instanceOf == 'Background') this.updateBg(res)
       });
 
-    this.resizeQuality = bc_creator_config['settings']['imageUpload']['resizeQuality'];
-    this.resizeType = bc_creator_config['settings']['imageUpload']['resizeType'];
-    this.allowedExtensions = bc_creator_config['settings']['imageUpload']['allowedExtensions'];
+    this.resizeQuality = this.options.settings.imageUpload.resizeQuality;
+    this.resizeType = this.options.settings.imageUpload.resizeType;
+    this.allowedExtensions = this.options.settings.imageUpload.allowedExtensions;
   }
 
   ngOnDestroy() {

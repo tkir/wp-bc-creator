@@ -27,8 +27,6 @@ class BC_Creator
         }
     }
 
-
-
 //    регистрируем скипты page
     public static function localize_page_scripts()
     {
@@ -37,11 +35,13 @@ class BC_Creator
 
         wp_enqueue_script('bc_creator_main', wp_normalize_path('/BusinessCardCreator/main.bundle.js'));
         wp_localize_script('bc_creator_main', 'bc_creator_config', array(
-            'path' => esc_url_raw(rest_url()),
+            'path' => esc_url_raw(rest_url()).'business-card-creator',
             'nonce' => wp_create_nonce('wp_rest'),
             'previews' => BC_Creator_DB::get_instance()->getPreviews(false, get_current_user_id()),
             'defaultDesign'=>$config->defaultDesign,
-            'settings' => $config->creatorSettings
+            'settings' => $config->creatorSettings,
+            'orderOptions' => BC_Creator_DB::get_instance()->getOrderOptions(),
+            'price' => BC_Creator_DB::get_instance()->getPrice()
         ));
     }
 

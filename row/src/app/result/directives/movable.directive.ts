@@ -1,7 +1,5 @@
 import {
-  AfterViewInit,
-  ComponentFactoryResolver, Directive, ElementRef, HostListener, Input, OnInit, Type, ViewChild,
-  ViewContainerRef
+  ComponentFactoryResolver, Directive, ElementRef, Input, OnInit, Type
 } from '@angular/core';
 
 import {CardField} from "../../data/interfaces";
@@ -16,7 +14,7 @@ import {TextField} from "../../data/TextField";
 
 @Directive({
   selector: '[fieldMovable]',
-  host:{
+  host: {
     '(mousedown)': 'onMouseDown($event)',
     '(mousemove)': 'onMouseMove($event)',
     '(window:mouseup)': 'onMouseUp()'
@@ -52,7 +50,7 @@ export class MovableDirective implements OnInit {
       this.dataArr.forEach((item: CardField) => item.isSelected = false);
 
       this.alService.textFields = [];
-      this.alService.isMultiselection=false;
+      this.alService.isMultiselection = false;
 
       return;
     }
@@ -82,7 +80,7 @@ export class MovableDirective implements OnInit {
     let item: CardField = this.dataArr.find((it: CardField) => it.left == left && it.top == top);
     if (!item) {
       this.alService.textFields = [];
-      this.alService.isMultiselection=false;
+      this.alService.isMultiselection = false;
       return;
     }
 

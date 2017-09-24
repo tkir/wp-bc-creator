@@ -5,10 +5,13 @@ import {Logo} from "../data/Logo";
 import {Line} from "../data/Line";
 import {Background} from "../data/Background";
 import {TextField} from "../data/TextField";
+import {OptionsService} from "./options.service";
 let WebFont = require('webfontloader');
 
 @Injectable()
 export class CardService {
+
+  constructor(private options:OptionsService){}
 
   public getCard(fData: CardFieldsData, dData: CardDesignData): CardData {
 
@@ -22,12 +25,12 @@ export class CardService {
 
     let logos: Logo[] = dData.logos.map((d, i) => {
       if (fData.logos[i]) return new Logo(
-        fData.logos[i], d);
+        fData.logos[i], d, this.options);
     });
 
-    let lines: Line[] = dData.lines.map((d, i) => new Line(d));
+    let lines: Line[] = dData.lines.map((d, i) => new Line(d, this.options));
 
-    let bg: Background = new Background(dData.background);
+    let bg: Background = new Background(dData.background, this.options);
 
     //подгружаем уникальные шрифты
     this.loadedFonts = this.loadedFonts.filter(this.onlyUnique);
@@ -47,7 +50,7 @@ export class CardService {
     this.loadedFonts.push(...fonts);
 
     return tDsns.map((d, i) => {
-      if (fStrs[i])return new TextField(fStrs[i], d);
+      if (fStrs[i])return new TextField(fStrs[i], d, this.options);
     });
   }
 

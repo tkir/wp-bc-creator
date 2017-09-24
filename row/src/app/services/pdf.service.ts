@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
 import * as FileSaver from 'file-saver';
-declare const bc_creator_config: any;
 
 @Injectable()
 export class PdfService {

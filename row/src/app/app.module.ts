@@ -34,6 +34,7 @@ import {DesignStore} from "./services/design-store";
 import {PreviewService} from "./services/preview.service";
 import { PreviewModalComponent } from './preview-modal/preview-modal.component';
 import {OrderFormComponent} from "./order-form/order-form.component";
+import {OptionsService} from "./services/options.service";
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import {OrderFormComponent} from "./order-form/order-form.component";
     AppRoutingModule
   ],
   providers: [
+    OptionsService,
     CardService,
     Store,
     DesignStore,

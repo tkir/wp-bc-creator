@@ -14,6 +14,7 @@ import {PdfService} from "../services/pdf.service";
 import {DesignService} from "../services/design.service";
 import {PreviewService} from "../services/preview.service";
 import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
+import {OptionsService} from "../services/options.service";
 
 
 @Component({
@@ -29,7 +30,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private dataService: DataService,
+  constructor(private options:OptionsService,
+              private dataService: DataService,
               private store: Store,
               private imageService: ImageService,
               private designService: DesignService,
@@ -62,7 +64,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         colorStr: '000',
         left_mm: 30,
         top_mm: 5
-      });
+      }, this.options);
 
     if (items && items.length) {
       Object.keys(items[i]).forEach(key => newText[key] = items[i][key]);
@@ -81,7 +83,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         height_mm: 10,
         left_mm: 5,
         top_mm: 5
-      });
+      }, this.options);
 
     items.push(newLogo);
     this.dataService.updateCard(this.model);
@@ -97,7 +99,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         isHorizontal: true,
         design: 'solid',
         _color: '00f'
-      });
+      }, this.options);
     lines.push(newLine);
     this.dataService.updateCard(this.model);
   }
