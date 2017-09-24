@@ -86,14 +86,26 @@ INSERT INTO `$this->tableDesign`
         return $wpdb->get_results("SELECT id, `Name`, `Values` FROM `$this->tableOrderOptions` WHERE `OptionType` = 'settings'");
     }
 
-    public function updateOrderOption($options)
+    public function setOrderOption($options)
     {
         global $wpdb;
+
+        $wpdb->delete($this->tableOrderOptions, array('OptionType'=>'settings'));
+
+        foreach ($options as $option) {
+            $wpdb->query(
+                $wpdb->prepare("
+INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES ('settings','%s', '%s');",
+                    $option->Name, json_encode($option->Values)
+                )
+            );
+        }
     }
 
-    public function updatePrice($price){
+    public function setPrice($price){
         global $wpdb;
-        return $wpdb->query($wpdb->prepare("UPDATE `$this->tableOrderOptions` SET 'Values' = %f WHERE `Name`='Price'", floatval($price)));
+        return $wpdb->query(
+            $wpdb->prepare("UPDATE `$this->tableOrderOptions` SET `Values` = %f WHERE `Name`='Price'", floatval($price)));
     }
 
     public function getPrice(){

@@ -3,9 +3,10 @@
   "tableOrderOptions": "businesscardcreator_orderoptions",
   "tableConfig": "BusinessCardCreator_config",
   "allowedTemplates": [
-    {"value": "default", "name": "Default", "isActive": false},
-    {"value": "bc_creator", "name": "Full screen", "isActive": true}
+    {"value": "default", "name": "Default"},
+    {"value": "bc_creator", "name": "Full screen"}
   ],
+  "template": "default",
   "defaultDesign": "des2",
   "api": {
     "endpoint": "https:\/\/html-pdf-api.appspot.com\/bc-creator",

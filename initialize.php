@@ -30,8 +30,11 @@ class BC_Creator_Initializer
         BC_Creator_DB::get_instance()->createTableOrderOptions();
 
 //    добавляем записи в опции: url & hash
+        $config = json_decode(file_get_contents("config.json"));
         update_option('BusinessCardCreator_url', 'business-card-creator');
         update_option('BusinessCardCreator_hash', null);
+        update_option('BusinessCardCreator_template', $config->template);
+//        TODO при создании страницы установить template
 
         include_once('util.php');
         BC_Creator_util::createPage(get_option('BusinessCardCreator_url'));

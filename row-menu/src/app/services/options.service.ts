@@ -44,6 +44,7 @@ export class OptionsService {
   constructor() {
     Object.keys(bc_creator_menu_options).forEach(key => this[key] = bc_creator_menu_options[key]);
     this.setOrderOptions(this.orderOptions);
+    this.price = Math.round(this.price * 100) / 100;
   }
 
   public nonce: string;
@@ -64,7 +65,9 @@ export class OptionsService {
     this.orderOptions = val;
 
     this._OrderOptions = this.orderOptions
-      .map(option => {return {id: option.id, Name: option.Name, Values: JSON.parse(option.Values)};});
+      .map(option => {
+        return {id: option.id, Name: option.Name, Values: JSON.parse(option.Values)};
+      });
   }
 
 }
