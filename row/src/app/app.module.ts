@@ -35,6 +35,8 @@ import {PreviewService} from "./services/preview.service";
 import { PreviewModalComponent } from './preview-modal/preview-modal.component';
 import {OrderFormComponent} from "./order-form/order-form.component";
 import {OptionsService} from "./services/options.service";
+import { OrderOptionComponent } from './order-form/order-option/order-option.component';
+import {OrderService} from "./services/order.service";
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import {OptionsService} from "./services/options.service";
     CardContainerComponent,
     DesignContainerComponent,
     PreviewModalComponent,
-    OrderFormComponent
+    OrderFormComponent,
+    OrderOptionComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
@@ -76,7 +79,8 @@ import {OptionsService} from "./services/options.service";
     ApiService,
     DesignService,
     PdfService,
-    PreviewService
+    PreviewService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })
