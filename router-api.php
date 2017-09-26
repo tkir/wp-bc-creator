@@ -4,6 +4,7 @@ class BC_Creator_RouterAPI
 {
 
     private static $instance;
+
     public static function get_instance()
     {
         if (null == self::$instance) {
@@ -17,7 +18,8 @@ class BC_Creator_RouterAPI
         $this->registerRoutes();
     }
 
-    private function registerRoutes(){
+    private function registerRoutes()
+    {
         register_rest_route('business-card-creator/design/', '/(?P<slug>\S+)/', array(
             'methods' => WP_REST_Server::READABLE,
             'callback' => array($this, 'getDesign')
@@ -37,6 +39,12 @@ class BC_Creator_RouterAPI
         register_rest_route('business-card-creator/', '/save/', array(
             'methods' => WP_REST_Server::EDITABLE,
             'callback' => array($this, 'saveDesign'),
+            'permission_callback' => array($this, 'checkAuthorPermission')
+        ));
+
+        register_rest_route('business-card-creator/', '/order/', array(
+            'methods' => WP_REST_Server::EDITABLE,
+            'callback' => array($this, 'orderCard'),
             'permission_callback' => array($this, 'checkAuthorPermission')
         ));
     }
@@ -73,6 +81,11 @@ class BC_Creator_RouterAPI
 //        file_put_contents('test.pdf', $res);
 
         return array('file' => $res);
+    }
+
+    public function orderCard($request)
+    {
+        return array('err' => null, 'res' => $request->get_body());
     }
 
     public function getPreview($request)

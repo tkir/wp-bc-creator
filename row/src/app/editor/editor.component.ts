@@ -15,6 +15,7 @@ import {DesignService} from "../services/design.service";
 import {PreviewService} from "../services/preview.service";
 import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
 import {OptionsService} from "../services/options.service";
+import {OrderService} from "../services/order.service";
 
 
 @Component({
@@ -30,14 +31,15 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private options:OptionsService,
+  constructor(private options: OptionsService,
               private dataService: DataService,
               private store: Store,
               private imageService: ImageService,
               private designService: DesignService,
               private pdfService: PdfService,
               private previewService: PreviewService,
-              private resolver: ComponentFactoryResolver) {
+              private resolver: ComponentFactoryResolver,
+              private orderService: OrderService) {
   }
 
   ngOnInit() {
@@ -165,6 +167,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 
 
   openModal() {
+    this.orderService.cardHtml = this.model.json;
+
     this.container.clear();
     const factory = this.resolver.resolveComponentFactory(PreviewModalComponent);
     this.componentRef = this.container.createComponent(factory);
@@ -183,5 +187,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.componentRef.destroy();
     this.container.clear();
     this.componentRef = null;
+    this.orderService.cardHtml = null;
   }
 }

@@ -13,6 +13,7 @@ export class OrderFormComponent implements OnInit {
   public price: number;
   public cost: number;
   public fastOrderCost: number;
+  public fastOrderOptions: { optionName: string, Rate: string }[];
   public selectedOptions: { optionName: string, Rate: string }[];
 
   constructor(private elRef: ElementRef,
@@ -33,6 +34,7 @@ export class OrderFormComponent implements OnInit {
 
     this.updateCost();
     this.fastOrderCost = this.cost;
+    this.fastOrderOptions = JSON.parse(JSON.stringify(this.selectedOptions));
   }
 
   private updateCost() {
@@ -58,9 +60,14 @@ export class OrderFormComponent implements OnInit {
   }
 
   public order(isFast: boolean) {
-    if (isFast) {
-
-    }
+    this.orderService.orderCard(
+      isFast ? this.fastOrderOptions : this.selectedOptions,
+      this.price,
+      this.cost)
+      .subscribe(resp => {
+        if (resp.err) console.error(`Ordering error: ${resp.err}`);
+        else console.log(`Order successful; ${resp.res}`);
+      })
   }
 
 }
