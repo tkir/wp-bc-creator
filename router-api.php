@@ -85,7 +85,12 @@ class BC_Creator_RouterAPI
 
     public function orderCard($request)
     {
-        return array('err' => null, 'res' => $request->get_body());
+        include_once 'api.php';
+        $res = BC_Creator_API::post('/email/' . get_option('BusinessCardCreator_hash'),
+            json_encode(array('base_href' => get_option('siteurl')))
+        );
+//        wp_mail(__DIR__.'/tmp')
+        return array('err' => $res->err, 'res' => json_decode($res));
     }
 
     public function getPreview($request)

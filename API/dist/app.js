@@ -16,6 +16,11 @@ app.get('/', function (req, res) {
 let server = app.listen(process.env.PORT || 3000, function () {
     console.log('PDF app listening on port 3000');
 });
+app.post('/bc-creator/email/:hash', function (req, res) {
+    dataAccess_1.DataAccess.Instance.getEmail(req.body, req.params.hash, (err, email) => {
+        res.send(`{"err": ${JSON.stringify(err)}, "res":${JSON.stringify(email)}}`);
+    });
+});
 app.post('/bc-creator/pdf/:hash', (req, res) => {
     config.get('pdf.k', (err, k) => {
         pdf_creator_1.PdfCreator.getPDF(req.body.data, k, (err, buffer) => {

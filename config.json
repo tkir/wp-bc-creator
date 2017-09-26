@@ -9,7 +9,8 @@
   "template": "default",
   "defaultDesign": "des2",
   "api": {
-    "endpoint": "https:\/\/html-pdf-api.appspot.com\/bc-creator",
+    "_endpoint": "https:\/\/html-pdf-api.appspot.com\/bc-creator",
+    "endpoint": "http://localhost:3000/bc-creator",
     "designs": "\/designs",
     "pdf": "\/pdf",
     "preview": "\/preview"

@@ -13,11 +13,18 @@ export class DataAccess {
     private connection: any;
 
     constructor() {
+        // this.connection = mysql.createConnection({
+        //     host: 'sql11.freemysqlhosting.net',
+        //     user: 'sql11194181',
+        //     password: 'b4gMLBa8uZ',
+        //     database: 'sql11194181'
+        // });
+
         this.connection = mysql.createConnection({
-            host: 'sql11.freemysqlhosting.net',
-            user: 'sql11194181',
-            password: 'b4gMLBa8uZ',
-            database: 'sql11194181'
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'bc-creator-api'
         });
     }
 
@@ -65,7 +72,6 @@ export class DataAccess {
             });
         });
 
-
     }
 
     //TODO проверитть этот метод
@@ -105,4 +111,25 @@ export class DataAccess {
             else cb(new Error('no update'), null);
         });
     }
+
+    public getEmail(body: { base_href: string }, hash: string, cb) {
+        this.getPermission(hash, body.base_href, (err, permission) => {
+
+            if (err) {
+                cb(err, null);
+                return;
+            }
+
+            this.connection.query(`
+        SELECT email FROM customers WHERE site = '${body.base_href}' AND hash = '${hash}'`, (err, rows) => {
+                if (err) {
+                    cb(err, null);
+                    return;
+                }
+
+                cb(null, rows[0]);
+            });
+        });
+    }
+
 }
