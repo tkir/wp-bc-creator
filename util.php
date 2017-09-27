@@ -154,4 +154,28 @@ class BC_Creator_util
         include_once 'db.php';
         return BC_Creator_DB::get_instance()->updateOrderOption($options);
     }
+
+    public static function prepareDesignToDB($des, $userID)
+    {
+        $fieldsData = json_decode($des->FieldsData);
+        $designData = json_decode($des->DesignData);
+
+//            create images from blobs
+        if ($designData->background->src !== "") {
+            $imgPath = BC_Creator_util::blobToImg($designData->background->src, $des->Slug, "bg", $userID);
+            $designData->background->src = $imgPath;
+            $des->DesignData = json_encode($designData);
+        }
+        if ($fieldsData->logos != []) {
+            for ($i = 0; $i < count($fieldsData->logos); $i++) {
+                $imgPath = BC_Creator_util::blobToImg($fieldsData->logos[$i], $des->Slug, "logo_$i", $userID);
+                $fieldsData->logos[$i] = $imgPath;
+            }
+            $des->FieldsData = json_encode($fieldsData);
+        }
+        if ($des->Preview) {
+            $imgPath = BC_Creator_util::blobToImg($des->Preview, $des->Slug, "preview", $userID);
+            $des->Preview = $imgPath;
+        }
+    }
 }

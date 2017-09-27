@@ -28,7 +28,7 @@ export class DataService {
             .subscribe(d => {
               d['DesignData'] = JSON.parse(d['DesignData']);
               d['FieldsData'] = JSON.parse(d['FieldsData']);
-              this.setCardData(d['DesignData'], d['FieldsData']);
+              this.setCardData(d['DesignData'], d['FieldsData'], d['isEditable']);
             });
         }
         //если роут неизвестен - грузим pageNotFound
@@ -48,8 +48,8 @@ export class DataService {
     return this.store.state = currentState;
   }
 
-  public setCardData(design?, fieldsData?) {
-    this.cData = this.cardService.getCard(fieldsData, design);
+  public setCardData(design?, fieldsData?, isEditable?) {
+    this.cData = this.cardService.getCard(fieldsData, design, isEditable);
     this.isDesignLoad = true;
     this.updateCard(this.cData);
   }
