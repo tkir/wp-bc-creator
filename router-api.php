@@ -25,6 +25,12 @@ class BC_Creator_RouterAPI
             'callback' => array($this, 'getDesign')
         ));
 
+        register_rest_route('business-card-creator/design/', '/(?P<slug>\S+)/', array(
+            'methods' => WP_REST_Server::DELETABLE,
+            'callback' => array($this, 'deleteDesign'),
+            'permission_callback' => array($this, 'checkAuthorPermission')
+        ));
+
         register_rest_route('business-card-creator/', '/pdf/', array(
             'methods' => WP_REST_Server::EDITABLE,
             'callback' => array($this, 'getPdf'),
@@ -65,6 +71,10 @@ class BC_Creator_RouterAPI
         $res = BC_Creator_DB::get_instance()->getDesign((string)$request['slug']);
         $res->isEditable = get_current_user_id() == $res->UserId;
         return $res;
+    }
+
+    public function deleteDesign($request){
+        return BC_Creator_DB::get_instance()->deleteDesign((string)$request['slug']);
     }
 
     public function orderCard($request)

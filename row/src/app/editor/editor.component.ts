@@ -16,6 +16,7 @@ import {PreviewService} from "../services/preview.service";
 import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
 import {OptionsService} from "../services/options.service";
 import {OrderService} from "../services/order.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -31,7 +32,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private options: OptionsService,
+  constructor(private router: Router,
+              private options: OptionsService,
               private dataService: DataService,
               private store: Store,
               private imageService: ImageService,
@@ -150,6 +152,19 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   save() {
     this.designService.saveDesign(this.model);
+  }
+
+  delete() {
+    if (confirm('Delete this business card design?'))
+      this.designService.deleteDesign(this.model.options.slug)
+        .subscribe(res => {
+          if (res == 1) this.router.navigate(['/']);
+        });
+  }
+
+  edit() {
+    this.delete();
+    // this.save();
   }
 
   getPDF() {
