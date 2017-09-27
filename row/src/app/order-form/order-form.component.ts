@@ -13,8 +13,8 @@ export class OrderFormComponent implements OnInit {
   public price: number;
   public cost: number;
   public fastOrderCost: number;
-  public fastOrderOptions: { optionName: string, Rate: string }[];
-  public selectedOptions: { optionName: string, Rate: string }[];
+  public fastOrderOptions: { optionName: string, Value: string, Rate: string }[];
+  public selectedOptions: { optionName: string, Value: string, Rate: string }[];
 
   constructor(private elRef: ElementRef,
               private options: OptionsService,
@@ -28,6 +28,7 @@ export class OrderFormComponent implements OnInit {
     this.selectedOptions = this.model.map(o => {
       return {
         optionName: o.Name,
+        Value: o.Values.find(v => v.isSelected).Value,
         Rate: o.Values.find(v => v.isSelected).Rate
       };
     });
@@ -51,10 +52,11 @@ export class OrderFormComponent implements OnInit {
       .classList.toggle('active');
   }
 
-  public onOptionSelected(val: { optionName: string, Rate: string }) {
+  public onOptionSelected(val: { optionName: string, Value: string, Rate: string }) {
 
-    this.selectedOptions.find(o => o.optionName == val.optionName)
-      .Rate = val.Rate;
+    let selected = this.selectedOptions.find(o => o.optionName == val.optionName);
+    selected.Rate = val.Rate;
+    selected.Value = val.Value;
 
     this.updateCost();
   }

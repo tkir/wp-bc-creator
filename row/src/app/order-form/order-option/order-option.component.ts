@@ -8,7 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class OrderOptionComponent implements OnInit {
 
   @Input() option: { id: number, Name: string, Values: [{ Value: string, Rate: string, isSelected: boolean }] };
-  @Output() optionSelected: EventEmitter<{ optionName: string, Rate: string }> = new EventEmitter();
+  @Output() optionSelected: EventEmitter<{ optionName: string, Value: string, Rate: string }> = new EventEmitter();
 
   public selectedOption: { Value: string, Rate: string };
 
@@ -21,7 +21,7 @@ export class OrderOptionComponent implements OnInit {
 
   public onChange(selectedOpt) {
     this.selectedOption = selectedOpt;
-    this.optionSelected.emit({optionName: this.option.Name, Rate: selectedOpt.Rate});
+    this.optionSelected.emit({optionName: this.option.Name, Value: selectedOpt.Value, Rate: selectedOpt.Rate});
   }
 
 }

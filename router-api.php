@@ -89,8 +89,20 @@ class BC_Creator_RouterAPI
         $res = BC_Creator_API::post('/email/' . get_option('BusinessCardCreator_hash'),
             json_encode(array('base_href' => get_option('siteurl')))
         );
-//        wp_mail(__DIR__.'/tmp')
-        return array('err' => $res->err, 'res' => json_decode($res));
+
+        $order = json_decode($request->get_body());
+        $message = 'Order options \n';
+        foreach ($order->options as $option) {
+            $message .= $option->optionName . ' = '
+                . $option->Value . '\n';
+        }
+        $message .= 'Price = ' . $order->price . '\n';
+        $message .= 'Value = ' . $order->value . '\n';
+
+        $headers = array('content-type: text/html');
+
+//            wp_mail($res->email, 'Order business card', $message, $headers, __DIR__.'/tmp');
+        return array(res => $message);
     }
 
     public function getPreview($request)

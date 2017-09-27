@@ -42,7 +42,7 @@ export class ApiService {
       .map(this.getRes);
   }
 
-  post(path: string, body: any): Observable<any> {console.log(`${this.options.path}${path}`); console.log(body);
+  post(path: string, body: any): Observable<any> {
     return this.http.post(`${this.options.path}${path}`, JSON.stringify(body), {headers: this.headers})
       .map(this.checkForError)
       .catch(err => Observable.throw(err))
