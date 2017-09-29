@@ -13,12 +13,6 @@ export class DataAccess {
     private connection: any;
 
     constructor() {
-        // this.connection = mysql.createConnection({
-        //     host: 'sql11.freemysqlhosting.net',
-        //     user: 'sql11194181',
-        //     password: 'b4gMLBa8uZ',
-        //     database: 'sql11194181'
-        // });
 
         this.connection = mysql.createConnection({
             host: 'localhost',
@@ -26,6 +20,13 @@ export class DataAccess {
             password: '',
             database: 'bc-creator-api'
         });
+
+        // this.connection = mysql.createConnection({
+        //     host: 'db14.freehost.com.ua',
+        //     user: 'climat_api',
+        //     password: 'rpVw2sd1',
+        //     database: 'climat_bc-creator-api'
+        // });
     }
 
     public getDesignsExcept(body: { url: string, designs: { Slug: string, Version: number }[] }, hash: string, cb) {
@@ -74,7 +75,7 @@ export class DataAccess {
 
     }
 
-    //TODO проверитть этот метод
+    //TODO проверить этот метод
     public getDesignsForDelete(designs: { Slug: string, Version: number }[], permission, cb) {
         this.connection.query(`
         SELECT 

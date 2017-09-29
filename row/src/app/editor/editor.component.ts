@@ -151,20 +151,19 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.designService.saveDesign(this.model);
+    this.designService.saveDesign(this.model)
+      .subscribe(res =>
+        this.previewService.updatePreviews()
+          .subscribe(() => this.router.navigate([`/${res.Slug}`]))
+      );
   }
 
   delete() {
     if (confirm('Delete this business card design?'))
       this.designService.deleteDesign(this.model.options.slug)
-        .subscribe(res => {
-          if (res == 1) this.router.navigate(['/']);
-        });
-  }
-
-  edit() {
-    this.delete();
-    // this.save();
+        .subscribe(res =>
+          this.previewService.updatePreviews()
+            .subscribe(() => this.router.navigate(['/'])));
   }
 
   getPDF() {

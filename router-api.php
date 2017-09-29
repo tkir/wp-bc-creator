@@ -37,6 +37,11 @@ class BC_Creator_RouterAPI
             'permission_callback' => array($this, 'checkAuthorPermission')
         ));
 
+        register_rest_route('business-card-creator/', '/previews/', array(
+            'methods' => WP_REST_Server::READABLE,
+            'callback' => array($this, 'getPreviews')
+        ));
+
         register_rest_route('business-card-creator/', '/preview/', array(
             'methods' => WP_REST_Server::EDITABLE,
             'callback' => array($this, 'getPreview')
@@ -73,8 +78,17 @@ class BC_Creator_RouterAPI
         return $res;
     }
 
-    public function deleteDesign($request){
-        return BC_Creator_DB::get_instance()->deleteDesign((string)$request['slug']);
+    public function deleteDesign($request)
+    {
+        include_once 'util.php';
+        $path = wp_normalize_path(__DIR__ . "/img/" . get_current_user_id() . "/" . $request['slug']);
+
+        if (BC_Creator_DB::get_instance()->deleteDesign((string)$request['slug'])) {
+            BC_Creator_util::deleteDir($path);
+            return array('err' => null, 'res' => 'success');
+        }
+
+        return array('err' => 'delete error', 'res' => null);
     }
 
     public function orderCard($request)
@@ -99,6 +113,11 @@ class BC_Creator_RouterAPI
         return array('file' => base64_encode($res));
     }
 
+    public function getPreviews(){
+        include_once 'db.php';
+        return BC_Creator_DB::get_instance()->getPreviews(false, get_current_user_id());
+    }
+
     public function saveDesign($request)
     {
         include_once 'util.php';
@@ -110,13 +129,13 @@ class BC_Creator_RouterAPI
 
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         $path = $config->api->preview . '/' . get_option('BusinessCardCreator_hash');
-        $res = BC_Creator_API::post($path, json_encode($data));
+        $preview = BC_Creator_API::post($path, json_encode($data));
 
         $des = (object)array(
             'FieldsData' => json_encode($body->FieldsData),
             'DesignData' => json_encode($body->DesignData),
-            'Slug' => md5($res),
-            'Preview' => $res,
+            'Slug' => md5($preview),
+            'Preview' => $preview,
 
             'Name' => '',
             'Version' => 0,

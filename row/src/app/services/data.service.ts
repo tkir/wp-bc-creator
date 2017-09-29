@@ -15,15 +15,12 @@ export class DataService {
               private router: Router,
               private designService: DesignService) {
 
-    let designs = this.options.previews
-      .map(p => p['Slug']);
-
     //вариант с router events
     router.events.subscribe((val: any) => {
       if (NavigationStart.prototype.isPrototypeOf(val)) {
         let url = val.url[0] == '/' ? val.url.slice(1) : val.url;
-        if (url === '' || url==='business-card-creator') url = this.options.defaultDesign;
-        if (designs.indexOf(url) !== -1) {
+        if (url === '') url = this.options.defaultDesign;
+        if (this.options.Designs.indexOf(url) !== -1) {
           this.designService.getDesign(url)
             .subscribe(d => {
               d['DesignData'] = JSON.parse(d['DesignData']);
