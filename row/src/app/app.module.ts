@@ -23,19 +23,18 @@ import {FieldResizeComponent} from './result/field-resize/field-resize.component
 import {AddResizeDirective} from './result/directives/add-resize.directive';
 import {AlignableDirective} from './result/directives/alignable.directive';
 import {AlignService} from "./services/align.service";
-import { CardContainerComponent } from './card-container/card-container.component';
-import { DesignContainerComponent } from './design-container/design-container.component';
+import {CardContainerComponent} from './card-container/card-container.component';
+import {DesignContainerComponent} from './design-container/design-container.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {ApiService} from "./services/api.service";
 import {DesignService} from "./services/design.service";
 import {CardService} from "./services/card.service";
-import {PdfService} from "./services/pdf.service";
 import {DesignStore} from "./services/design-store";
 import {PreviewService} from "./services/preview.service";
-import { PreviewModalComponent } from './preview-modal/preview-modal.component';
+import {PreviewModalComponent} from './preview-modal/preview-modal.component';
 import {OrderFormComponent} from "./order-form/order-form.component";
 import {OptionsService} from "./services/options.service";
-import { OrderOptionComponent } from './order-form/order-option/order-option.component';
+import {OrderOptionComponent} from './order-form/order-option/order-option.component';
 import {OrderService} from "./services/order.service";
 
 @NgModule({
@@ -78,7 +77,6 @@ import {OrderService} from "./services/order.service";
     AlignService,
     ApiService,
     DesignService,
-    PdfService,
     PreviewService,
     OrderService
   ],

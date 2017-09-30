@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
 import {OptionsService} from "./options.service";
+import {DesignService} from "./design.service";
 
 @Injectable()
 export class PreviewService {
@@ -8,7 +9,8 @@ export class PreviewService {
   public isModalOpen: boolean = false;
 
   constructor(private api: ApiService,
-              private options: OptionsService) {
+              private options: OptionsService,
+              private designService: DesignService) {
   }
 
   getPreview(data) {
@@ -26,6 +28,7 @@ export class PreviewService {
     return this.api.get('/previews')
       .do(res => {
         this.options.previews = res;
+        this.designService.updateDesigns(res);
       })
   }
 }

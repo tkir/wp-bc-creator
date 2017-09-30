@@ -10,7 +10,6 @@ import {Store} from "../services/store";
 import {ImageService} from "../services/image.service";
 import {Logo} from "../data/Logo";
 import {Line} from "../data/Line";
-import {PdfService} from "../services/pdf.service";
 import {DesignService} from "../services/design.service";
 import {PreviewService} from "../services/preview.service";
 import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
@@ -38,7 +37,6 @@ export class EditorComponent implements OnInit, OnDestroy {
               private store: Store,
               private imageService: ImageService,
               private designService: DesignService,
-              private pdfService: PdfService,
               private previewService: PreviewService,
               private resolver: ComponentFactoryResolver,
               private orderService: OrderService) {
@@ -164,10 +162,6 @@ export class EditorComponent implements OnInit, OnDestroy {
         .subscribe(res =>
           this.previewService.updatePreviews()
             .subscribe(() => this.router.navigate(['/'])));
-  }
-
-  getPDF() {
-    this.pdfService.getPdf(this.model.json);
   }
 
   getPreview() {
