@@ -54,3 +54,4 @@ fabric.properties
 .idea/vcs.xml
 *.iml
 */dist/*
+.idea/
