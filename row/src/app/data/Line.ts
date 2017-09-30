@@ -1,10 +1,11 @@
 import {CardField} from "./interfaces";
 import {getMaxPosition, getMaxSize} from "../utils/size.util";
-declare const bc_creator_config: any;
+import {OptionsService} from "../services/options.service";
+// declare const bc_creator_config: any;
 
 export class Line implements CardField {
 
-  constructor(obj) {
+  constructor(obj, private options:OptionsService) {
     Object.keys(obj).forEach(key => this[key] = obj[key]);
   }
 
@@ -16,7 +17,7 @@ export class Line implements CardField {
   public design: string = 'solid';
   public _color: string = '000';
 
-  private k: number = bc_creator_config['settings']['ratio'];
+  private k: number = this.options.settings.ratio;//bc_creator_config['settings']['ratio'];
   public isSelected: boolean = false;
 
   get left() {

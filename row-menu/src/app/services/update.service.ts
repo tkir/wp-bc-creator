@@ -13,17 +13,17 @@ export class UpdateService {
     const path='general';
 
     if (this.options.page_url != page_url.trim()) {
-      this.api.post(`${path}/page_url`, page_url)
+      this.api.get(`${path}/page_url/${page_url}`)
         .subscribe(url => this.options.page_url = url);
     }
 
     if (this.options.hash != hash.trim()) {
-      this.api.post(`${path}/hash`, hash)
+      this.api.get(`${path}/hash/${hash}`)
         .subscribe(h => this.options.hash = h);
     }
 
     if (this.options.allowedTemplates.find(t => t.isActive).value != templValue) {
-      this.api.post(`${path}/template`, templValue)
+      this.api.get(`${path}/template/${templValue}`)
         .subscribe(templ =>
           this.options.allowedTemplates.forEach(t =>
             t.value == templ ? t.isActive = true : t.isActive = false));

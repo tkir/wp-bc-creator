@@ -4,24 +4,25 @@ import {Store} from "./store";
 import {NavigationStart, Router} from "@angular/router";
 import {DesignService} from "./design.service";
 import {CardService} from "./card.service";
-declare const bc_creator_config: any;
+import {OptionsService} from "./options.service";
 
 @Injectable()
 export class DataService {
 
-  constructor(private cardService: CardService,
+  constructor(private options:OptionsService,
+              private cardService: CardService,
               private store: Store,
               private router: Router,
               private designService: DesignService) {
 
-    let designs = bc_creator_config.previews
+    let designs = this.options.previews
       .map(p => p['Slug']);
 
     //вариант с router events
     router.events.subscribe((val: any) => {
       if (NavigationStart.prototype.isPrototypeOf(val)) {
         let url = val.url[0] == '/' ? val.url.slice(1) : val.url;
-        if (url === '' || url==='business-card-creator') url = bc_creator_config['defaultDesign'];
+        if (url === '' || url==='business-card-creator') url = this.options.defaultDesign;
         if (designs.indexOf(url) !== -1) {
           this.designService.getDesign(url)
             .subscribe(d => {

@@ -1,10 +1,11 @@
 import {CardField} from "./interfaces";
 import {getMaxPosition, getMaxSize} from "../utils/size.util";
-declare const bc_creator_config: any;
+import {OptionsService} from "../services/options.service";
+// declare const bc_creator_config: any;
 
 export class TextField implements CardField {
 
-  constructor(fData: string, dData) {
+  constructor(fData: string, dData, private options:OptionsService) {
     this.text = fData;
     Object.keys(dData).forEach(key => this[key] = dData[key]);
   }
@@ -19,8 +20,8 @@ export class TextField implements CardField {
   public left_mm: number;
   public top_mm: number;
 
-  private k: number = bc_creator_config['settings']['ratio'];
-  private fontSizeStep: number = bc_creator_config['settings']['fontSizeStep'];
+  private k: number = this.options.settings.ratio;//bc_creator_config['settings']['ratio'];
+  private fontSizeStep: number = this.options.settings.fontSizeStep;//bc_creator_config['settings']['fontSizeStep'];
 
   public isSelected: boolean = false;
   public isStyling: boolean = false;

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
-declare const bc_creator_config: any;
 
 @Injectable()
 export class PreviewService {

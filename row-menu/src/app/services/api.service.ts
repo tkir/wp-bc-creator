@@ -12,7 +12,6 @@ export class ApiService {
   ) {
   }
 
-  private restPath = `${this.options.path}business-card-creator/menu`;
   private headers: Headers = new Headers({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -38,28 +37,14 @@ export class ApiService {
   }
 
   get(path: string): Observable<any> {
-    return this.http.get(`${this.restPath}${path}`, {headers: this.headers})
+    return this.http.get(`${this.options.path}${path}`, {headers: this.headers})
       .map(this.checkForError)
       .catch(err => Observable.throw(err))
       .map(this.getRes);
   }
 
   post(path: string, body: any): Observable<any> {
-    return this.http.post(`${this.restPath}${path}`, JSON.stringify(body), {headers: this.headers})
-      .map(this.checkForError)
-      .catch(err => Observable.throw(err))
-      .map(this.getRes);
-  }
-
-  delete(path: string): Observable<any> {
-    return this.http.get(path, {headers: this.headers})
-      .map(this.checkForError)
-      .catch(err => Observable.throw(err))
-      .map(this.getRes);
-  }
-
-  put(path: string, body: any): Observable<any> {
-    return this.http.put(path, JSON.stringify(body), {headers: this.headers})
+    return this.http.post(`${this.options.path}${path}`, JSON.stringify(body), {headers: this.headers})
       .map(this.checkForError)
       .catch(err => Observable.throw(err))
       .map(this.getRes);

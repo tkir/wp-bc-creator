@@ -2,19 +2,19 @@ import {Injectable} from '@angular/core';
 import {Headers, Http, Response, ResponseContentType} from '@angular/http';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/Rx';
-declare const bc_creator_config: any;
+import {OptionsService} from "./options.service";
 
 @Injectable()
 export class ApiService {
 
-  constructor(private http: Http) {
+  constructor(private http: Http,
+              private options: OptionsService) {
   }
 
-  private restPath = `${bc_creator_config['path']}business-card-creator`;
   private headers: Headers = new Headers({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'X-WP-Nonce': bc_creator_config['nonce'],
+    'X-WP-Nonce': this.options.nonce,
     responseType: ResponseContentType.Blob
   });
 
@@ -36,28 +36,14 @@ export class ApiService {
   }
 
   get(path: string): Observable<any> {
-    return this.http.get(`${this.restPath}${path}`, {headers: this.headers})
+    return this.http.get(`${this.options.path}${path}`, {headers: this.headers})
       .map(this.checkForError)
       .catch(err => Observable.throw(err))
       .map(this.getRes);
   }
 
   post(path: string, body: any): Observable<any> {
-    return this.http.post(`${this.restPath}${path}`, JSON.stringify(body), {headers: this.headers})
-      .map(this.checkForError)
-      .catch(err => Observable.throw(err))
-      .map(this.getRes);
-  }
-
-  delete(path: string): Observable<any> {
-    return this.http.get(path, {headers: this.headers})
-      .map(this.checkForError)
-      .catch(err => Observable.throw(err))
-      .map(this.getRes);
-  }
-
-  put(path: string, body: any): Observable<any> {
-    return this.http.put(path, JSON.stringify(body), {headers: this.headers})
+    return this.http.post(`${this.options.path}${path}`, JSON.stringify(body), {headers: this.headers})
       .map(this.checkForError)
       .catch(err => Observable.throw(err))
       .map(this.getRes);

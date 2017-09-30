@@ -7,9 +7,6 @@ class BC_Creator_DB
     protected $tableOrderOptions;
     protected $config;
 
-    /**
-     * Returns an instance of this class.
-     */
     public static function get_instance()
     {
         if (null == self::$instance) {
@@ -24,13 +21,6 @@ class BC_Creator_DB
         $this->config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         $this->tableDesign = $wpdb->prefix . $this->config->tableDesign;
         $this->tableOrderOptions = $wpdb->prefix . $this->config->tableOrderOptions;
-    }
-
-    public static function get_design($design, $user = '')
-    {
-        global $wpdb;
-        $query = "SELECT * FROM Designes WHERE author = %s AND name=%s";
-        $wpdb->prepare($query, $user, $design);
     }
 
     public function addDesign($design, $userID)
@@ -93,22 +83,34 @@ INSERT INTO `$this->tableDesign`
     public function getOrderOptions()
     {
         global $wpdb;
-        return $wpdb->get_results("SELECT id, `Name`, `Values` FROM `$this->tableOrderOptions`");
+        return $wpdb->get_results("SELECT id, `Name`, `Values` FROM `$this->tableOrderOptions` WHERE `OptionType` = 'settings'");
     }
 
-    public function updateOrderOption($options)
+    public function setOrderOption($options)
     {
         global $wpdb;
+
+        $wpdb->delete($this->tableOrderOptions, array('OptionType'=>'settings'));
+
+        foreach ($options as $option) {
+            $wpdb->query(
+                $wpdb->prepare("
+INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES ('settings','%s', '%s');",
+                    $option->Name, json_encode($option->Values)
+                )
+            );
+        }
     }
 
-    public function updatePrice($price){
+    public function setPrice($price){
         global $wpdb;
-        return $wpdb->query($wpdb->prepare("UPDATE `$this->tableOrderOptions` SET 'Values' = %f WHERE `Name`='Price'", floatval($price)));
+        return $wpdb->query(
+            $wpdb->prepare("UPDATE `$this->tableOrderOptions` SET `Values` = %f WHERE `Name`='Price'", floatval($price)));
     }
 
     public function getPrice(){
         global $wpdb;
-        return $wpdb->get_var("SELECT 'Values' FROM `$this->tableOrderOptions` WHERE 'Name'='Price'");
+        return $wpdb->get_var("SELECT `Values` FROM `$this->tableOrderOptions` WHERE `Name`='Price'");
     }
 
     public function toggleActive($id)
@@ -173,7 +175,7 @@ INSERT INTO `$this->tableDesign`
 
             foreach ($this->config->orderOptions as $option) {
                 $wpdb->query("
-INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES ('$option->name', '" . json_encode($option->values) . "');
+INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES ('$option->OptionType','$option->Name', '" . json_encode($option->Values) . "');
                 ");
             }
         }

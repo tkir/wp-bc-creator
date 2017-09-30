@@ -3,13 +3,14 @@ import {Observable} from "rxjs/Observable";
 import {DesignStore} from "./design-store";
 import {ApiService} from "./api.service";
 import {CardData} from "../data/CardData";
-declare const bc_creator_config: any;
+import {OptionsService} from "./options.service";
 
 
 @Injectable()
 export class DesignService {
 
-  constructor(private store: DesignStore,
+  constructor(private options:OptionsService,
+              private store: DesignStore,
               private api: ApiService) {
   }
 
@@ -28,7 +29,7 @@ export class DesignService {
   }
 
   getPreviews() {
-    this.updateDesigns(bc_creator_config.previews);
+    this.updateDesigns(this.options.previews);
     return this.store.changes;
   }
 
