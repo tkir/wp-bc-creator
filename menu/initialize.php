@@ -42,6 +42,7 @@ class BC_Creator_MenuInit
             'nonce' => wp_create_nonce('wp_rest'),
             'page_url' => get_option('BusinessCardCreator_url'),
             'hash' => get_option('BusinessCardCreator_hash'),
+            'email' => get_option('BusinessCardCreator_email'),
             'allowedTemplates' => $aTpl,
             'previews' => BC_Creator_DB::get_instance()->getPreviews(true),
             'orderOptions' => BC_Creator_DB::get_instance()->getOrderOptions(),

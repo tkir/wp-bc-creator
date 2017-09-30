@@ -33,6 +33,12 @@ class BC_Creator_RouterMenuAPI
             'permission_callback' => array($this, 'checkAdminPermission')
         ));
 
+        register_rest_route('business-card-creator/menu/general/email/', '/(?P<email>\S+)/', array(
+            'methods' => WP_REST_Server::READABLE,
+            'callback' => array($this, 'updateEmail'),
+            'permission_callback' => array($this, 'checkAdminPermission')
+        ));
+
         register_rest_route('business-card-creator/menu/general/template/', '/(?P<tpl>\S+)/', array(
             'methods' => WP_REST_Server::READABLE,
             'callback' => array($this, 'updateTemplate'),
@@ -79,6 +85,12 @@ class BC_Creator_RouterMenuAPI
     {
         update_option('BusinessCardCreator_hash', str_replace(' ', '', $request['hash']));
         return get_option('BusinessCardCreator_hash');
+    }
+
+    public function updateEmail($request)
+    {
+        update_option('BusinessCardCreator_email', str_replace(' ', '', $request['email']));
+        return get_option('BusinessCardCreator_email');
     }
 
     public function updateTemplate($request)

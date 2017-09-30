@@ -9,7 +9,7 @@ export class UpdateService {
   constructor(private api: ApiService,
               private options:OptionsService) { }
 
-  public generalUpdate(page_url, hash, templValue) {
+  public generalUpdate(page_url, hash, email, templValue) {
     const path='general';
 
     if (this.options.page_url != page_url.trim()) {
@@ -20,6 +20,11 @@ export class UpdateService {
     if (this.options.hash != hash.trim()) {
       this.api.get(`${path}/hash/${hash}`)
         .subscribe(h => this.options.hash = h);
+    }
+
+    if (this.options.email != email.trim()) {
+      this.api.get(`${path}/email/${email}`)
+        .subscribe(e => this.options.email = e);
     }
 
     if (this.options.allowedTemplates.find(t => t.isActive).value != templValue) {

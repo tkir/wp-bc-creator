@@ -5,6 +5,7 @@ declare const bc_creator_menu_options: any;
 //   path: 'http://localhost/wordpress/business-card-creator/menu',
 //   page_url: 'business-card-creator',
 //   hash: '',
+//   email: 'my@example.com',
 //   allowedTemplates: [
 //     {value: 'default', name: 'Default', isActive: false},
 //     {value: 'bc_creator', name: 'Full screen', isActive: true}
@@ -51,6 +52,7 @@ export class OptionsService {
   public path: string;
   public page_url: string;
   public hash: string;
+  public email: string;
   public allowedTemplates: [{ name: string, value: string, isActive: boolean }];
   public previews: [{ id: number, Name: string, Slug: string, Description: string, Preview: string, isActive: boolean }];
   public price: number;

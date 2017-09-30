@@ -13,6 +13,7 @@ import {isBoolean} from "util";
 export class TabOrderDetailComponent implements OnInit, OnDestroy {
 
   public model;
+  public modelPrice: number;
   private subs: Subscription[] = [];
 
   constructor(public options: OptionsService,
@@ -21,6 +22,7 @@ export class TabOrderDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.model = JSON.parse(JSON.stringify(this.options.OrderOptions));
+    this.modelPrice = this.options.price;
   }
 
   ngOnDestroy() {

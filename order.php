@@ -35,10 +35,6 @@ class BC_Creator_Order
 
     public function orderCard($order)
     {
-        $res = BC_Creator_API::post('/email/' . get_option('BusinessCardCreator_hash'),
-            json_encode(array('base_href' => get_option('siteurl')))
-        );
-
         $message = 'Order options \n';
         foreach ($order->options as $option) {
             $message .= $option->optionName . ' = '
@@ -49,7 +45,7 @@ class BC_Creator_Order
 
         $headers = array('content-type: text/html');
 
-//        wp_mail($res->email, 'Order business card', $message, $headers, __DIR__ . '/tmp');
+//        wp_mail(get_option('BusinessCardCreator_email'), 'Order business card', $message, $headers, __DIR__ . '/tmp');
         return array(res => $message);
     }
 }
