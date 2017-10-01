@@ -15,20 +15,17 @@ export class DataService {
               private router: Router,
               private designService: DesignService) {
 
-    let designs = this.options.previews
-      .map(p => p['Slug']);
-
     //вариант с router events
     router.events.subscribe((val: any) => {
       if (NavigationStart.prototype.isPrototypeOf(val)) {
         let url = val.url[0] == '/' ? val.url.slice(1) : val.url;
-        if (url === '' || url==='business-card-creator') url = this.options.defaultDesign;
-        if (designs.indexOf(url) !== -1) {
+        if (url === '') url = this.options.defaultDesign;
+        if (this.options.Designs.indexOf(url) !== -1) {
           this.designService.getDesign(url)
             .subscribe(d => {
               d['DesignData'] = JSON.parse(d['DesignData']);
               d['FieldsData'] = JSON.parse(d['FieldsData']);
-              this.setCardData(d['DesignData'], d['FieldsData']);
+              this.setCardData(d['DesignData'], d['FieldsData'], d['isEditable'], d['Slug']);
             });
         }
         //если роут неизвестен - грузим pageNotFound
@@ -48,8 +45,8 @@ export class DataService {
     return this.store.state = currentState;
   }
 
-  public setCardData(design?, fieldsData?) {
-    this.cData = this.cardService.getCard(fieldsData, design);
+  public setCardData(design?, fieldsData?, isEditable?, slug?) {
+    this.cData = this.cardService.getCard(fieldsData, design, isEditable, slug);
     this.isDesignLoad = true;
     this.updateCard(this.cData);
   }

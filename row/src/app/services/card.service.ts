@@ -13,7 +13,7 @@ export class CardService {
 
   constructor(private options:OptionsService){}
 
-  public getCard(fData: CardFieldsData, dData: CardDesignData): CardData {
+  public getCard(fData: CardFieldsData, dData: CardDesignData, isEditable:boolean, slug:string): CardData {
 
     let owners: TextField[] = this.createText(fData['owners'], dData['owners']);
     let positions: TextField[] = this.createText(fData.positions, dData.positions);
@@ -41,7 +41,8 @@ export class CardService {
         }
       }));
 
-    return new CardData(owners, positions, organisations, addresses, phones, emails, sites, logos, lines, bg);
+    return new CardData(owners, positions, organisations, addresses, phones, emails, sites, logos, lines, bg,
+      {isEditable:isEditable, slug:slug});
   }
 
   private createText(fStrs: string[], tDsns: TextDesign[]): TextField[] {

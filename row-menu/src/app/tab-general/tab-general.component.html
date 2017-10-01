@@ -1,11 +1,58 @@
-<label><input type="text" name="page_url" value="{{options.page_url}}" #pageUrl> Page URL</label><br>
-<label><input type="text" name="hash" value="{{options.hash}}" #hash> Personal hash</label><br>
-<h3>Page template</h3>
-<select #template>
-  <option *ngFor="let template of options.allowedTemplates"
-          [value]="template.value"
-          [selected]="template.isActive">
-    {{template.name}}
-  </option>
-</select><br>
-<button type="button" (click)="onGeneralUpdate(pageUrl.value, hash.value, template.options.selectedIndex)">Update</button>
+<label><input type="text" name="page_url"
+              required
+              [(ngModel)]="model.page_url" #pageUrl="ngModel"> Page URL</label><br>
+<label><input name="hash" class="form-control"
+              required minlength="32" maxlength="32" pattern="^[a-fA-F0-9]{32}$"
+              [(ngModel)]="model.hash" #hash="ngModel"> Personal hash</label><br>
+<label><input type="email" name="email"
+              required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              [(ngModel)]="model.email" #email="ngModel"> Email for orders</label><br>
+
+<label>
+  <select #template>
+    <option *ngFor="let template of options.allowedTemplates"
+            [value]="template.value"
+            [selected]="template.isActive">
+      {{template.name}}
+    </option>
+  </select>Page template</label><br>
+<button type="button"
+        (click)="onGeneralUpdate(pageUrl.value, hash.value, email.value, template.options.selectedIndex)">
+  Update
+</button>
+
+<div *ngIf="pageUrl.invalid && (pageUrl.dirty || pageUrl.touched)"
+     class="alert alert-danger">
+
+  <div *ngIf="pageUrl.errors.required">
+    Page Url is required.
+  </div>
+
+</div>
+
+<div *ngIf="hash.invalid && (hash.dirty || hash.touched)"
+     class="alert alert-danger">
+
+  <div *ngIf="hash.errors.required">
+    Hash is required.
+  </div>
+  <div *ngIf="hash.errors.minlength">
+    Hash must be 32 characters long.
+  </div>
+  <div *ngIf="hash.errors.pattern">
+    hash not valid
+  </div>
+
+</div>
+
+<div *ngIf="email.invalid && (email.dirty || email.touched)"
+     class="alert alert-danger">
+
+  <div *ngIf="email.errors.required">
+    email is required.
+  </div>
+  <div *ngIf="email.errors.pattern">
+    email not valid
+  </div>
+
+</div>

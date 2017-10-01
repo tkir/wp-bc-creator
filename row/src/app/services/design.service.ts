@@ -38,4 +38,8 @@ export class DesignService {
     return this.store.state = currentState;
   }
 
+  deleteDesign(slug){
+    return this.api.delete(`/design/${slug}`);
+  }
+
 }

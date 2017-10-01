@@ -25,10 +25,21 @@ class BC_Creator_RouterAPI
             'callback' => array($this, 'getDesign')
         ));
 
+        register_rest_route('business-card-creator/design/', '/(?P<slug>\S+)/', array(
+            'methods' => WP_REST_Server::DELETABLE,
+            'callback' => array($this, 'deleteDesign'),
+            'permission_callback' => array($this, 'checkAuthorPermission')
+        ));
+
         register_rest_route('business-card-creator/', '/pdf/', array(
             'methods' => WP_REST_Server::EDITABLE,
             'callback' => array($this, 'getPdf'),
             'permission_callback' => array($this, 'checkAuthorPermission')
+        ));
+
+        register_rest_route('business-card-creator/', '/previews/', array(
+            'methods' => WP_REST_Server::READABLE,
+            'callback' => array($this, 'getPreviews')
         ));
 
         register_rest_route('business-card-creator/', '/preview/', array(
@@ -63,46 +74,29 @@ class BC_Creator_RouterAPI
     {
         include_once 'db.php';
         $res = BC_Creator_DB::get_instance()->getDesign((string)$request['slug']);
+        $res->isEditable = get_current_user_id() == $res->UserId;
         return $res;
     }
 
-    public function getPdf($request)
+    public function deleteDesign($request)
     {
         include_once 'util.php';
-        include_once 'api.php';
+        $path = wp_normalize_path(__DIR__ . "/img/" . get_current_user_id() . "/" . $request['slug']);
 
-        $data = BC_Creator_util::prepareObjForPdfAPI(json_decode($request->get_body()));
+        if (BC_Creator_DB::get_instance()->deleteDesign((string)$request['slug'])) {
+            BC_Creator_util::deleteDir($path);
+            return array('err' => null, 'res' => 'success');
+        }
 
-        $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
-        $path = $config->api->pdf . '/' . get_option('BusinessCardCreator_hash');
-        $res = BC_Creator_API::post($path, json_encode($data));
-
-//        TODO save pdf to file
-//        file_put_contents('test.pdf', $res);
-
-        return array('file' => $res);
+        return array('err' => 'delete error', 'res' => null);
     }
 
     public function orderCard($request)
     {
-        include_once 'api.php';
-        $res = BC_Creator_API::post('/email/' . get_option('BusinessCardCreator_hash'),
-            json_encode(array('base_href' => get_option('siteurl')))
-        );
+        $slug = $this->saveDesign($request)->Slug;
 
-        $order = json_decode($request->get_body());
-        $message = 'Order options \n';
-        foreach ($order->options as $option) {
-            $message .= $option->optionName . ' = '
-                . $option->Value . '\n';
-        }
-        $message .= 'Price = ' . $order->price . '\n';
-        $message .= 'Value = ' . $order->value . '\n';
-
-        $headers = array('content-type: text/html');
-
-//            wp_mail($res->email, 'Order business card', $message, $headers, __DIR__.'/tmp');
-        return array(res => $message);
+        include_once 'order.php';
+        return BC_Creator_Order::get_instance()->orderCard(json_decode($request->get_body()));
     }
 
     public function getPreview($request)
@@ -119,6 +113,11 @@ class BC_Creator_RouterAPI
         return array('file' => base64_encode($res));
     }
 
+    public function getPreviews(){
+        include_once 'db.php';
+        return BC_Creator_DB::get_instance()->getPreviews(false, get_current_user_id());
+    }
+
     public function saveDesign($request)
     {
         include_once 'util.php';
@@ -130,13 +129,13 @@ class BC_Creator_RouterAPI
 
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         $path = $config->api->preview . '/' . get_option('BusinessCardCreator_hash');
-        $res = BC_Creator_API::post($path, json_encode($data));
+        $preview = BC_Creator_API::post($path, json_encode($data));
 
         $des = (object)array(
             'FieldsData' => json_encode($body->FieldsData),
             'DesignData' => json_encode($body->DesignData),
-            'Slug' => md5($res),
-            'Preview' => $res,
+            'Slug' => md5($preview),
+            'Preview' => $preview,
 
             'Name' => '',
             'Version' => 0,
@@ -144,8 +143,9 @@ class BC_Creator_RouterAPI
             'Preview_Order' => 100
         );
 
-        $this->prepareDesignToDB($des, get_current_user_id());
+        BC_Creator_util::prepareDesignToDB($des, get_current_user_id());
         BC_Creator_DB::get_instance()->deleteDesign($des->Slug);
-        return BC_Creator_DB::get_instance()->addDesign($des, get_current_user_id());
+        BC_Creator_DB::get_instance()->addDesign($des, get_current_user_id());
+        return BC_Creator_DB::get_instance()->getDesign($des->Slug);
     }
 }

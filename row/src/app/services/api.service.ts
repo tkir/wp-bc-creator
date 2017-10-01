@@ -48,4 +48,11 @@ export class ApiService {
       .catch(err => Observable.throw(err))
       .map(this.getRes);
   }
+
+  delete(path:string):Observable<any>{
+    return this.http.delete(`${this.options.path}${path}`, {headers: this.headers})
+      .map(this.checkForError)
+      .catch(err => Observable.throw(err))
+      .map(this.getRes);
+  }
 }

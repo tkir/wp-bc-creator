@@ -10,12 +10,12 @@ import {Store} from "../services/store";
 import {ImageService} from "../services/image.service";
 import {Logo} from "../data/Logo";
 import {Line} from "../data/Line";
-import {PdfService} from "../services/pdf.service";
 import {DesignService} from "../services/design.service";
 import {PreviewService} from "../services/preview.service";
 import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
 import {OptionsService} from "../services/options.service";
 import {OrderService} from "../services/order.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -31,12 +31,12 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private options: OptionsService,
+  constructor(private router: Router,
+              private options: OptionsService,
               private dataService: DataService,
               private store: Store,
               private imageService: ImageService,
               private designService: DesignService,
-              private pdfService: PdfService,
               private previewService: PreviewService,
               private resolver: ComponentFactoryResolver,
               private orderService: OrderService) {
@@ -149,11 +149,19 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.designService.saveDesign(this.model);
+    this.designService.saveDesign(this.model)
+      .subscribe(res =>
+        this.previewService.updatePreviews()
+          .subscribe(() => this.router.navigate([`/${res.Slug}`]))
+      );
   }
 
-  getPDF() {
-    this.pdfService.getPdf(this.model.json);
+  delete() {
+    if (confirm('Delete this business card design?'))
+      this.designService.deleteDesign(this.model.options.slug)
+        .subscribe(res =>
+          this.previewService.updatePreviews()
+            .subscribe(() => this.router.navigate(['/'])));
   }
 
   getPreview() {

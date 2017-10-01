@@ -36,6 +36,10 @@ export class OptionsService {
     return this._OrderOptions;
   }
 
+  public get Designs(){
+    return this.previews.map(p => p['Slug']);
+  }
+
   public setOrderOptions(val) {
     this.orderOptions = val;
 

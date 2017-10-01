@@ -207,7 +207,7 @@
 
     <button type="button" class="btn btn-success" (click)="save()">Save design</button>
     <button type="button" class="btn btn-success" (click)="getPreview()">Preview</button>
-    <button type="button" class="btn btn-danger" (click)="getPDF()">Get PDF</button>
+    <button type="button" *ngIf="model.options.isEditable" (click)="delete()">Delete</button>
 
   </form>
 </div>

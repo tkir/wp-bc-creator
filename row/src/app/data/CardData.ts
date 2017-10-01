@@ -14,7 +14,8 @@ export class CardData {
               public sites: TextField[],
               public logos: Logo[],
               public lines: Line[],
-              public background: Background) {
+              public background: Background,
+              public options: { isEditable: boolean, slug: string }) {
     this.update();
   }
 
@@ -24,7 +25,7 @@ export class CardData {
   public update() {
     this.fields = [];
     Object.keys(this).forEach(key => {
-      if (key != 'fields' && key != 'config') {
+      if (key != 'fields' && key != 'config' && key != 'options') {
         if (Array.isArray(this[key]))
           this.fields.push(...this[key]);
         else this.fields.push(this[key]);
