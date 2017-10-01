@@ -90,7 +90,7 @@ INSERT INTO `$this->tableDesign`
     {
         global $wpdb;
 
-        $wpdb->delete($this->tableOrderOptions, array('OptionType'=>'settings'));
+        $wpdb->delete($this->tableOrderOptions, array('OptionType' => 'settings'));
 
         foreach ($options as $option) {
             $wpdb->query(
@@ -102,13 +102,15 @@ INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES (
         }
     }
 
-    public function setPrice($price){
+    public function setPrice($price)
+    {
         global $wpdb;
         return $wpdb->query(
             $wpdb->prepare("UPDATE `$this->tableOrderOptions` SET `Values` = %f WHERE `Name`='Price'", floatval($price)));
     }
 
-    public function getPrice(){
+    public function getPrice()
+    {
         global $wpdb;
         return $wpdb->get_var("SELECT `Values` FROM `$this->tableOrderOptions` WHERE `Name`='Price'");
     }
