@@ -169,6 +169,11 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.openModal();
   }
 
+  // TODO удалить в релизе
+  adminSaveDesign(){
+
+  }
+
   @ViewChild("previewModalContainer", {read: ViewContainerRef}) container;
   componentRef: ComponentRef<PreviewModalComponent> = null;
   private modalSubscription: Subscription = null;

@@ -209,6 +209,9 @@
     <button type="button" class="btn btn-success" (click)="getPreview()">Preview</button>
     <button type="button" *ngIf="model.options.isEditable" (click)="delete()">Delete</button>
 
+    <!--TODO удалить в релизе-->
+    <button type="button" class="btn" (click)="adminSaveDesign()">Admin save design</button>
+
   </form>
 </div>
 <div #previewModalContainer></div>
