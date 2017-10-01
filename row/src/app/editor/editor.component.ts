@@ -170,8 +170,9 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   // TODO удалить в релизе
-  adminSaveDesign(){
-
+  adminSaveDesign() {
+    this.designService.adminSaveDesign(this.model)
+      .subscribe(res => console.log(res));
   }
 
   @ViewChild("previewModalContainer", {read: ViewContainerRef}) container;

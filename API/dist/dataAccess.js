@@ -84,22 +84,6 @@ class DataAccess {
                 cb(new Error('no update'), null);
         });
     }
-    getEmail(body, hash, cb) {
-        this.getPermission(hash, body.base_href, (err, permission) => {
-            if (err) {
-                cb(err, null);
-                return;
-            }
-            this.connection.query(`
-        SELECT email FROM customers WHERE site = '${body.base_href}' AND hash = '${hash}'`, (err, rows) => {
-                if (err) {
-                    cb(err, null);
-                    return;
-                }
-                cb(null, rows[0]);
-            });
-        });
-    }
 }
 exports.DataAccess = DataAccess;
 //# sourceMappingURL=dataAccess.js.map

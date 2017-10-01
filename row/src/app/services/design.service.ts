@@ -42,4 +42,13 @@ export class DesignService {
     return this.api.delete(`/design/${slug}`);
   }
 
+  //TODO удалить в продакшен
+  adminSaveDesign(card:CardData){
+    return this.api.post('/adminSave', {
+      FieldsData: card.fieldsData,
+      DesignData: card.designData,
+      card: card.json
+    });
+  }
+
 }
