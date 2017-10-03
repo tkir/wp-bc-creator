@@ -10,7 +10,7 @@ export class UpdateService {
               private options:OptionsService) { }
 
   public generalUpdate(page_url, hash, email, templValue) {
-    const path='general';
+    const path='/general';
 
     if (this.options.page_url != page_url.trim()) {
       this.api.get(`${path}/page_url/${page_url}`)

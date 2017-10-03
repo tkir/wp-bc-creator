@@ -14,19 +14,19 @@ export class DataAccess {
 
     constructor() {
 
-        this.connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'bc-creator-api'
-        });
-
         // this.connection = mysql.createConnection({
-        //     host: 'db14.freehost.com.ua',
-        //     user: 'climat_api',
-        //     password: 'rpVw2sd1',
-        //     database: 'climat_bc-creator-api'
+        //     host: 'localhost',
+        //     user: 'root',
+        //     password: '',
+        //     database: 'bc-creator-api'
         // });
+
+        this.connection = mysql.createConnection({
+            host: 'db14.freehost.com.ua',
+            user: 'climat_api',
+            password: 'rpVw2sd1',
+            database: 'climat_bc-creator-api'
+        });
     }
 
     public getDesignsExcept(body: { url: string, designs: { Slug: string, Version: number }[] }, hash: string, cb) {
@@ -109,6 +109,18 @@ export class DataAccess {
             }
 
             if (rows.length) cb(null, rows[0].permission);
+            else cb(new Error('no update'), null);
+        });
+    }
+
+    public test(cb){
+        this.connection.query(`SELECT * FROM Customers`, (err, rows, fields) => {
+            if (err) {
+                cb(err, null);
+                return;
+            }
+
+            if (rows.length) cb(null, rows[0]);
             else cb(new Error('no update'), null);
         });
     }

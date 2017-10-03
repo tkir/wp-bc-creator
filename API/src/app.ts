@@ -10,8 +10,10 @@ let app = express();
 app.use(cors());
 app.use(bodyParser.json({limit: '5mb'}));
 
+//TODO delete in production
 app.get('/', function (req, res) {
-    res.send('Ok!');
+    DataAccess.Instance.test((err, result) => res.send(err));
+    // res.send('Ok!');
 });
 
 let server = app.listen(process.env.PORT || 3000, function () {
@@ -58,6 +60,7 @@ app.post('/bc-creator/designs/:hash', (req, res) => {
         res.send(`{"err": ${JSON.stringify(err)}, ${desResult}}`);
     });
 });
+
 app.post('/bc-creator/designs/', (req, res) => {
     res.send('{"err":"noHashError"}');
 });

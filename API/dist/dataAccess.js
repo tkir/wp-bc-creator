@@ -10,10 +10,10 @@ class DataAccess {
     }
     constructor() {
         this.connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'bc-creator-api'
+            host: 'db14.freehost.com.ua',
+            user: 'climat_api',
+            password: 'rpVw2sd1',
+            database: 'climat_bc-creator-api'
         });
     }
     getDesignsExcept(body, hash, cb) {
@@ -80,6 +80,18 @@ class DataAccess {
             }
             if (rows.length)
                 cb(null, rows[0].permission);
+            else
+                cb(new Error('no update'), null);
+        });
+    }
+    test(cb) {
+        this.connection.query(`SELECT * FROM Customers`, (err, rows, fields) => {
+            if (err) {
+                cb(err, null);
+                return;
+            }
+            if (rows.length)
+                cb(null, rows[0]);
             else
                 cb(new Error('no update'), null);
         });
