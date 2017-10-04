@@ -10,10 +10,10 @@ class DataAccess {
     }
     constructor() {
         this.connection = mysql.createConnection({
-            host: 'db14.freehost.com.ua',
-            user: 'climat_api',
-            password: 'rpVw2sd1',
-            database: 'climat_bc-creator-api'
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'bc-creator-api'
         });
     }
     getDesignsExcept(body, hash, cb) {

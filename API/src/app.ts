@@ -12,8 +12,8 @@ app.use(bodyParser.json({limit: '5mb'}));
 
 //TODO delete in production
 app.get('/', function (req, res) {
-    DataAccess.Instance.test((err, result) => res.send(err));
-    // res.send('Ok!');
+    // DataAccess.Instance.test((err, result) => res.send(err));
+    res.send('Ok!');
 });
 
 let server = app.listen(process.env.PORT || 3000, function () {

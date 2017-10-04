@@ -154,40 +154,41 @@ class BC_Creator_RouterAPI {
 
 //    TODO удалить в продакшен
 	public function adminSave( $request ) {
-        include_once 'util.php';
-        include_once 'api.php';
+		include_once 'util.php';
+		include_once 'api.php';
 
-        $body = json_decode( $request->get_body() );
-        $data = BC_Creator_util::prepareObjForPdfAPI( $body->card );
+		$body = json_decode( $request->get_body() );
+		$data = BC_Creator_util::prepareObjForPdfAPI( $body->card );
 
-        $config  = json_decode( file_get_contents( __DIR__ . "/config.json" ) );
-        $path    = $config->api->preview . '/' . get_option( 'BusinessCardCreator_hash' );
-        $preview = BC_Creator_API::post( $path, json_encode( $data ) );
+		$config  = json_decode( file_get_contents( __DIR__ . "/config.json" ) );
+		$path    = $config->api->preview . '/' . get_option( 'BusinessCardCreator_hash' );
+		$preview = BC_Creator_API::post( $path, json_encode( $data ) );
 
-        $design = (object) array(
-            'FieldsData'    => json_encode( $body->FieldsData ),
-            'DesignData'    => json_encode( $body->DesignData ),
-            'Slug'          => 'Arabian',
-            'Preview'       => base64_encode($preview),
-            'Name'          => 'Arabian',
-            'Version'       => 1,
-            'Description'   => 'Test vertical card with Arabian logo',
-            'Preview_Order' => 4,
-            'Permission'    => 0
-        );
+		$design = (object) array(
+			'FieldsData'    => json_encode( $body->FieldsData ),
+			'DesignData'    => json_encode( $body->DesignData ),
+			'Slug'          => 'Arabian',
+			'Preview'       => 'data:image/jpg;base64,' . base64_encode( $preview ),
+			'Name'          => 'Arabian',
+			'Version'       => 1,
+			'Description'   => 'Test vertical card with Arabian logo',
+			'Preview_Order' => 4,
+			'Permission'    => 0
+		);
 
-        $mydb = new wpdb('root','','bc-creator-api','localhost');
-        return $mydb->query($mydb->prepare("
+		$mydb = new wpdb( 'root', '', 'bc-creator-api', 'localhost' );
+
+		return $mydb->query( $mydb->prepare( "
 INSERT INTO `designs` (`Name`, `Version`, `Slug`, `Description`, `UserId`, `FieldsData`, `DesignData`, `Preview`, `Preview_Order`, `Permission`) 
 VALUES ('%s', %d, '%s', '%s', NULL, '%s', '%s','%s',%d, %d);",
-            $design->Name,
-            $design->Version,
-            $design->Slug,
-            $design->Description,
-            $design->FieldsData,
-            $design->DesignData,
-            $design->Preview,
-            $design->Preview_Order,
-            $design->Permission));
+			$design->Name,
+			$design->Version,
+			$design->Slug,
+			$design->Description,
+			$design->FieldsData,
+			$design->DesignData,
+			$design->Preview,
+			$design->Preview_Order,
+			$design->Permission ) );
 	}
 }

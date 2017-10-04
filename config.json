@@ -7,7 +7,7 @@
     {"value": "bc_creator", "name": "Full screen"}
   ],
   "template": "default",
-  "defaultDesign": "des2",
+  "defaultDesign": "x-box",
   "api": {
     "_endpoint": "https://html-pdf-api.appspot.com/bc-creator",
     "endpoint": "http://localhost:3000/bc-creator",

@@ -131,7 +131,7 @@ class BC_Creator_RouterMenuAPI {
 
 		foreach ( $slugs as $slug ) {
 			BC_Creator_DB::get_instance()->deleteDesign( $slug );
-			BC_Creator_util::deleteDir( wp_normalize_path( __DIR__ . "/img/$userID/$slug" ) );
+			BC_Creator_util::deleteDir( wp_normalize_path( dirname( __DIR__ ) . "/img/$userID/$slug" ) );
 		}
 	}
 

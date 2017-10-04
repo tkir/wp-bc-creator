@@ -71,6 +71,7 @@ class BC_Creator_util
         file_put_contents(__DIR__ . "/config.json", json_encode($config), LOCK_EX);
     }
 
+//    TODO to db.php
     public static function getDesignsForUpdate()
     {
         global $wpdb;
