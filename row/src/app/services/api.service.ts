@@ -19,9 +19,6 @@ export class ApiService {
   });
 
   private getRes(resp: Response): any {
-    if (~resp.headers.get('content-type').indexOf('application/pdf')) {
-      return new Blob([resp['_body']], {type: 'application/pdf'});
-    }
     return resp.json();
   }
 

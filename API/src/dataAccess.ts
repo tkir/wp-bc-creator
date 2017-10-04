@@ -14,15 +14,23 @@ export class DataAccess {
 
     constructor() {
 
+        // this.connection = mysql.createConnection({
+        //     host: 'localhost',
+        //     user: 'root',
+        //     password: '',
+        //     database: 'bc-creator-api'
+        // });
+
         this.connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '',
+            host: '35.190.211.221',
+            user: 'api',
+            password: 'rpVw2sd1',
             database: 'bc-creator-api'
         });
 
         // this.connection = mysql.createConnection({
-        //     host: 'db14.freehost.com.ua',
+        //     host: '195.191.24.196',
+        //     port: 2083,
         //     user: 'climat_api',
         //     password: 'rpVw2sd1',
         //     database: 'climat_bc-creator-api'
@@ -114,7 +122,7 @@ export class DataAccess {
     }
 
     public test(cb){
-        this.connection.query(`SELECT * FROM Customers`, (err, rows, fields) => {
+        this.connection.query(`SELECT * FROM customers`, (err, rows, fields) => {
             if (err) {
                 cb(err, null);
                 return;

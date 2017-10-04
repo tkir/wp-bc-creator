@@ -10,9 +10,9 @@ class DataAccess {
     }
     constructor() {
         this.connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '',
+            host: '35.190.211.221',
+            user: 'api',
+            password: 'rpVw2sd1',
             database: 'bc-creator-api'
         });
     }
@@ -85,7 +85,7 @@ class DataAccess {
         });
     }
     test(cb) {
-        this.connection.query(`SELECT * FROM Customers`, (err, rows, fields) => {
+        this.connection.query(`SELECT * FROM customers`, (err, rows, fields) => {
             if (err) {
                 cb(err, null);
                 return;
