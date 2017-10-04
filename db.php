@@ -132,6 +132,14 @@ INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES (
             $wpdb->prepare("SELECT * FROM `$this->tableDesign` WHERE Slug = %s", $slug));
     }
 
+	public function getDesignsForUpdate()
+	{
+		global $wpdb;
+		return $wpdb->get_results("
+          SELECT `Slug`, `Version` FROM `$this->tableDesign`;
+        ");
+	}
+
     public function createTableDesign()
     {
         global $wpdb;

@@ -16,36 +16,36 @@ export class PdfCreator {
         Object.keys(obj)
             .forEach(key => {
                     if (obj[key])
-                    obj[key].forEach(it =>{
-                        let item;
+                        obj[key].forEach(it => {
+                            let item;
 
-                        switch (key) {
-                            case 'Text':
-                                item = new TextField(it);
+                            switch (key) {
+                                case 'Text':
+                                    item = new TextField(it);
 
-                                textArr.push(`
+                                    textArr.push(`
 <div style="${item.getDivStyle(k, ++z)}">
   <span style="${item.getSpanStyle(k)}">${item.text}</span>
 </div>
               `);
-                                break;
+                                    break;
 
-                            case 'Logo':
-                                item = new Logo(it);
-                                logoArr.push(`<div style="${item.getDivStyle(k, ++z - 60)}"></div>`);
-                                break;
+                                case 'Logo':
+                                    item = new Logo(it);
+                                    logoArr.push(`<div style="${item.getDivStyle(k, ++z - 60)}"></div>`);
+                                    break;
 
-                            case 'Line':
-                                item = new Line(it);
-                                lineArr.push(`<div style="${item.getDivStyle(k, ++z - 50)}"></div>`);
-                                break;
+                                case 'Line':
+                                    item = new Line(it);
+                                    lineArr.push(`<div style="${item.getDivStyle(k, ++z - 50)}"></div>`);
+                                    break;
 
-                            case 'Background':
-                                item = new Background(it);
-                                bg = `<body style="${item.getDivStyle(k, 0)}">`;
-                                break;
-                        }
-                    })
+                                case 'Background':
+                                    item = new Background(it);
+                                    bg = `<body style="${item.getDivStyle(k, 0)}">`;
+                                    break;
+                            }
+                        })
                 }
             );
 

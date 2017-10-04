@@ -99,7 +99,7 @@ class BC_Creator_RouterMenuAPI {
 	public function updateDesigns() {
 		include_once dirname( __DIR__ ) . '/api.php';
 
-		$designs = BC_Creator_util::getDesignsForUpdate();
+		$designs = BC_Creator_DB::get_instance()->getDesignsForUpdate();
 		$data    = '{"designs":' . json_encode( $designs ) . ', "url": "' . get_option( 'siteurl' ) . '"}';
 
 		$config = json_decode( file_get_contents( dirname( __DIR__ ) . "/config.json" ) );

@@ -36,7 +36,7 @@ class BC_Creator_Initializer
 	    update_option( 'BusinessCardCreator_template', $config->template );
 //        TODO при создании страницы установить template
 
-	    include_once( 'util.php' );
+	    include_once 'util.php';
 	    BC_Creator_util::createPage( get_option( 'BusinessCardCreator_url' ) );
 
 	    include_once 'db.php';
