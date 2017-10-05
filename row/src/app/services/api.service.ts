@@ -13,9 +13,8 @@ export class ApiService {
 
   private headers: Headers = new Headers({
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
     'X-WP-Nonce': this.options.nonce,
-    responseType: ResponseContentType.Blob
+    'Accept': 'application/json'
   });
 
   private getRes(resp: Response): any {
