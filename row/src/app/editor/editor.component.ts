@@ -44,7 +44,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.store.changes
-      .subscribe((cardData: any) => this.model = cardData);
+      .subscribe((cardData: any) => {this.model = cardData;console.log(this.model.texts.map(m=>m.text));});
   }
 
   ngOnDestroy(): void {
@@ -54,7 +54,8 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.componentRef.destroy();
   }
 
-  addTextField(items: TextField[], i?: number) {
+  addTextField(i?: number) {
+    i = i ? i : 0;
 
     let newText: TextField = new TextField('',
       {
@@ -68,12 +69,12 @@ export class EditorComponent implements OnInit, OnDestroy {
         top_mm: 5
       }, this.options);
 
-    if (items && items.length) {
-      Object.keys(items[i]).forEach(key => newText[key] = items[i][key]);
+    if (this.model.texts && this.model.texts.length) {
+      Object.keys(this.model.texts[i]).forEach(key => newText[key] = this.model.texts[i][key]);
       newText.top += 20;
     }
 
-    items.push(newText);
+    this.model.texts.splice(i + 1, 0, newText);
     this.dataService.updateCard(this.model);
   }
 

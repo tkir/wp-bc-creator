@@ -1,5 +1,5 @@
 {
-  "tableDesign": "businesscardcreator_design",
+  "tableDesign": "businesscardcreator_design2",
   "tableOrderOptions": "businesscardcreator_orderoptions",
   "tableConfig": "BusinessCardCreator_config",
   "allowedTemplates": [

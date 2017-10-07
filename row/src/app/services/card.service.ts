@@ -13,15 +13,17 @@ export class CardService {
 
   constructor(private options:OptionsService){}
 
-  public getCard(fData: CardFieldsData, dData: CardDesignData, isEditable:boolean, slug:string): CardData {
+  public getCard(fData: CardFieldsData, dData: CardDesignData, isEditable:boolean, isPristine:boolean, slug:string): CardData {
 
-    let owners: TextField[] = this.createText(fData['owners'], dData['owners']);
-    let positions: TextField[] = this.createText(fData.positions, dData.positions);
-    let organisations: TextField[] = this.createText(fData.organisations, dData.organisations);
-    let addresses: TextField[] = this.createText(fData.addresses, dData.addresses);
-    let phones: TextField[] = this.createText(fData.phones, dData.phones);
-    let emails: TextField[] = this.createText(fData.emails, dData.emails);
-    let sites: TextField[] = this.createText(fData.sites, dData.sites);
+    // let owners: TextField[] = this.createText(fData['owners'], dData['owners']);
+    // let positions: TextField[] = this.createText(fData.positions, dData.positions);
+    // let organisations: TextField[] = this.createText(fData.organisations, dData.organisations);
+    // let addresses: TextField[] = this.createText(fData.addresses, dData.addresses);
+    // let phones: TextField[] = this.createText(fData.phones, dData.phones);
+    // let emails: TextField[] = this.createText(fData.emails, dData.emails);
+    // let sites: TextField[] = this.createText(fData.sites, dData.sites);
+
+    let texts: TextField[] = this.createText(fData.texts, dData.texts);
 
     let logos: Logo[] = dData.logos.map((d, i) => {
       if (fData.logos[i]) return new Logo(
@@ -41,8 +43,10 @@ export class CardService {
         }
       }));
 
-    return new CardData(owners, positions, organisations, addresses, phones, emails, sites, logos, lines, bg,
-      {isEditable:isEditable, slug:slug});
+    return new CardData(
+      // owners, positions, organisations, addresses, phones, emails, sites,
+      texts, logos, lines, bg,
+      {isEditable:isEditable, isPristine:isPristine, slug:slug});
   }
 
   private createText(fStrs: string[], tDsns: TextDesign[]): TextField[] {
