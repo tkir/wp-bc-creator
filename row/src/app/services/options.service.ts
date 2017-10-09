@@ -1,62 +1,62 @@
 import {Injectable} from '@angular/core';
-// declare const bc_creator_config: any;
-const bc_creator_config = {
-  "path": "http://localhost/wordpress/wp-json/business-card-creator",
-  "nonce": "9df5719af3",
-  "previews": [{
-    "id": "1",
-    "Name": "pageNotFound",
-    "Slug": "pageNotFound",
-    "Description": null,
-    "Preview": null,
-    "isActive": "1"
-  }, {
-    "id": "6",
-    "Name": "X-Box",
-    "Slug": "x-box",
-    "Description": "Test card with X-Box logo",
-    "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/x-box/preview.jpg",
-    "isActive": "1"
-  }, {
-    "id": "7",
-    "Name": "NASA",
-    "Slug": "NASA",
-    "Description": "Test card with NASA logo",
-    "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/NASA/preview.jpg",
-    "isActive": "1"
-  }, {
-    "id": "8",
-    "Name": "Penguin",
-    "Slug": "Penguin",
-    "Description": "Test black & white card with Penguin logo",
-    "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/Penguin/preview.jpg",
-    "isActive": "1"
-  }, {
-    "id": "9",
-    "Name": "Arabian",
-    "Slug": "Arabian",
-    "Description": "Test vertical card with Arabian logo",
-    "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/Arabian/preview.jpg",
-    "isActive": "1"
-  }],
-  "defaultDesign": "x-box",
-  "settings": {
-    "allowedFonts": ["Work Sans", "Playfair Display", "Open Sans", "Josefin Slab", "Arvo", "Lato"],
-    "allowedDesigns": ["default", "des1", "des2"],
-    "allowedSizes": [{"width": 85, "height": 55}, {"width": 55, "height": 85}],
-    "allowedHrDesigns": ["solid", "dashed", "dotted", "double"],
-    "ratio": 7,
-    "fontSizeStep": 0.2,
-    "polygraphPadding": 5,
-    "imageUpload": {"resizeQuality": 1, "resizeType": "image/png", "allowedExtensions": ["jpg", "jpeg", "png"]}
-  },
-  "orderOptions": [{
-    "id": "1",
-    "Name": "Quantity",
-    "Values": "[{\"Value\":\"100\",\"Rate\":\"1.0\"},{\"Value\":\"500\",\"Rate\":\"4.5\"},{\"Value\":\"1000\",\"Rate\":\"8.0\"},{\"Value\":\"2000\",\"Rate\":\"15.0\"}]"
-  }],
-  "price": "100"
-};
+declare const bc_creator_config: any;
+// const bc_creator_config = {
+//   "path": "http://localhost/wordpress/wp-json/business-card-creator",
+//   "nonce": "9df5719af3",
+//   "previews": [{
+//     "id": "1",
+//     "Name": "pageNotFound",
+//     "Slug": "pageNotFound",
+//     "Description": null,
+//     "Preview": null,
+//     "isActive": "1"
+//   }, {
+//     "id": "6",
+//     "Name": "X-Box",
+//     "Slug": "x-box",
+//     "Description": "Test card with X-Box logo",
+//     "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/x-box/preview.jpg",
+//     "isActive": "1"
+//   }, {
+//     "id": "7",
+//     "Name": "NASA",
+//     "Slug": "NASA",
+//     "Description": "Test card with NASA logo",
+//     "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/NASA/preview.jpg",
+//     "isActive": "1"
+//   }, {
+//     "id": "8",
+//     "Name": "Penguin",
+//     "Slug": "Penguin",
+//     "Description": "Test black & white card with Penguin logo",
+//     "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/Penguin/preview.jpg",
+//     "isActive": "1"
+//   }, {
+//     "id": "9",
+//     "Name": "Arabian",
+//     "Slug": "Arabian",
+//     "Description": "Test vertical card with Arabian logo",
+//     "Preview": "http://localhost/wordpress/wp-content/plugins/business-card-creator/img/-1/Arabian/preview.jpg",
+//     "isActive": "1"
+//   }],
+//   "defaultDesign": "x-box",
+//   "settings": {
+//     "allowedFonts": ["Work Sans", "Playfair Display", "Open Sans", "Josefin Slab", "Arvo", "Lato"],
+//     "allowedDesigns": ["default", "des1", "des2"],
+//     "allowedSizes": [{"width": 85, "height": 55}, {"width": 55, "height": 85}],
+//     "allowedHrDesigns": ["solid", "dashed", "dotted", "double"],
+//     "ratio": 7,
+//     "fontSizeStep": 0.2,
+//     "polygraphPadding": 5,
+//     "imageUpload": {"resizeQuality": 1, "resizeType": "image/png", "allowedExtensions": ["jpg", "jpeg", "png"]}
+//   },
+//   "orderOptions": [{
+//     "id": "1",
+//     "Name": "Quantity",
+//     "Values": "[{\"Value\":\"100\",\"Rate\":\"1.0\"},{\"Value\":\"500\",\"Rate\":\"4.5\"},{\"Value\":\"1000\",\"Rate\":\"8.0\"},{\"Value\":\"2000\",\"Rate\":\"15.0\"}]"
+//   }],
+//   "price": "100"
+// };
 
 @Injectable()
 export class OptionsService {
