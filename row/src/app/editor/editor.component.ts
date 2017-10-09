@@ -26,6 +26,7 @@ import {Router} from "@angular/router";
 export class EditorComponent implements OnInit, OnDestroy {
 
   model: CardData = null;
+  textModel: TextField[];
   selectedItem: TextField = null;
   selectedInput: any = null;
 
@@ -44,7 +45,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.store.changes
-      .subscribe((cardData: any) => {this.model = cardData;console.log(this.model.texts.map(m=>m.text));});
+      .subscribe((cardData: any) => {
+        this.model = cardData;
+        this.textModel = JSON.parse(JSON.stringify(cardData.texts));console.log(this.textModel);
+      });
   }
 
   ngOnDestroy(): void {
@@ -54,8 +58,12 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.componentRef.destroy();
   }
 
+  textModelChange(text, i) {
+    // this.textModel[i] = text;
+    this.model.texts[i].text = text;
+  }
+
   addTextField(i?: number) {
-    i = i ? i : 0;
 
     let newText: TextField = new TextField('',
       {
@@ -122,17 +130,17 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.dataService.updateCard(this.model);
   }
 
-  focusItem(item: TextField, event) {
+  focusItem(event, i) {
     this.model.fields.forEach(item => {
       if (item.isSelected) item.isSelected = false;
     });
 
-    item.isSelected = true;
-    this.selectedItem = item;
+    this.model.texts[i].isSelected = true;
+    this.selectedItem = this.model.texts[i];
     this.selectedInput = event.target;
   }
 
-  blurItem() {
+  blurItem() {console.log('in');
     if (!this.selectedItem.isStyling) {
       this.selectedItem.isSelected = false;
       this.selectedItem = null;

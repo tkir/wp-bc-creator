@@ -6,22 +6,23 @@
 
       <div class="form-group">
         <ul>
-          <li *ngFor="let item of model.texts; let i = index" class="input-group">
+          <li *ngFor="let item of textModel; let i = index" class="input-group">
             <input
               type="text"
               class="form-control"
-              name="owner"
+              name="text"
               [(ngModel)]="item.text"
-              (focus)="focusItem(item, $event)"
+              (ngModelChange)="textModelChange($event, i)"
+              (focus)="focusItem($event, i)"
               (blur)="blurItem()">
             <a class="input-group-addon" (click)="addTextField(i)"><i class="glyphicon glyphicon-plus"></i></a>
-            <a class="input-group-addon" (click)="removeItem(i)"><i class="glyphicon glyphicon-minus"></i></a>
+            <a class="input-group-addon" (click)="removeItem(model.texts, i)"><i class="glyphicon glyphicon-minus"></i></a>
           </li>
           <li *ngIf="!model.texts || !model.texts.length">
             <input
               type="text"
               class="form-control" disabled>
-            <a class="input-group-addon" (click)="addTextField(model.texts)"><i class="glyphicon glyphicon-plus"></i></a>
+            <a class="input-group-addon" (click)="addTextField(0)"><i class="glyphicon glyphicon-plus"></i></a>
             <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
           </li>
         </ul>
