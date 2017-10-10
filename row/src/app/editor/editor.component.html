@@ -1,5 +1,4 @@
 <div>
-  <form #cardForm="ngForm">
     <div>
       <card-background-editor></card-background-editor><br>
       <card-style-editor [item]="selectedItem" (returnFocus)="onFocusReturn()"></card-style-editor>
@@ -10,7 +9,6 @@
             <input
               type="text"
               class="form-control"
-              name="owner"
               [(ngModel)]="item.text"
               (focus)="focusItem(item, $event)"
               (blur)="blurItem()">
@@ -31,7 +29,6 @@
             <input
               type="text"
               class="form-control"
-              name="position"
               [(ngModel)]="item.text"
               (focus)="focusItem(item, $event)"
               (blur)="blurItem()">
@@ -55,7 +52,6 @@
             <input
               type="text"
               class="form-control"
-              name="organisation"
               [(ngModel)]="item.text"
               (focus)="focusItem(item, $event)"
               (blur)="blurItem()">
@@ -78,7 +74,6 @@
             <input
               type="text"
               class="form-control"
-              name="address"
               [(ngModel)]="item.text"
               (focus)="focusItem(item, $event)"
               (blur)="blurItem()">
@@ -101,7 +96,6 @@
             <input
               type="text"
               class="form-control"
-              name="phone"
               [(ngModel)]="item.text"
               (focus)="focusItem(item, $event)"
               (blur)="blurItem()">
@@ -124,7 +118,6 @@
             <input
               type="text"
               class="form-control"
-              name="email"
               [(ngModel)]="item.text"
               (focus)="focusItem(item, $event)"
               (blur)="blurItem()">
@@ -147,7 +140,6 @@
             <input
               type="text"
               class="form-control"
-              name="site"
               [(ngModel)]="item.text"
               (focus)="focusItem(item, $event)"
               (blur)="blurItem()">
@@ -170,7 +162,6 @@
             <input
               type="file"
               class="form-control"
-              name="logo"
               (change)="uploadImage(item, $event)">
             <a class="input-group-addon" (click)="addLogo(model.logos, i)"><i class="glyphicon glyphicon-plus"></i></a>
             <a class="input-group-addon" (click)="removeItem(model.logos, i)"><i class="glyphicon glyphicon-minus"></i></a>
@@ -212,6 +203,5 @@
     <!--TODO удалить в релизе-->
     <button type="button" class="btn" (click)="adminSaveDesign()">Admin save design</button>
 
-  </form>
 </div>
 <div #previewModalContainer></div>
