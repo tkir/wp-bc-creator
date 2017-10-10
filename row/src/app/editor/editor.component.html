@@ -1,18 +1,15 @@
 <div>
-  <form #cardForm="ngForm">
     <div>
       <card-background-editor></card-background-editor><br>
       <card-style-editor [item]="selectedItem" (returnFocus)="onFocusReturn()"></card-style-editor>
 
       <div class="form-group">
         <ul>
-          <li *ngFor="let item of textModel; let i = index" class="input-group">
+          <li *ngFor="let item of model.texts; let i = index" class="input-group">
             <input
               type="text"
               class="form-control"
-              name="text"
               [(ngModel)]="item.text"
-              (ngModelChange)="textModelChange($event, i)"
               (focus)="focusItem($event, i)"
               (blur)="blurItem()">
             <a class="input-group-addon" (click)="addTextField(i)"><i class="glyphicon glyphicon-plus"></i></a>
@@ -34,7 +31,6 @@
             <input
               type="file"
               class="form-control"
-              name="logo"
               (change)="uploadImage(item, $event)">
             <a class="input-group-addon" (click)="addLogo(model.logos, i)"><i class="glyphicon glyphicon-plus"></i></a>
             <a class="input-group-addon" (click)="removeItem(model.logos, i)"><i class="glyphicon glyphicon-minus"></i></a>
@@ -76,6 +72,5 @@
     <!--TODO удалить в релизе-->
     <button type="button" class="btn" (click)="adminSaveDesign()">Admin save design</button>
 
-  </form>
 </div>
 <div #previewModalContainer></div>

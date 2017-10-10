@@ -26,7 +26,6 @@ import {Router} from "@angular/router";
 export class EditorComponent implements OnInit, OnDestroy {
 
   model: CardData = null;
-  textModel: TextField[];
   selectedItem: TextField = null;
   selectedInput: any = null;
 
@@ -45,10 +44,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.store.changes
-      .subscribe((cardData: any) => {
-        this.model = cardData;
-        this.textModel = JSON.parse(JSON.stringify(cardData.texts));console.log(this.textModel);
-      });
+      .subscribe((cardData: any) => this.model = cardData);
   }
 
   ngOnDestroy(): void {
@@ -56,11 +52,6 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     if (this.componentRef)
       this.componentRef.destroy();
-  }
-
-  textModelChange(text, i) {
-    // this.textModel[i] = text;
-    this.model.texts[i].text = text;
   }
 
   addTextField(i?: number) {
@@ -140,7 +131,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.selectedInput = event.target;
   }
 
-  blurItem() {console.log('in');
+  blurItem() {
     if (!this.selectedItem.isStyling) {
       this.selectedItem.isSelected = false;
       this.selectedItem = null;
