@@ -28,7 +28,6 @@ import {TextFieldService} from "../services/text-field.service";
 export class EditorComponent implements OnInit, OnDestroy {
 
   model: CardData = null;
-  selectedItem: TextField = null;
   selectedInput: any = null;
 
   private subscription: Subscription;
@@ -129,8 +128,6 @@ export class EditorComponent implements OnInit, OnDestroy {
       if (item.isSelected) item.isSelected = false;
     });
 
-    this.model.texts[i].isSelected = true;
-    this.selectedItem = this.model.texts[i];
     this.selectedInput = event.target;
 
 
@@ -139,11 +136,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   blurItem() {
-    if (!this.selectedItem.isStyling) {
-      this.selectedItem.isSelected = false;
-      this.selectedItem = null;
       this.selectedInput = null;
-    }
   }
 
   onFocusReturn() {

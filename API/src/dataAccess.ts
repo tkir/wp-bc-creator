@@ -21,20 +21,19 @@ export class DataAccess {
         //     database: 'bc-creator-api'
         // });
 
-        this.connection = mysql.createConnection({
-            host: '35.190.211.221',
-            user: 'api',
-            password: 'rpVw2sd1',
-            database: 'bc-creator-api'
-        });
-
         // this.connection = mysql.createConnection({
-        //     host: '195.191.24.196',
-        //     port: 2083,
-        //     user: 'climat_api',
+        //     host: '35.190.211.221',
+        //     user: 'api',
         //     password: 'rpVw2sd1',
-        //     database: 'climat_bc-creator-api'
+        //     database: 'bc-creator-api'
         // });
+
+        this.connection = mysql.createConnection({
+            host: 'us-cdbr-iron-east-05.cleardb.net',
+            user: 'b32264b621f27a',
+            password: 'c9572ebc',
+            database: 'heroku_89def5178434b57'
+        });
     }
 
     public getDesignsExcept(body: { url: string, designs: { Slug: string, Version: number }[] }, hash: string, cb) {
