@@ -13,7 +13,7 @@ let WebFont = require('webfontloader');
     '(mousedown)': 'onMouseDown()'
   }
 })
-export class StyleEditorComponent implements OnInit{
+export class StyleEditorComponent implements OnInit {
 
   @Input() item: TextField;
   @Output() returnFocus: EventEmitter<any> = new EventEmitter();
@@ -23,11 +23,12 @@ export class StyleEditorComponent implements OnInit{
     if (this.item) this.item.isStyling = true;
   }
 
-  constructor(private options:OptionsService,
+  constructor(private options: OptionsService,
               public alService: AlignService) {
   }
-  ngOnInit(){
-    this.allowedFonts=this.options.settings.allowedFonts;
+
+  ngOnInit() {
+    this.allowedFonts = this.options.settings.allowedFonts;
   }
 
   toggleStyle(style: string) {

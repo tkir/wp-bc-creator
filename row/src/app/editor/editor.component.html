@@ -9,6 +9,7 @@
             <input
               type="text"
               class="form-control"
+              [class.text-field-selected]="item.isSelected"
               [(ngModel)]="item.text"
               (focus)="focusItem($event, i)"
               (blur)="blurItem()">

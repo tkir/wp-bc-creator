@@ -36,6 +36,8 @@ import {OrderFormComponent} from "./order-form/order-form.component";
 import {OptionsService} from "./services/options.service";
 import {OrderOptionComponent} from './order-form/order-option/order-option.component';
 import {OrderService} from "./services/order.service";
+import { TextStyleComponent } from './editor-container/text-style/text-style.component';
+import {TextFieldService} from "./services/text-field.service";
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import {OrderService} from "./services/order.service";
     DesignContainerComponent,
     PreviewModalComponent,
     OrderFormComponent,
-    OrderOptionComponent
+    OrderOptionComponent,
+    TextStyleComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
@@ -78,7 +81,8 @@ import {OrderService} from "./services/order.service";
     ApiService,
     DesignService,
     PreviewService,
-    OrderService
+    OrderService,
+    TextFieldService
   ],
   bootstrap: [AppComponent]
 })

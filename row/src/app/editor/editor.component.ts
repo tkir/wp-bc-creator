@@ -2,10 +2,12 @@ import {
   Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild,
   ViewContainerRef
 } from '@angular/core';
+import {Router} from "@angular/router";
+import {Subscription} from "rxjs/Subscription";
+
 import {DataService} from "../services/data.service";
 import {CardData} from "../data/CardData";
 import {TextField} from "../data/TextField";
-import {Subscription} from "rxjs/Subscription";
 import {Store} from "../services/store";
 import {ImageService} from "../services/image.service";
 import {Logo} from "../data/Logo";
@@ -15,7 +17,7 @@ import {PreviewService} from "../services/preview.service";
 import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
 import {OptionsService} from "../services/options.service";
 import {OrderService} from "../services/order.service";
-import {Router} from "@angular/router";
+import {TextFieldService} from "../services/text-field.service";
 
 
 @Component({
@@ -39,7 +41,8 @@ export class EditorComponent implements OnInit, OnDestroy {
               private designService: DesignService,
               private previewService: PreviewService,
               private resolver: ComponentFactoryResolver,
-              private orderService: OrderService) {
+              private orderService: OrderService,
+              private textFieldService:TextFieldService) {
   }
 
   ngOnInit() {
@@ -129,6 +132,10 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.model.texts[i].isSelected = true;
     this.selectedItem = this.model.texts[i];
     this.selectedInput = event.target;
+
+
+    this.textFieldService.clear();
+    this.textFieldService.add(this.model.texts[i]);
   }
 
   blurItem() {
