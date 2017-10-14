@@ -26,7 +26,7 @@ export class TabDesignComponent implements OnDestroy {
 
   public updatePreviews() {
     this.subscription = this.updateService.previewsUpdate()
-      .subscribe(prevs => this.options.previews = prevs);
+      .subscribe(prevs => {console.log(prevs);this.options.previews = prevs;});
   }
 
   public toggleActive(preview) {

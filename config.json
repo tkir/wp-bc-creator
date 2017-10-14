@@ -1,5 +1,5 @@
 {
-  "tableDesign": "businesscardcreator_design2",
+  "tableDesign": "businesscardcreator_design",
   "tableOrderOptions": "businesscardcreator_orderoptions",
   "tableConfig": "BusinessCardCreator_config",
   "allowedTemplates": [
@@ -11,6 +11,7 @@
   "api": {
     "_endpoint": "https://html-pdf-api.appspot.com/bc-creator",
     "endpoint": "http://localhost:3000/bc-creator",
+    "__endpoint": "https://mighty-tor-57400.herokuapp.com/bc-creator",
     "designs": "/designs",
     "pdf": "/pdf",
     "preview": "/preview"
@@ -24,30 +25,21 @@
     "isActive": 1,
     "Order": -1,
     "fieldsData": {
-      "addresses": [],
-      "emails": [],
       "logos": [],
-      "organisations": [],
-      "owners": [
+      "texts": [
         "DESIGN NOT FOUND"
-      ],
-      "phones": [],
-      "positions": [],
-      "sites": []
+      ]
     },
     "designData": {
-      "addresses": [],
       "background": {
         "_backgroundColor": "#fff",
         "height_mm": 55,
         "src": "",
         "width_mm": 85
       },
-      "emails": [],
       "lines": [],
       "logos": [],
-      "organisations": [],
-      "owners": [
+      "texts": [
         {
           "colorStr": "000",
           "fontFamily": "Open Sans",
@@ -58,10 +50,7 @@
           "textDecoration": "none",
           "top_mm": 10
         }
-      ],
-      "phones": [],
-      "positions": [],
-      "sites": []
+      ]
     }
   },
   "creatorSettings": {
