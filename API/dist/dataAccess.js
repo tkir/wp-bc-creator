@@ -14,10 +14,10 @@ class DataAccess {
     }
     connect() {
         this.connection = mysql.createConnection({
-            host: 'us-cdbr-iron-east-05.cleardb.net',
-            user: 'b32264b621f27a',
-            password: 'c9572ebc',
-            database: 'heroku_89def5178434b57'
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'bc-creator-api'
         });
     }
     closeConnection() {
@@ -80,7 +80,6 @@ class DataAccess {
         });
     }
     getPermission(hash, site, cb) {
-        console.log(hash + '; ' + JSON.stringify(site));
         if (!this.connection)
             this.connect();
         hash = hash.replace(/[^a-zA-Z0-9]/, '');

@@ -181,7 +181,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
 
   openModal() {
-    this.orderService.cardHtml = this.model.json;
+    this.orderService.card = this.model;
 
     this.container.clear();
     const factory = this.resolver.resolveComponentFactory(PreviewModalComponent);
@@ -201,6 +201,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.componentRef.destroy();
     this.container.clear();
     this.componentRef = null;
-    this.orderService.cardHtml = null;
+    this.orderService.card = null;
   }
 }

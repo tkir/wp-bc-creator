@@ -17,12 +17,12 @@ export class DataAccess {
     }
 
     private connect() {
-        // this.connection = mysql.createConnection({
-        //     host: 'localhost',
-        //     user: 'root',
-        //     password: '',
-        //     database: 'bc-creator-api'
-        // });
+        this.connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'bc-creator-api'
+        });
 
         // this.connection = mysql.createConnection({
         //     host: '35.190.211.221',
@@ -31,12 +31,12 @@ export class DataAccess {
         //     database: 'bc-creator-api'
         // });
 
-        this.connection = mysql.createConnection({
-            host: 'us-cdbr-iron-east-05.cleardb.net',
-            user: 'b32264b621f27a',
-            password: 'c9572ebc',
-            database: 'heroku_89def5178434b57'
-        });
+        // this.connection = mysql.createConnection({
+        //     host: 'us-cdbr-iron-east-05.cleardb.net',
+        //     user: 'b32264b621f27a',
+        //     password: 'c9572ebc',
+        //     database: 'heroku_89def5178434b57'
+        // });
     }
 
     public closeConnection() {
@@ -115,7 +115,7 @@ export class DataAccess {
         });
     }
 
-    public getPermission(hash: string, site: string, cb) {console.log(hash + '; '+ JSON.stringify(site));
+    public getPermission(hash: string, site: string, cb) {
         if(!this.connection)this.connect();
 
         hash = hash.replace(/[^a-zA-Z0-9]/, '');

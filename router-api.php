@@ -97,7 +97,6 @@ class BC_Creator_RouterAPI {
 		$slug = $this->saveDesign( $request )->Slug;
 
 		include_once 'order.php';
-
 		return BC_Creator_Order::get_instance()->orderCard( json_decode( $request->get_body() ) );
 	}
 

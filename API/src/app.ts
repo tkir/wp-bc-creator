@@ -10,6 +10,8 @@ let app = express();
 app.use(cors());
 app.use(bodyParser.json({limit: '5mb'}));
 
+
+
 //TODO delete in production
 app.get('/', function (req, res) {
     DataAccess.Instance.test((err, result) => {
@@ -22,7 +24,6 @@ app.get('/', function (req, res) {
 
     // res.send('Ok!');
 });
-
 app.post('/:hash', (req, res)=>{
     DataAccess.Instance.getPermission(req.params.hash, req.body, (err, result)=>{
         res.send(`
@@ -32,6 +33,9 @@ app.post('/:hash', (req, res)=>{
         DataAccess.Instance.closeConnection();
     })
 });
+
+
+
 
 let server = app.listen(process.env.PORT || 3000, function () {
     console.log('PDF app listening on port 3000');
