@@ -19,7 +19,6 @@ export class DesignService {
   }
 
   saveDesign(card: CardData) {
-
     return this.api.post('/save', {
       FieldsData: card.fieldsData,
       DesignData: card.designData,

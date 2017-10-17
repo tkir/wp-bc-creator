@@ -1,22 +1,20 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, APP_INITIALIZER} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {FormsModule}   from '@angular/forms';
+import {HttpModule} from "@angular/http";
 
 import {AppComponent} from './app.component';
 import {EditorComponent} from './editor/editor.component';
 import {DesignComponent} from './design/design.component';
 import {EditorContainerComponent} from './editor-container/editor-container.component';
-import {HttpModule} from "@angular/http";
-
 import {DataService} from "./services/data.service";
 import {ResultComponent} from './result/result.component';
-import {StyleEditorComponent} from './editor/style-editor/style-editor.component';
 import {MovableDirective} from './result/directives/movable.directive';
 import {Store} from "./services/store";
 import {DroppableDirective} from './result/directives/droppable.directive';
 import {ImageService} from "./services/image.service";
-import {BackgroundEditorComponent} from './editor/background-editor/background-editor.component';
-import {ColorPickerComponent} from './editor/color-picker/color-picker.component';
+import {BackgroundEditorComponent} from './editor-container/background-editor/background-editor.component';
+import {ColorPickerComponent} from './editor-container/color-picker/color-picker.component';
 import {HrComponent} from './hr/hr.component';
 import {HrEditorComponent} from './editor/hr-editor/hr-editor.component';
 import {FieldResizeComponent} from './result/field-resize/field-resize.component';
@@ -36,6 +34,8 @@ import {OrderFormComponent} from "./order-form/order-form.component";
 import {OptionsService} from "./services/options.service";
 import {OrderOptionComponent} from './order-form/order-option/order-option.component';
 import {OrderService} from "./services/order.service";
+import { TextStyleComponent } from './editor-container/text-style/text-style.component';
+import {TextFieldService} from "./services/text-field.service";
 
 @NgModule({
   declarations: [
@@ -44,7 +44,6 @@ import {OrderService} from "./services/order.service";
     DesignComponent,
     EditorContainerComponent,
     ResultComponent,
-    StyleEditorComponent,
     MovableDirective,
     DroppableDirective,
     BackgroundEditorComponent,
@@ -58,7 +57,8 @@ import {OrderService} from "./services/order.service";
     DesignContainerComponent,
     PreviewModalComponent,
     OrderFormComponent,
-    OrderOptionComponent
+    OrderOptionComponent,
+    TextStyleComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
@@ -78,7 +78,8 @@ import {OrderService} from "./services/order.service";
     ApiService,
     DesignService,
     PreviewService,
-    OrderService
+    OrderService,
+    TextFieldService
   ],
   bootstrap: [AppComponent]
 })

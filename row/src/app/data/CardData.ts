@@ -5,17 +5,11 @@ import {Line} from "./Line";
 import {CardDesignData, CardFieldsData} from "./interfaces";
 
 export class CardData {
-  constructor(public owners: TextField[],
-              public positions: TextField[],
-              public organisations: TextField[],
-              public addresses: TextField[],
-              public phones: TextField[],
-              public emails: TextField[],
-              public sites: TextField[],
+  constructor(public texts: TextField[],
               public logos: Logo[],
               public lines: Line[],
               public background: Background,
-              public options: { isEditable: boolean, slug: string }) {
+              public options: { isEditable: boolean, isPristine: boolean, slug: string }) {
     this.update();
   }
 
@@ -60,13 +54,7 @@ export class CardData {
   public get fieldsData(): CardFieldsData {
     return new CardFieldsData(
       {
-        owners: this.owners.map(txt => txt.text),
-        positions: this.positions.map(txt => txt.text),
-        organisations: this.organisations.map(txt => txt.text),
-        addresses: this.addresses.map(txt => txt.text),
-        phones: this.phones.map(txt => txt.text),
-        emails: this.emails.map(txt => txt.text),
-        sites: this.sites.map(txt => txt.text),
+        texts: this.texts.map(txt => txt.text),
         logos: this.logos.map(logo => logo.src)
       }
     );
@@ -75,13 +63,7 @@ export class CardData {
   public get designData(): CardDesignData {
     return new CardDesignData(
       {
-        owners: this.owners.map(txt => txt.designData),
-        positions: this.positions.map(txt => txt.designData),
-        organisations: this.organisations.map(txt => txt.designData),
-        addresses: this.addresses.map(txt => txt.designData),
-        phones: this.phones.map(txt => txt.designData),
-        emails: this.emails.map(txt => txt.designData),
-        sites: this.sites.map(txt => txt.designData),
+        texts: this.texts.map(txt => txt.designData),
         logos: this.logos.map(logo => logo.designData),
         lines: this.lines.map(line => line.designData),
         background: this.background.designData

@@ -1,20 +1,20 @@
 <button
   class="btn btn-default btn-sm"
-  [ngClass]="{'disabled':!item, 'active':(item && item.fontWeight=='bold')}"
+  [ngClass]="{'disabled':!items.length, 'active':(items.length && items[0].fontWeight=='bold')}"
   (click)="toggleStyle('fontWeight')"><b>B</b></button>
 <button
   class="btn btn-default btn-sm"
-  [ngClass]="{'disabled':!item, 'active':(item && item.fontStyle=='italic')}"
+  [ngClass]="{'disabled':!items.length, 'active':(items.length && items[0].fontStyle=='italic')}"
   (click)="toggleStyle('fontStyle')"><i>I</i></button>
 <button
   class="btn btn-default btn-sm"
-  [ngClass]="{'disabled':!item, 'active':(item && item.textDecoration=='underline')}"
+  [ngClass]="{'disabled':!items.length, 'active':(items.length && items[0].textDecoration=='underline')}"
   (click)="toggleStyle('textDecoration')"><u>U</u></button>
 
 <!--text color-->
 <div class="btn-group dropup">
-  <button class="btn btn-sm" [ngClass]="{'disabled':!item}" [ngStyle]="{'color': item? item.color : '#a8a8a8'}"><i class="glyphicon glyphicon-text-color"></i></button>
-  <button class="btn btn-sm dropdown-toggle" [ngClass]="{'disabled':!item}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button class="btn btn-sm" [ngClass]="{'disabled':!items.length}" [ngStyle]="{'color': items.length? items[0].color : '#a8a8a8'}"><i class="glyphicon glyphicon-text-color"></i></button>
+  <button class="btn btn-sm dropdown-toggle" [ngClass]="{'disabled':!items.length}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -26,26 +26,26 @@
 <div class="btn-group" role="group" aria-label="...">
   <button
     type="button" class="btn btn-default"
-    [ngClass]="{'disabled':!item}"
+    [ngClass]="{'disabled':!items.length}"
     (click)="setFontSize('increase')"
   ><i class="glyphicon glyphicon-text-size"></i></button>
   <button
     type="button" class="btn btn-default text-decrease"
-    [ngClass]="{'disabled':!item}"
+    [ngClass]="{'disabled':!items.length}"
     (click)="setFontSize('decrease')"
   ><i class="glyphicon glyphicon-text-size"></i></button>
 </div>
 
 <!--font name-->
-<div class="btn-group" [ngClass]="{'disabled':!item}">
+<div class="btn-group" [ngClass]="{'disabled':!items.length}">
   <button
     class="btn btn-default btn-sm"
-    [ngClass]="{'disabled':!item}"
-  ><span *ngIf="item">{{item.fontName}}</span></button>
-  <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [ngClass]="{'disabled':!item}">
+    [ngClass]="{'disabled':!items.length}"
+  ><span *ngIf="items.length">{{items[0].fontName}}</span></button>
+  <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [ngClass]="{'disabled':!items.length}">
     <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu" *ngIf="item">
+  <ul class="dropdown-menu" *ngIf="items.length">
     <li *ngFor="let font of allowedFonts"><a (click)="setFontName(font)">{{font}}</a></li>
   </ul>
 </div>

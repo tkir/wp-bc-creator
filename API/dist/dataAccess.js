@@ -2,19 +2,29 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 let mysql = require('mysql');
 class DataAccess {
+    constructor() {
+        this.connection = null;
+        this.connect();
+    }
     static get Instance() {
         if (!DataAccess.instance) {
             DataAccess.instance = new DataAccess();
         }
         return DataAccess.instance;
     }
-    constructor() {
+    connect() {
         this.connection = mysql.createConnection({
-            host: '35.190.211.221',
-            user: 'api',
-            password: 'rpVw2sd1',
+            host: 'localhost',
+            user: 'root',
+            password: '',
             database: 'bc-creator-api'
         });
+    }
+    closeConnection() {
+        if (this.connection) {
+            this.connection.destroy();
+            this.connection = null;
+        }
     }
     getDesignsExcept(body, hash, cb) {
         this.getPermission(hash, body.url, (err, permission) => {
@@ -35,7 +45,7 @@ class DataAccess {
             Create_Date,
             isActive,
             Preview_Order
-        FROM Designs WHERE isActive = 1 AND permission <= ${permission}`, (err, rows, fields) => {
+        FROM designs2 WHERE isActive = 1 AND permission <= ${permission}`, (err, rows, fields) => {
                 if (err) {
                     cb(err, null);
                     return;
@@ -52,13 +62,15 @@ class DataAccess {
         });
     }
     getDesignsForDelete(designs, permission, cb) {
+        if (!this.connection)
+            this.connect();
         this.connection.query(`
         SELECT 
             Version,
             Slug,
             isActive,
             Permission
-        FROM Designs`, (err, rows, fields) => {
+        FROM designs2`, (err, rows, fields) => {
             if (err) {
                 cb(err, null);
                 return;
@@ -68,12 +80,14 @@ class DataAccess {
         });
     }
     getPermission(hash, site, cb) {
+        if (!this.connection)
+            this.connect();
         hash = hash.replace(/[^a-zA-Z0-9]/, '');
         if (hash.length !== 32) {
             cb(new Error('hash error'));
             return;
         }
-        this.connection.query(`SELECT permission FROM Customers WHERE hash = '${hash}' AND site = '${site}'`, (err, rows, fields) => {
+        this.connection.query(`SELECT permission FROM customers WHERE hash = '${hash}' AND site = '${site}'`, (err, rows, fields) => {
             if (err) {
                 cb(err, null);
                 return;
@@ -85,7 +99,11 @@ class DataAccess {
         });
     }
     test(cb) {
-        this.connection.query(`SELECT * FROM customers`, (err, rows, fields) => {
+        if (!this.connection)
+            this.connect();
+        this.connection.query(`
+SELECT * FROM designs2
+        `, (err, rows, fields) => {
             if (err) {
                 cb(err, null);
                 return;

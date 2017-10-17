@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChildren} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 
-import {DataService} from "../services/data.service";
 import {Store} from "../services/store";
 import {CardData} from "../data/CardData";
 import {AddResizeDirective} from "./directives/add-resize.directive";
@@ -17,8 +16,7 @@ export class ResultComponent implements OnInit, OnDestroy {
 
   @ViewChildren(AddResizeDirective) addResizeDirectives: AddResizeDirective[];
 
-  constructor(private dataService: DataService,
-              private store: Store) {
+  constructor(private store: Store) {
   }
 
   cardData: CardData = null;

@@ -10,14 +10,32 @@ let app = express();
 app.use(cors());
 app.use(bodyParser.json({limit: '5mb'}));
 
+
+
 //TODO delete in production
 app.get('/', function (req, res) {
-    DataAccess.Instance.test((err, result) => res.send(`
+    DataAccess.Instance.test((err, result) => {
+        res.send(`
     res: ${JSON.stringify(result)};    
-    err: ${JSON.stringify(err)}`));
+    err: ${JSON.stringify(err)}`);
+
+        DataAccess.Instance.closeConnection();
+    });
 
     // res.send('Ok!');
 });
+app.post('/:hash', (req, res)=>{
+    DataAccess.Instance.getPermission(req.params.hash, req.body, (err, result)=>{
+        res.send(`
+    res: ${JSON.stringify(result)};    
+    err: ${JSON.stringify(err)}`);
+
+        DataAccess.Instance.closeConnection();
+    })
+});
+
+
+
 
 let server = app.listen(process.env.PORT || 3000, function () {
     console.log('PDF app listening on port 3000');
@@ -37,6 +55,8 @@ app.post('/bc-creator/pdf/:hash', (req, res) => {
                 'Content-Length': buffer.length
             });
             res.end(buffer, 'binary');
+
+            DataAccess.Instance.closeConnection();
         });
     })
 });
@@ -61,6 +81,8 @@ app.post('/bc-creator/designs/:hash', (req, res) => {
     DataAccess.Instance.getDesignsExcept(req.body, req.params.hash, (err, desResult) => {
         if (err) err = err.message;
         res.send(`{"err": ${JSON.stringify(err)}, ${desResult}}`);
+
+        DataAccess.Instance.closeConnection();
     });
 });
 

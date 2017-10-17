@@ -2,10 +2,12 @@ import {
   Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild,
   ViewContainerRef
 } from '@angular/core';
+import {Router} from "@angular/router";
+import {Subscription} from "rxjs/Subscription";
+
 import {DataService} from "../services/data.service";
 import {CardData} from "../data/CardData";
 import {TextField} from "../data/TextField";
-import {Subscription} from "rxjs/Subscription";
 import {Store} from "../services/store";
 import {ImageService} from "../services/image.service";
 import {Logo} from "../data/Logo";
@@ -15,7 +17,7 @@ import {PreviewService} from "../services/preview.service";
 import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
 import {OptionsService} from "../services/options.service";
 import {OrderService} from "../services/order.service";
-import {Router} from "@angular/router";
+import {TextFieldService} from "../services/text-field.service";
 
 
 @Component({
@@ -26,7 +28,6 @@ import {Router} from "@angular/router";
 export class EditorComponent implements OnInit, OnDestroy {
 
   model: CardData = null;
-  selectedItem: TextField = null;
   selectedInput: any = null;
 
   private subscription: Subscription;
@@ -39,7 +40,8 @@ export class EditorComponent implements OnInit, OnDestroy {
               private designService: DesignService,
               private previewService: PreviewService,
               private resolver: ComponentFactoryResolver,
-              private orderService: OrderService) {
+              private orderService: OrderService,
+              private textFieldService:TextFieldService) {
   }
 
   ngOnInit() {
@@ -54,7 +56,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.componentRef.destroy();
   }
 
-  addTextField(items: TextField[], i?: number) {
+  addTextField(i?: number) {
 
     let newText: TextField = new TextField('',
       {
@@ -68,12 +70,12 @@ export class EditorComponent implements OnInit, OnDestroy {
         top_mm: 5
       }, this.options);
 
-    if (items && items.length) {
-      Object.keys(items[i]).forEach(key => newText[key] = items[i][key]);
+    if (this.model.texts && this.model.texts.length) {
+      Object.keys(this.model.texts[i]).forEach(key => newText[key] = this.model.texts[i][key]);
       newText.top += 20;
     }
 
-    items.push(newText);
+    this.model.texts.splice(i + 1, 0, newText);
     this.dataService.updateCard(this.model);
   }
 
@@ -121,22 +123,20 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.dataService.updateCard(this.model);
   }
 
-  focusItem(item: TextField, event) {
+  focusItem(event, i) {
     this.model.fields.forEach(item => {
       if (item.isSelected) item.isSelected = false;
     });
 
-    item.isSelected = true;
-    this.selectedItem = item;
     this.selectedInput = event.target;
+
+
+    this.textFieldService.clear();
+    this.textFieldService.add(this.model.texts[i]);
   }
 
   blurItem() {
-    if (!this.selectedItem.isStyling) {
-      this.selectedItem.isSelected = false;
-      this.selectedItem = null;
       this.selectedInput = null;
-    }
   }
 
   onFocusReturn() {
@@ -181,7 +181,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
 
   openModal() {
-    this.orderService.cardHtml = this.model.json;
+    this.orderService.card = this.model;
 
     this.container.clear();
     const factory = this.resolver.resolveComponentFactory(PreviewModalComponent);
@@ -201,6 +201,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.componentRef.destroy();
     this.container.clear();
     this.componentRef = null;
-    this.orderService.cardHtml = null;
+    this.orderService.card = null;
   }
 }

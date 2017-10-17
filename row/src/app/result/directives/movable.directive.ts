@@ -10,6 +10,7 @@ import {getMax, getMin, MovEl, updateOffset} from '../../utils/size.util';
 import {Background} from "../../data/Background";
 import {AlignService} from "../../services/align.service";
 import {TextField} from "../../data/TextField";
+import {TextFieldService} from "../../services/text-field.service";
 
 
 @Directive({
@@ -32,7 +33,8 @@ export class MovableDirective implements OnInit {
 
   constructor(private el: ElementRef,
               private componentFactoryResolver: ComponentFactoryResolver,
-              private alService: AlignService) {
+              private alService: AlignService,
+              private textFieldService: TextFieldService) {
   }
 
   ngOnInit(): void {
@@ -51,6 +53,8 @@ export class MovableDirective implements OnInit {
 
       this.alService.textFields = [];
       this.alService.isMultiselection = false;
+
+      this.textFieldService.clear();
 
       return;
     }
@@ -101,6 +105,7 @@ export class MovableDirective implements OnInit {
       this.alService.isMultiselection = false;
     }
 
+    if(item.instanceOf=='Text')this.textFieldService.add(item as TextField);
   }
 
   private multiselection(item: CardField) {
@@ -111,12 +116,12 @@ export class MovableDirective implements OnInit {
     if (!isMulti) {
       this.selectedItems = [];
       this.dataArr.forEach((item: CardField) => item.isSelected = false);
+      this.textFieldService.clear();
     }
   }
 
   //set item selected, add to selection array
   private updateSelectionArray(item: CardField, target: Element, event: MouseEvent) {
-    item.isSelected = true;
 
     let isDublingItems = false;
     this.selectedItems.forEach(obj => {
@@ -164,8 +169,7 @@ export class MovableDirective implements OnInit {
 
   onMouseUp() {
     this.startMovingCoords = null;
-    if (this.startResizing)
-      this.startResizing = false;
+    this.startResizing = false;
 
     //проверяем: не мультиселект, нет fieldResize, ели есть но другой элемент - удаляем старый добавляем новый
     if (this.selectedItems.length == 1) {
