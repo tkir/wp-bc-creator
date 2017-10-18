@@ -9,7 +9,7 @@ export class CardData {
               public logos: Logo[],
               public lines: Line[],
               public background: Background,
-              public options: { isEditable: boolean, isPristine: boolean, slug: string }) {
+              public options: { isEditable: boolean, slug: string }) {
     this.update();
   }
 

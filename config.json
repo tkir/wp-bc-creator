@@ -3,8 +3,14 @@
   "tableOrderOptions": "businesscardcreator_orderoptions",
   "tableConfig": "BusinessCardCreator_config",
   "allowedTemplates": [
-    {"value": "default", "name": "Default"},
-    {"value": "bc_creator", "name": "Full screen"}
+    {
+      "value": "default",
+      "name": "Default"
+    },
+    {
+      "value": "bc_creator",
+      "name": "Full screen"
+    }
   ],
   "template": "default",
   "defaultDesign": "x-box",
@@ -25,32 +31,51 @@
     "isActive": 1,
     "Order": -1,
     "fieldsData": {
-      "logos": [],
-      "texts": [
-        "DESIGN NOT FOUND"
-      ]
+      "front": {
+        "logos": [],
+        "texts": [
+          "DESIGN NOT FOUND"
+        ]
+      },
+      "back": {
+        "logos": [],
+        "texts": []
+      }
     },
     "designData": {
-      "background": {
-        "_backgroundColor": "#fff",
-        "height_mm": 55,
-        "src": "",
-        "width_mm": 85
+      "front": {
+        "background": {
+          "_backgroundColor": "#fff",
+          "height_mm": 55,
+          "src": "",
+          "width_mm": 85
+        },
+        "lines": [],
+        "logos": [],
+        "texts": [
+          {
+            "colorStr": "000",
+            "fontFamily": "Open Sans",
+            "fontSize_mm": 6,
+            "fontStyle": "normal",
+            "fontWeight": "bold",
+            "left_mm": 10,
+            "textDecoration": "none",
+            "top_mm": 10
+          }
+        ]
       },
-      "lines": [],
-      "logos": [],
-      "texts": [
-        {
-          "colorStr": "000",
-          "fontFamily": "Open Sans",
-          "fontSize_mm": 6,
-          "fontStyle": "normal",
-          "fontWeight": "bold",
-          "left_mm": 10,
-          "textDecoration": "none",
-          "top_mm": 10
-        }
-      ]
+      "back": {
+        "background": {
+          "_backgroundColor": "#fff",
+          "height_mm": 55,
+          "src": "",
+          "width_mm": 85
+        },
+        "lines": [],
+        "logos": [],
+        "texts": []
+      }
     }
   },
   "creatorSettings": {
@@ -96,15 +121,27 @@
       ]
     }
   },
-  "orderOptions":[
+  "orderOptions": [
     {
       "OptionType": "settings",
-      "Name":"Quantity",
-      "Values":[
-        {"Value":"100", "Rate":"1.0"},
-        {"Value":"500", "Rate":"4.5"},
-        {"Value":"1000", "Rate":"8.0"},
-        {"Value":"2000", "Rate":"15.0"}
+      "Name": "Quantity",
+      "Values": [
+        {
+          "Value": "100",
+          "Rate": "1.0"
+        },
+        {
+          "Value": "500",
+          "Rate": "4.5"
+        },
+        {
+          "Value": "1000",
+          "Rate": "8.0"
+        },
+        {
+          "Value": "2000",
+          "Rate": "15.0"
+        }
       ]
     },
     {

@@ -11,17 +11,15 @@ let WebFont = require('webfontloader');
 @Injectable()
 export class CardService {
 
-  constructor(private options:OptionsService){}
+  public inFront: CardData = null;
+  public inBack: CardData = null;
+  public outFront: CardData = null;
+  public outBack: CardData = null;
 
-  public getCard(fData: CardFieldsData, dData: CardDesignData, isEditable:boolean, isPristine:boolean, slug:string): CardData {
+  constructor(private options: OptionsService) {
+  }
 
-    // let owners: TextField[] = this.createText(fData['owners'], dData['owners']);
-    // let positions: TextField[] = this.createText(fData.positions, dData.positions);
-    // let organisations: TextField[] = this.createText(fData.organisations, dData.organisations);
-    // let addresses: TextField[] = this.createText(fData.addresses, dData.addresses);
-    // let phones: TextField[] = this.createText(fData.phones, dData.phones);
-    // let emails: TextField[] = this.createText(fData.emails, dData.emails);
-    // let sites: TextField[] = this.createText(fData.sites, dData.sites);
+  private getCard(fData: CardFieldsData, dData: CardDesignData, isEditable: boolean, slug: string): CardData {
 
     let texts: TextField[] = this.createText(fData.texts, dData.texts);
 
@@ -46,7 +44,7 @@ export class CardService {
     return new CardData(
       // owners, positions, organisations, addresses, phones, emails, sites,
       texts, logos, lines, bg,
-      {isEditable:isEditable, isPristine:isPristine, slug:slug});
+      {isEditable: isEditable, slug: slug});
   }
 
   private createText(fStrs: string[], tDsns: TextDesign[]): TextField[] {
@@ -64,5 +62,24 @@ export class CardService {
   }
 
   private loadedFonts: string[] = [];
+
+  public keepLoadedCard(fData: { front: CardFieldsData, back: CardFieldsData },
+                  dData: { front: CardDesignData, back: CardDesignData },
+                  isEditable: boolean, slug: string) {
+    this.inFront = this.getCard(fData.front, dData.front, isEditable, slug);
+    this.inBack = this.getCard(fData.back, dData.back, isEditable, slug);
+  }
+
+  public keepUserCard(fData: { front: CardFieldsData, back: CardFieldsData },
+                        dData: { front: CardDesignData, back: CardDesignData },
+                        isEditable: boolean, slug: string) {
+    this.outFront = this.getCard(fData.front, dData.front, isEditable, slug);
+    this.outBack = this.getCard(fData.back, dData.back, isEditable, slug);
+  }
+
+  public get isPristine() {
+    return this.inFront.json == this.outFront.json &&
+      this.inBack.json == this.outBack.json;
+  }
 
 }
