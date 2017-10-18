@@ -9,7 +9,7 @@ import {OptionsService} from "./options.service";
 @Injectable()
 export class DataService {
 
-  constructor(private options:OptionsService,
+  constructor(private options: OptionsService,
               private cardService: CardService,
               private store: Store,
               private router: Router,
@@ -18,8 +18,28 @@ export class DataService {
     //вариант с router events
     router.events.subscribe((val: any) => {
       if (NavigationStart.prototype.isPrototypeOf(val)) {
-        let url = val.url[0] == '/' ? val.url.slice(1) : val.url;
-        if (url === '') url = this.options.defaultDesign;
+
+        let url: string = val.url[0] == '/' ? val.url.slice(1) : val.url;
+        let side: string = '';
+        let arr:string[] = url.split('/');
+        switch (arr.length){
+          case 0:
+            url = this.options.defaultDesign;
+            side = 'front';
+            break;
+          case 1:
+            side = 'front';
+            break;
+          case 2:
+            url = arr[0];
+            side = arr[1];
+            side = (side.match(/^front|back$/i)) ? side : 'front';
+            break;
+          default:
+            url = this.options.defaultDesign;
+            side = 'front';
+        }
+
         if (this.options.Designs.indexOf(url) !== -1) {
           this.designService.getDesign(url)
             .subscribe(d => {
@@ -30,7 +50,7 @@ export class DataService {
         }
         //если роут неизвестен - грузим pageNotFound
         else {
-          this.router.navigate(['/pageNotFound']);
+          this.router.navigate(['/pageNotFound/front']);
         }
       }
     });
