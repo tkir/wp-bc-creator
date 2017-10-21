@@ -21,8 +21,8 @@ export class DataService {
 
         let url: string = val.url[0] == '/' ? val.url.slice(1) : val.url;
         let side: string = '';
-        let arr:string[] = url.split('/');
-        switch (arr.length){
+        let arr: string[] = url.split('/');
+        switch (arr.length) {
           case 0:
             url = this.options.defaultDesign;
             side = 'front';
@@ -43,9 +43,7 @@ export class DataService {
         if (this.options.Designs.indexOf(url) !== -1) {
           this.designService.getDesign(url)
             .subscribe(d => {
-              d['DesignData'] = JSON.parse(d['DesignData']);
-              d['FieldsData'] = JSON.parse(d['FieldsData']);
-              this.setCardData(d['FieldsData'], d['DesignData'], d['isEditable'], d['Slug']);
+              this.setCardData(d);
             });
         }
         //если роут неизвестен - грузим pageNotFound
@@ -65,11 +63,14 @@ export class DataService {
     return this.store.state = currentState;
   }
 
-  public setCardData(fieldsData, design, isEditable, slug) {
-    this.cardService.keepLoadedCard(fieldsData, design, isEditable, slug);
-    this.cardService.keepUserCard(fieldsData, design, isEditable, slug);
+  public setCardData(d) {
+    d['DesignData'] = JSON.parse(d['DesignData']);
+    d['FieldsData'] = JSON.parse(d['FieldsData']);
 
-    this.cData = this.cardService.outFront;
+    this.cardService.keepLoadedCard(d['FieldsData'], d['DesignData'], d['isEditable'], d['Slug']);
+    this.cardService.keepUserCard(d['FieldsData'], d['DesignData'], d['isEditable'], d['Slug']);
+
+    this.cData = this.cardService.userFront;
     this.isDesignLoad = true;
     this.updateCard(this.cData);
   }

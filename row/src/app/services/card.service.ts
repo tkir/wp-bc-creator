@@ -11,10 +11,10 @@ let WebFont = require('webfontloader');
 @Injectable()
 export class CardService {
 
-  public inFront: CardData = null;
-  public inBack: CardData = null;
-  public outFront: CardData = null;
-  public outBack: CardData = null;
+  public loadedFront: CardData = null;
+  public loadedBack: CardData = null;
+  public userFront: CardData = null;
+  public userBack: CardData = null;
 
   constructor(private options: OptionsService) {
   }
@@ -66,20 +66,20 @@ export class CardService {
   public keepLoadedCard(fData: { front: CardFieldsData, back: CardFieldsData },
                   dData: { front: CardDesignData, back: CardDesignData },
                   isEditable: boolean, slug: string) {
-    this.inFront = this.getCard(fData.front, dData.front, isEditable, slug);
-    this.inBack = this.getCard(fData.back, dData.back, isEditable, slug);
+    this.loadedFront = this.getCard(fData.front, dData.front, isEditable, slug);
+    this.loadedBack = this.getCard(fData.back, dData.back, isEditable, slug);
   }
 
   public keepUserCard(fData: { front: CardFieldsData, back: CardFieldsData },
                         dData: { front: CardDesignData, back: CardDesignData },
                         isEditable: boolean, slug: string) {
-    this.outFront = this.getCard(fData.front, dData.front, isEditable, slug);
-    this.outBack = this.getCard(fData.back, dData.back, isEditable, slug);
+    this.userFront = this.getCard(fData.front, dData.front, isEditable, slug);
+    this.userBack = this.getCard(fData.back, dData.back, isEditable, slug);
   }
 
   public get isPristine() {
-    return this.inFront.json == this.outFront.json &&
-      this.inBack.json == this.outBack.json;
+    return this.loadedFront.json == this.userFront.json &&
+      this.loadedBack.json == this.userBack.json;
   }
 
 }
