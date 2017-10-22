@@ -18,27 +18,7 @@ export class DataService {
     //вариант с router events
     router.events.subscribe((val: any) => {
       if (NavigationStart.prototype.isPrototypeOf(val)) {
-
-        let url: string = val.url[0] == '/' ? val.url.slice(1) : val.url;
-        let side: string = '';
-        let arr: string[] = url.split('/');
-        switch (arr.length) {
-          case 0:
-            url = this.options.defaultDesign;
-            side = 'front';
-            break;
-          case 1:
-            side = 'front';
-            break;
-          case 2:
-            url = arr[0];
-            side = arr[1];
-            side = (side.match(/^front|back$/i)) ? side : 'front';
-            break;
-          default:
-            url = this.options.defaultDesign;
-            side = 'front';
-        }
+        let url = this.getUrl(val.url);
 
         if (this.options.Designs.indexOf(url) !== -1) {
           this.designService.getDesign(url)
@@ -54,8 +34,33 @@ export class DataService {
     });
   }
 
-  private cData: CardData;
+  private getUrl(val): string {
+    let url: string = (val[0] == '/') ? val.slice(1) : val;
+    if (url == '') {
+      url = this.options.defaultDesign;
+      this.side = 'front';
+      return url;
+    }
+    let arr: string[] = url.split('/');
+    switch (arr.length) {
+      case 1:
+        this.side = 'front';
+        break;
+      case 2:
+        url = arr[0];
+        this.side = arr[1];
+        this.side = (this.side.match(/^front|back$/i)) ? this.side : 'front';
+        break;
+      default:
+        url = this.options.defaultDesign;
+        this.side = 'front';
+    }
+
+    return url;
+  }
+
   public isDesignLoad = false;
+  private side: string = 'front';
 
   updateCard(state): CardData {
     state.update();
@@ -64,14 +69,27 @@ export class DataService {
   }
 
   public setCardData(d) {
+
     d['DesignData'] = JSON.parse(d['DesignData']);
     d['FieldsData'] = JSON.parse(d['FieldsData']);
 
-    this.cardService.keepLoadedCard(d['FieldsData'], d['DesignData'], d['isEditable'], d['Slug']);
-    this.cardService.keepUserCard(d['FieldsData'], d['DesignData'], d['isEditable'], d['Slug']);
+    let fieldsData = d['FieldsData'];
+    if (this.isDesignLoad && !this.cardService.isPristine) {
+      fieldsData = (this.side == 'front') ?
+        this.cardService.userFront.fieldsData :
+        this.cardService.userBack.fieldsData;
+    }
 
-    this.cData = this.cardService.userFront;
+    this.cardService.keepLoadedCard(d['FieldsData'], d['DesignData'], d['isEditable'], d['Slug']);
+    this.cardService.keepUserCard(fieldsData, d['DesignData'], d['isEditable'], d['Slug']);
+
     this.isDesignLoad = true;
-    this.updateCard(this.cData);
+    this.updateCard((this.side == 'front') ? this.cardService.userFront : this.cardService.userBack);
+  }
+
+  //button reset data to default
+  public resetData() {
+    this.cardService.resetData();
+    this.updateCard((this.side == 'front') ? this.cardService.userFront : this.cardService.userBack);
   }
 }

@@ -38,7 +38,7 @@ class BC_Creator
             'path' => esc_url_raw(rest_url()).'business-card-creator',
             'nonce' => wp_create_nonce('wp_rest'),
             'previews' => BC_Creator_DB::get_instance()->getPreviews(false, get_current_user_id()),
-            'defaultDesign'=>$config->defaultDesign,
+            'defaultDesign'=> get_option('BusinessCardCreator_defaultDesign'),
             'settings' => $config->creatorSettings,
             'orderOptions' => BC_Creator_DB::get_instance()->getOrderOptions(),
             'price' => BC_Creator_DB::get_instance()->getPrice()

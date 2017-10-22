@@ -165,22 +165,44 @@ class BC_Creator_util {
 	}
 
 	public static function prepareDesignToDB( $des, $userID ) {
-		$fieldsData = json_decode( $des->FieldsData );
-		$designData = json_decode( $des->DesignData );
+		$fieldsDataFront = json_decode( $des->FieldsData )->front;
+		$designDataFront = json_decode( $des->DesignData )->front;
+		$fieldsDataBack  = json_decode( $des->FieldsData )->back;
+		$designDataBack  = json_decode( $des->DesignData )->back;
 
 //            create images from blobs
-		if ( $designData->background->src !== "" ) {
-			$imgPath                     = BC_Creator_util::blobToImg( $designData->background->src, $des->Slug, "bg", $userID );
-			$designData->background->src = $imgPath;
-			$des->DesignData             = json_encode( $designData );
+		if ( $designDataFront->background->src !== "" ) {
+			$imgPath                          = BC_Creator_util::blobToImg( $designDataFront->background->src, $des->Slug . '/front', "bg", $userID );
+			$designDataFront->background->src = $imgPath;
 		}
-		if ( count( $fieldsData->logos ) ) {
-			for ( $i = 0; $i < count( $fieldsData->logos ); $i ++ ) {
-				$imgPath                 = BC_Creator_util::blobToImg( $fieldsData->logos[ $i ], $des->Slug, "logo_$i", $userID );
-				$fieldsData->logos[ $i ] = $imgPath;
+		if ( count( $fieldsDataFront->logos ) ) {
+			for ( $i = 0; $i < count( $fieldsDataFront->logos ); $i ++ ) {
+				$imgPath                      = BC_Creator_util::blobToImg( $fieldsDataFront->logos[ $i ], $des->Slug . '/front', "logo_$i", $userID );
+				$fieldsDataFront->logos[ $i ] = $imgPath;
 			}
-			$des->FieldsData = json_encode( $fieldsData );
 		}
+
+		if ( $designDataBack->background->src !== "" ) {
+			$imgPath                         = BC_Creator_util::blobToImg( $designDataBack->background->src, $des->Slug . '/back', "bg", $userID );
+			$designDataBack->background->src = $imgPath;
+		}
+		if ( count( $fieldsDataBack->logos ) ) {
+			for ( $i = 0; $i < count( $fieldsDataBack->logos ); $i ++ ) {
+				$imgPath                     = BC_Creator_util::blobToImg( $fieldsDataBack->logos[ $i ], $des->Slug . '/back', "logo_$i", $userID );
+				$fieldsDataBack->logos[ $i ] = $imgPath;
+			}
+		}
+
+		$fObj            = new stdClass();
+		$fObj->front     = $fieldsDataFront;
+		$fObj->back      = $fieldsDataBack;
+		$des->FieldsData = json_encode( $fObj );
+
+		$dObj            = new stdClass();
+		$dObj->front     = $designDataFront;
+		$dObj->back      = $designDataBack;
+		$des->DesignData = json_encode( $dObj );
+
 		if ( $des->Preview ) {
 			$imgPath      = BC_Creator_util::blobToImg( $des->Preview, $des->Slug, "preview", $userID );
 			$des->Preview = $imgPath;

@@ -64,22 +64,37 @@ export class CardService {
   private loadedFonts: string[] = [];
 
   public keepLoadedCard(fData: { front: CardFieldsData, back: CardFieldsData },
-                  dData: { front: CardDesignData, back: CardDesignData },
-                  isEditable: boolean, slug: string) {
+                        dData: { front: CardDesignData, back: CardDesignData },
+                        isEditable: boolean, slug: string) {
     this.loadedFront = this.getCard(fData.front, dData.front, isEditable, slug);
     this.loadedBack = this.getCard(fData.back, dData.back, isEditable, slug);
   }
 
   public keepUserCard(fData: { front: CardFieldsData, back: CardFieldsData },
-                        dData: { front: CardDesignData, back: CardDesignData },
-                        isEditable: boolean, slug: string) {
+                      dData: { front: CardDesignData, back: CardDesignData },
+                      isEditable: boolean, slug: string) {
     this.userFront = this.getCard(fData.front, dData.front, isEditable, slug);
     this.userBack = this.getCard(fData.back, dData.back, isEditable, slug);
   }
 
   public get isPristine() {
-    return this.loadedFront.json == this.userFront.json &&
-      this.loadedBack.json == this.userBack.json;
+    return JSON.stringify(this.loadedFront.fieldsData) == JSON.stringify(this.userFront.fieldsData) &&
+      JSON.stringify(this.loadedBack.fieldsData) == JSON.stringify(this.userBack.fieldsData);
+  }
+
+  public resetData() {
+
+    this.userFront = this.getCard(
+      this.loadedFront.fieldsData,
+      this.loadedFront.designData,
+      this.loadedFront.options.isEditable,
+      this.loadedFront.options.slug);
+
+    this.userBack = this.getCard(
+      this.loadedBack.fieldsData,
+      this.loadedBack.designData,
+      this.loadedBack.options.isEditable,
+      this.loadedBack.options.slug)
   }
 
 }

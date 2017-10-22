@@ -1,74 +1,78 @@
 <div>
-    <div>
-      <div class="form-group">
-        <ul>
-          <li *ngFor="let item of model.texts; let i = index" class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              [class.text-field-selected]="item.isSelected"
-              [(ngModel)]="item.text"
-              (focus)="focusItem($event, i)"
-              (blur)="blurItem()">
-            <a class="input-group-addon" (click)="addTextField(i)"><i class="glyphicon glyphicon-plus"></i></a>
-            <a class="input-group-addon" (click)="removeItem(model.texts, i)"><i class="glyphicon glyphicon-minus"></i></a>
-          </li>
-          <li *ngIf="!model.texts || !model.texts.length">
-            <input
-              type="text"
-              class="form-control" disabled>
-            <a class="input-group-addon" (click)="addTextField(0)"><i class="glyphicon glyphicon-plus"></i></a>
-            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="form-group">
-        <ul>
-          <li *ngFor="let item of model.logos; let i = index" class="input-group">
-            <input
-              type="file"
-              class="form-control"
-              (change)="uploadImage(item, $event)">
-            <a class="input-group-addon" (click)="addLogo(model.logos, i)"><i class="glyphicon glyphicon-plus"></i></a>
-            <a class="input-group-addon" (click)="removeItem(model.logos, i)"><i class="glyphicon glyphicon-minus"></i></a>
-          </li>
-          <li *ngIf="!model.logos || !model.logos.length">
-            <input
-              type="text"
-              class="form-control" disabled>
-            <a class="input-group-addon" (click)="addLogo(model.logos)"><i class="glyphicon glyphicon-plus"></i></a>
-            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
-          </li>
-        </ul>
-      </div>
-
-
-      <div class="form-group">
-        <ul>
-          <li *ngFor="let item of model.lines; let i = index" class="input-group">
-            <card-hr-editor [hr]="item"></card-hr-editor>
-            <a class="input-group-addon" (click)="addLine(model.lines, i)"><i class="glyphicon glyphicon-plus"></i></a>
-            <a class="input-group-addon" (click)="removeItem(model.lines, i)"><i class="glyphicon glyphicon-minus"></i></a>
-          </li>
-          <li *ngIf="!model.lines || !model.lines.length">
-            <input
-              type="text"
-              class="form-control" disabled>
-            <a class="input-group-addon" (click)="addLine(model.lines)"><i class="glyphicon glyphicon-plus"></i></a>
-            <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
-          </li>
-        </ul>
-      </div>
-
+  <div>
+    <div class="form-group">
+      <ul>
+        <li *ngFor="let item of model.texts; let i = index" class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            [class.text-field-selected]="item.isSelected"
+            [(ngModel)]="item.text"
+            (focus)="focusItem($event, i)"
+            (blur)="blurItem()">
+          <a class="input-group-addon" (click)="addTextField(i)"><i class="glyphicon glyphicon-plus"></i></a>
+          <a class="input-group-addon" (click)="removeItem(model.texts, i)"><i
+            class="glyphicon glyphicon-minus"></i></a>
+        </li>
+        <li *ngIf="!model.texts || !model.texts.length">
+          <input
+            type="text"
+            class="form-control" disabled>
+          <a class="input-group-addon" (click)="addTextField(0)"><i class="glyphicon glyphicon-plus"></i></a>
+          <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+        </li>
+      </ul>
     </div>
 
-    <button type="button" class="btn btn-success" (click)="save()">Save design</button>
-    <button type="button" class="btn btn-success" (click)="getPreview()">Preview</button>
-    <button type="button" *ngIf="model.options.isEditable" (click)="delete()">Delete</button>
+    <div class="form-group">
+      <ul>
+        <li *ngFor="let item of model.logos; let i = index" class="input-group">
+          <input
+            type="file"
+            class="form-control"
+            (change)="uploadImage(item, $event)">
+          <a class="input-group-addon" (click)="addLogo(model.logos, i)"><i class="glyphicon glyphicon-plus"></i></a>
+          <a class="input-group-addon" (click)="removeItem(model.logos, i)"><i
+            class="glyphicon glyphicon-minus"></i></a>
+        </li>
+        <li *ngIf="!model.logos || !model.logos.length">
+          <input
+            type="text"
+            class="form-control" disabled>
+          <a class="input-group-addon" (click)="addLogo(model.logos)"><i class="glyphicon glyphicon-plus"></i></a>
+          <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+        </li>
+      </ul>
+    </div>
 
-    <!--TODO удалить в релизе-->
-    <button type="button" class="btn" (click)="adminSaveDesign()">Admin save design</button>
+
+    <div class="form-group">
+      <ul>
+        <li *ngFor="let item of model.lines; let i = index" class="input-group">
+          <card-hr-editor [hr]="item"></card-hr-editor>
+          <a class="input-group-addon" (click)="addLine(model.lines, i)"><i class="glyphicon glyphicon-plus"></i></a>
+          <a class="input-group-addon" (click)="removeItem(model.lines, i)"><i
+            class="glyphicon glyphicon-minus"></i></a>
+        </li>
+        <li *ngIf="!model.lines || !model.lines.length">
+          <input
+            type="text"
+            class="form-control" disabled>
+          <a class="input-group-addon" (click)="addLine(model.lines)"><i class="glyphicon glyphicon-plus"></i></a>
+          <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <button type="button" class="btn btn-info" (click)="reset()">Reset design</button>
+  <button type="button" class="btn btn-success" (click)="save()">Save design</button>
+  <button type="button" class="btn btn-success" (click)="getPreview()">Preview</button>
+  <button type="button" *ngIf="model.options.isEditable" (click)="delete()">Delete</button>
+
+  <!--TODO удалить в релизе-->
+  <button type="button" class="btn" (click)="adminSaveDesign()">Admin save design</button>
 
 </div>
 <div #previewModalContainer></div>

@@ -68,7 +68,7 @@ export class DataAccess {
             Create_Date,
             isActive,
             Preview_Order
-        FROM designs2 WHERE isActive = 1 AND permission <= ${permission}`, (err, rows, fields) => {
+        FROM Designs3 WHERE isActive = 1 AND permission <= ${permission}`, (err, rows, fields) => {
                 if (err) {
                     cb(err, null);
                     return;
@@ -102,7 +102,7 @@ export class DataAccess {
             Slug,
             isActive,
             Permission
-        FROM designs2`, (err, rows, fields) => {
+        FROM Designs3`, (err, rows, fields) => {
             if (err) {
                 cb(err, null);
                 return;
@@ -138,7 +138,7 @@ export class DataAccess {
         if(!this.connection)this.connect();
 
         this.connection.query(`
-SELECT * FROM designs2
+SELECT * FROM Designs3
         `, (err, rows, fields) => {
             if (err) {
                 cb(err, null);

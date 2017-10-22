@@ -148,6 +148,10 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.imageService.uploadImage(item, event.target.files[0]);
   }
 
+  reset(){
+    this.dataService.resetData();
+  }
+
   save() {
     this.designService.saveDesign(this.model)
       .subscribe(res =>
