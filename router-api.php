@@ -103,14 +103,21 @@ class BC_Creator_RouterAPI {
 	public function getPreview( $request ) {
 		include_once 'util.php';
 		include_once 'api.php';
-
-		$data = BC_Creator_util::prepareObjForPdfAPI( json_decode( $request->get_body() ) );
-
 		$config = json_decode( file_get_contents( __DIR__ . "/config.json" ) );
 		$path   = $config->api->preview . '/' . get_option( 'BusinessCardCreator_hash' );
-		$res    = BC_Creator_API::post( $path, json_encode( $data ) );
 
-		return array( 'file' => base64_encode( $res ) );
+		$data      = json_decode( $request->get_body() );
+		$dataFront = BC_Creator_util::prepareObjForPdfAPI( $data->front );
+		$dataBack  = BC_Creator_util::prepareObjForPdfAPI( $data->back );
+
+		$front = BC_Creator_API::post( $path, json_encode( $dataFront ) );
+		$back  = BC_Creator_API::post( $path, json_encode( $dataBack ) );
+
+		$res        = new stdClass();
+		$res->front = base64_encode( $front );
+		$res->back  = base64_encode( $back );
+
+		return array( 'file' => $res );
 	}
 
 	public function getPreviews() {
@@ -125,7 +132,7 @@ class BC_Creator_RouterAPI {
 		include_once 'db.php';
 
 		$body = json_decode( $request->get_body() );
-		$data = BC_Creator_util::prepareObjForPdfAPI( $body->card );
+		$data = BC_Creator_util::prepareObjForPdfAPI( $body->card->front );
 
 		$config  = json_decode( file_get_contents( __DIR__ . "/config.json" ) );
 		$path    = $config->api->preview . '/' . get_option( 'BusinessCardCreator_hash' );
@@ -157,7 +164,7 @@ class BC_Creator_RouterAPI {
 		include_once 'api.php';
 
 		$body = json_decode( $request->get_body() );
-		$data = BC_Creator_util::prepareObjForPdfAPI( $body->card );
+		$data = BC_Creator_util::prepareObjForPdfAPI( $body->card->front );
 
 		$config  = json_decode( file_get_contents( __DIR__ . "/config.json" ) );
 		$path    = $config->api->preview . '/' . get_option( 'BusinessCardCreator_hash' );

@@ -9,7 +9,7 @@ import {OptionsService} from "./options.service";
 @Injectable()
 export class DesignService {
 
-  constructor(private options:OptionsService,
+  constructor(private options: OptionsService,
               private store: DesignStore,
               private api: ApiService) {
   }
@@ -18,11 +18,11 @@ export class DesignService {
     return this.api.get(`/design/${design}`);
   }
 
-  saveDesign(card: CardData) {
+  saveDesign(card: { front: CardData, back: CardData }) {
     return this.api.post('/save', {
-      FieldsData: card.fieldsData,
-      DesignData: card.designData,
-      card: card.json
+      FieldsData: {front: card.front.fieldsData, back: card.back.fieldsData},
+      DesignData: {front: card.front.designData, back: card.back.designData},
+      card: {front: card.front.json, back: card.back.json}
     });
 
   }
@@ -37,16 +37,16 @@ export class DesignService {
     return this.store.state = currentState;
   }
 
-  deleteDesign(slug){
+  deleteDesign(slug) {
     return this.api.delete(`/design/${slug}`);
   }
 
   //TODO удалить в продакшен
-  adminSaveDesign(card:CardData){
+  adminSaveDesign(card: { front: CardData, back: CardData }) {
     return this.api.post('/adminSave', {
-      FieldsData: card.fieldsData,
-      DesignData: card.designData,
-      card: card.json
+      FieldsData: {front: card.front.fieldsData, back: card.back.fieldsData},
+      DesignData: {front: card.front.designData, back: card.back.designData},
+      card: {front: card.front.json, back: card.back.json}
     });
   }
 

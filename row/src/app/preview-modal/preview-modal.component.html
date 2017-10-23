@@ -9,7 +9,14 @@
 
   <div class="bc-creator-modal-content">
     <h3>Some content here</h3>
-    <img *ngIf="previewService.modalPreview" src="{{previewService.modalPreview}}">
+
+    <!--preview loading-->
+    <i *ngIf="!previewService.modalPreview"
+       class="glyphicon glyphicon-refresh"
+       style="font-size: 50px">&nbsp;</i>
+
+    <img *ngIf="previewService.modalPreview" src="{{previewService.modalPreview.front}}">
+    <img *ngIf="previewService.modalPreview" src="{{previewService.modalPreview.back}}">
     <card-order-form></card-order-form>
   </div><!-- content -->
 </div>

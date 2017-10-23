@@ -5,7 +5,7 @@ import {CardData} from "../data/CardData";
 @Injectable()
 export class OrderService {
 
-  public card: CardData = null;
+  public card: { front: CardData, back: CardData } = null;
 
   constructor(private api: ApiService) {
   }
@@ -16,9 +16,9 @@ export class OrderService {
         price: price,
         value: cost,
         options: options,
-        FieldsData: this.card.fieldsData,
-        DesignData: this.card.designData,
-        card: this.card.json
+        FieldsData: {front: this.card.front.fieldsData, back: this.card.back.fieldsData},
+        DesignData: {front: this.card.front.designData, back: this.card.back.designData},
+        card: {front: this.card.front.json, back: this.card.back.json}
       });
   }
 }

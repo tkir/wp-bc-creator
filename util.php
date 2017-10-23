@@ -129,16 +129,6 @@ class BC_Creator_util {
 	}
 
 	public static function prepareObjForPdfAPI( $data ) {
-		BC_Creator_util::prepareObjForPdfAPI2( $data->front );
-		BC_Creator_util::prepareObjForPdfAPI2( $data->back );
-
-		return array(
-			'base_href' => get_option( 'siteurl' ),
-			'data'      => $data
-		);
-	}
-
-	private static function prepareObjForPdfAPI2( $data ) {
 		if ( count( $data->Logo ) ) {
 			foreach ( $data->Logo as &$logo ) {
 				if ( preg_match( '/^(https?:\/\/)?([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/', $logo->src ) ) {
@@ -155,6 +145,11 @@ class BC_Creator_util {
 				$data->Background[0]->src = $imgBg;
 			}
 		}
+
+		return array(
+			'base_href' => get_option( 'siteurl' ),
+			'data'      => $data
+		);
 	}
 
 	public static function getOrderOptions() {

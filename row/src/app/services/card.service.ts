@@ -97,10 +97,10 @@ export class CardService {
       this.loadedBack.options.slug)
   }
 
-  public get doubleSideCard() {
+  public get doubleSideCard() :{ front: CardData, back: CardData }{
     return {
-      'front': this.userFront.json,
-      'back': this.userBack.json
+      'front': this.userFront,
+      'back': this.userBack
     }
   }
 

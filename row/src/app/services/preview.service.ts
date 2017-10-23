@@ -5,7 +5,7 @@ import {DesignService} from "./design.service";
 
 @Injectable()
 export class PreviewService {
-  public modalPreview: string = null;
+  public modalPreview: { front: string, back: string } = null;
   public isModalOpen: boolean = false;
 
   constructor(private api: ApiService,
@@ -14,9 +14,12 @@ export class PreviewService {
   }
 
   getPreview(data) {
-    return this.api.post('/preview', data)
+    return this.api.post('/preview', {front: data.front.json, back: data.back.json})
       .map(res => res.file)
-      .subscribe(data => this.modalPreview = "data:image/png;base64," + data);
+      .subscribe(data => this.modalPreview = {
+        front: "data:image/png;base64," + data.front,
+        back: "data:image/png;base64," + data.back
+      });
   }
 
   modalClosed() {

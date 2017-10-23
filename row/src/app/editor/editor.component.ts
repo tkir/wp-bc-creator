@@ -155,7 +155,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.designService.saveDesign(this.model)
+    this.designService.saveDesign(this.cardService.doubleSideCard)
       .subscribe(res =>
         this.previewService.updatePreviews()
           .subscribe(() => this.router.navigate([`/${res.Slug}`]))
@@ -178,7 +178,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   // TODO удалить в релизе
   adminSaveDesign() {
-    this.designService.adminSaveDesign(this.model)
+    this.designService.adminSaveDesign(this.cardService.doubleSideCard)
       .subscribe(res => console.log(res));
   }
 
@@ -188,7 +188,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
 
   openModal() {
-    this.orderService.card = this.model;
+    this.orderService.card = this.cardService.doubleSideCard;
 
     this.container.clear();
     const factory = this.resolver.resolveComponentFactory(PreviewModalComponent);
