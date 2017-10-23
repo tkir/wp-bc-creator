@@ -18,6 +18,7 @@ import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
 import {OptionsService} from "../services/options.service";
 import {OrderService} from "../services/order.service";
 import {TextFieldService} from "../services/text-field.service";
+import {CardService} from "../services/card.service";
 
 
 @Component({
@@ -41,7 +42,8 @@ export class EditorComponent implements OnInit, OnDestroy {
               private previewService: PreviewService,
               private resolver: ComponentFactoryResolver,
               private orderService: OrderService,
-              private textFieldService:TextFieldService) {
+              private textFieldService: TextFieldService,
+              private cardService: CardService) {
   }
 
   ngOnInit() {
@@ -136,7 +138,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   blurItem() {
-      this.selectedInput = null;
+    this.selectedInput = null;
   }
 
   onFocusReturn() {
@@ -148,7 +150,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.imageService.uploadImage(item, event.target.files[0]);
   }
 
-  reset(){
+  reset() {
     this.dataService.resetData();
   }
 
@@ -169,7 +171,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   getPreview() {
-    this.previewService.getPreview(this.model.json);
+    // this.previewService.getPreview(this.model.json);
+    this.previewService.getPreview(this.cardService.doubleSideCard);
     this.openModal();
   }
 
