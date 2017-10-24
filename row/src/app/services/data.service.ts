@@ -18,12 +18,21 @@ export class DataService {
     //вариант с router events
     router.events.subscribe((val: any) => {
       if (NavigationStart.prototype.isPrototypeOf(val)) {
-        let url = this.getUrl(val.url);
 
-        if (this.options.Designs.indexOf(url) !== -1) {
-          this.designService.getDesign(url)
+        //если меняем сторону, то только перегружаем текущую карту
+        if (this.isChanginSide) {
+          this.updateCard((this.side == 'front') ? this.cardService.userFront : this.cardService.userBack);
+          this.isChanginSide = false;
+          return;
+        }
+
+        this.setSlug(val.url);
+
+        if (this.options.Designs.indexOf(this.slug) !== -1) {
+          this.designService.getDesign(this.slug)
             .subscribe(d => {
               this.setCardData(d);
+              this.updateCard((this.side == 'front') ? this.cardService.userFront : this.cardService.userBack);
             });
         }
         //если роут неизвестен - грузим pageNotFound
@@ -34,33 +43,32 @@ export class DataService {
     });
   }
 
-  private getUrl(val): string {
-    let url: string = (val[0] == '/') ? val.slice(1) : val;
-    if (url == '') {
-      url = this.options.defaultDesign;
-      this.side = 'front';
-      return url;
-    }
-    let arr: string[] = url.split('/');
+  private setSlug(val): string {
+    val = (val[0] == '/') ? val.slice(1) : val;
+
+    let arr: string[] = val.split('/');
     switch (arr.length) {
       case 1:
         this.side = 'front';
-        break;
+        this.slug = arr[0];
+        this.router.navigate([`/${(arr[0].length) ? arr[0] : this.options.defaultDesign}/front`]);
+        return;
       case 2:
-        url = arr[0];
+        this.slug = arr[0];
         this.side = arr[1];
         this.side = (this.side.match(/^front|back$/i)) ? this.side : 'front';
-        break;
+        return;
       default:
-        url = this.options.defaultDesign;
+        this.slug = this.options.defaultDesign;
         this.side = 'front';
     }
-
-    return url;
+    this.router.navigate([`/${this.options.defaultDesign}/front`]);
   }
 
   public isDesignLoad = false;
+  public slug: string = '';
   private side: string = 'front';
+  private isChanginSide: boolean = false;
 
   updateCard(state): CardData {
     state.update();
@@ -84,12 +92,20 @@ export class DataService {
     this.cardService.keepUserCard(fieldsData, d['DesignData'], d['isEditable'], d['Slug']);
 
     this.isDesignLoad = true;
-    this.updateCard((this.side == 'front') ? this.cardService.userFront : this.cardService.userBack);
   }
 
   //button reset data to default
   public resetData() {
     this.cardService.resetData();
     this.updateCard((this.side == 'front') ? this.cardService.userFront : this.cardService.userBack);
+  }
+
+  public changeSide(side) {
+    if (this.side == side)return;
+
+    this.side = side;
+    this.isChanginSide = true;
+    this.router.navigate([`/${this.slug}/${this.side}`]);
+
   }
 }

@@ -36,6 +36,7 @@ import {OrderOptionComponent} from './order-form/order-option/order-option.compo
 import {OrderService} from "./services/order.service";
 import { TextStyleComponent } from './editor-container/text-style/text-style.component';
 import {TextFieldService} from "./services/text-field.service";
+import { SideSwitchComponent } from './side-switch/side-switch.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {TextFieldService} from "./services/text-field.service";
     PreviewModalComponent,
     OrderFormComponent,
     OrderOptionComponent,
-    TextStyleComponent
+    TextStyleComponent,
+    SideSwitchComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
