@@ -19,6 +19,16 @@
       <button type="button" (click)="updatePreviews()">Update</button>
 
     </div>
-    <div class="menu-sidebar-container"></div>
+    <div class="menu-sidebar-container">
+      <select (change)="updateDefault($event.target.value)">
+        <ng-container *ngFor="let des of options.previews">
+          <option *ngIf="des.Preview"
+                  [value]="des.Slug"
+                  [selected]="des.Slug==options.defaultDesign">
+            {{des.Name}}
+          </option>
+        </ng-container>
+      </select>
+    </div>
   </div>
 </div>

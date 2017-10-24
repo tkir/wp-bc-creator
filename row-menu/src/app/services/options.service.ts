@@ -53,6 +53,7 @@ export class OptionsService {
   public page_url: string;
   public hash: string;
   public email: string;
+  public defaultDesign: string;
   public allowedTemplates: [{ name: string, value: string, isActive: boolean }];
   public previews: [{ id: number, Name: string, Slug: string, Description: string, Preview: string, isActive: boolean }];
   public price: number;

@@ -1,31 +1,22 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component} from '@angular/core';
 import {UpdateService} from '../services/update.service';
 import {OptionsService} from '../services/options.service';
-import {ApiService} from '../services/api.service';
-import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'menu-tab-design',
   templateUrl: './tab-design.component.html',
   styleUrls: ['./tab-design.component.css']
 })
-export class TabDesignComponent implements OnDestroy {
+export class TabDesignComponent {
 
-  private subscription: Subscription = null;
+  public defaultDesign:any;
 
   constructor(public options: OptionsService,
               private updateService: UpdateService) {
   }
 
-  ngOnDestroy() {
-    if (this.subscription != null) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
-    }
-  }
-
   public updatePreviews() {
-    this.subscription = this.updateService.previewsUpdate()
+    this.updateService.previewsUpdate()
       .subscribe(prevs => this.options.previews = prevs);
   }
 
@@ -33,6 +24,13 @@ export class TabDesignComponent implements OnDestroy {
     this.updateService.toggleActive(preview.id)
       .subscribe(res => {
         if (res) preview.isActive = !preview.isActive;
+      });
+  }
+
+  updateDefault(slug){
+    this.updateService.defaultSelected(slug)
+      .subscribe(res => {
+        if (res == slug) this.options.defaultDesign = res;
       });
   }
 }

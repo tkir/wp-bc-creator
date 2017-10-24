@@ -54,6 +54,12 @@ class BC_Creator_RouterMenuAPI {
 			'permission_callback' => array( $this, 'checkAdminPermission' )
 		) );
 
+		register_rest_route( 'business-card-creator/menu/updateDefault/', '/(?P<slug>\S+)/', array(
+			'methods'             => WP_REST_Server::READABLE,
+			'callback'            => array( $this, 'updateDefault' ),
+			'permission_callback' => array( $this, 'checkAdminPermission' )
+		) );
+
 		register_rest_route( 'business-card-creator/menu/', '/price/', array(
 			'methods'             => WP_REST_Server::EDITABLE,
 			'callback'            => array( $this, 'updatePrice' ),
@@ -139,6 +145,11 @@ class BC_Creator_RouterMenuAPI {
 		$res = BC_Creator_DB::get_instance()->toggleActive( (int) $request['id'] );
 
 		return array( 'result' => $res );
+	}
+
+	public function updateDefault($request){
+		update_option('BusinessCardCreator_defaultDesign', $request['slug']);
+		return get_option('BusinessCardCreator_defaultDesign');
 	}
 
 	public function updatePrice( $request ) {

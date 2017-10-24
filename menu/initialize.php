@@ -43,6 +43,7 @@ class BC_Creator_MenuInit
             'page_url' => get_option('BusinessCardCreator_url'),
             'hash' => get_option('BusinessCardCreator_hash'),
             'email' => get_option('BusinessCardCreator_email'),
+            'defaultDesign'=> get_option('BusinessCardCreator_defaultDesign'),
             'allowedTemplates' => $aTpl,
             'previews' => BC_Creator_DB::get_instance()->getPreviews(true),
             'orderOptions' => BC_Creator_DB::get_instance()->getOrderOptions(),

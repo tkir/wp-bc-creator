@@ -43,6 +43,10 @@ export class UpdateService {
     return this.api.get(`/toggleActive/${id}`);
   }
 
+  public defaultSelected(slug:string):Observable<any>{
+    return this.api.get(`/updateDefault/${slug}`);
+  }
+
   public updatePrice(price):Observable<any>{
     return this.api.post('/price', price);
   }
