@@ -9,7 +9,7 @@ import {OptionsService} from '../services/options.service';
 })
 export class TabDesignComponent {
 
-  public defaultDesign:any;
+  public defaultDesign: any;
 
   constructor(public options: OptionsService,
               private updateService: UpdateService) {
@@ -27,7 +27,9 @@ export class TabDesignComponent {
       });
   }
 
-  updateDefault(slug){
+  updateDefault(slug) {
+    if (this.options.defaultDesign == slug) return;
+
     this.updateService.defaultSelected(slug)
       .subscribe(res => {
         if (res == slug) this.options.defaultDesign = res;
