@@ -5,22 +5,24 @@
   "allowedTemplates": [
     {
       "value": "default",
-      "name": "Default"
+      "name": "Default",
+      "file": ""
     },
     {
       "value": "bc_creator",
-      "name": "Full screen"
+      "name": "Full screen",
+      "file": "template.php"
     }
   ],
   "template": "default",
   "defaultDesign": "x-box",
   "api": {
-    "_endpoint": "https://html-pdf-api.appspot.com/bc-creator",
-    "endpoint": "http://localhost:3000/bc-creator",
-    "__endpoint": "https://mighty-tor-57400.herokuapp.com/bc-creator",
-    "designs": "/designs",
-    "pdf": "/pdf",
-    "preview": "/preview"
+    "_endpoint": "https:\/\/html-pdf-api.appspot.com\/bc-creator",
+    "endpoint": "http:\/\/localhost:3000\/bc-creator",
+    "__endpoint": "https:\/\/mighty-tor-57400.herokuapp.com\/bc-creator",
+    "designs": "\/designs",
+    "pdf": "\/pdf",
+    "preview": "\/preview"
   },
   "pageNotFound": {
     "name": "pageNotFound",

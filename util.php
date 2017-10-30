@@ -39,40 +39,36 @@ class BC_Creator_util {
 		);
 		// Insert the post into the database
 		$page_id = wp_insert_post( $options );
-		update_post_meta( $page_id, '_wp_page_template', 'template.php' );
+		BC_Creator_util::set_page_template( get_option( 'BusinessCardCreator_template' ) );
 
 		return $page_id;
 	}
 
-	public static function updatePage( $slug, $prevSlug ) {
-		if ( $slug == $prevSlug ) {
+	public static function updatePage( $slug ) {
+		if ( $slug == get_option( 'BusinessCardCreator_url' ) ) {
 			return 0;
 		}
 
-		$old = get_page_by_path( $prevSlug );
+		$old = get_page_by_path( get_option( 'BusinessCardCreator_url' ) );
 		if ( $old !== null ) {
 			wp_delete_post( $old->ID, true );
 		}
 
 		$id = BC_Creator_util::createPage( $slug );
-		BC_Creator_util::set_page_template();
+		update_option( 'BusinessCardCreator_url', $slug );
+		BC_Creator_util::set_page_template( get_option( 'BusinessCardCreator_template' ) );
 
 		return $id;
 	}
 
 	public static function set_page_template( $tpl ) {
-		$config = json_decode( file_get_contents( __DIR__ . "/config.json" ) );
-		if ( $config->template == $tpl ) {
-			return;
-		}
 
-		switch ( $tpl ) {
-			case 'bc_creator':
-				$tplFile = 'template.php';
-				break;
-			case 'default':
-			default:
-				$tplFile = '';
+		$config  = json_decode( file_get_contents( __DIR__ . "/config.json" ) );
+		$tplFile = '';
+		foreach ( $config->allowedTemplates as $template ) {
+			if ( $template->value == $tpl ) {
+				$tplFile = $template->file;
+			}
 		}
 
 		$slug = get_option( 'BusinessCardCreator_url' );
@@ -81,8 +77,7 @@ class BC_Creator_util {
 			update_post_meta( $page->ID, '_wp_page_template', $tplFile );
 		}
 
-		$config->template = $tpl;
-		file_put_contents( __DIR__ . "/config.json", json_encode( $config ), LOCK_EX );
+		update_option( 'BusinessCardCreator_template', $tpl );
 	}
 
 	public static function blobToImg( $blob, $slug, $filename, $userID ) {

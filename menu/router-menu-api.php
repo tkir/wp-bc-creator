@@ -78,8 +78,7 @@ class BC_Creator_RouterMenuAPI {
 	}
 
 	public function updatePageUrl( $request ) {
-		update_option( 'BusinessCardCreator_url', str_replace( ' ', '', $request['url'] ) );
-
+		BC_Creator_util::updatePage(str_replace( ' ', '', $request['url'] ));
 		return get_option( 'BusinessCardCreator_url' );
 	}
 
@@ -96,8 +95,7 @@ class BC_Creator_RouterMenuAPI {
 	}
 
 	public function updateTemplate( $request ) {
-		update_option( 'BusinessCardCreator_template', str_replace( ' ', '', $request['tpl'] ) );
-		BC_Creator_util::set_page_template( get_option( 'BusinessCardCreator_template' ) );
+		BC_Creator_util::set_page_template( str_replace( ' ', '', $request['tpl'] ) );
 
 		return get_option( 'BusinessCardCreator_template' );
 	}
