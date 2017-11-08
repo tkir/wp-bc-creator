@@ -3,8 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const classes_1 = require("./classes");
 let pdf = require('html-pdf');
 let fs = require('fs');
+let config = require('config');
 class PdfCreator {
-    static getHTML(obj, k = 3.78, z = 100) {
+    static getHTML(obj, k) {
+        let z = config.get('zIndex');
         let textArr = [];
         let logoArr = [];
         let lineArr = [];
@@ -48,30 +50,31 @@ class PdfCreator {
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     </head>
     ${bg}
     </html>`;
     }
-    static getPDF(obj, k, cb) {
-        let config = {
+    static getPDF(obj, cb) {
+        let options = {
             "height": `${obj.Background[0].height_mm}mm`,
-            "width": `${obj.Background[0].width_mm}mm`
+            "width": `${obj.Background[0].width_mm}mm`,
+            "phantomPath": config.get('html-pdf.phantomPath')
         };
-        let html = PdfCreator.getHTML(obj, k);
-        pdf.create(html, config)
+        let html = PdfCreator.getHTML(obj, config.get('html-pdf.pdf.rate'));
+        pdf.create(html, options)
             .toBuffer((err, buffer) => {
             cb(err, buffer);
         });
     }
     static getPreview(obj, cb) {
-        let config = {
-            "type": "jpeg",
-            "quality": "100",
-            "viewportSize": { "width": 100, "height": 100 }
+        let options = {
+            "type": config.get('html-pdf.preview.type'),
+            "quality": config.get('html-pdf.preview.quality'),
+            "viewportSize": config.get('html-pdf.preview.viewportSize'),
+            "phantomPath": config.get('html-pdf.phantomPath')
         };
-        let html = PdfCreator.getHTML(obj);
-        pdf.create(html, config)
+        let html = PdfCreator.getHTML(obj, config.get('html-pdf.preview.rate'));
+        pdf.create(html, options)
             .toBuffer((err, buffer) => {
             cb(err, buffer);
         });

@@ -45,17 +45,19 @@ class BC_Creator_util {
 	}
 
 	public static function updatePage( $slug ) {
-		if ( $slug == get_option( 'BusinessCardCreator_url' ) ) {
+		$prevSlug=get_option( 'BusinessCardCreator_url' );
+
+		if ( $slug == $prevSlug ) {
 			return 0;
 		}
 
-		$old = get_page_by_path( get_option( 'BusinessCardCreator_url' ) );
+		$old = get_page_by_path($prevSlug );
 		if ( $old !== null ) {
 			wp_delete_post( $old->ID, true );
 		}
 
-		$id = BC_Creator_util::createPage( $slug );
 		update_option( 'BusinessCardCreator_url', $slug );
+		$id = BC_Creator_util::createPage( $slug );
 		BC_Creator_util::set_page_template( get_option( 'BusinessCardCreator_template' ) );
 
 		return $id;
@@ -71,13 +73,11 @@ class BC_Creator_util {
 			}
 		}
 
-		$slug = get_option( 'BusinessCardCreator_url' );
-		$page = get_page_by_path( $slug );
+		$page = get_page_by_path( get_option( 'BusinessCardCreator_url' ) );
 		if ( $page !== null ) {
 			update_post_meta( $page->ID, '_wp_page_template', $tplFile );
+			update_option( 'BusinessCardCreator_template', $tpl );
 		}
-
-		update_option( 'BusinessCardCreator_template', $tpl );
 	}
 
 	public static function blobToImg( $blob, $slug, $filename, $userID ) {

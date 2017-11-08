@@ -1,12 +1,14 @@
 import {Background, Line, Logo, TextField} from "./classes";
 let pdf = require('html-pdf');
 let fs = require('fs');
+let config = require('config');
 
 export class PdfCreator {
 
     //TODO to config
-    private static getHTML(obj, k: number = 3.78, z: number = 100): string {
+    private static getHTML(obj, k): string {
 
+        let z=config.get('zIndex');
 
         let textArr: string[] = [];
         let logoArr: string[] = [];
@@ -61,20 +63,20 @@ export class PdfCreator {
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     </head>
     ${bg}
     </html>`;
     }
 
-    public static getPDF(obj, k, cb) {
-        let config = {
+    public static getPDF(obj, cb) {
+        let options = {
             "height": `${obj.Background[0].height_mm}mm`,
-            "width": `${obj.Background[0].width_mm}mm`
+            "width": `${obj.Background[0].width_mm}mm`,
+            "phantomPath": config.get('html-pdf.phantomPath')
         };
-        let html = PdfCreator.getHTML(obj, k);
+        let html = PdfCreator.getHTML(obj, config.get('html-pdf.pdf.rate'));
 
-        pdf.create(html, config)
+        pdf.create(html, options)
             .toBuffer((err, buffer) => {
                 cb(err, buffer);
             });
@@ -82,14 +84,15 @@ export class PdfCreator {
 
     public static getPreview(obj, cb) {
         //  TODO to config
-        let config = {
-            "type": "jpeg",
-            "quality": "100",
-            "viewportSize": {"width": 100, "height": 100}
+        let options = {
+            "type": config.get('html-pdf.preview.type'),
+            "quality": config.get('html-pdf.preview.quality'),
+            "viewportSize": config.get('html-pdf.preview.viewportSize'),
+            "phantomPath": config.get('html-pdf.phantomPath')
         };
-        let html = PdfCreator.getHTML(obj);
+        let html = PdfCreator.getHTML(obj, config.get('html-pdf.preview.rate'));
 
-        pdf.create(html, config)
+        pdf.create(html, options)
             .toBuffer((err, buffer) => {
                 cb(err, buffer);
             });

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 let mysql = require('mysql');
+let config = require('config');
 class DataAccess {
     constructor() {
         this.connection = null;
@@ -14,10 +15,10 @@ class DataAccess {
     }
     connect() {
         this.connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'bc-creator-api'
+            host: config.get('db.connection.host'),
+            user: config.get('db.connection.user'),
+            password: config.get('db.connection.password'),
+            database: config.get('db.connection.database')
         });
     }
     closeConnection() {
@@ -45,7 +46,7 @@ class DataAccess {
             Create_Date,
             isActive,
             Preview_Order
-        FROM Designs3 WHERE isActive = 1 AND permission <= ${permission}`, (err, rows, fields) => {
+        FROM ${config.get('db.tables.tableDesigns')} WHERE isActive = 1 AND permission <= ${permission}`, (err, rows, fields) => {
                 if (err) {
                     cb(err, null);
                     return;
@@ -70,7 +71,7 @@ class DataAccess {
             Slug,
             isActive,
             Permission
-        FROM Designs3`, (err, rows, fields) => {
+        FROM ${config.get('db.tables.tableDesigns')}`, (err, rows, fields) => {
             if (err) {
                 cb(err, null);
                 return;
@@ -87,7 +88,7 @@ class DataAccess {
             cb(new Error('hash error'));
             return;
         }
-        this.connection.query(`SELECT permission FROM customers WHERE hash = '${hash}' AND site = '${site}'`, (err, rows, fields) => {
+        this.connection.query(`SELECT permission FROM ${config.get('db.tables.tableCustomers')} WHERE hash = '${hash}' AND site = '${site}'`, (err, rows, fields) => {
             if (err) {
                 cb(err, null);
                 return;
@@ -102,7 +103,7 @@ class DataAccess {
         if (!this.connection)
             this.connect();
         this.connection.query(`
-SELECT * FROM Designs3
+SELECT * FROM ${config.get('db.tables.tableDesigns')}
         `, (err, rows, fields) => {
             if (err) {
                 cb(err, null);

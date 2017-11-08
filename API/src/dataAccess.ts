@@ -1,4 +1,5 @@
 let mysql = require('mysql');
+let config = require('config');
 
 export class DataAccess {
     private static instance: DataAccess;
@@ -18,25 +19,11 @@ export class DataAccess {
 
     private connect() {
         this.connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'bc-creator-api'
+            host: config.get('db.connection.host'),
+            user: config.get('db.connection.user'),
+            password: config.get('db.connection.password'),
+            database: config.get('db.connection.database')
         });
-
-        // this.connection = mysql.createConnection({
-        //     host: '35.190.211.221',
-        //     user: 'api',
-        //     password: 'rpVw2sd1',
-        //     database: 'bc-creator-api'
-        // });
-
-        // this.connection = mysql.createConnection({
-        //     host: 'us-cdbr-iron-east-05.cleardb.net',
-        //     user: 'b32264b621f27a',
-        //     password: 'c9572ebc',
-        //     database: 'heroku_89def5178434b57'
-        // });
     }
 
     public closeConnection() {
@@ -68,7 +55,7 @@ export class DataAccess {
             Create_Date,
             isActive,
             Preview_Order
-        FROM Designs3 WHERE isActive = 1 AND permission <= ${permission}`, (err, rows, fields) => {
+        FROM ${config.get('db.tables.tableDesigns')} WHERE isActive = 1 AND permission <= ${permission}`, (err, rows, fields) => {
                 if (err) {
                     cb(err, null);
                     return;
@@ -102,7 +89,7 @@ export class DataAccess {
             Slug,
             isActive,
             Permission
-        FROM Designs3`, (err, rows, fields) => {
+        FROM ${config.get('db.tables.tableDesigns')}`, (err, rows, fields) => {
             if (err) {
                 cb(err, null);
                 return;
@@ -123,7 +110,7 @@ export class DataAccess {
             cb(new Error('hash error'));
             return;
         }
-        this.connection.query(`SELECT permission FROM customers WHERE hash = '${hash}' AND site = '${site}'`, (err, rows, fields) => {
+        this.connection.query(`SELECT permission FROM ${config.get('db.tables.tableCustomers')} WHERE hash = '${hash}' AND site = '${site}'`, (err, rows, fields) => {
             if (err) {
                 cb(err, null);
                 return;
@@ -138,7 +125,7 @@ export class DataAccess {
         if(!this.connection)this.connect();
 
         this.connection.query(`
-SELECT * FROM Designs3
+SELECT * FROM ${config.get('db.tables.tableDesigns')}
         `, (err, rows, fields) => {
             if (err) {
                 cb(err, null);
