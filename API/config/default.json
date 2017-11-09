@@ -46,10 +46,8 @@
         },
 
       "tables": {
-        "tableDesigns": "Designs",
-        "tableCustomers": "Customers"
+        "tableDesigns": "designs",
+        "tableCustomers": "customers"
       }
     }
-
-
 }
