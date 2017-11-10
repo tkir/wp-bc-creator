@@ -16,28 +16,24 @@ class BC_Creator_Order {
 		include_once 'api.php';
 	}
 
-	private function getPdf( $request ) {
+	private function getPdf( $card, $slug ) {
 
-		$body      = json_decode( $request->get_body() );
-		$dataFront = BC_Creator_util::prepareObjForPdfAPI( $body->front );
-		$dataBack  = BC_Creator_util::prepareObjForPdfAPI( $body->back );
+		$dataFront = BC_Creator_util::prepareObjForPdfAPI( $card->front );
+		$dataBack  = BC_Creator_util::prepareObjForPdfAPI( $card->back );
 
 		$config   = json_decode( file_get_contents( __DIR__ . "/config.json" ) );
 		$path     = $config->api->pdf . '/' . get_option( 'BusinessCardCreator_hash' );
 		$resFront = BC_Creator_API::post( $path, json_encode( $dataFront ) );
 		$resBack  = BC_Creator_API::post( $path, json_encode( $dataBack ) );
 
-		$res        = new stdClass();
-		$res->front = $resFront;
-		$res->back  = $resBack;
+		$pdfPath = wp_normalize_path( __DIR__ . "/img/" . get_current_user_id() . "/$slug" );
+		file_put_contents( "$pdfPath/$slug-front.pdf", $resFront );
+		file_put_contents( "$pdfPath/$slug-back.pdf", $resBack );
 
-//        TODO save pdf to file
-//        file_put_contents('test.pdf', $res);
-
-		return array( 'file' => $res );
+		return array( "$pdfPath/$slug-front.pdf", "$pdfPath/$slug-back.pdf" );
 	}
 
-	public function orderCard( $order ) {
+	public function orderCard( $order, $slug ) {
 		$message = 'Order options \n';
 		foreach ( $order->options as $option ) {
 			$message .= $option->optionName . ' = '
@@ -47,8 +43,16 @@ class BC_Creator_Order {
 		$message .= 'Value = ' . $order->value . '\n';
 
 		$headers = array( 'content-type: text/html' );
+		$pdfs    = $this->getPdf( $order->card, $slug );
 
-//        wp_mail(get_option('BusinessCardCreator_email'), 'Order business card', $message, $headers, __DIR__ . '/tmp');
-		return array( res => $message );
+		$mailResult = wp_mail(
+			get_option( 'BusinessCardCreator_email' ),
+			'Order business card',
+			$message,
+			$headers,
+			$pdfs
+		);
+//		file_put_contents( __DIR__ . '/test.json', $mailResult );
+		return array( 'mail' => $message, 'res' => $mailResult );
 	}
 }
