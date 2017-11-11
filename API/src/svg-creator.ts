@@ -1,4 +1,6 @@
 const TextToSVG = require('text-to-svg');
+const fs = require('fs');
+let config = require('config');
 
 export interface Options {
     color: string;
@@ -30,6 +32,11 @@ export class SVG_Creator {
     }
 
     private getConverter(font: string, italic: boolean, bold: boolean): any {
+
+        if (fs.readdirSync('./fonts').indexOf(font) == -1) {
+            font = config.get('defaultFont');
+        }
+
         let fileName = this.getFontFileName(font, italic, bold);
         let i = this.fonts.findIndex(f => f.font == fileName);
 

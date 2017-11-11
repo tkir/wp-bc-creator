@@ -25,15 +25,15 @@ export class TextField {
         }
     }
 
-    getSpanStyle(k: number) {
-        return `
-      font-family: '${this.fontFamily}';
-      font-size: ${this.fontSize_mm * k}px;
-      font-weight: ${this.fontWeight};
-      font-style: ${this.fontStyle};
-      text-decoration: ${this.textDecoration};
-      color: ${this.color};`;
-    }
+    // getSpanStyle(k: number) {
+    //     return `
+    //   font-family: '${this.fontFamily}';
+    //   font-size: ${this.fontSize_mm * k}px;
+    //   font-weight: ${this.fontWeight};
+    //   font-style: ${this.fontStyle};
+    //   text-decoration: ${this.textDecoration};
+    //   color: ${this.color};`;
+    // }
 
     getDivStyle(k: number, z: number) {
         return `

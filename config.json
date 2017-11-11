@@ -17,13 +17,12 @@
   "template": "default",
   "defaultDesign": "x-box",
   "api": {
-    "_endpoint": "https:\/\/html-pdf-api.appspot.com\/bc-creator",
-    "endpoint": "http:\/\/localhost:3000\/bc-creator",
-    "__endpoint": "https:\/\/mighty-tor-57400.herokuapp.com\/bc-creator",
-    "___endpoint": "http://kit.my-climate.com.ua/bc-creator",
-    "designs": "\/designs",
-    "pdf": "\/pdf",
-    "preview": "\/preview"
+    "__endpoint": "http://localhost:3000/bc-creator",
+    "_endpoint": "https://mighty-tor-57400.herokuapp.com/bc-creator",
+    "endpoint": "http://kit.my-climate.com.ua/bc-creator",
+    "designs": "/designs",
+    "pdf": "/pdf",
+    "preview": "/preview"
   },
   "pageNotFound": {
     "name": "pageNotFound",
@@ -116,7 +115,7 @@
     "polygraphPadding": 5,
     "imageUpload": {
       "resizeQuality": 1,
-      "resizeType": "image\/png",
+      "resizeType": "image/png",
       "allowedExtensions": [
         "jpg",
         "jpeg",

@@ -28,7 +28,6 @@ export class PdfCreator {
                                     textArr.push(`
 <div style="${item.getDivStyle(k, ++z)}">
     ${SVG_Creator.Instance.textToSVG(item.text, item.getTextOptions(k))}
-    <!--<span style="${item.getSpanStyle(k)}">${item.text}</span>-->
 </div>
               `);
                                     break;
@@ -89,7 +88,7 @@ export class PdfCreator {
             "type": config.get('html-pdf.preview.type'),
             "quality": config.get('html-pdf.preview.quality'),
             "viewportSize": config.get('html-pdf.preview.viewportSize'),
-            // "phantomPath": config.get('html-pdf.phantomPath')
+            "phantomPath": config.get('html-pdf.phantomPath')
         };
         let html = PdfCreator.getHTML(obj, config.get('html-pdf.preview.rate'));
 
