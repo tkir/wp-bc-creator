@@ -30,20 +30,20 @@
 //      },
 
 //         localdb
-      //  {
-      //    "host": "localhost",
-      //    "user": "root",
-      //    "password": "",
-      //    "database": "bc-creator-api"
-      //  },
-
-//      climat db
         {
           "host": "localhost",
-          "user": "climat_api",
-          "password": "qZm~9V_?x+H}",
-          "database": "climat_bc-creator-api"
+          "user": "root",
+          "password": "",
+          "database": "bc-creator-api"
         },
+
+//      climat db
+//        {
+//          "host": "localhost",
+//          "user": "climat_api",
+//          "password": "qZm~9V_?x+H}",
+//          "database": "climat_bc-creator-api"
+//        },
 
       "tables": {
         "tableDesigns": "designs",

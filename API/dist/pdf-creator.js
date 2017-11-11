@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const classes_1 = require("./classes");
+const svg_creator_1 = require("./svg-creator");
 let pdf = require('html-pdf');
 let fs = require('fs');
 let config = require('config');
@@ -21,7 +22,8 @@ class PdfCreator {
                             item = new classes_1.TextField(it);
                             textArr.push(`
 <div style="${item.getDivStyle(k, ++z)}">
-  <span style="${item.getSpanStyle(k)}">${item.text}</span>
+    ${svg_creator_1.SVG_Creator.Instance.textToSVG(item.text, item.getTextOptions(k))}
+    <!--<span style="${item.getSpanStyle(k)}">${item.text}</span>-->
 </div>
               `);
                             break;
@@ -71,7 +73,6 @@ class PdfCreator {
             "type": config.get('html-pdf.preview.type'),
             "quality": config.get('html-pdf.preview.quality'),
             "viewportSize": config.get('html-pdf.preview.viewportSize'),
-            "phantomPath": config.get('html-pdf.phantomPath')
         };
         let html = PdfCreator.getHTML(obj, config.get('html-pdf.preview.rate'));
         pdf.create(html, options)

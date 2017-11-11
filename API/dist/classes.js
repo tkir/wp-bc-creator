@@ -2,8 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class TextField {
     constructor(obj) {
-        for (var prop in obj)
+        for (let prop in obj)
             this[prop] = obj[prop];
+    }
+    getTextOptions(k) {
+        return {
+            font: this.fontFamily.replace(' ', ''),
+            fontSize: this.fontSize_mm * k,
+            bold: this.fontWeight == 'bold',
+            italic: this.fontStyle == 'italic',
+            color: this.color
+        };
     }
     getSpanStyle(k) {
         return `

@@ -1,14 +1,14 @@
 import {Background, Line, Logo, TextField} from "./classes";
+import {SVG_Creator} from './svg-creator';
 let pdf = require('html-pdf');
 let fs = require('fs');
 let config = require('config');
 
 export class PdfCreator {
 
-    //TODO to config
     private static getHTML(obj, k): string {
 
-        let z=config.get('zIndex');
+        let z = config.get('zIndex');
 
         let textArr: string[] = [];
         let logoArr: string[] = [];
@@ -27,7 +27,8 @@ export class PdfCreator {
 
                                     textArr.push(`
 <div style="${item.getDivStyle(k, ++z)}">
-  <span style="${item.getSpanStyle(k)}">${item.text}</span>
+    ${SVG_Creator.Instance.textToSVG(item.text, item.getTextOptions(k))}
+    <!--<span style="${item.getSpanStyle(k)}">${item.text}</span>-->
 </div>
               `);
                                     break;
@@ -83,12 +84,12 @@ export class PdfCreator {
     }
 
     public static getPreview(obj, cb) {
-        //  TODO to config
+
         let options = {
             "type": config.get('html-pdf.preview.type'),
             "quality": config.get('html-pdf.preview.quality'),
             "viewportSize": config.get('html-pdf.preview.viewportSize'),
-            "phantomPath": config.get('html-pdf.phantomPath')
+            // "phantomPath": config.get('html-pdf.phantomPath')
         };
         let html = PdfCreator.getHTML(obj, config.get('html-pdf.preview.rate'));
 
