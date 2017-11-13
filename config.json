@@ -18,7 +18,7 @@
   "defaultDesign": "x-box",
   "api": {
     "__endpoint": "http://localhost:3000/bc-creator",
-    "_endpoint": "https://mighty-tor-57400.herokuapp.com/bc-creator",
+    "___endpoint": "https://mighty-tor-57400.herokuapp.com/bc-creator",
     "endpoint": "http://kit.my-climate.com.ua/bc-creator",
     "designs": "/designs",
     "pdf": "/pdf",
