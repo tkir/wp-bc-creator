@@ -108,7 +108,7 @@ class BC_Creator_RouterMenuAPI {
 
 		$config = json_decode( file_get_contents( dirname( __DIR__ ) . "/config.json" ) );
 		$path   = $config->api->designs . '/' . get_option( 'BusinessCardCreator_hash' );
-
+//        file_put_contents(__DIR__.'/test.json', $path);
 		$res    = BC_Creator_API::post( $path, $data );
 		$resObj = json_decode( $res );
 

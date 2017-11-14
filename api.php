@@ -17,6 +17,7 @@ class BC_Creator_API
 		    ),
 		    'body' => $data
 	    );
+	    file_put_contents(__DIR__.'/test.json', json_encode($args));
 	    $response = wp_remote_post( $url, $args );
 	    return $response['body'];
     }
