@@ -5,7 +5,6 @@ import {HttpModule} from "@angular/http";
 
 import {AppComponent} from './app.component';
 import {EditorComponent} from './editor/editor.component';
-import {DesignComponent} from './design/design.component';
 import {EditorContainerComponent} from './editor-container/editor-container.component';
 import {DataService} from "./services/data.service";
 import {ResultComponent} from './result/result.component';
@@ -34,15 +33,14 @@ import {OrderFormComponent} from "./order-form/order-form.component";
 import {OptionsService} from "./services/options.service";
 import {OrderOptionComponent} from './order-form/order-option/order-option.component';
 import {OrderService} from "./services/order.service";
-import { TextStyleComponent } from './editor-container/text-style/text-style.component';
+import {TextStyleComponent} from './editor-container/text-style/text-style.component';
 import {TextFieldService} from "./services/text-field.service";
-import { SideSwitchComponent } from './side-switch/side-switch.component';
+import {SideSwitchComponent} from './side-switch/side-switch.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EditorComponent,
-    DesignComponent,
     EditorContainerComponent,
     ResultComponent,
     MovableDirective,

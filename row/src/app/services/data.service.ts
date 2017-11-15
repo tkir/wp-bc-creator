@@ -67,8 +67,9 @@ export class DataService {
 
   public isDesignLoad = false;
   public slug: string = '';
-  private side: string = 'front';
+  public side: string = 'front';
   private isChanginSide: boolean = false;
+  public isDoubleSide: boolean = true;
 
   updateCard(state): CardData {
     state.update();
@@ -107,5 +108,10 @@ export class DataService {
     this.isChanginSide = true;
     this.router.navigate([`/${this.slug}/${this.side}`]);
 
+  }
+
+  public changeSideNumber(sideNum) {
+    this.isDoubleSide = (sideNum == 'double');
+    if (this.side == 'back') this.changeSide('front');
   }
 }

@@ -1,5 +1,4 @@
 import {OptionsService} from "../services/options.service";
-// declare const bc_creator_config: any;
 
 export class Background {
 
@@ -14,8 +13,8 @@ export class Background {
   public width_mm: number;
   public height_mm: number;
 
-  private k: number = this.options.settings.ratio;//bc_creator_config['settings']['ratio'];
-  private polygraphPadding: number = this.options.settings.polygraphPadding;//bc_creator_config['settings']['polygraphPadding'];
+  private k: number = this.options.settings.ratio;
+  private polygraphPadding: number = this.options.settings.polygraphPadding;
 
   get indent(): number {
     return this.polygraphPadding * this.k;

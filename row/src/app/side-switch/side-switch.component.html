@@ -1,2 +1,6 @@
 <button type="button" (click)="changeSide('front')">front</button>
-<button type="button" (click)="changeSide('back')">back</button>
+<button type="button" (click)="changeSide('back')" [disabled]="!dataService.isDoubleSide">back</button>
+<select (change)="setSideNum($event.target.value)">
+  <option value="single">Single-side card</option>
+  <option value="double" [selected]="dataService.isDoubleSide">Double-side card</option>
+</select>

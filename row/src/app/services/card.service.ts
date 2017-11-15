@@ -42,7 +42,6 @@ export class CardService {
       }));
 
     return new CardData(
-      // owners, positions, organisations, addresses, phones, emails, sites,
       texts, logos, lines, bg,
       {isEditable: isEditable, slug: slug});
   }

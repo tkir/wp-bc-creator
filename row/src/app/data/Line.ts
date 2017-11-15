@@ -1,7 +1,6 @@
 import {CardField} from "./interfaces";
 import {getMaxPosition, getMaxSize} from "../utils/size.util";
 import {OptionsService} from "../services/options.service";
-// declare const bc_creator_config: any;
 
 export class Line implements CardField {
 
@@ -17,7 +16,7 @@ export class Line implements CardField {
   public design: string = 'solid';
   public _color: string = '000';
 
-  private k: number = this.options.settings.ratio;//bc_creator_config['settings']['ratio'];
+  private k: number = this.options.settings.ratio;
   public isSelected: boolean = false;
 
   get left() {

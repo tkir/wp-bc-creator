@@ -15,13 +15,6 @@ export class CardFieldsData {
     Object.keys(obj).forEach(key => this[key] = obj[key]);
   }
 
-  // public owners: string[];
-  // public positions: string[];
-  // public organisations: string[];
-  // public addresses: string[];
-  // public phones: string[];
-  // public emails: string[];
-  // public sites: string[];
   public texts: string[];
   public logos: string[];
 }
@@ -31,13 +24,6 @@ export class CardDesignData {
     Object.keys(obj).forEach(key => this[key] = obj[key]);
   }
 
-  // public owners: TextDesign[];
-  // public positions: TextDesign[];
-  // public organisations: TextDesign[];
-  // public addresses: TextDesign[];
-  // public phones: TextDesign[];
-  // public emails: TextDesign[];
-  // public sites: TextDesign[];
   public texts: TextDesign[];
   public logos: LogoDesign[];
   public lines: LineDesign[];

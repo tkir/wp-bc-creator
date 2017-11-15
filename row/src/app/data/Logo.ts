@@ -1,7 +1,6 @@
 import {CardField} from "./interfaces";
 import {getMaxPosition, getMaxSize} from "../utils/size.util";
 import {OptionsService} from "../services/options.service";
-// declare const bc_creator_config: any;
 
 export class Logo implements CardField {
 
@@ -20,7 +19,7 @@ export class Logo implements CardField {
   public dataType: string;
   private _maxWidth: number;
   private _maxHeight: number;
-  private k: number = this.options.settings.ratio;//bc_creator_config['settings']['ratio'];
+  private k: number = this.options.settings.ratio;
 
   get style() {
     return {
