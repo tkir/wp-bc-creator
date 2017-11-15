@@ -16,7 +16,7 @@ class BC_Creator_Order {
 		include_once 'api.php';
 	}
 
-	private function getPdf( $card, $slug ) {
+	private function getPdf( $card, $isDoubleSide, $slug ) {
 
 		$dataFront = BC_Creator_util::prepareObjForPdfAPI( $card->front );
 		$dataBack  = BC_Creator_util::prepareObjForPdfAPI( $card->back );
@@ -24,13 +24,21 @@ class BC_Creator_Order {
 		$config   = json_decode( file_get_contents( __DIR__ . "/config.json" ) );
 		$path     = $config->api->pdf . '/' . get_option( 'BusinessCardCreator_hash' );
 		$resFront = BC_Creator_API::post( $path, json_encode( $dataFront ) );
-		$resBack  = BC_Creator_API::post( $path, json_encode( $dataBack ) );
+		if ( $isDoubleSide ) {
+			$resBack = BC_Creator_API::post( $path, json_encode( $dataBack ) );
+		}
 
 		$pdfPath = wp_normalize_path( __DIR__ . "/img/" . get_current_user_id() . "/$slug" );
-		file_put_contents( "$pdfPath/$slug-front.pdf", $resFront );
-		file_put_contents( "$pdfPath/$slug-back.pdf", $resBack );
+		file_put_contents( "$pdfPath/front.pdf", $resFront );
+		if ( $isDoubleSide ) {
+			file_put_contents( "$pdfPath/back.pdf", $resBack );
+		}
 
-		return array( "$pdfPath/$slug-front.pdf", "$pdfPath/$slug-back.pdf" );
+		if ( $isDoubleSide ) {
+			return array( "$pdfPath/front.pdf", "$pdfPath/back.pdf" );
+		}
+
+		return "$pdfPath/front.pdf";
 	}
 
 	public function orderCard( $order, $slug ) {
@@ -41,9 +49,10 @@ class BC_Creator_Order {
 		}
 		$message .= 'Price = ' . $order->price . '\n';
 		$message .= 'Value = ' . $order->value . '\n';
+		$message .= 'Side number = ' . $order->isDoubleSide ? 'double side' : 'single side';
 
 		$headers = array( 'content-type: text/html' );
-		$pdfs    = $this->getPdf( $order->card, $slug );
+		$pdfs    = $this->getPdf( $order->card, $order->isDoubleSide, $slug );
 
 		$mailResult = wp_mail(
 			get_option( 'BusinessCardCreator_email' ),
@@ -52,6 +61,7 @@ class BC_Creator_Order {
 			$headers,
 			$pdfs
 		);
+
 //		file_put_contents( __DIR__ . '/test.json', $mailResult );
 		return array( 'mail' => $message, 'res' => $mailResult );
 	}
