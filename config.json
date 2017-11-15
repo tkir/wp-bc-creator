@@ -147,6 +147,20 @@
       ]
     },
     {
+      "OptionType":"fixed",
+      "Name": "Side number",
+      "Values":[
+        {
+          "Value": "Single side",
+          "Rate": "1.0"
+        },
+        {
+          "Value": "Double side",
+          "Rate": "1.5"
+        }
+      ]
+    },
+    {
       "OptionType": "price",
       "Name": "Price",
       "Values": 100

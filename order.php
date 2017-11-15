@@ -49,7 +49,6 @@ class BC_Creator_Order {
 		}
 		$message .= 'Price = ' . $order->price . '\n';
 		$message .= 'Value = ' . $order->value . '\n';
-		$message .= 'Side number = ' . $order->isDoubleSide ? 'double side' : 'single side';
 
 		$headers = array( 'content-type: text/html' );
 		$pdfs    = $this->getPdf( $order->card, $order->isDoubleSide, $slug );

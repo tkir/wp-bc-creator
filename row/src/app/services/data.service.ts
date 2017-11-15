@@ -113,6 +113,7 @@ export class DataService {
 
   public changeSideNumber(sideNum) {
     this.options.isDoubleSide = (sideNum == 'double');
+    this.options.setOrderOptionsDefaultValues();
     if (this.side == 'back') this.changeSide('front');
   }
 }

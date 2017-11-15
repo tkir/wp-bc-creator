@@ -83,7 +83,7 @@ INSERT INTO `$this->tableDesign`
 	public function getOrderOptions() {
 		global $wpdb;
 
-		return $wpdb->get_results( "SELECT id, `Name`, `Values` FROM `$this->tableOrderOptions` WHERE `OptionType` = 'settings'" );
+		return $wpdb->get_results( "SELECT id, `Name`, `Values`, `OptionType` FROM `$this->tableOrderOptions` WHERE `OptionType` <> 'price'" );
 	}
 
 	public function setOrderOption( $options ) {

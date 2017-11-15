@@ -7,7 +7,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class OrderOptionComponent implements OnInit {
 
-  @Input() option: { id: number, Name: string, Values: [{ Value: string, Rate: string, isSelected: boolean }] };
+  @Input() option: { id: number, type:string, Name: string, Values: [{ Value: string, Rate: string, isSelected: boolean }] };
   @Output() optionSelected: EventEmitter<{ optionName: string, Value: string, Rate: string }> = new EventEmitter();
 
   public selectedOption: { Value: string, Rate: string };

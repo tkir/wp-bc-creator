@@ -87,7 +87,7 @@ export class OptionsService {
   public previews: [{ id: number, Name: string, Slug: string, Description: string, Preview: string, isActive: boolean }];
   public price: number;
   private orderOptions: any;
-  private _OrderOptions: [{ id: number, Name: string, Values: [{ Value: string, Rate: string, isSelected: boolean }] }];
+  private _OrderOptions: [{ id: number, type: string, Name: string, Values: [{ Value: string, Rate: string, isSelected: boolean }] }];
 
   public get OrderOptions() {
     return this._OrderOptions;
@@ -104,13 +104,20 @@ export class OptionsService {
 
     this._OrderOptions = this.orderOptions
       .map(option => {
-        return {id: option.id, Name: option.Name, Values: JSON.parse(option.Values)};
+        return {id: option.id, type: option.OptionType, Name: option.Name, Values: JSON.parse(option.Values)};
       });
 
-    //  TODO возможно вынести в опции
+    this.setOrderOptionsDefaultValues();
+  }
+
+  public setOrderOptionsDefaultValues(){
     this._OrderOptions.forEach(o => {
       o.Values.forEach(v => v.isSelected = false);
-      o.Values[0].isSelected = true;
+      if (o.type == 'fixed') {
+        o.Values[1].isSelected = this.isDoubleSide;
+        o.Values[0].isSelected = !this.isDoubleSide;
+      } else
+        o.Values[0].isSelected = true;
     });
   }
 
