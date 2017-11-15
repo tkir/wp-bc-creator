@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
 import {PreviewService} from "../services/preview.service";
-import {DataService} from "../services/data.service";
+import {OptionsService} from "../services/options.service";
 
 @Component({
   selector: 'card-preview-modal',
@@ -16,7 +16,7 @@ export class PreviewModalComponent implements OnInit, OnDestroy {
   constructor(@Inject(DOCUMENT) private document: any,
               private el: ElementRef,
               public previewService: PreviewService,
-              public dataService: DataService) {
+              public options: OptionsService) {
   }
 
   ngOnInit() {

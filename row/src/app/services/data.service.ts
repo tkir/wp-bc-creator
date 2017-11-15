@@ -69,7 +69,6 @@ export class DataService {
   public slug: string = '';
   public side: string = 'front';
   private isChanginSide: boolean = false;
-  public isDoubleSide: boolean = true;
 
   updateCard(state): CardData {
     state.update();
@@ -92,6 +91,8 @@ export class DataService {
     this.cardService.keepLoadedCard(d['FieldsData'], d['DesignData'], d['isEditable'], d['Slug']);
     this.cardService.keepUserCard(fieldsData, d['DesignData'], d['isEditable'], d['Slug']);
 
+    this.options.isDoubleSide = d['isDoubleSide'];
+
     this.isDesignLoad = true;
   }
 
@@ -111,7 +112,7 @@ export class DataService {
   }
 
   public changeSideNumber(sideNum) {
-    this.isDoubleSide = (sideNum == 'double');
+    this.options.isDoubleSide = (sideNum == 'double');
     if (this.side == 'back') this.changeSide('front');
   }
 }

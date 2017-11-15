@@ -14,7 +14,11 @@ export class PreviewService {
   }
 
   getPreview(data) {
-    return this.api.post('/preview', {front: data.front.json, back: data.back.json})
+    return this.api.post('/preview', {
+      front: data.front.json,
+      back: data.back.json,
+      isDoubleSide: this.options.isDoubleSide
+    })
       .map(res => res.file)
       .subscribe(data => this.modalPreview = {
         front: "data:image/png;base64," + data.front,

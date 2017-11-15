@@ -93,6 +93,8 @@ export class OptionsService {
     return this._OrderOptions;
   }
 
+  public isDoubleSide: boolean = true;
+
   public get Designs() {
     return this.previews.map(p => p['Slug']);
   }

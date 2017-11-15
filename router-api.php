@@ -99,7 +99,7 @@ class BC_Creator_RouterAPI {
 		include_once 'order.php';
 
 		return BC_Creator_Order::get_instance()->
-			orderCard( json_decode( $request->get_body() ), $slug );
+		orderCard( json_decode( $request->get_body() ), $slug );
 	}
 
 	public function getPreview( $request ) {
@@ -110,14 +110,14 @@ class BC_Creator_RouterAPI {
 
 		$data      = json_decode( $request->get_body() );
 		$dataFront = BC_Creator_util::prepareObjForPdfAPI( $data->front );
-		$dataBack  = BC_Creator_util::prepareObjForPdfAPI( $data->back );
+		$dataBack  = $data->isDoubleSide ? BC_Creator_util::prepareObjForPdfAPI( $data->back ) : null;
 
 		$front = BC_Creator_API::post( $path, json_encode( $dataFront ) );
-		$back  = BC_Creator_API::post( $path, json_encode( $dataBack ) );
+		$back  = $data->isDoubleSide ? BC_Creator_API::post( $path, json_encode( $dataBack ) ) : null;
 
 		$res        = new stdClass();
 		$res->front = base64_encode( $front );
-		$res->back  = base64_encode( $back );
+		$res->back  = $data->isDoubleSide ? base64_encode( $back ) : null;
 
 		return array( 'file' => $res );
 	}
@@ -149,7 +149,8 @@ class BC_Creator_RouterAPI {
 			'Name'          => '',
 			'Version'       => 0,
 			'Description'   => '',
-			'Preview_Order' => 100
+			'Preview_Order' => 100,
+			'isDoubleSide'  => $body->isDoubleSide
 		);
 
 		BC_Creator_util::prepareDesignToDB( $des, get_current_user_id() );

@@ -22,7 +22,8 @@ export class DesignService {
     return this.api.post('/save', {
       FieldsData: {front: card.front.fieldsData, back: card.back.fieldsData},
       DesignData: {front: card.front.designData, back: card.back.designData},
-      card: {front: card.front.json, back: card.back.json}
+      card: {front: card.front.json, back: card.back.json},
+      isDoubleSide: this.options.isDoubleSide
     });
 
   }
@@ -46,7 +47,8 @@ export class DesignService {
     return this.api.post('/adminSave', {
       FieldsData: {front: card.front.fieldsData, back: card.back.fieldsData},
       DesignData: {front: card.front.designData, back: card.back.designData},
-      card: {front: card.front.json, back: card.back.json}
+      card: {front: card.front.json, back: card.back.json},
+      isDoubleSide: this.options.isDoubleSide
     });
   }
 

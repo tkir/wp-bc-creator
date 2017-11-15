@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {OptionsService} from "../services/options.service";
 import {DataService} from "../services/data.service";
 
 @Component({
@@ -8,10 +9,11 @@ import {DataService} from "../services/data.service";
 })
 export class SideSwitchComponent {
 
-  constructor(public dataService: DataService) {
+  constructor(public options: OptionsService,
+              private dataService: DataService) {
   }
 
-  private currentSide:string;
+  private currentSide: string;
 
   changeSide(side) {
     this.dataService.changeSide(side);

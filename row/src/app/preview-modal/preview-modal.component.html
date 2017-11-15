@@ -16,7 +16,7 @@
        style="font-size: 50px">&nbsp;</i>
 
     <img *ngIf="previewService.modalPreview" src="{{previewService.modalPreview.front}}">
-    <img *ngIf="previewService.modalPreview && dataService.isDoubleSide" src="{{previewService.modalPreview.back}}">
+    <img *ngIf="previewService.modalPreview && options.isDoubleSide" src="{{previewService.modalPreview.back}}">
     <card-order-form></card-order-form>
   </div><!-- content -->
 </div>

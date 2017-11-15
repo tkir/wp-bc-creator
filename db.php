@@ -29,8 +29,8 @@ class BC_Creator_DB
 
         global $wpdb;
         return $wpdb->query($wpdb->prepare("
-INSERT INTO $this->tableDesign (`Name`, `Version`, `Slug`, `Description`, `UserId`, `FieldsData`, `DesignData`, `Preview`, `Preview_Order`) 
-VALUES ('%s', %d, '%s', '%s', $userID, '%s', '%s','%s',%d);",
+INSERT INTO $this->tableDesign (`Name`, `Version`, `Slug`, `Description`, `UserId`, `FieldsData`, `DesignData`, `Preview`, `Preview_Order`, `isDoubleSide`) 
+VALUES ('%s', %d, '%s', '%s', $userID, '%s', '%s','%s',%d, $design->isDoubleSide);",
             $design->Name,
             $design->Version,
             $design->Slug,
@@ -158,6 +158,7 @@ INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES (
 			`Create_Date` DATETIME,
 			`isActive` BOOLEAN NOT NULL DEFAULT 1,
 			`Preview_Order` INT NOT NULL,
+			`isDoubleSide` BOOLEAN NOT NULL DEFAULT 1,
 			PRIMARY KEY(`id`)
 		)
 		ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
