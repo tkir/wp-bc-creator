@@ -2,8 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UpdateService} from '../services/update.service';
 import {OptionsService} from '../services/options.service';
 import {Subscription} from 'rxjs/Subscription';
-import {bootstrapItem} from "@angular/cli/lib/ast-tools";
-import {isBoolean} from "util";
 
 @Component({
   selector: 'menu-tab-order-detail',

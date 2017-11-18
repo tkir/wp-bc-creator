@@ -46,6 +46,7 @@ fabric.properties
 
 # dependencies
 */node_modules
+*/package-lock.json
 
 .idea/misc.xml
 .idea/modules.xml
