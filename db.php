@@ -73,10 +73,10 @@ INSERT INTO `$this->tableDesign`
 		if ( $isAdmin ) {
 			$query = $query . " WHERE UserId IS NULL ";
 		} else {
-			$query = $query . " WHERE isActive = 1 AND UserId = $userID OR UserId IS NULL ";
+			$query = $query . " WHERE isActive = 1 AND (UserId = $userID OR UserId IS NULL) ";
 		}
 		$query = $query . " ORDER BY Preview_Order";
-
+file_put_contents(__DIR__.'/test.sql', $query);
 		return $wpdb->get_results( $query );
 	}
 
