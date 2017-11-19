@@ -89,13 +89,13 @@ INSERT INTO `$this->tableDesign`
 	public function setOrderOption( $options ) {
 		global $wpdb;
 
-		$wpdb->delete( $this->tableOrderOptions, array( 'OptionType' => 'settings' ) );
+		$wpdb->query("DELETE from `$this->tableOrderOptions` WHERE `OptionType` <> 'price'");
 
 		foreach ( $options as $option ) {
 			$wpdb->query(
 				$wpdb->prepare( "
-INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES ('settings','%s', '%s');",
-					$option->Name, json_encode( $option->Values )
+INSERT INTO `$this->tableOrderOptions` (`OptionType`, `Name`, `Values`) VALUES ('%s','%s', '%s');",
+					$option->type, $option->Name, json_encode( $option->Values )
 				)
 			);
 		}
