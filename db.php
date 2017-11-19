@@ -76,7 +76,7 @@ INSERT INTO `$this->tableDesign`
 			$query = $query . " WHERE isActive = 1 AND (UserId = $userID OR UserId IS NULL) ";
 		}
 		$query = $query . " ORDER BY Preview_Order";
-file_put_contents(__DIR__.'/test.sql', $query);
+
 		return $wpdb->get_results( $query );
 	}
 
