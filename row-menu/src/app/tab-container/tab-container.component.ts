@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component, ElementRef, QueryList} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -6,21 +6,26 @@ import {Router} from "@angular/router";
   templateUrl: './tab-container.component.html',
   styleUrls: ['./tab-container.component.css']
 })
-export class TabContainerComponent implements OnInit {
-
-  constructor(private router:Router) { }
-
-  ngOnInit() {
-    this.onGeneralClick();
+export class TabContainerComponent implements AfterContentInit {
+  ngAfterContentInit(): void {
+    this.buttons = this.el.nativeElement.querySelectorAll('button');
+    this.onTabClick(null, 'general');
   }
 
-  onGeneralClick(){
-    this.router.navigate(['/general'], {skipLocationChange: true})
+  private buttons: QueryList<Element>;
+
+  constructor(private router: Router,
+              private el: ElementRef) {
   }
-  onDesignClick(){
-    this.router.navigate(['/design'], {skipLocationChange: true})
-  }
-  onOrderDetailClick(){
-    this.router.navigate(['/order-detail'], {skipLocationChange: true})
+
+  onTabClick(event, route: string) {
+    this.router.navigate([`/${route}`], {skipLocationChange: true});
+
+    this.buttons.forEach(el => el.classList.remove('active'));
+
+    if (event === null)
+      this.buttons[0].classList.add('active');
+    else event.target.classList.add('active');
+
   }
 }

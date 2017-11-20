@@ -1,6 +1,6 @@
 <nav>
-  <button (click)="onGeneralClick()">General</button>
-  <button (click)="onDesignClick()">Design</button>
-  <button (click)="onOrderDetailClick()">Order Detail</button>
+  <button (click)="onTabClick($event, 'general')">General</button>
+  <button (click)="onTabClick($event, 'design')">Design</button>
+  <button (click)="onTabClick($event, 'order-detail')">Order Detail</button>
 </nav>
 <router-outlet></router-outlet>
