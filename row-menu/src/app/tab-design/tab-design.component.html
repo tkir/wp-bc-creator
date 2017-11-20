@@ -1,34 +1,32 @@
-<div class="tabcontent">
-  <h3>Design</h3>
-  <div class="bc-creator-menu-design-container">
-    <div class="bc-creator-menu-previews-container">
+<h3>Design</h3>
+<div class="bc-creator-menu-design-container">
+  <div class="bc-creator-menu-previews-container">
 
-      <div *ngFor="let preview of options.previews">
-        <div *ngIf="preview.Preview">
+    <div *ngFor="let preview of options.previews">
+      <div *ngIf="preview.Preview">
 
-          <h3 *ngIf="preview.Name && preview.Name!=''">{{preview.Name}}</h3>
-          <div class="bc-creator-preview-img">
-            <img [src]="preview.Preview">
-            <span [class.active]="preview.isActive"
-                  (click)="toggleActive(preview)">&times;</span>
-          </div>
-
+        <h3 *ngIf="preview.Name && preview.Name!=''">{{preview.Name}}</h3>
+        <div class="bc-creator-preview-img">
+          <img [src]="preview.Preview">
+          <span [class.active]="preview.isActive"
+                (click)="toggleActive(preview)">&times;</span>
         </div>
+
       </div>
-
-      <button type="button" (click)="updatePreviews()">Update</button>
-
     </div>
-    <div class="menu-sidebar-container">
-      <select (change)="updateDefault($event.target.value)">
-        <ng-container *ngFor="let des of options.previews">
-          <option *ngIf="des.Preview"
-                  [value]="des.Slug"
-                  [selected]="des.Slug==options.defaultDesign">
-            {{des.Name}}
-          </option>
-        </ng-container>
-      </select>
-    </div>
+
+    <button type="button" (click)="updatePreviews()">Update</button>
+
+  </div>
+  <div class="menu-sidebar-container">
+    <select (change)="updateDefault($event.target.value)">
+      <ng-container *ngFor="let des of options.previews">
+        <option *ngIf="des.Preview"
+                [value]="des.Slug"
+                [selected]="des.Slug==options.defaultDesign">
+          {{des.Name}}
+        </option>
+      </ng-container>
+    </select>
   </div>
 </div>
