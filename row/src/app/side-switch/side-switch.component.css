@@ -28,17 +28,6 @@ button[disabled]{
 }
 
 
-/*Dropdown*/
-label a {
-  text-decoration: none;
-  color: #000000;
-}
-
-label a:hover {
-  color: #222222
-}
-
-
 /* The switch - the box around the slider */
 .toggle{
   display: inline-block;

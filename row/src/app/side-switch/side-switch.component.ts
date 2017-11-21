@@ -12,7 +12,7 @@ export class SideSwitchComponent implements AfterContentInit {
 
   ngAfterContentInit(): void {
     this.buttons = this.el.nativeElement.querySelectorAll('button');
-    this.buttons[0].classList.add('active');
+    (this.dataService.side == 'front') ? this.buttons[0].classList.add('active') : this.buttons[1].classList.add('active');
   }
 
   constructor(private el: ElementRef,
@@ -28,7 +28,7 @@ export class SideSwitchComponent implements AfterContentInit {
   }
 
   setSideNum() {
-    this.dataService.changeSideNumber((this.options.isDoubleSide)?'single':'double');
+    this.dataService.changeSideNumber((this.options.isDoubleSide) ? 'single' : 'double');
     this.buttons.forEach(el => el.classList.remove('active'));
     this.buttons[0].classList.add('active');
   }

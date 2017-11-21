@@ -1,0 +1,125 @@
+/*хедер с выбором макета или визитки*/
+
+section#head-choice {
+    background: #e2e2e2;
+
+    padding-top: 1em;
+    padding-bottom: 2em;	
+}
+
+.head-choice-btn {
+    padding: 0;
+    margin-top: 1em;
+}
+button.headerbtnchoice {
+    width: 100%;
+    padding: 10px 5px;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+section#mainplace {
+    background: #e2e2e2;
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+/*инструменты над визиткой*/
+
+.tools {
+	height: 5em;
+	background-color: green;
+}
+
+.col-md-4.fsbtn {
+    padding: 0;
+}
+.col-md-6.btnlitso {
+    padding: 0;
+}
+.col-md-6.btnoborot {
+    padding: 0;
+}
+button.frontside {
+    width: 100%;
+}
+
+/*инструменты над контентом*/
+
+.tools-for-content {
+	height: 5em;
+	background-color: orange;
+}
+
+
+/*сама визитка*/
+
+.businnescard {
+    margin-top: 3em;
+    height: 350px;
+    background-color: #fff;
+}
+.businnescard img {
+    display: none;
+}
+
+/*ввод данных*/
+
+.content-input-form {
+	margin-top: 3em;
+}
+
+.bcform input {
+    width: 90%;
+    margin-bottom: 3px;
+    height: 40px;
+}
+
+a.del_field {
+    padding: 5px 10px;
+    border: 1px solid red;
+    background-color: #455;
+}
+
+/*инструменты под визиткой*/
+
+.bottom-tools button {
+    width: 100%;
+}
+.bottom-tools {
+    padding: 0;
+}
+.bt-btn {
+    padding: 0;
+}
+
+/*картинки*/
+.bt-pictures {
+	width: 100%;
+	height: 5em;
+	background-color: #999;
+}
+/*графика*/
+.bt-graphic {
+	width: 100%;
+	height: 5em;
+	background-color: #666;
+}
+/*иконки*/
+.bt-icons {
+	width: 100%;
+	height: 5em;
+	background-color: #333;
+}
+
+/*поле последнего выбора*/
+
+#quant {
+	background-color: olive;
+	height: 5em;
+}
+
+#quant button {
+	margin-top: 2em;
+}
+

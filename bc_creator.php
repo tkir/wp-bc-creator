@@ -41,7 +41,12 @@ class BC_Creator
             'defaultDesign'=> get_option('BusinessCardCreator_defaultDesign'),
             'settings' => $config->creatorSettings,
             'orderOptions' => BC_Creator_DB::get_instance()->getOrderOptions(),
-            'price' => BC_Creator_DB::get_instance()->getPrice()
+            'price' => BC_Creator_DB::get_instance()->getPrice(),
+            'hints' => array(
+                'short hint',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tellus magna, vulputate sed scelerisque ac, rutrum a est. Nam bibendum.'
+            )
         ));
     }
 

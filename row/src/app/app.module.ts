@@ -36,6 +36,7 @@ import {OrderService} from "./services/order.service";
 import {TextStyleComponent} from './editor-container/text-style/text-style.component';
 import {TextFieldService} from "./services/text-field.service";
 import {SideSwitchComponent} from './side-switch/side-switch.component';
+import { HintSliderComponent } from './hint-slider/hint-slider.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {SideSwitchComponent} from './side-switch/side-switch.component';
     OrderFormComponent,
     OrderOptionComponent,
     TextStyleComponent,
-    SideSwitchComponent
+    SideSwitchComponent,
+    HintSliderComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [

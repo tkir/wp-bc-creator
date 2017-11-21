@@ -86,6 +86,7 @@ export class OptionsService {
   };
   public previews: [{ id: number, Name: string, Slug: string, Description: string, Preview: string, isActive: boolean }];
   public price: number;
+  private hints;
   private orderOptions: any;
   private _OrderOptions: [{ id: number, type: string, Name: string, Values: [{ Value: string, Rate: string, isSelected: boolean }] }];
 
@@ -97,6 +98,10 @@ export class OptionsService {
 
   public get Designs() {
     return this.previews.map(p => p['Slug']);
+  }
+
+  public get hint(): string {
+    return this.hints[Math.floor(Math.random() * this.hints.length)];
   }
 
   public setOrderOptions(val) {
