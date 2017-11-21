@@ -40,6 +40,10 @@ label a:hover {
 
 
 /* The switch - the box around the slider */
+.toggle{
+  display: inline-block;
+  text-align: center;
+}
 .switch {
   position: relative;
   display: inline-block;
@@ -90,10 +94,10 @@ input:checked + .slider:before {
 }
 
 /* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
+/*.slider.round {*/
+  /*border-radius: 34px;*/
+/*}*/
 
-.slider.round:before {
-  border-radius: 50%;
-}
+/*.slider.round:before {*/
+  /*border-radius: 50%;*/
+/*}*/
