@@ -12,10 +12,10 @@ import {MovableDirective} from './result/directives/movable.directive';
 import {Store} from "./services/store";
 import {DroppableDirective} from './result/directives/droppable.directive';
 import {ImageService} from "./services/image.service";
-import {BackgroundEditorComponent} from './editor-container/background-editor/background-editor.component';
+import {BackgroundEditorComponent} from './side-switch/background-editor/background-editor.component';
 import {ColorPickerComponent} from './editor-container/color-picker/color-picker.component';
 import {HrComponent} from './hr/hr.component';
-import {HrEditorComponent} from './editor/hr-editor/hr-editor.component';
+import {HrEditorComponent} from './graphics-container/hr-editor/hr-editor.component';
 import {FieldResizeComponent} from './result/field-resize/field-resize.component';
 import {AddResizeDirective} from './result/directives/add-resize.directive';
 import {AlignableDirective} from './result/directives/alignable.directive';
@@ -37,6 +37,9 @@ import {TextStyleComponent} from './editor-container/text-style/text-style.compo
 import {TextFieldService} from "./services/text-field.service";
 import {SideSwitchComponent} from './side-switch/side-switch.component';
 import { HintSliderComponent } from './hint-slider/hint-slider.component';
+import { GraphicsContainerComponent } from './graphics-container/graphics-container.component';
+import { LogoEditorComponent } from './graphics-container/logo-editor/logo-editor.component';
+import { IconEditorComponent } from './graphics-container/icon-editor/icon-editor.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,10 @@ import { HintSliderComponent } from './hint-slider/hint-slider.component';
     OrderOptionComponent,
     TextStyleComponent,
     SideSwitchComponent,
-    HintSliderComponent
+    HintSliderComponent,
+    GraphicsContainerComponent,
+    LogoEditorComponent,
+    IconEditorComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [

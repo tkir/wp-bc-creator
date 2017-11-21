@@ -1,0 +1,9 @@
+<ul>
+  <li *ngFor="let item of model.logos; let i = index" class="input-group">
+    <input type="file" (change)="uploadImage(item, $event)">
+    <a class="input-group-addon" (click)="removeItem(model.logos, i)">
+      <i class="glyphicon glyphicon-minus"></i></a>
+  </li>
+</ul>
+
+<a class="input-group-addon" (click)="addLogo()"><i class="glyphicon glyphicon-plus"></i></a>

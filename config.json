@@ -89,11 +89,6 @@
       "Arvo",
       "Lato"
     ],
-    "allowedDesigns": [
-      "default",
-      "des1",
-      "des2"
-    ],
     "allowedSizes": [
       {
         "width": 85,
@@ -110,7 +105,7 @@
       "dotted",
       "double"
     ],
-    "ratio": 7,
+    "ratio": 5.8,
     "fontSizeStep": 0.2,
     "polygraphPadding": 5,
     "imageUpload": {
@@ -165,5 +160,10 @@
       "Name": "Price",
       "Values": 100
     }
+  ],
+  "hints":[
+    "short hint",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tellus magna, vulputate sed scelerisque ac, rutrum a est. Nam bibendum."
   ]
 }

@@ -7,9 +7,9 @@
 
 <div class="tab-content active" data-tab="editor">
   <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
+  <card-graphics-container></card-graphics-container>
 </div>
 
 <div class="tab-content" data-tab="design">
   <card-design-container></card-design-container>
 </div>
-

@@ -81,19 +81,19 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.dataService.updateCard(this.model);
   }
 
-  addLogo(items: Logo[], i?: number) {
-
-    let newLogo: Logo = new Logo('',
-      {
-        width_mm: 22,
-        height_mm: 10,
-        left_mm: 5,
-        top_mm: 5
-      }, this.options);
-
-    items.push(newLogo);
-    this.dataService.updateCard(this.model);
-  }
+  // addLogo(items: Logo[], i?: number) {
+  //
+  //   let newLogo: Logo = new Logo('',
+  //     {
+  //       width_mm: 22,
+  //       height_mm: 10,
+  //       left_mm: 5,
+  //       top_mm: 5
+  //     }, this.options);
+  //
+  //   items.push(newLogo);
+  //   this.dataService.updateCard(this.model);
+  // }
 
   addLine(lines: Line[], i) {
     let newLine: Line = new Line(

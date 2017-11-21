@@ -24,45 +24,45 @@
       </ul>
     </div>
 
-    <div class="form-group">
-      <ul>
-        <li *ngFor="let item of model.logos; let i = index" class="input-group">
-          <input
-            type="file"
-            class="form-control"
-            (change)="uploadImage(item, $event)">
-          <a class="input-group-addon" (click)="addLogo(model.logos, i)"><i class="glyphicon glyphicon-plus"></i></a>
-          <a class="input-group-addon" (click)="removeItem(model.logos, i)"><i
-            class="glyphicon glyphicon-minus"></i></a>
-        </li>
-        <li *ngIf="!model.logos || !model.logos.length">
-          <input
-            type="text"
-            class="form-control" disabled>
-          <a class="input-group-addon" (click)="addLogo(model.logos)"><i class="glyphicon glyphicon-plus"></i></a>
-          <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
-        </li>
-      </ul>
-    </div>
+    <!--<div class="form-group">-->
+      <!--<ul>-->
+        <!--<li *ngFor="let item of model.logos; let i = index" class="input-group">-->
+          <!--<input-->
+            <!--type="file"-->
+            <!--class="form-control"-->
+            <!--(change)="uploadImage(item, $event)">-->
+          <!--<a class="input-group-addon" (click)="addLogo(model.logos, i)"><i class="glyphicon glyphicon-plus"></i></a>-->
+          <!--<a class="input-group-addon" (click)="removeItem(model.logos, i)"><i-->
+            <!--class="glyphicon glyphicon-minus"></i></a>-->
+        <!--</li>-->
+        <!--<li *ngIf="!model.logos || !model.logos.length">-->
+          <!--<input-->
+            <!--type="text"-->
+            <!--class="form-control" disabled>-->
+          <!--<a class="input-group-addon" (click)="addLogo(model.logos)"><i class="glyphicon glyphicon-plus"></i></a>-->
+          <!--<a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
 
 
-    <div class="form-group">
-      <ul>
-        <li *ngFor="let item of model.lines; let i = index" class="input-group">
-          <card-hr-editor [hr]="item"></card-hr-editor>
-          <a class="input-group-addon" (click)="addLine(model.lines, i)"><i class="glyphicon glyphicon-plus"></i></a>
-          <a class="input-group-addon" (click)="removeItem(model.lines, i)"><i
-            class="glyphicon glyphicon-minus"></i></a>
-        </li>
-        <li *ngIf="!model.lines || !model.lines.length">
-          <input
-            type="text"
-            class="form-control" disabled>
-          <a class="input-group-addon" (click)="addLine(model.lines)"><i class="glyphicon glyphicon-plus"></i></a>
-          <a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>
-        </li>
-      </ul>
-    </div>
+    <!--<div class="form-group">-->
+      <!--<ul>-->
+        <!--<li *ngFor="let item of model.lines; let i = index" class="input-group">-->
+          <!--<card-hr-editor [hr]="item"></card-hr-editor>-->
+          <!--<a class="input-group-addon" (click)="addLine(model.lines, i)"><i class="glyphicon glyphicon-plus"></i></a>-->
+          <!--<a class="input-group-addon" (click)="removeItem(model.lines, i)"><i-->
+            <!--class="glyphicon glyphicon-minus"></i></a>-->
+        <!--</li>-->
+        <!--<li *ngIf="!model.lines || !model.lines.length">-->
+          <!--<input-->
+            <!--type="text"-->
+            <!--class="form-control" disabled>-->
+          <!--<a class="input-group-addon" (click)="addLine(model.lines)"><i class="glyphicon glyphicon-plus"></i></a>-->
+          <!--<a class="input-group-addon" disabled><i class="glyphicon glyphicon-minus"></i></a>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
 
   </div>
 

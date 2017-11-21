@@ -5,7 +5,7 @@ import {DataService} from "../services/data.service";
 @Component({
   selector: 'card-side-switch',
   templateUrl: './side-switch.component.html',
-  styleUrls: ['./side-switch.component.css']
+  styleUrls: ['./side-switch.component.css', '../css/tabs.css']
 })
 export class SideSwitchComponent implements AfterContentInit {
   private buttons: Element[];

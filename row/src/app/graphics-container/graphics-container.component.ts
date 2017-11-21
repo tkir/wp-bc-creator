@@ -1,12 +1,11 @@
 import {AfterContentInit, Component, ElementRef} from '@angular/core';
-import {DataService} from "./services/data.service";
 
 @Component({
-  selector: 'business-card-editor',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css', './css/tabs.css']
+  selector: 'card-graphics-container',
+  templateUrl: './graphics-container.component.html',
+  styleUrls: ['./graphics-container.component.css', '../css/tabs.css']
 })
-export class AppComponent implements AfterContentInit {
+export class GraphicsContainerComponent implements AfterContentInit {
   private buttons: Element[];
   private tabContents: any[];
 
@@ -18,13 +17,11 @@ export class AppComponent implements AfterContentInit {
     this.buttons[0].classList.add('active');
   }
 
-  constructor(private el: ElementRef,
-              public dataService: DataService) {
-  }
+  constructor(private el: ElementRef){}
 
-  headChoice(event, choice: string) {
+  changeTab(event, tab){
     this.buttons.forEach(el => (el == event.target) ? el.classList.add('active') : el.classList.remove('active'));
-    this.tabContents.forEach(el => (el.dataset.tab == choice) ? el.classList.add('active') : el.classList.remove('active'));
+    this.tabContents.forEach(el => (el.dataset.tab == tab) ? el.classList.add('active') : el.classList.remove('active'));
   }
 
 }
