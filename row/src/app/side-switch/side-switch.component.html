@@ -1,6 +1,10 @@
-<button type="button" (click)="changeSide('front')">front</button>
-<button type="button" (click)="changeSide('back')" [disabled]="!options.isDoubleSide">back</button>
-<select (change)="setSideNum($event.target.value)">
-  <option value="single" [selected]="!options.isDoubleSide">Single-side card</option>
-  <option value="double" [selected]="options.isDoubleSide">Double-side card</option>
-</select>
+<nav>
+  <button type="button" (click)="changeSide($event, 'front')">front</button>
+  <button type="button" (click)="changeSide($event, 'back')" [disabled]="!options.isDoubleSide">back</button>
+
+  <!-- Rounded switch -->
+  <label class="switch">
+    <input type="checkbox" [checked]="options.isDoubleSide" (change)="setSideNum()">
+    <span class="slider round"></span>
+  </label>
+</nav>
