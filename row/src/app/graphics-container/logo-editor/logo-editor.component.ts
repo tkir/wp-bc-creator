@@ -6,6 +6,7 @@ import {OptionsService} from "../../services/options.service";
 import {DataService} from "../../services/data.service";
 import {CardData} from "../../data/CardData";
 import {ImageService} from "../../services/image.service";
+import {ImageResult} from "../../utils/image/interfaces";
 
 @Component({
   selector: 'card-logo-editor',
@@ -18,9 +19,10 @@ export class LogoEditorComponent implements OnInit, OnDestroy {
   model: CardData = null;
 
   constructor(private store: Store,
-              private options:OptionsService,
+              private options: OptionsService,
               private dataService: DataService,
-              private imageService: ImageService) { }
+              private imageService: ImageService) {
+  }
 
   ngOnInit() {
     this.subscription = this.store.changes
@@ -32,13 +34,16 @@ export class LogoEditorComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
   }
 
-  uploadImage(item, event) {
+  uploadImage(event) {
     if (event.target.files.length)
-      this.imageService.uploadImage(item, event.target.files[0]);
+      this.imageService.uploadImage(event.target.files[0], true)
+        .then((res: ImageResult) => {
+          this.model.addLogo(res.resized.dataURL, res.resized.width, res.resized.height);
+          this.dataService.updateCard(this.model);
+        });
   }
 
   addLogo() {
-
     let newLogo: Logo = new Logo('',
       {
         width_mm: 22,

@@ -164,7 +164,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   delete() {
     if (confirm('Delete this business card design?'))
-      this.designService.deleteDesign(this.model.options.slug)
+      this.designService.deleteDesign(this.model.slug)
         .subscribe(res =>
           this.previewService.updatePreviews()
             .subscribe(() => this.router.navigate(['/'])));

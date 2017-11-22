@@ -42,8 +42,8 @@ export class CardService {
       }));
 
     return new CardData(
-      texts, logos, lines, bg,
-      {isEditable: isEditable, slug: slug});
+      texts, logos, lines, bg, isEditable, slug, this.options
+    );
   }
 
   private createText(fStrs: string[], tDsns: TextDesign[]): TextField[] {
@@ -86,14 +86,14 @@ export class CardService {
     this.userFront = this.getCard(
       this.loadedFront.fieldsData,
       this.loadedFront.designData,
-      this.loadedFront.options.isEditable,
-      this.loadedFront.options.slug);
+      this.loadedFront.isEditable,
+      this.loadedFront.slug);
 
     this.userBack = this.getCard(
       this.loadedBack.fieldsData,
       this.loadedBack.designData,
-      this.loadedBack.options.isEditable,
-      this.loadedBack.options.slug)
+      this.loadedBack.isEditable,
+      this.loadedBack.slug)
   }
 
   public get doubleSideCard() :{ front: CardData, back: CardData }{

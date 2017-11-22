@@ -10,7 +10,7 @@ export class DroppableDirective implements OnInit {
   @Input() logoItem: Logo = null;
 
   constructor(private el: ElementRef,
-              private imageService:ImageService) {
+              private imageService: ImageService) {
   }
 
   ngOnInit() {
@@ -65,7 +65,13 @@ export class DroppableDirective implements OnInit {
     this.el.nativeElement.classList.remove('has-advanced-upload');
     this.el.nativeElement.classList.remove('is-dragover');
 
-    this.imageService.uploadImage(this.logoItem, event.dataTransfer.files[0]);
+    if (event.dataTransfer.files.length)
+      this.imageService.uploadImage(event.dataTransfer.files[0], true)
+        .then(res => {
+          this.logoItem.height = res.resized.height;
+          this.logoItem.width = res.resized.width;
+          this.logoItem.src = res.resized.dataURL;
+        })
   }
 
   private _stopPropagation(event: Event) {

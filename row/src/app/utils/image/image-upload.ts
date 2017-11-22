@@ -5,7 +5,6 @@ import {createImage, resizeImage} from './utils';
 
 export class ImageUpload {
 
-  imageSelected = new EventEmitter<ImageResult>();
   resizeOptions: ResizeOptions;
   private _allowedExtensions: string[];
 
@@ -21,9 +20,9 @@ export class ImageUpload {
   constructor() {
   }
 
-  readFiles(file, resizeOptions:ResizeOptions, allowedExtensions) {
+  readFiles(file, resizeOptions: ResizeOptions, allowedExtensions) {
     this.allowedExtensions = allowedExtensions;
-    this.resizeOptions=resizeOptions;
+    this.resizeOptions = resizeOptions;
 
     let result: ImageResult = {
       file: file,
@@ -32,15 +31,13 @@ export class ImageUpload {
     let ext: string = file.name.split('.').pop();
     ext = ext && ext.toLowerCase();
     if (ext && this.allowedExtensions && this.allowedExtensions.length && this.allowedExtensions.indexOf(ext) === -1) {
-      result.error = 'Extension Not Allowed';
-      this.imageSelected.emit(result);
+      return new Promise<ImageResult>(resolve => {
+        result.error = 'Extension Not Allowed';
+        resolve(result);
+      });
     } else {
-      this.fileToDataURL(file, result).then(r => this.resize(r))
-        .then(r => this.imageSelected.emit(r))
-        .catch(e => {
-          result.error = 'Image processing error';
-          this.imageSelected.emit(result);
-        });
+      return this.fileToDataURL(file, result)
+        .then(r => this.resize(r));
     }
   }
 

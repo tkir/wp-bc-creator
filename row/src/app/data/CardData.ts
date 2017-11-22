@@ -3,13 +3,16 @@ import {Background} from "./Background";
 import {TextField} from "./TextField";
 import {Line} from "./Line";
 import {CardDesignData, CardFieldsData} from "./interfaces";
+import {OptionsService} from "../services/options.service";
 
 export class CardData {
   constructor(public texts: TextField[],
               public logos: Logo[],
               public lines: Line[],
               public background: Background,
-              public options: { isEditable: boolean, slug: string }) {
+              public isEditable: boolean,
+              public slug: string,
+              private options:OptionsService) {
     this.update();
   }
 
@@ -19,7 +22,7 @@ export class CardData {
   public update() {
     this.fields = [];
     Object.keys(this).forEach(key => {
-      if (key != 'fields' && key != 'config' && key != 'options') {
+      if (key != 'fields' && key != 'config' && key != 'isEditable' && key!='slug') {
         if (Array.isArray(this[key]))
           this.fields.push(...this[key]);
         else this.fields.push(this[key]);
@@ -37,6 +40,8 @@ export class CardData {
 
   private updateSize() {
     this.logos.forEach(logo => logo.setMax(this.background.width, this.background.height));
+    this.options.cardWidth = this.background.width;
+    this.options.cardHeight = this.background.height;
   }
 
   public get json() {
@@ -68,6 +73,15 @@ export class CardData {
         lines: this.lines.map(line => line.designData),
         background: this.background.designData
       });
+  }
+
+  public addLogo(src: string, width:number, height:number){
+    let logo=new Logo(
+      src,
+      {width:width, height:height, left_mm: 5, top_mm: 5 },
+      this.options
+    );
+    this.logos.push(logo);
   }
 }
 
