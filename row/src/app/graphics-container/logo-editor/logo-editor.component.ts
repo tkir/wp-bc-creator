@@ -19,7 +19,6 @@ export class LogoEditorComponent implements OnInit, OnDestroy {
   model: CardData = null;
 
   constructor(private store: Store,
-              private options: OptionsService,
               private dataService: DataService,
               private imageService: ImageService) {
   }
@@ -40,20 +39,8 @@ export class LogoEditorComponent implements OnInit, OnDestroy {
         .then((res: ImageResult) => {
           this.model.addLogo(res.resized.dataURL, res.resized.width, res.resized.height);
           this.dataService.updateCard(this.model);
-        });
-  }
-
-  addLogo() {
-    let newLogo: Logo = new Logo('',
-      {
-        width_mm: 22,
-        height_mm: 10,
-        left_mm: 5,
-        top_mm: 5
-      }, this.options);
-
-    this.model.logos.push(newLogo);
-    this.dataService.updateCard(this.model);
+        })
+        .catch(err => console.log(err));
   }
 
   removeItem(i) {

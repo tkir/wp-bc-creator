@@ -81,35 +81,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.dataService.updateCard(this.model);
   }
 
-  // addLogo(items: Logo[], i?: number) {
-  //
-  //   let newLogo: Logo = new Logo('',
-  //     {
-  //       width_mm: 22,
-  //       height_mm: 10,
-  //       left_mm: 5,
-  //       top_mm: 5
-  //     }, this.options);
-  //
-  //   items.push(newLogo);
-  //   this.dataService.updateCard(this.model);
-  // }
-
-  addLine(lines: Line[], i) {
-    let newLine: Line = new Line(
-      {
-        left_mm: 0,
-        top_mm: 30,
-        length_mm: 45,
-        _thickness: 1,
-        isHorizontal: true,
-        design: 'solid',
-        _color: '00f'
-      }, this.options);
-    lines.push(newLine);
-    this.dataService.updateCard(this.model);
-  }
-
   private getItemFont(): string {
     let fontFamily;
     this.model.fields.forEach(item => {
@@ -171,7 +142,6 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   getPreview() {
-    // this.previewService.getPreview(this.model.json);
     this.previewService.getPreview(this.cardService.doubleSideCard);
     this.openModal();
   }

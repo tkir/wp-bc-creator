@@ -12,7 +12,7 @@ export class CardData {
               public background: Background,
               public isEditable: boolean,
               public slug: string,
-              private options:OptionsService) {
+              private options: OptionsService) {
     this.update();
   }
 
@@ -22,7 +22,7 @@ export class CardData {
   public update() {
     this.fields = [];
     Object.keys(this).forEach(key => {
-      if (key != 'fields' && key != 'config' && key != 'isEditable' && key!='slug') {
+      if (key != 'fields' && key != 'config' && key != 'isEditable' && key != 'slug') {
         if (Array.isArray(this[key]))
           this.fields.push(...this[key]);
         else this.fields.push(this[key]);
@@ -75,13 +75,31 @@ export class CardData {
       });
   }
 
-  public addLogo(src: string, width:number, height:number){
-    let logo=new Logo(
-      src,
-      {width:width, height:height, left_mm: 5, top_mm: 5 },
-      this.options
+  public addLogo(src: string, width: number, height: number) {
+    this.logos.push(
+      new Logo(
+        src,
+        {width: width, height: height, left_mm: 5, top_mm: 5},
+        this.options
+      )
     );
-    this.logos.push(logo);
+  }
+
+  public addHr() {
+    this.lines.push(
+      new Line(
+        {
+          left_mm: 0,
+          top_mm: 30,
+          length_mm: 45,
+          _thickness: 1,
+          isHorizontal: true,
+          design: 'solid',
+          _color: '00f'
+        },
+        this.options
+      )
+    );
   }
 }
 
