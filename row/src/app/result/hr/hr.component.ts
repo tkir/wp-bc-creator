@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Line} from "../data/Line";
+import {Line} from "../../data/Line";
 
 @Component({
   selector: 'card-hr',

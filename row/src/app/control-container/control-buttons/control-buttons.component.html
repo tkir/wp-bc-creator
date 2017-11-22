@@ -1,0 +1,7 @@
+<button type="button" class="btn btn-info" (click)="reset()">Reset design</button>
+<button type="button" class="btn btn-success" (click)="save()">Save design</button>
+<button type="button" class="btn btn-success" (click)="getPreview()">Preview</button>
+<button type="button" *ngIf="model.isEditable" (click)="delete()">Delete</button>
+
+<!--TODO удалить в релизе-->
+<button type="button" class="btn" (click)="adminSaveDesign()">Admin save design</button>

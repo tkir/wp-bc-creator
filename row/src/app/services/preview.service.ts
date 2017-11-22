@@ -13,7 +13,7 @@ export class PreviewService {
               private designService: DesignService) {
   }
 
-  getPreview(data) {
+  seModalPreview(data) {
     return this.api.post('/preview', {
       front: data.front.json,
       back: data.back.json,

@@ -1,0 +1,30 @@
+<div>
+  <div class="">
+    <ul>
+      <li *ngFor="let item of model.texts; let i = index" class="">
+        <input
+          type="text"
+          class="form-control"
+          [class.text-field-selected]="item.isSelected"
+          [(ngModel)]="item.text"
+          (focus)="focusItem($event, i)"
+          (blur)="blurItem()">
+        <button (click)="removeItem(model.texts, i)">-</button>
+      </li>
+    </ul>
+
+    <div>
+      <button (click)="addTextField(0)">Add text field</button>
+    </div>
+  </div>
+
+  <!--<button type="button" class="btn btn-info" (click)="reset()">Reset design</button>-->
+  <!--<button type="button" class="btn btn-success" (click)="save()">Save design</button>-->
+  <!--<button type="button" class="btn btn-success" (click)="getPreview()">Preview</button>-->
+  <!--<button type="button" *ngIf="model.isEditable" (click)="delete()">Delete</button>-->
+
+  <!--TODO удалить в релизе-->
+  <!--<button type="button" class="btn" (click)="adminSaveDesign()">Admin save design</button>-->
+
+</div>
+<!--<div #previewModalContainer></div>-->

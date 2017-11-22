@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from "@angular/http";
 
 import {AppComponent} from './app.component';
-import {EditorComponent} from './editor/editor.component';
+import {EditorComponent} from './editor-container/editor/editor.component';
 import {EditorContainerComponent} from './editor-container/editor-container.component';
 import {DataService} from "./services/data.service";
 import {ResultComponent} from './result/result.component';
@@ -13,8 +13,8 @@ import {Store} from "./services/store";
 import {DroppableDirective} from './result/directives/droppable.directive';
 import {ImageService} from "./services/image.service";
 import {BackgroundEditorComponent} from './side-switch/background-editor/background-editor.component';
-import {ColorPickerComponent} from './editor-container/color-picker/color-picker.component';
-import {HrComponent} from './hr/hr.component';
+import {ColorPickerComponent} from './color-picker/color-picker.component';
+import {HrComponent} from './result/hr/hr.component';
 import {HrEditorComponent} from './graphics-container/hr-editor/hr-editor.component';
 import {FieldResizeComponent} from './result/field-resize/field-resize.component';
 import {AddResizeDirective} from './result/directives/add-resize.directive';
@@ -40,6 +40,8 @@ import {HintSliderComponent} from './hint-slider/hint-slider.component';
 import {GraphicsContainerComponent} from './graphics-container/graphics-container.component';
 import {LogoEditorComponent} from './graphics-container/logo-editor/logo-editor.component';
 import {IconEditorComponent} from './graphics-container/icon-editor/icon-editor.component';
+import { ControlContainerComponent } from './control-container/control-container.component';
+import { ControlButtonsComponent } from './control-container/control-buttons/control-buttons.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import {IconEditorComponent} from './graphics-container/icon-editor/icon-editor.
     TextStyleComponent,
     SideSwitchComponent,
     HintSliderComponent,
-    GraphicsContainerComponent
+    GraphicsContainerComponent,
+    ControlContainerComponent,
+    ControlButtonsComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
