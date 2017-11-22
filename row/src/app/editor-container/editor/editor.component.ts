@@ -1,8 +1,4 @@
-import {
-  Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild,
-  ViewContainerRef
-} from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 
 import {DataService} from "../../services/data.service";
@@ -10,13 +6,8 @@ import {CardData} from "../../data/CardData";
 import {TextField} from "../../data/TextField";
 import {Store} from "../../services/store";
 import {ImageService} from "../../services/image.service";
-import {DesignService} from "../../services/design.service";
-import {PreviewService} from "../../services/preview.service";
-import {PreviewModalComponent} from "../../preview-modal/preview-modal.component";
 import {OptionsService} from "../../services/options.service";
-import {OrderService} from "../../services/order.service";
 import {TextFieldService} from "../../services/text-field.service";
-import {CardService} from "../../services/card.service";
 
 
 @Component({
@@ -31,17 +22,11 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private router: Router,
-              private options: OptionsService,
+  constructor(private options: OptionsService,
               private dataService: DataService,
               private store: Store,
               private imageService: ImageService,
-              private designService: DesignService,
-              private previewService: PreviewService,
-              private resolver: ComponentFactoryResolver,
-              private orderService: OrderService,
-              private textFieldService: TextFieldService,
-              private cardService: CardService) {
+              private textFieldService: TextFieldService) {
   }
 
   ngOnInit() {
@@ -52,8 +37,6 @@ export class EditorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.subscription)
       this.subscription.unsubscribe();
-    // if (this.componentRef)
-    //   this.componentRef.destroy();
   }
 
   addTextField(i?: number) {
@@ -118,64 +101,4 @@ export class EditorComponent implements OnInit, OnDestroy {
     if (event.target.files.length)
       this.imageService.uploadImage(item, event.target.files[0]);
   }
-
-  // reset() {
-  //   this.dataService.resetData();
-  // }
-  //
-  // save() {
-  //   this.designService.saveDesign(this.cardService.doubleSideCard)
-  //     .subscribe(res =>
-  //       this.previewService.updatePreviews()
-  //         .subscribe(() => this.router.navigate([`/${res.Slug}`]))
-  //     );
-  // }
-  //
-  // delete() {
-  //   if (confirm('Delete this business card design?'))
-  //     this.designService.deleteDesign(this.model.slug)
-  //       .subscribe(res =>
-  //         this.previewService.updatePreviews()
-  //           .subscribe(() => this.router.navigate(['/'])));
-  // }
-  //
-  // getPreview() {
-  //   this.previewService.getPreview(this.cardService.doubleSideCard);
-  //   this.openModal();
-  // }
-  //
-  // // TODO удалить в релизе
-  // adminSaveDesign() {
-  //   this.designService.adminSaveDesign(this.cardService.doubleSideCard)
-  //     .subscribe(res => console.log(res));
-  // }
-
-  // @ViewChild("previewModalContainer", {read: ViewContainerRef}) container;
-  // componentRef: ComponentRef<PreviewModalComponent> = null;
-  // private modalSubscription: Subscription = null;
-  //
-  //
-  // openModal() {
-  //   this.orderService.card = this.cardService.doubleSideCard;
-  //
-  //   this.container.clear();
-  //   const factory = this.resolver.resolveComponentFactory(PreviewModalComponent);
-  //   this.componentRef = this.container.createComponent(factory);
-  //   this.modalSubscription = this.componentRef.instance.closeModal
-  //     .subscribe(() => this.closeModal());
-  //   this.componentRef.instance.open();
-  //   this.previewService.isModalOpen = true;
-  // }
-  //
-  // closeModal() {
-  //   this.previewService.isModalOpen = false;
-  //
-  //   this.modalSubscription.unsubscribe();
-  //   this.modalSubscription = null;
-  //
-  //   this.componentRef.destroy();
-  //   this.container.clear();
-  //   this.componentRef = null;
-  //   this.orderService.card = null;
-  // }
 }
