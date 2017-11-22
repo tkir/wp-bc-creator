@@ -24,7 +24,7 @@ export class LogoEditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.store.changes
-      .subscribe((cardData: any) => {this.model = cardData;console.log(this.model.logos);});
+      .subscribe((cardData: any) => this.model = cardData);
   }
 
   ngOnDestroy(): void {
@@ -37,7 +37,7 @@ export class LogoEditorComponent implements OnInit, OnDestroy {
       this.imageService.uploadImage(item, event.target.files[0]);
   }
 
-  addLogo(items?: Logo[], i?: number) {
+  addLogo() {
 
     let newLogo: Logo = new Logo('',
       {
@@ -47,14 +47,12 @@ export class LogoEditorComponent implements OnInit, OnDestroy {
         top_mm: 5
       }, this.options);
 
-    // items.push(newLogo);
     this.model.logos.push(newLogo);
     this.dataService.updateCard(this.model);
   }
 
-  removeItem(items, i) {
+  removeItem(i) {
     this.model.logos.splice(i, 1);
-
     this.dataService.updateCard(this.model);
   }
 

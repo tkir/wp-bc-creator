@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule}   from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {HttpModule} from "@angular/http";
 
 import {AppComponent} from './app.component';
@@ -36,10 +36,10 @@ import {OrderService} from "./services/order.service";
 import {TextStyleComponent} from './editor-container/text-style/text-style.component';
 import {TextFieldService} from "./services/text-field.service";
 import {SideSwitchComponent} from './side-switch/side-switch.component';
-import { HintSliderComponent } from './hint-slider/hint-slider.component';
-import { GraphicsContainerComponent } from './graphics-container/graphics-container.component';
-import { LogoEditorComponent } from './graphics-container/logo-editor/logo-editor.component';
-import { IconEditorComponent } from './graphics-container/icon-editor/icon-editor.component';
+import {HintSliderComponent} from './hint-slider/hint-slider.component';
+import {GraphicsContainerComponent} from './graphics-container/graphics-container.component';
+import {LogoEditorComponent} from './graphics-container/logo-editor/logo-editor.component';
+import {IconEditorComponent} from './graphics-container/icon-editor/icon-editor.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +53,8 @@ import { IconEditorComponent } from './graphics-container/icon-editor/icon-edito
     ColorPickerComponent,
     HrComponent,
     HrEditorComponent,
+    LogoEditorComponent,
+    IconEditorComponent,
     AddResizeDirective,
     FieldResizeComponent,
     AlignableDirective,
@@ -64,9 +66,7 @@ import { IconEditorComponent } from './graphics-container/icon-editor/icon-edito
     TextStyleComponent,
     SideSwitchComponent,
     HintSliderComponent,
-    GraphicsContainerComponent,
-    LogoEditorComponent,
-    IconEditorComponent
+    GraphicsContainerComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [

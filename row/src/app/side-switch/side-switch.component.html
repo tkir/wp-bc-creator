@@ -1,6 +1,6 @@
 <nav>
-  <button type="button" (click)="changeSide($event, 'front')">front</button>
-  <button type="button" (click)="changeSide($event, 'back')" [disabled]="!options.isDoubleSide">back</button>
+  <button type="button" (click)="changeTab($event, 'front')">front</button>
+  <button type="button" (click)="changeTab($event, 'back')" [disabled]="!options.isDoubleSide">back</button>
 
   <!-- Rounded switch -->
   <div class="toggle">

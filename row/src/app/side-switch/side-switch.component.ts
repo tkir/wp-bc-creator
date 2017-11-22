@@ -22,7 +22,7 @@ export class SideSwitchComponent implements AfterContentInit {
 
   private currentSide: string;
 
-  changeSide(event, side) {
+  changeTab(event, side) {
     this.dataService.changeSide(side);
     this.buttons.forEach(el => (el == event.target) ? el.classList.add('active') : el.classList.remove('active'));
   }
