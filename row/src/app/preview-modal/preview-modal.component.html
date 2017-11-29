@@ -12,8 +12,7 @@
 
     <!--preview loading-->
     <i *ngIf="!previewService.modalPreview"
-       class="glyphicon glyphicon-refresh"
-       style="font-size: 50px">&nbsp;</i>
+       class="fa-li fa fa-spinner fa-spin fa-5x">&nbsp;</i>
 
     <img *ngIf="previewService.modalPreview" src="{{previewService.modalPreview.front}}">
     <img *ngIf="previewService.modalPreview && options.isDoubleSide" src="{{previewService.modalPreview.back}}">

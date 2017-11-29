@@ -42,7 +42,8 @@ class BC_Creator
             'settings' => $config->creatorSettings,
             'orderOptions' => BC_Creator_DB::get_instance()->getOrderOptions(),
             'price' => BC_Creator_DB::get_instance()->getPrice(),
-            'hints' => $config->hints
+            'hints' => $config->hints,
+	        'fontIcons' => $config->fontIcons
         ));
     }
 

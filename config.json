@@ -165,5 +165,8 @@
     "short hint",
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus",
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tellus magna, vulputate sed scelerisque ac, rutrum a est. Nam bibendum."
-  ]
+  ],
+  "fontIcons":["address-book", "id-card-o", "handshake-o", "vcard", "bug", "address-book-o", "address-card-o",
+    "bug", "bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug",
+    "bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug"]
 }

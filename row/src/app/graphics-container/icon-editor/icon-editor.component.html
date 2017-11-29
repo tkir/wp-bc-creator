@@ -1,3 +1,11 @@
-<p>
-  icon-editor works!
-</p>
+<div class="divTable blueTable">
+  <div class="divTableBody">
+    <div *ngFor="let row of rows; let i=index" class="divTableRow">
+      <div *ngFor="let cell of columns let j=index" class="divTableCell">
+        <div [fieldDraggable]="{data:options.fontIcons[i*rows.length+j]}" class="draggable">
+          <a class="thumbnail"><i class="fa fa-lg fa-{{options.fontIcons[i*rows.length+j]}}"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

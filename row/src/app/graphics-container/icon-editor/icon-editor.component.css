@@ -1,0 +1,23 @@
+div.blueTable {
+  border-collapse: collapse;
+}
+.blueTable .tableFootStyle .links {
+  text-align: center;
+}
+.blueTable.outerTableFooter {
+  border-top: none;
+}
+.divTable{ display: table; }
+.divTableRow { display: table-row; }
+.divTableCell, .divTableHead { display: table-cell;}
+.divTableBody { display: table-row-group;}
+
+
+.thumbnail{
+  border: 1px solid #ddd; /* Gray border */
+  border-radius: 4px;  /* Rounded border */
+  padding: 3px; /* Some padding */
+}
+.thumbnail:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}

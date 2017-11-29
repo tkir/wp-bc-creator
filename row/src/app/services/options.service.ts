@@ -87,6 +87,7 @@ export class OptionsService {
   public previews: [{ id: number, Name: string, Slug: string, Description: string, Preview: string, isActive: boolean }];
   public price: number;
   private hints;
+  public fontIcons;
 
   public cardWidth:number;
   public cardHeight:number;

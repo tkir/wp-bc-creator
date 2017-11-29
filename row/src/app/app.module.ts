@@ -42,6 +42,9 @@ import {LogoEditorComponent} from './graphics-container/logo-editor/logo-editor.
 import {IconEditorComponent} from './graphics-container/icon-editor/icon-editor.component';
 import { ControlContainerComponent } from './control-container/control-container.component';
 import { ControlButtonsComponent } from './control-container/control-buttons/control-buttons.component';
+import {DragService} from "./services/drag-and-drop/drag.service";
+import {DraggableDirective} from "./services/drag-and-drop/draggable.directive";
+import {DropTargetDirective} from "./services/drag-and-drop/drop-target.directive";
 
 @NgModule({
   declarations: [
@@ -51,6 +54,8 @@ import { ControlButtonsComponent } from './control-container/control-buttons/con
     ResultComponent,
     MovableDirective,
     DroppableDirective,
+    DraggableDirective,
+    DropTargetDirective,
     BackgroundEditorComponent,
     ColorPickerComponent,
     HrComponent,
@@ -91,7 +96,8 @@ import { ControlButtonsComponent } from './control-container/control-buttons/con
     DesignService,
     PreviewService,
     OrderService,
-    TextFieldService
+    TextFieldService,
+    DragService
   ],
   bootstrap: [AppComponent]
 })
