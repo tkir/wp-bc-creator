@@ -27,4 +27,8 @@ export class AppComponent implements AfterContentInit {
     this.tabContents.forEach(el => (el.dataset.tab == choice) ? el.classList.add('active') : el.classList.remove('active'));
   }
 
+  onDrop(event){
+    console.log(event);
+  }
+
 }

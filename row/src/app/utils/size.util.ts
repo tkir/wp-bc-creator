@@ -115,3 +115,15 @@ export function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight
 
   return { width: srcWidth*ratio, height: srcHeight*ratio };
 }
+
+export function getElemCoords(elem: HTMLElement) {
+  let box = elem.getBoundingClientRect();
+
+  return {
+    top: box.top + pageYOffset,
+    left: box.left + pageXOffset,
+    bottom: box.bottom+pageYOffset,
+    right: box.right+pageXOffset
+  };
+
+}

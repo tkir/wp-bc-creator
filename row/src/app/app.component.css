@@ -1,0 +1,7 @@
+.drop-wait{
+  background-color: yellow;
+}
+.drag-in{
+  background-color: green;
+  cursor: pointer;
+}

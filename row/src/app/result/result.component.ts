@@ -35,4 +35,8 @@ export class ResultComponent implements OnInit, OnDestroy {
     if (this.subscription)
       this.subscription.unsubscribe();
   }
+
+  onDrop(event){
+    console.log(event);
+  }
 }

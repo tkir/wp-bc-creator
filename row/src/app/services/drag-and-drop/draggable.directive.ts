@@ -1,6 +1,6 @@
 import {Directive, ElementRef, HostBinding, HostListener, Inject, Input} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
-import {DragService} from "./drag.service";
+import {DragObject, DragService} from "./drag.service";
 
 @Directive({
   selector: '[fieldDraggable]'
@@ -8,6 +8,8 @@ import {DragService} from "./drag.service";
 export class DraggableDirective {
 
   private opt: DraggableOptions = {};
+  private dragObj: DragObject = null;
+  private isDraging:boolean = false;
 
   constructor(@Inject(DOCUMENT) private document: any,
               private el: ElementRef,
@@ -39,16 +41,34 @@ export class DraggableDirective {
 
     this.dragService.startDrag(this.opt.zone);
     event.dataTransfer.setData('Text', JSON.stringify(this.opt.data));
+
+    this.dragObj = new DragObject(event.pageX, event.pageY, this.opt.data);
+    this.dragService.dragObjStartEvent.emit(this.dragObj);
+    this.isDraging = true;
   }
 
   @HostListener('drag', ['$event'])
-  onDrag(event:DragEvent) {
+  onDrag(event: DragEvent) {
     this.dragService.moveAvatar(event.pageX, event.pageY);
+
+    this.dragObj.pageX = event.pageX;
+    this.dragObj.pageY = event.pageY;
+    this.dragService.dragObjEvent.emit(this.dragObj);
   }
 
+  // @HostListener('window:mouseup', ['$event'])
+  // onDrop(event:MouseEvent){console.log(event);
+  //   if(!this.isDraging)return;
+  //   this.isDraging = false;
+  //
+  //   this.dragObj.pageX = event.pageX;
+  //   this.dragObj.pageY = event.pageY;
+  //   this.dragService.dropObjEvent.emit(this.dragObj);
+  // }
 }
 
 export interface DraggableOptions {
   zone?: string,
   data?: any
 }
+

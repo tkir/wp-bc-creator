@@ -1,10 +1,16 @@
 <div class="card-wrap unselectable">
-  <div class="business-card" [ngStyle]="cardData.background.style" fieldMovable [dataArr]="dataArr" [card]="me">
+  <div class="business-card"
+       [ngStyle]="cardData.background.style"
+       fieldMovable [dataArr]="dataArr"
+       [card]="me"
+       DropTarget (dropEvent)="onDrop($event)"
+  >
     <div
       class="card-field"
       *ngFor="let item of dataArr"
       [ngStyle]="{'left.px':item.left, 'top.px':item.top}"
-      [ngClass]="{'selected-field':item.isSelected}">
+      [ngClass]="{'selected-field':item.isSelected}"
+    >
       <span *ngIf="item.instanceOf=='Text'" [ngStyle]="item.style" fieldAlignable [item]="item">{{item.text}}</span>
       <div cardAddResize *ngIf="item.instanceOf=='Logo'" [ngStyle]="item.style" imageDroppable [logoItem]="item"></div>
       <card-hr cardAddResize *ngIf="item.instanceOf=='Line'" [line]="item"></card-hr>
