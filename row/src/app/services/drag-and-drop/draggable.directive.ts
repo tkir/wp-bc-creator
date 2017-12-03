@@ -9,7 +9,7 @@ export class DraggableDirective {
 
   private opt: DraggableOptions = {};
   private dragObj: DragObject = null;
-  private isDraging:boolean = false;
+  private isDragging:boolean = false;
 
   constructor(@Inject(DOCUMENT) private document: any,
               private el: ElementRef,
@@ -44,7 +44,7 @@ export class DraggableDirective {
 
     this.dragObj = new DragObject(event.pageX, event.pageY, this.opt.data);
     this.dragService.dragObjStartEvent.emit(this.dragObj);
-    this.isDraging = true;
+    this.isDragging = true;
   }
 
   @HostListener('drag', ['$event'])
@@ -56,15 +56,18 @@ export class DraggableDirective {
     this.dragService.dragObjEvent.emit(this.dragObj);
   }
 
-  // @HostListener('window:mouseup', ['$event'])
-  // onDrop(event:MouseEvent){console.log(event);
-  //   if(!this.isDraging)return;
-  //   this.isDraging = false;
-  //
-  //   this.dragObj.pageX = event.pageX;
-  //   this.dragObj.pageY = event.pageY;
-  //   this.dragService.dropObjEvent.emit(this.dragObj);
-  // }
+  @HostListener('dragend', ['$event'])
+  onDrop(event:MouseEvent){
+    if(!this.isDragging)return;
+    this.isDragging = false;
+
+    this.dragObj.pageX = event.pageX;
+    this.dragObj.pageY = event.pageY;
+    this.dragService.dragObjEvent.emit(this.dragObj);
+    this.dragService.dropObjEvent.emit(this.dragObj);
+
+    this.dragService.deleteAvatar();
+  }
 }
 
 export interface DraggableOptions {

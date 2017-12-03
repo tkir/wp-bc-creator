@@ -38,3 +38,13 @@
 .is-dragover {
   background-color: grey;
 }
+
+/*вид, если иконка поднята и ждем ее*/
+.drop-wait{
+
+}
+
+/*иконка внесена в зону*/
+.drag-in{
+
+}

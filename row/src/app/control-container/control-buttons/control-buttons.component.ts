@@ -61,7 +61,7 @@ export class ControlButtonsComponent implements OnInit, OnDestroy {
   }
 
   getPreview() {
-    this.previewService.seModalPreview(this.cardService.doubleSideCard);
+    this.previewService.setModalPreview(this.cardService.doubleSideCard);
     this.openModalEvent.emit();
   }
 

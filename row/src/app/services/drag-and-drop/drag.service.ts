@@ -30,6 +30,10 @@ export class DragService {
     this._avatar.style.left = `${newX - this.shiftX}px`;
     this._avatar.style.top = `${newY - this.shiftY}px`;
   }
+  public deleteAvatar(){
+    this._avatar.remove();
+    this._avatar = null;
+  }
 
   public startX: number;
   public startY: number;
