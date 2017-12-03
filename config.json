@@ -142,9 +142,9 @@
       ]
     },
     {
-      "OptionType":"fixed",
+      "OptionType": "fixed",
       "Name": "Side number",
-      "Values":[
+      "Values": [
         {
           "Value": "Single side",
           "Rate": "1.0"
@@ -161,12 +161,36 @@
       "Values": 100
     }
   ],
-  "hints":[
+  "hints": [
     "short hint",
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus",
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tellus magna, vulputate sed scelerisque ac, rutrum a est. Nam bibendum."
   ],
-  "fontIcons":["address-book", "id-card-o", "handshake-o", "vcard", "bug", "address-book-o", "address-card-o",
-    "bug", "bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug",
-    "bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug","bug"]
+  "fontIcons": [
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-id-card-o", "unicode": "&#xf2c3;"},
+    {"name": "fa-vcard", "unicode": "&#xf2bb;"},
+    {"name": "fa-vcard-o", "unicode": "&#xf2bc;]"},
+    {"name": "fa-address-book-o", "unicode": "&#xf2ba;"},
+    {"name": "fa-address-card-o", "unicode": "&#xf2bc;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
+    {"name": "fa-address-book", "unicode": "&#xf2b9;"}
+  ]
 }

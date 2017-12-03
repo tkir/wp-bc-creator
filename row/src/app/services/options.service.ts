@@ -86,15 +86,14 @@ export class OptionsService {
   };
   public previews: [{ id: number, Name: string, Slug: string, Description: string, Preview: string, isActive: boolean }];
   public price: number;
-  private hints;
-  public fontIcons;
+  private hints: string[];
+  public fontIcons: {name:string, unicode:string}[];
 
   public cardWidth:number;
   public cardHeight:number;
 
   private orderOptions: any;
   private _OrderOptions: [{ id: number, type: string, Name: string, Values: [{ Value: string, Rate: string, isSelected: boolean }] }];
-
   public get OrderOptions() {
     return this._OrderOptions;
   }

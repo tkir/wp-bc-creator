@@ -3,7 +3,7 @@
     <div *ngFor="let row of rows; let i=index" class="divTableRow">
       <div *ngFor="let cell of columns let j=index" class="divTableCell">
         <div [fieldDraggable]="{data:options.fontIcons[i*rows.length+j]}" class="draggable">
-          <a class="thumbnail"><i class="fa fa-lg fa-{{options.fontIcons[i*rows.length+j]}}"></i></a>
+          <a class="thumbnail"><i class="fa fa-lg {{options.fontIcons[i*rows.length+j].name}}"></i></a>
         </div>
       </div>
     </div>
