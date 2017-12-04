@@ -9,7 +9,7 @@ export class DraggableDirective {
 
   private opt: DraggableOptions = {};
   private dragObj: DragObject = null;
-  private isDragging:boolean = false;
+  private isDragging: boolean = false;
 
   constructor(@Inject(DOCUMENT) private document: any,
               private el: ElementRef,
@@ -42,7 +42,8 @@ export class DraggableDirective {
     this.dragService.startDrag(this.opt.zone);
     event.dataTransfer.setData('Text', JSON.stringify(this.opt.data));
 
-    this.dragObj = new DragObject(event.pageX, event.pageY, this.opt.data);
+    this.dragObj = new DragObject(this.opt.data);
+    this.dragService.updateCoords(this.dragObj, event);
     this.dragService.dragObjStartEvent.emit(this.dragObj);
     this.isDragging = true;
   }
@@ -51,18 +52,16 @@ export class DraggableDirective {
   onDrag(event: DragEvent) {
     this.dragService.moveAvatar(event.pageX, event.pageY);
 
-    this.dragObj.pageX = event.pageX;
-    this.dragObj.pageY = event.pageY;
+    this.dragService.updateCoords(this.dragObj, event);
     this.dragService.dragObjEvent.emit(this.dragObj);
   }
 
   @HostListener('dragend', ['$event'])
-  onDrop(event:MouseEvent){
-    if(!this.isDragging)return;
+  onDrop(event: MouseEvent) {
+    if (!this.isDragging) return;
     this.isDragging = false;
 
-    this.dragObj.pageX = event.pageX;
-    this.dragObj.pageY = event.pageY;
+    this.dragService.updateCoords(this.dragObj, event);
     this.dragService.dragObjEvent.emit(this.dragObj);
     this.dragService.dropObjEvent.emit(this.dragObj);
 

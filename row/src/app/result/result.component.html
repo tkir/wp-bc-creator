@@ -12,6 +12,7 @@
       [ngClass]="{'selected-field':item.isSelected}"
     >
       <span *ngIf="item.instanceOf=='Text'" [ngStyle]="item.style" fieldAlignable [item]="item">{{item.text}}</span>
+      <span *ngIf="item.instanceOf=='Icon'" [ngStyle]="item.style" fieldAlignable [item]="item">{{item.unicode}}</span>
       <div cardAddResize *ngIf="item.instanceOf=='Logo'" [ngStyle]="item.style" imageDroppable [logoItem]="item"></div>
       <card-hr cardAddResize *ngIf="item.instanceOf=='Line'" [line]="item"></card-hr>
     </div>

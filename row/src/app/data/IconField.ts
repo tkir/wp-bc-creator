@@ -2,17 +2,17 @@ import {CardField} from "./interfaces";
 import {getMaxPosition, getMaxSize} from "../utils/size.util";
 import {OptionsService} from "../services/options.service";
 
-export class IconField implements CardField {
+export class Icon implements CardField {
 
-  constructor(fData: string, dData, private options:OptionsService) {
-    this.text = fData;
+  constructor(unicode: string, dData, private options:OptionsService) {
+    this.unicode = unicode;
     Object.keys(dData).forEach(key => this[key] = dData[key]);
   }
 
-  public text: string;
+  public unicode: string;
   public fontFamily: string = "FontAwesome";
-  public fontSize_mm: number;
-  public colorStr: string;
+  public fontSize_mm: number = 5;
+  public colorStr: string = '000000';
   public left_mm: number;
   public top_mm: number;
 
@@ -115,7 +115,7 @@ export class IconField implements CardField {
 
   get json() {
     return {
-      text: this.text,
+      text: this.unicode,
       fontFamily: this.fontFamily,
       fontSize_mm: this.fontSize_mm,
       color: this.color,

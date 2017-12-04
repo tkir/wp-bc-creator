@@ -4,11 +4,13 @@ import {TextField} from "./TextField";
 import {Line} from "./Line";
 import {CardDesignData, CardFieldsData} from "./interfaces";
 import {OptionsService} from "../services/options.service";
+import {Icon} from "./IconField";
 
 export class CardData {
   constructor(public texts: TextField[],
               public logos: Logo[],
               public lines: Line[],
+              public icons: Icon[],
               public background: Background,
               public isEditable: boolean,
               public slug: string,
@@ -60,6 +62,7 @@ export class CardData {
     return new CardFieldsData(
       {
         texts: this.texts.map(txt => txt.text),
+        icons: this.icons.map(icon => icon.unicode),
         logos: this.logos.map(logo => logo.src)
       }
     );
@@ -69,6 +72,7 @@ export class CardData {
     return new CardDesignData(
       {
         texts: this.texts.map(txt => txt.designData),
+        icons: this.icons.map(icon => icon.designData),
         logos: this.logos.map(logo => logo.designData),
         lines: this.lines.map(line => line.designData),
         background: this.background.designData
@@ -100,6 +104,14 @@ export class CardData {
         this.options
       )
     );
+  }
+
+  public addIcon(unicode: string, x: number, y: number) {
+    let icon = new Icon(unicode, {}, this.options);
+    icon.left = x;
+    icon.top = y;
+
+    this.icons.push(icon);
   }
 }
 

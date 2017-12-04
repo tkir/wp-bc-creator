@@ -4,6 +4,8 @@ import {Subscription} from "rxjs/Subscription";
 import {Store} from "../services/store";
 import {CardData} from "../data/CardData";
 import {AddResizeDirective} from "./directives/add-resize.directive";
+import {DragObject} from "../services/drag-and-drop/drag.service";
+import {DataService} from "../services/data.service";
 
 @Component({
   selector: 'card-result',
@@ -16,7 +18,8 @@ export class ResultComponent implements OnInit, OnDestroy {
 
   @ViewChildren(AddResizeDirective) addResizeDirectives: AddResizeDirective[];
 
-  constructor(private store: Store) {
+  constructor(private store: Store,
+              private dataService: DataService) {
   }
 
   cardData: CardData = null;
@@ -36,7 +39,8 @@ export class ResultComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
   }
 
-  onDrop(event){
-    console.log(event);
+  onDrop(event:DragObject){
+    this.cardData.addIcon(event.data.unicode, event.left, event.top);
+    this.dataService.updateCard(this.cardData);
   }
 }

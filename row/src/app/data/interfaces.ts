@@ -17,6 +17,7 @@ export class CardFieldsData {
 
   public texts: string[];
   public logos: string[];
+  public icons: string[];
 }
 
 export class CardDesignData {
@@ -25,6 +26,7 @@ export class CardDesignData {
   }
 
   public texts: TextDesign[];
+  public icons: IconDesign[];
   public logos: LogoDesign[];
   public lines: LineDesign[];
   public background: BgDesign;
@@ -41,6 +43,15 @@ export class TextDesign {
               public top_mm: number) {
   }
 }
+
+export class IconDesign {
+  constructor(public fontSize_mm: number,
+              public colorStr: string,
+              public left_mm: number,
+              public top_mm: number) {
+  }
+}
+
 export class LogoDesign {
   constructor(public width_mm: number,
               public height_mm: number,
@@ -48,6 +59,7 @@ export class LogoDesign {
               public top_mm: number) {
   }
 }
+
 export class LineDesign {
   constructor(public left_mm: number,
               public top_mm: number,
@@ -58,6 +70,7 @@ export class LineDesign {
               public _color: string = '000') {
   }
 }
+
 export class BgDesign {
   constructor(public _backgroundColor: string,
               public src: string,

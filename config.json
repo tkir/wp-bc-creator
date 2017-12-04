@@ -35,12 +35,14 @@
     "fieldsData": {
       "front": {
         "logos": [],
+        "icons": [],
         "texts": [
           "DESIGN NOT FOUND"
         ]
       },
       "back": {
         "logos": [],
+        "icons": [],
         "texts": []
       }
     },
@@ -54,6 +56,7 @@
         },
         "lines": [],
         "logos": [],
+        "icons": [],
         "texts": [
           {
             "colorStr": "000",
@@ -76,6 +79,7 @@
         },
         "lines": [],
         "logos": [],
+        "icons": [],
         "texts": []
       }
     }
@@ -167,30 +171,30 @@
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tellus magna, vulputate sed scelerisque ac, rutrum a est. Nam bibendum."
   ],
   "fontIcons": [
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-id-card-o", "unicode": "&#xf2c3;"},
-    {"name": "fa-vcard", "unicode": "&#xf2bb;"},
-    {"name": "fa-vcard-o", "unicode": "&#xf2bc;]"},
-    {"name": "fa-address-book-o", "unicode": "&#xf2ba;"},
-    {"name": "fa-address-card-o", "unicode": "&#xf2bc;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"},
-    {"name": "fa-address-book", "unicode": "&#xf2b9;"}
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-id-card-o", "unicode": "\uf2b9"},
+    {"name": "fa-vcard", "unicode": "\uf2b9"},
+    {"name": "fa-vcard-o", "unicode": "\uf2b9"},
+    {"name": "fa-address-book-o", "unicode": "\uf2b9"},
+    {"name": "fa-address-card-o", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"},
+    {"name": "fa-address-book", "unicode": "\uf2b9"}
   ]
 }

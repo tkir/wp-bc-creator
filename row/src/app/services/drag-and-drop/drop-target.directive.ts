@@ -9,21 +9,22 @@ export class DropTargetDirective implements AfterContentInit {
 
   private options: DropTargetOptions = {};
   private isDragObjIN = false;
-  private coords = null;
+  private coords: { left: number, top: number, right: number, bottom: number } = null;
 
   constructor(private dragService: DragService,
               private el: ElementRef) {
   }
 
   ngAfterContentInit() {
+    this.coords = getElemCoords(this.el.nativeElement);
+
     this.dragService.dragObjStartEvent.subscribe((dragObj: DragObject) => {
-      this.coords = getElemCoords(this.el.nativeElement);
       this.el.nativeElement.classList.add('drop-wait');
     });
 
     this.dragService.dragObjEvent.subscribe((dragObj: DragObject) => {
-      if (dragObj.pageX >= this.coords.left && dragObj.pageX <= this.coords.right &&
-          dragObj.pageY >= this.coords.top  && dragObj.pageY <= this.coords.bottom) {
+      if (dragObj.left >= this.coords.left && dragObj.right <= this.coords.right &&
+        dragObj.top >= this.coords.top && dragObj.bottom <= this.coords.bottom) {
         if (!this.isDragObjIN) {
           this.isDragObjIN = true;
           this.el.nativeElement.classList.add('drag-in');
@@ -40,7 +41,15 @@ export class DropTargetDirective implements AfterContentInit {
       this.el.nativeElement.classList.remove('drop-wait');
       this.el.nativeElement.classList.remove('drag-in');
 
-      if(this.isDragObjIN)this.drop.emit(dragObj);
+      if (this.isDragObjIN) {
+        dragObj.left -= this.coords.left;
+        dragObj.top -= this.coords.top;
+        dragObj.right -= this.coords.left;
+        dragObj.bottom -= this.coords.top;
+
+
+        this.drop.emit(dragObj);
+      }
     })
   }
 

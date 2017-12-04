@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {CardData} from "../data/CardData";
-import {CardDesignData, CardFieldsData, TextDesign} from "../data/interfaces"
+import {CardDesignData, CardFieldsData, IconDesign, TextDesign} from "../data/interfaces"
 import {Logo} from "../data/Logo";
 import {Line} from "../data/Line";
 import {Background} from "../data/Background";
 import {TextField} from "../data/TextField";
 import {OptionsService} from "./options.service";
+import {Icon} from "../data/IconField";
 let WebFont = require('webfontloader');
 
 @Injectable()
@@ -30,6 +31,8 @@ export class CardService {
 
     let lines: Line[] = dData.lines.map((d, i) => new Line(d, this.options));
 
+    let icons: Icon[]= dData.icons.map((d, i) => new Icon(fData.icons[i], d, this.options));
+
     let bg: Background = new Background(dData.background, this.options);
 
     //подгружаем уникальные шрифты
@@ -42,7 +45,7 @@ export class CardService {
       }));
 
     return new CardData(
-      texts, logos, lines, bg, isEditable, slug, this.options
+      texts, logos, lines, icons, bg, isEditable, slug, this.options
     );
   }
 
