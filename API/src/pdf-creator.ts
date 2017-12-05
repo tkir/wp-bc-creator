@@ -1,4 +1,4 @@
-import {Background, Line, Logo, TextField} from "./classes";
+import {Background, Line, Logo, TextField, IconField} from "./classes";
 import {SVG_Creator} from './svg-creator';
 let pdf = require('html-pdf');
 let fs = require('fs');
@@ -11,6 +11,7 @@ export class PdfCreator {
         let z = config.get('zIndex');
 
         let textArr: string[] = [];
+        let iconArr: string[] = [];
         let logoArr: string[] = [];
         let lineArr: string[] = [];
         let bg: string = '';
@@ -28,6 +29,16 @@ export class PdfCreator {
                                     textArr.push(`
 <div style="${item.getDivStyle(k, ++z)}">
     ${SVG_Creator.Instance.textToSVG(item.text, item.getTextOptions(k))}
+</div>
+              `);
+                                    break;
+
+                                case 'Icon':
+                                    item = new IconField(it);
+
+                                    iconArr.push(`
+<div style="${item.getDivStyle(k, ++z)}">
+    ${SVG_Creator.Instance.textToSVG(item.text, item.getIconOptions(k), true)}
 </div>
               `);
                                     break;
@@ -56,6 +67,7 @@ export class PdfCreator {
             logoArr.forEach(logo => bg += logo);
             lineArr.forEach(line => bg += line);
             textArr.forEach(txt => bg += txt);
+            iconArr.forEach(icon => bg += icon);
             bg += '</body>';
         }
 

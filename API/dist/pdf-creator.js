@@ -9,6 +9,7 @@ class PdfCreator {
     static getHTML(obj, k) {
         let z = config.get('zIndex');
         let textArr = [];
+        let iconArr = [];
         let logoArr = [];
         let lineArr = [];
         let bg = '';
@@ -23,6 +24,14 @@ class PdfCreator {
                             textArr.push(`
 <div style="${item.getDivStyle(k, ++z)}">
     ${svg_creator_1.SVG_Creator.Instance.textToSVG(item.text, item.getTextOptions(k))}
+</div>
+              `);
+                            break;
+                        case 'Icon':
+                            item = new classes_1.IconField(it);
+                            iconArr.push(`
+<div style="${item.getDivStyle(k, ++z)}">
+    ${svg_creator_1.SVG_Creator.Instance.textToSVG(item.text, item.getIconOptions(k), true)}
 </div>
               `);
                             break;
@@ -45,6 +54,7 @@ class PdfCreator {
             logoArr.forEach(logo => bg += logo);
             lineArr.forEach(line => bg += line);
             textArr.forEach(txt => bg += txt);
+            iconArr.forEach(icon => bg += icon);
             bg += '</body>';
         }
         return `<!DOCTYPE html>

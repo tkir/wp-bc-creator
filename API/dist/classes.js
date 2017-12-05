@@ -23,6 +23,27 @@ class TextField {
     }
 }
 exports.TextField = TextField;
+class IconField {
+    constructor(obj) {
+        for (let prop in obj)
+            this[prop] = obj[prop];
+    }
+    getIconOptions(k) {
+        return {
+            font: this.fontFamily.replace(' ', ''),
+            fontSize: this.fontSize_mm * k,
+            color: this.color
+        };
+    }
+    getDivStyle(k, z) {
+        return `
+      position: absolute;
+      left: ${this.left_mm * k}px;
+      top: ${this.top_mm * k}px;
+      z-index: ${z};`;
+    }
+}
+exports.IconField = IconField;
 class Logo {
     constructor(obj) {
         for (var prop in obj)

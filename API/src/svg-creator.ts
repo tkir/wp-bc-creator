@@ -27,17 +27,17 @@ export class SVG_Creator {
     private fonts: { font: string, textToSVG: any }[] = [];
 
     private getFontFileName(font: string, italic: boolean, bold: boolean): string {
-        if (!italic && !bold)return `${font}-Regular.ttf`;
+        if (!italic && !bold) return `${font}-Regular.ttf`;
         return `${font}-${bold ? 'Bold' : ''}${italic ? 'Italic' : ''}.ttf`;
     }
 
-    private getConverter(font: string, italic: boolean, bold: boolean): any {
+    private getConverter(font: string, italic: boolean, bold: boolean, isIcon?: boolean): any {
 
         if (fs.readdirSync('./fonts').indexOf(font) == -1) {
             font = config.get('defaultFont');
         }
 
-        let fileName = this.getFontFileName(font, italic, bold);
+        let fileName = (isIcon) ? `${font}.ttf` : this.getFontFileName(font, italic, bold);
         let i = this.fonts.findIndex(f => f.font == fileName);
 
         if (i == -1) {
@@ -51,7 +51,7 @@ export class SVG_Creator {
         return this.fonts[i].textToSVG;
     }
 
-    public textToSVG(text: string, options: Options): string {
+    public textToSVG(text: string, options: Options, isIcon?:boolean): string {
         let params = {
             x: 0,
             y: 0,
@@ -60,9 +60,7 @@ export class SVG_Creator {
             attributes: {fill: options.color}
         };
 
-        return this.getConverter(options.font, options.italic, options.bold)
+        return this.getConverter(options.font, options.italic, options.bold, isIcon)
             .getSVG(text, params);
     }
-
-
 }

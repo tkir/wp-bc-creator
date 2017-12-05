@@ -25,15 +25,35 @@ export class TextField {
         }
     }
 
-    // getSpanStyle(k: number) {
-    //     return `
-    //   font-family: '${this.fontFamily}';
-    //   font-size: ${this.fontSize_mm * k}px;
-    //   font-weight: ${this.fontWeight};
-    //   font-style: ${this.fontStyle};
-    //   text-decoration: ${this.textDecoration};
-    //   color: ${this.color};`;
-    // }
+    getDivStyle(k: number, z: number) {
+        return `
+      position: absolute;
+      left: ${this.left_mm * k}px;
+      top: ${this.top_mm * k}px;
+      z-index: ${z};`;
+    }
+}
+
+export class IconField {
+
+    constructor(obj) {
+        for (let prop in obj) this[prop] = obj[prop];
+    }
+
+    text: string;
+    fontFamily: string;
+    fontSize_mm: number;
+    color: string;
+    left_mm: number;
+    top_mm: number;
+
+    getIconOptions(k: number) {
+        return {
+            font: this.fontFamily.replace(' ',''),
+            fontSize: this.fontSize_mm * k,
+            color: this.color
+        }
+    }
 
     getDivStyle(k: number, z: number) {
         return `
