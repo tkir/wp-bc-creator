@@ -105,6 +105,8 @@ export class MovableDirective implements OnInit {
       this.alService.isMultiselection = false;
     }
 
+    item.isSelected = true;
+
     if (item.instanceOf == 'Text') this.textFieldService.add(item as TextField);
   }
 
