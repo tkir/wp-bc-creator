@@ -42,7 +42,7 @@ export class MovableDirective implements OnInit {
   }
 
   onMouseDown(event) {
-    if (event.which != 1)return;
+    if (event.which != 1) return;
 
     //is click out of item
     if (this.el.nativeElement == event.target) {
@@ -62,7 +62,7 @@ export class MovableDirective implements OnInit {
     //find .card-field
     let target: Element = event.target;
     while (target != this.el.nativeElement) {
-      if (target.classList.contains('card-field'))break;
+      if (target.classList.contains('card-field')) break;
 
       //если нажали на fieldResize
       if (target.tagName == 'CARD-FIELD-RESIZE') {
@@ -105,7 +105,7 @@ export class MovableDirective implements OnInit {
       this.alService.isMultiselection = false;
     }
 
-    if(item.instanceOf=='Text')this.textFieldService.add(item as TextField);
+    if (item.instanceOf == 'Text') this.textFieldService.add(item as TextField);
   }
 
   private multiselection(item: CardField) {
@@ -156,7 +156,7 @@ export class MovableDirective implements OnInit {
     }
 
 
-    if (!this.startMovingCoords)return;
+    if (!this.startMovingCoords) return;
 
     //check random deviations more then 2px
     if (Math.abs(this.startMovingCoords.x - event.pageX) +
@@ -203,7 +203,7 @@ export class MovableDirective implements OnInit {
 
     //если поле не resizable
     //или полю уже добавлено fieldResize
-    if (!target || target.getElementsByTagName('CARD-FIELD-RESIZE').length)return;
+    if (!target || target.getElementsByTagName('CARD-FIELD-RESIZE').length) return;
 
     this.resizeComponent.item = item;
     let resizable: AddResizeDirective = this.card.addResizeDirectives.find(

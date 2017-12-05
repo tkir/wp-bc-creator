@@ -38,6 +38,7 @@ export function updateOffset(it: MovEl, event) {
 export function getMax(instanceOf:string, element, bg:{width:number, height:number, indent:number}): { x: number, y: number } {
   switch (instanceOf) {
     case 'Logo':
+    case 'Icon':
     case 'Text':
       return {
         x: bg.width - bg.indent - parseInt(getComputedStyle(element).width),
@@ -53,6 +54,7 @@ export function getMax(instanceOf:string, element, bg:{width:number, height:numb
 export function getMin(instanceOf, element, bg:{width:number, height:number, indent:number}): { x: number, y: number } {
   switch (instanceOf) {
     case 'Logo':
+    case 'Icon':
     case 'Text':
       return {
         x: bg.indent,
