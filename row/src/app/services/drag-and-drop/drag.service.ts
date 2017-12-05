@@ -11,43 +11,29 @@ export class DragService {
 
   public zone: string = 'test';
 
-  private _avatar: HTMLElement = null;
-  public get avatar(): HTMLElement {
-    return this._avatar;
-  }
-  public setAvatar(el: HTMLElement) {
-    this._avatar = <HTMLElement>el.cloneNode(true);
-    this._avatar.draggable = false;
-    this._avatar.style.position = 'absolute';
-    this._avatar.style.zIndex = '1000';
+  private startX: number;
+  private startY: number;
+  private _shift: { left: number, top: number, right: number, bottom: number };
+  public setShift(el:HTMLElement, pageX, pageY){
+    this.startX = pageX;
+    this.startY = pageY;
 
     let coords = getElemCoords(el);
-    this.shift = {
+    this._shift = {
       left: this.startX - coords.left,
       top: this.startY - coords.top,
       right: coords.right - this.startX,
       bottom: coords.bottom - this.startY
     };
   }
-  public moveAvatar(newX: number, newY: number) {
-    this._avatar.style.left = `${newX - this.shift.left}px`;
-    this._avatar.style.top = `${newY - this.shift.top}px`;
-  }
-  public deleteAvatar() {
-    this._avatar.remove();
-    this._avatar = null;
-  }
-
-  public startX: number;
-  public startY: number;
-  private shift: { left: number, top: number, right: number, bottom: number };
 
 
-  public updateCoords(obj: DragObject, event) {
-    obj.left = event.pageX - this.shift.left;
-    obj.top = event.pageY - this.shift.top;
-    obj.right = event.pageX + this.shift.right;
-    obj.bottom = event.pageY + this.shift.bottom;
+
+  public updateCoords(obj: DragObject, pageX, pageY) {
+    obj.left = pageX - this._shift.left;
+    obj.top = pageY - this._shift.top;
+    obj.right = pageX + this._shift.right;
+    obj.bottom = pageY + this._shift.bottom;
   }
 
 
