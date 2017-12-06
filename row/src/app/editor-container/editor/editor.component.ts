@@ -1,13 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 
-import {DataService} from "../../services/data.service";
 import {CardData} from "../../data/CardData";
-import {TextField} from "../../data/TextField";
 import {Store} from "../../services/store";
 import {ImageService} from "../../services/image.service";
-import {OptionsService} from "../../services/options.service";
 import {StylingService} from "../../services/styling.service";
+import {ItemService} from "../../services/item.service";
 
 
 @Component({
@@ -22,11 +20,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private options: OptionsService,
-              private dataService: DataService,
-              private store: Store,
+  constructor(private store: Store,
               private imageService: ImageService,
-              private stylingService: StylingService) {
+              private stylingService: StylingService,
+              private itemService: ItemService) {
   }
 
   ngOnInit() {
@@ -39,27 +36,8 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
   }
 
-  addTextField(i?: number) {
-
-    let newText: TextField = new TextField('',
-      {
-        fontFamily: this.getItemFont(),
-        fontSize_mm: 1.2,
-        fontWeight: "normal",
-        fontStyle: "normal",
-        textDecoration: "none",
-        colorStr: '000',
-        left_mm: 30,
-        top_mm: 5
-      }, this.options);
-
-    if (this.model.texts && this.model.texts.length) {
-      Object.keys(this.model.texts[i]).forEach(key => newText[key] = this.model.texts[i][key]);
-      newText.top += 20;
-    }
-
-    this.model.texts.splice(i + 1, 0, newText);
-    this.dataService.updateCard(this.model);
+  addTextField() {
+    this.itemService.addTextField();
   }
 
   private getItemFont(): string {
@@ -72,9 +50,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   removeItem(items, i) {
-    items.splice(i, 1);
-
-    this.dataService.updateCard(this.model);
+    this.itemService.removeItem(items[i]);
   }
 
   focusItem(event, i) {

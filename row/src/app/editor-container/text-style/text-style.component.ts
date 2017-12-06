@@ -4,6 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {AlignService} from "../../services/align.service";
 import {OptionsService} from "../../services/options.service";
 import {StylingService} from "../../services/styling.service";
+import {ItemService} from "../../services/item.service";
 
 let WebFont = require('webfontloader');
 
@@ -27,7 +28,8 @@ export class TextStyleComponent implements OnInit, OnDestroy {
 
   constructor(private options: OptionsService,
               public stylingService: StylingService,
-              public alService: AlignService) {
+              public alService: AlignService,
+              private itemService: ItemService) {
   }
 
   ngOnInit() {
@@ -102,5 +104,10 @@ export class TextStyleComponent implements OnInit, OnDestroy {
     });
 
     this.endStyling();
+  }
+
+  removeItems() {
+    this.items.forEach(it => this.itemService.removeItem(it));
+    this.items = [];
   }
 }

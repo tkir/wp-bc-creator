@@ -45,6 +45,7 @@ import {DragService} from "./services/drag-and-drop/drag.service";
 import {DraggableDirective} from "./services/drag-and-drop/draggable.directive";
 import {DropTargetDirective} from "./services/drag-and-drop/drop-target.directive";
 import {StylingService} from "./services/styling.service";
+import {ItemService} from "./services/item.service";
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import {StylingService} from "./services/styling.service";
     PreviewService,
     OrderService,
     StylingService,
-    DragService
+    DragService,
+    ItemService
   ],
   bootstrap: [AppComponent]
 })

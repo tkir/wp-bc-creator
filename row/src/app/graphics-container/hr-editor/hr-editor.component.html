@@ -1,4 +1,4 @@
-<div *ngFor="let hr of model.lines; let i=index">
+<div *ngFor="let hr of model.lines">
 
   <div class="btn-group">
     <span>Design</span><br>
@@ -54,7 +54,7 @@
 
   <button class="btn btn-default btn-sm" (click)="changeOrientation(hr)"><i class="glyphicon glyphicon-repeat"></i>
   </button>
-  <button class="btn btn-default btn-sm" (click)="removeItem(i)">-</button>
+  <button class="btn btn-default btn-sm" (click)="removeItem(hr)">-</button>
 </div>
 
 <button class="btn btn-default btn-sm" (click)="addHr()">+</button>

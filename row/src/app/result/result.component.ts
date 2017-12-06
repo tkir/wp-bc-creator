@@ -5,7 +5,7 @@ import {Store} from "../services/store";
 import {CardData} from "../data/CardData";
 import {AddResizeDirective} from "./directives/add-resize.directive";
 import {DragObject} from "../services/drag-and-drop/drag.service";
-import {DataService} from "../services/data.service";
+import {ItemService} from "../services/item.service";
 
 @Component({
   selector: 'card-result',
@@ -19,7 +19,7 @@ export class ResultComponent implements OnInit, OnDestroy {
   @ViewChildren(AddResizeDirective) addResizeDirectives: AddResizeDirective[];
 
   constructor(private store: Store,
-              private dataService: DataService) {
+              private itemService: ItemService) {
   }
 
   cardData: CardData = null;
@@ -40,7 +40,6 @@ export class ResultComponent implements OnInit, OnDestroy {
   }
 
   onDrop(event:DragObject){
-    this.cardData.addIcon(event.data.unicode, event.left, event.top);
-    this.dataService.updateCard(this.cardData);
+    this.itemService.addIcon(event.data.unicode, event.left, event.top);
   }
 }

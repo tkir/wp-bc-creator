@@ -19,12 +19,11 @@ export class CardData {
   }
 
   public fields = [];
-  private config;
 
   public update() {
     this.fields = [];
     Object.keys(this).forEach(key => {
-      if (key != 'fields' && key != 'config' && key != 'isEditable' && key != 'slug') {
+      if (key != 'fields' && key != 'isEditable' && key != 'slug' && key != 'options') {
         if (Array.isArray(this[key]))
           this.fields.push(...this[key]);
         else this.fields.push(this[key]);
@@ -35,7 +34,7 @@ export class CardData {
 
   onChangeBgSize() {
     this.fields.forEach(field => {
-      if (field.instanceOf == 'Text' || field.instanceOf == 'Logo' || field.instanceOf == 'Line')
+      if (field.instanceOf == 'Text' || field.instanceOf == 'Logo' || field.instanceOf == 'Line' || field.instanceOf == 'Icon')
         field.onChangeBgSize(this.background);
     })
   }
@@ -87,6 +86,7 @@ export class CardData {
         this.options
       )
     );
+    this.update();
   }
 
   public addHr() {
@@ -104,6 +104,7 @@ export class CardData {
         this.options
       )
     );
+    this.update();
   }
 
   public addIcon(unicode: string, x: number, y: number) {
@@ -112,6 +113,52 @@ export class CardData {
     icon.top = y;
 
     this.icons.push(icon);
+    this.update();
+  }
+
+  public addTextField(){
+    this.texts.push(
+      new TextField(
+        'new text',
+        {
+          fontFamily: this.options.settings.allowedFonts[0],
+          fontSize_mm: 4,
+          fontWeight: "normal",
+          fontStyle: "normal",
+          textDecoration: "none",
+          colorStr: '000',
+          left_mm: 30,
+          top_mm: 5
+        },
+        this.options
+      )
+    );
+
+    this.update();
+  }
+
+  public removeItem(item: any) {
+    let i: number;
+    switch (item.instanceOf) {
+      case 'Text':
+        i = this.texts.findIndex(i => i == item);
+        if (i !== -1) this.texts.splice(i, 1);
+        break;
+      case 'Icon':
+        i = this.icons.findIndex(i => i == item);
+        if (i !== -1) this.icons.splice(i, 1);
+        break;
+      case 'Logo':
+        i = this.logos.findIndex(i => i == item);
+        if (i !== -1) this.logos.splice(i, 1);
+        break;
+      case 'Line':
+        i = this.lines.findIndex(i => i == item);
+        if (i !== -1) this.lines.splice(i, 1);
+        break;
+    }
+
+    this.update();
   }
 }
 

@@ -1,10 +1,9 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Line} from "../../data/Line";
 import {Store} from "../../services/store";
 import {Subscription} from "rxjs/Subscription";
 import {OptionsService} from "../../services/options.service";
 import {CardData} from "../../data/CardData";
-import {DataService} from "../../services/data.service";
+import {ItemService} from "../../services/item.service";
 
 @Component({
   selector: 'card-hr-editor',
@@ -19,7 +18,7 @@ export class HrEditorComponent implements OnInit, OnDestroy {
 
   constructor(private options: OptionsService,
               private store: Store,
-              private dataService: DataService) {
+              private itemService: ItemService) {
   }
 
   ngOnInit() {
@@ -50,12 +49,10 @@ export class HrEditorComponent implements OnInit, OnDestroy {
   }
 
   addHr() {
-    this.model.addHr();
-    this.dataService.updateCard(this.model);
+    this.itemService.addHr();
   }
 
-  removeItem(i) {
-    this.model.lines.splice(i, 1);
-    this.dataService.updateCard(this.model);
+  removeItem(hr) {
+    this.itemService.removeItem(hr);
   }
 }

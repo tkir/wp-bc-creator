@@ -66,3 +66,7 @@
     (click)="setAlignment('right')"
   ><i class="glyphicon glyphicon-align-right"></i></button>
 </div>
+
+
+<!--Delete item-->
+<button class="btn btn-default" [disabled]="!items.length" (click)="removeItems()"><span class="fa fa-trash-o"></span></button>
