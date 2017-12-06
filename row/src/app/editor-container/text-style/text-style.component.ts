@@ -40,9 +40,13 @@ export class TextStyleComponent implements OnInit, OnDestroy {
       this.items = items;
       this.isTextStyling = this.items.some(it => it.instanceOf == 'Text');
       this.isIconStyling = this.items.some(it => it.instanceOf == 'Icon');
-      let textField = this.items.find(it => it.instanceOf == 'Text');
-      this.textFont = (textField) ? textField.fontName : this.allowedFonts[0];
+      this.setTextField();
     });
+  }
+
+  private setTextField() {
+    let textField = this.items.find(it => it.instanceOf == 'Text');
+    this.textFont = (textField) ? textField.fontName : this.allowedFonts[0];
   }
 
   ngOnDestroy() {
@@ -99,6 +103,7 @@ export class TextStyleComponent implements OnInit, OnDestroy {
       active: (function () {
         this.items.forEach(item => {
           if (item.instanceOf == 'Text') item.fontName = font;
+          this.setTextField();
         });
       }).bind(this)
     });
