@@ -1,26 +1,24 @@
 <button
   class="btn btn-default btn-sm"
-  [ngClass]="{'disabled':!items.length, 'active':(items.length && items[0].fontWeight=='bold')}"
+  [ngClass]="{'disabled':(!items.length || !isTextStyling), 'active':(items.length && items[0].fontWeight=='bold')}"
   (click)="toggleStyle('fontWeight')"><b>B</b></button>
 <button
   class="btn btn-default btn-sm"
-  [ngClass]="{'disabled':!items.length, 'active':(items.length && items[0].fontStyle=='italic')}"
+  [ngClass]="{'disabled':(!items.length || !isTextStyling), 'active':(items.length && items[0].fontStyle=='italic')}"
   (click)="toggleStyle('fontStyle')"><i>I</i></button>
-<button
-  class="btn btn-default btn-sm"
-  [ngClass]="{'disabled':!items.length, 'active':(items.length && items[0].textDecoration=='underline')}"
-  (click)="toggleStyle('textDecoration')"><u>U</u></button>
 
 <!--text color-->
-<div class="btn-group dropup">
-  <button class="btn btn-sm" [ngClass]="{'disabled':!items.length}" [ngStyle]="{'color': items.length? items[0].color : '#a8a8a8'}"><i class="glyphicon glyphicon-text-color"></i></button>
-  <button class="btn btn-sm dropdown-toggle" [ngClass]="{'disabled':!items.length}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="caret"></span>
+<span class="dropdown">
+  <button [disabled]="!items.length"
+          [ngStyle]="{'color': items.length? items[0].color : '#a8a8a8'}"><i class="glyphicon glyphicon-text-color"></i>
   </button>
-  <ul class="dropdown-menu">
-    <card-color-picker (colorSelected)="setColor($event)"></card-color-picker>
-  </ul>
-</div>
+  <label>
+    <input type="checkbox" [disabled]="!items.length">
+    <ul>
+      <card-color-picker (colorSelected)="setColor($event)"></card-color-picker>
+    </ul>
+  </label>
+</span>
 
 <!--font-size-->
 <div class="btn-group" role="group" aria-label="...">
@@ -37,18 +35,18 @@
 </div>
 
 <!--font name-->
-<div class="btn-group" [ngClass]="{'disabled':!items.length}">
+<span class="dropdown">
   <button
-    class="btn btn-default btn-sm"
-    [ngClass]="{'disabled':!items.length}"
-  ><span *ngIf="items.length">{{items[0].fontName}}</span></button>
-  <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [ngClass]="{'disabled':!items.length}">
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" *ngIf="items.length">
-    <li *ngFor="let font of allowedFonts"><a (click)="setFontName(font)">{{font}}</a></li>
-  </ul>
-</div>
+    [disabled]="!items.length || !isTextStyling"
+    [ngClass]="{'disabled':(!items.length || !isTextStyling)}"
+  ><span>{{textFont}}</span></button>
+  <label>
+    <input type="checkbox" [disabled]="!items.length || !isTextStyling">
+    <ul *ngIf="items.length">
+      <li *ngFor="let font of allowedFonts"><a (click)="setFontName(font)">{{font}}</a></li>
+    </ul>
+  </label>
+</span>
 
 <!--alignation-->
 <div class="btn-group" role="group" aria-label="...">

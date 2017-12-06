@@ -34,7 +34,6 @@ import {OptionsService} from "./services/options.service";
 import {OrderOptionComponent} from './order-form/order-option/order-option.component';
 import {OrderService} from "./services/order.service";
 import {TextStyleComponent} from './editor-container/text-style/text-style.component';
-import {TextFieldService} from "./services/text-field.service";
 import {SideSwitchComponent} from './side-switch/side-switch.component';
 import {HintSliderComponent} from './hint-slider/hint-slider.component';
 import {GraphicsContainerComponent} from './graphics-container/graphics-container.component';
@@ -45,6 +44,7 @@ import { ControlButtonsComponent } from './control-container/control-buttons/con
 import {DragService} from "./services/drag-and-drop/drag.service";
 import {DraggableDirective} from "./services/drag-and-drop/draggable.directive";
 import {DropTargetDirective} from "./services/drag-and-drop/drop-target.directive";
+import {StylingService} from "./services/styling.service";
 
 @NgModule({
   declarations: [
@@ -96,7 +96,7 @@ import {DropTargetDirective} from "./services/drag-and-drop/drop-target.directiv
     DesignService,
     PreviewService,
     OrderService,
-    TextFieldService,
+    StylingService,
     DragService
   ],
   bootstrap: [AppComponent]

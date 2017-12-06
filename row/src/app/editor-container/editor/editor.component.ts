@@ -7,7 +7,7 @@ import {TextField} from "../../data/TextField";
 import {Store} from "../../services/store";
 import {ImageService} from "../../services/image.service";
 import {OptionsService} from "../../services/options.service";
-import {TextFieldService} from "../../services/text-field.service";
+import {StylingService} from "../../services/styling.service";
 
 
 @Component({
@@ -26,7 +26,7 @@ export class EditorComponent implements OnInit, OnDestroy {
               private dataService: DataService,
               private store: Store,
               private imageService: ImageService,
-              private textFieldService: TextFieldService) {
+              private stylingService: StylingService) {
   }
 
   ngOnInit() {
@@ -85,8 +85,8 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.selectedInput = event.target;
 
 
-    this.textFieldService.clear();
-    this.textFieldService.add(this.model.texts[i]);
+    this.stylingService.clear();
+    this.stylingService.add(this.model.texts[i]);
   }
 
   blurItem() {

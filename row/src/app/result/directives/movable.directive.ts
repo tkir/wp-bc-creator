@@ -10,7 +10,7 @@ import {getMax, getMin, MovEl, updateOffset} from '../../utils/size.util';
 import {Background} from "../../data/Background";
 import {AlignService} from "../../services/align.service";
 import {TextField} from "../../data/TextField";
-import {TextFieldService} from "../../services/text-field.service";
+import {StylingService} from "../../services/styling.service";
 
 
 @Directive({
@@ -34,7 +34,7 @@ export class MovableDirective implements OnInit {
   constructor(private el: ElementRef,
               private componentFactoryResolver: ComponentFactoryResolver,
               private alService: AlignService,
-              private textFieldService: TextFieldService) {
+              private stylingService:StylingService) {
   }
 
   ngOnInit(): void {
@@ -54,7 +54,7 @@ export class MovableDirective implements OnInit {
       this.alService.textFields = [];
       this.alService.isMultiselection = false;
 
-      this.textFieldService.clear();
+      this.stylingService.clear();
 
       return;
     }
@@ -107,7 +107,7 @@ export class MovableDirective implements OnInit {
 
     item.isSelected = true;
 
-    if (item.instanceOf == 'Text') this.textFieldService.add(item as TextField);
+    if (item.instanceOf == 'Text' || item.instanceOf == 'Icon') this.stylingService.add(item);
   }
 
   private multiselection(item: CardField) {
@@ -118,7 +118,7 @@ export class MovableDirective implements OnInit {
     if (!isMulti) {
       this.selectedItems = [];
       this.dataArr.forEach((item: CardField) => item.isSelected = false);
-      this.textFieldService.clear();
+      this.stylingService.clear();
     }
   }
 

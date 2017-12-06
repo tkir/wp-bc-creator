@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 
-import {TextField} from "../../data/TextField";
 import {AlignService} from "../../services/align.service";
 import {OptionsService} from "../../services/options.service";
-import {TextFieldService} from "../../services/text-field.service";
+import {StylingService} from "../../services/styling.service";
+
 let WebFont = require('webfontloader');
 
 @Component({
@@ -18,17 +18,29 @@ let WebFont = require('webfontloader');
 export class TextStyleComponent implements OnInit, OnDestroy {
 
   allowedFonts: string[] = [];
-  items: TextField[] = [];
+  items: any[] = [];
   private subscription: Subscription;
 
+  public isTextStyling = false;
+  public isIconStyling = false;
+  public textFont: string = '';
+
   constructor(private options: OptionsService,
-              public textFieldService: TextFieldService,
+              public stylingService: StylingService,
               public alService: AlignService) {
   }
 
   ngOnInit() {
     this.allowedFonts = this.options.settings.allowedFonts;
-    this.subscription = this.textFieldService.selectedFieldsChanges.subscribe(items => this.items = items);
+    this.textFont = this.allowedFonts[0];
+
+    this.subscription = this.stylingService.selectedFieldsChanges.subscribe(items => {
+      this.items = items;
+      this.isTextStyling = this.items.some(it => it.instanceOf == 'Text');
+      this.isIconStyling = this.items.some(it => it.instanceOf == 'Icon');
+      let textField = this.items.find(it => it.instanceOf == 'Text');
+      this.textFont = (textField) ? textField.fontName : this.allowedFonts[0];
+    });
   }
 
   ngOnDestroy() {
@@ -47,16 +59,14 @@ export class TextStyleComponent implements OnInit, OnDestroy {
 
     switch (style) {
       case 'fontWeight':
-        this.items.forEach(item =>
-          item.fontWeight = (item.fontWeight === 'normal') ? 'bold' : 'normal');
+        this.items.forEach(item => {
+          if (item.instanceOf == 'Text') item.fontWeight = (item.fontWeight === 'normal') ? 'bold' : 'normal';
+        });
         break;
       case 'fontStyle':
-        this.items.forEach(item =>
-          item.fontStyle = (item.fontStyle === 'normal') ? 'italic' : 'normal');
-        break;
-      case 'textDecoration':
-        this.items.forEach(item =>
-          item.textDecoration = (item.textDecoration === 'none') ? 'underline' : 'none');
+        this.items.forEach(item => {
+          if (item.instanceOf == 'Text') item.fontStyle = (item.fontStyle === 'normal') ? 'italic' : 'normal';
+        });
         break;
     }
 
@@ -85,15 +95,12 @@ export class TextStyleComponent implements OnInit, OnDestroy {
         families: [font]
       },
       active: (function () {
-        this.items.forEach(item => item.fontName = font);
+        this.items.forEach(item => {
+          if (item.instanceOf == 'Text') item.fontName = font;
+        });
       }).bind(this)
     });
 
     this.endStyling();
   }
-
-  // private endStyling() {
-  //   this.returnFocus.emit();
-  //   if (this.item) this.item.isStyling = false;
-  // }
 }

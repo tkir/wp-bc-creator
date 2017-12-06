@@ -1,12 +1,15 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {TextField} from "../data/TextField";
 
 @Injectable()
-export class TextFieldService {
-  private items: TextField[] = [];
-  public selectedFieldsChanges: EventEmitter<TextField[]> = new EventEmitter();
+export class StylingService {
 
-  public add(item: TextField) {
+  constructor() {
+  }
+
+  private items: any[] = [];
+  public selectedFieldsChanges: EventEmitter<any[]> = new EventEmitter();
+
+  public add(item: any) {
     if (this.items.indexOf(item) !== -1) return;
 
     item.isSelected = true;
@@ -14,7 +17,7 @@ export class TextFieldService {
     this.selectedFieldsChanges.emit(this.items);
   }
 
-  public remove(item: TextField) {
+  public remove(item: any) {
     if (this.items.indexOf(item) === -1)return;
 
     item.isSelected = false;
@@ -28,9 +31,6 @@ export class TextFieldService {
     this.items.forEach(item => item.isSelected = false);
     this.items = [];
     this.selectedFieldsChanges.emit(this.items);
-  }
-
-  constructor() {
   }
 
 }
