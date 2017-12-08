@@ -19,17 +19,25 @@ export class UndoRedoService {
   private undoArr: { type: string, item, prev? }[] = [];
   private redoArr: { type: string, item, prev? }[] = [];
 
+  private prev: any;
+
   public removeItem(item) {
     item.isSelected = false;
     this.undoArr.push({type: 'remove', item: item});
   }
 
   public addItem(item) {
-    this.undoArr.push({type:'add', item:item});
+    this.undoArr.push({type: 'add', item: item});
   }
 
   public textChange(item, prev: string, curr: string) {
+    if (prev) {
+      this.prev = prev;
+      return;
+    }
 
+    if (curr != this.prev)
+      this.undoArr.push({type: 'textChange', item: item, prev: this.prev})
   }
 
   public itemPositionChange(item, prev, curr) {
@@ -51,6 +59,10 @@ export class UndoRedoService {
 
       case 'add':
         this.model.removeItem(state.item);
+        break;
+
+      case 'textChange':
+        if (state.item.instanceOf == 'Text') state.item.text = state.prev;
         break;
     }
 

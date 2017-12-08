@@ -6,6 +6,8 @@ import {Store} from "../../services/store";
 import {ImageService} from "../../services/image.service";
 import {StylingService} from "../../services/styling.service";
 import {ItemService} from "../../services/item.service";
+import {UndoRedoService} from "../../services/undo-redo.service";
+import {TextField} from "../../data/TextField";
 
 
 @Component({
@@ -17,13 +19,15 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   model: CardData = null;
   selectedInput: any = null;
+  private selectedItem:TextField=null;
 
   private subscription: Subscription;
 
   constructor(private store: Store,
               private imageService: ImageService,
               private stylingService: StylingService,
-              private itemService: ItemService) {
+              private itemService: ItemService,
+              private undoRedoService:UndoRedoService) {
   }
 
   ngOnInit() {
@@ -63,10 +67,15 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     this.stylingService.clear();
     this.stylingService.add(this.model.texts[i]);
+
+    this.selectedItem=this.model.texts[i];
+    this.undoRedoService.textChange(this.model.texts[i], this.model.texts[i].text, null);
   }
 
   blurItem() {
     this.selectedInput = null;
+
+    this.undoRedoService.textChange(this.selectedItem, null, this.selectedItem.text);
   }
 
   onFocusReturn() {
