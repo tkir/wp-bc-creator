@@ -25,7 +25,7 @@ export class UndoRedoService {
   }
 
   public addItem(item) {
-
+    this.undoArr.push({type:'add', item:item});
   }
 
   public textChange(item, prev: string, curr: string) {
@@ -47,6 +47,10 @@ export class UndoRedoService {
     switch (state.type) {
       case 'remove':
         this.model.addItem(state.item);
+        break;
+
+      case 'add':
+        this.model.removeItem(state.item);
         break;
     }
 

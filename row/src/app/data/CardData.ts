@@ -95,35 +95,40 @@ export class CardData {
     }
 
     this.update();
+
+    return item;
   }
 
   public addLogo(src: string, width: number, height: number) {
-    this.logos.push(
-      new Logo(
-        src,
-        {width: width, height: height, left_mm: 5, top_mm: 5},
-        this.options
-      )
+    let logo=new Logo(
+      src,
+      {width: width, height: height, left_mm: 5, top_mm: 5},
+      this.options
     );
+
+    this.logos.push(logo);
     this.update();
+
+    return logo;
   }
 
   public addHr() {
-    this.lines.push(
-      new Line(
-        {
-          left_mm: 0,
-          top_mm: 30,
-          length_mm: 45,
-          _thickness: 1,
-          isHorizontal: true,
-          design: 'solid',
-          _color: '00f'
-        },
-        this.options
-      )
+    let line=new Line(
+      {
+        left_mm: 0,
+        top_mm: 30,
+        length_mm: 45,
+        _thickness: 1,
+        isHorizontal: true,
+        design: 'solid',
+        _color: '00f'
+      },
+      this.options
     );
+    this.lines.push(line);
     this.update();
+
+    return line;
   }
 
   public addIcon(unicode: string, x: number, y: number) {
@@ -133,27 +138,30 @@ export class CardData {
 
     this.icons.push(icon);
     this.update();
+
+    return icon;
   }
 
   public addTextField(){
-    this.texts.push(
-      new TextField(
-        'new text',
-        {
-          fontFamily: this.options.settings.allowedFonts[0],
-          fontSize_mm: 4,
-          fontWeight: "normal",
-          fontStyle: "normal",
-          textDecoration: "none",
-          colorStr: '000',
-          left_mm: 30,
-          top_mm: 5
-        },
-        this.options
-      )
+    let textField=new TextField(
+      'new text',
+      {
+        fontFamily: this.options.settings.allowedFonts[0],
+        fontSize_mm: 4,
+        fontWeight: "normal",
+        fontStyle: "normal",
+        textDecoration: "none",
+        colorStr: '000',
+        left_mm: 30,
+        top_mm: 5
+      },
+      this.options
     );
 
+    this.texts.push(textField);
     this.update();
+
+    return textField;
   }
 
   public removeItem(item: any) {

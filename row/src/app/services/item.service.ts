@@ -26,23 +26,31 @@ export class ItemService {
   }
 
   public addTextField() {
-    this.model.addTextField();
+    let item = this.model.addTextField();
     this.dataService.updateCard(this.model);
+
+    this.undoRedoService.addItem(item);
   }
 
   public addLogo(src: string, width: number, height: number) {
-    this.model.addLogo(src, width, height);
+    let item = this.model.addLogo(src, width, height);
     this.dataService.updateCard(this.model);
+
+    this.undoRedoService.addItem(item);
   }
 
   public addHr() {
-    this.model.addHr();
+    let item = this.model.addHr();
     this.dataService.updateCard(this.model);
+
+    this.undoRedoService.addItem(item);
   }
 
   public addIcon(unicode: string, x: number, y: number) {
-    this.model.addIcon(unicode, x, y);
+    let item = this.model.addIcon(unicode, x, y);
     this.dataService.updateCard(this.model);
+
+    this.undoRedoService.addItem(item);
   }
 
 }
