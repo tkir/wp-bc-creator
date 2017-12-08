@@ -78,6 +78,25 @@ export class CardData {
       });
   }
 
+  public addItem(item){
+    switch (item.instanceOf){
+      case 'Text':
+        this.texts.push(item);
+        break;
+      case 'Icon':
+        this.icons.push(item);
+        break;
+      case 'Logo':
+        this.logos.push(item);
+        break;
+      case 'Line':
+        this.lines.push(item);
+        break;
+    }
+
+    this.update();
+  }
+
   public addLogo(src: string, width: number, height: number) {
     this.logos.push(
       new Logo(

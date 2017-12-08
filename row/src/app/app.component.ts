@@ -1,5 +1,6 @@
 import {AfterContentInit, Component, ElementRef} from '@angular/core';
 import {DataService} from "./services/data.service";
+import {UndoRedoService} from "./services/undo-redo.service";
 
 @Component({
   selector: 'business-card-editor',
@@ -19,7 +20,8 @@ export class AppComponent implements AfterContentInit {
   }
 
   constructor(private el: ElementRef,
-              public dataService: DataService) {
+              public dataService: DataService,
+              private undoRedoService:UndoRedoService) {
   }
 
   headChoice(event, choice: string) {
@@ -31,4 +33,8 @@ export class AppComponent implements AfterContentInit {
     console.log(event);
   }
 
+
+  undo(){
+    this.undoRedoService.undo();
+  }
 }
