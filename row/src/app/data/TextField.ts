@@ -4,7 +4,7 @@ import {OptionsService} from "../services/options.service";
 
 export class TextField implements CardField {
 
-  constructor(fData: string, dData, private options:OptionsService) {
+  constructor(fData: string, dData, private options: OptionsService) {
     this.text = fData;
     Object.keys(dData).forEach(key => this[key] = dData[key]);
   }
@@ -80,6 +80,10 @@ export class TextField implements CardField {
     return `#${this.colorStr}`
   }
 
+  set color(val) {
+    this.colorStr = val.replace('#', '');
+  }
+
   get instanceOf(): string {
     return 'Text';
   }
@@ -135,6 +139,18 @@ export class TextField implements CardField {
       left_mm: this.left_mm,
       top_mm: this.top_mm
     }
+  }
+
+  set json(val) {
+    this.text = val.text;
+    this.fontFamily = val.fontFamily;
+    this.fontSize_mm = val.fontSize_mm;
+    this.fontWeight = val.fontWeight;
+    this.fontStyle = val.fontStyle;
+    this.textDecoration = val.textDecoration;
+    this.color = val.color;
+    this.left_mm = val.left_mm;
+    this.top_mm = val.top_mm;
   }
 
   get designData() {

@@ -11,6 +11,7 @@ import {Background} from "../../data/Background";
 import {AlignService} from "../../services/align.service";
 import {TextField} from "../../data/TextField";
 import {StylingService} from "../../services/styling.service";
+import {UndoRedoService} from "../../services/undo-redo.service";
 
 
 @Directive({
@@ -34,7 +35,8 @@ export class MovableDirective implements OnInit {
   constructor(private el: ElementRef,
               private componentFactoryResolver: ComponentFactoryResolver,
               private alService: AlignService,
-              private stylingService:StylingService) {
+              private stylingService: StylingService,
+              private undoRedoService: UndoRedoService) {
   }
 
   ngOnInit(): void {
@@ -48,19 +50,13 @@ export class MovableDirective implements OnInit {
     if (this.el.nativeElement == event.target) {
 
       //skip selection
-      this.selectedItems = [];
-      this.dataArr.forEach((item: CardField) => item.isSelected = false);
-
-      this.alService.textFields = [];
-      this.alService.isMultiselection = false;
-
+      this.skipSelection();
       this.stylingService.clear();
-
       return;
     }
 
     //find .card-field
-    let target: Element = event.target;
+    let target: HTMLElement = event.target;
     while (target != this.el.nativeElement) {
       if (target.classList.contains('card-field')) break;
 
@@ -68,10 +64,15 @@ export class MovableDirective implements OnInit {
       if (target.tagName == 'CARD-FIELD-RESIZE') {
         this.startResizing = true;
         this.resizeComponent.fieldResize.updateMax();
+        this.undoRedoService.setSelectionArray(this.selectedItems.map(it => it.item));
         return;
       }
 
       target = target.parentElement;
+      if (!target) {
+        this.skipSelection();
+        return;
+      }
     }
 
     this.startMovingCoords = {x: event.pageX, y: event.pageY};
@@ -83,8 +84,7 @@ export class MovableDirective implements OnInit {
 
     let item: CardField = this.dataArr.find((it: CardField) => it.left == left && it.top == top);
     if (!item) {
-      this.alService.textFields = [];
-      this.alService.isMultiselection = false;
+      this.skipSelection();
       return;
     }
 
@@ -94,6 +94,7 @@ export class MovableDirective implements OnInit {
     }
 
     this.updateSelectionArray(item, target, event);
+    this.undoRedoService.setSelectionArray(this.selectedItems.map(it => it.item));
 
     //  установить мульти alService, отправить в alService selectionArray
     if (this.selectedItems.length > 1) {
@@ -110,14 +111,21 @@ export class MovableDirective implements OnInit {
     if (item.instanceOf == 'Text' || item.instanceOf == 'Icon') this.stylingService.add(item);
   }
 
+  private skipSelection() {
+    this.selectedItems = [];
+    this.dataArr.forEach((item: CardField) => item.isSelected = false);
+
+    this.alService.textFields = [];
+    this.alService.isMultiselection = false;
+  }
+
   private multiselection(item: CardField) {
     let isMulti = false;
     this.selectedItems.forEach(obj => {
       if (obj.item == item) isMulti = true;
     });
     if (!isMulti) {
-      this.selectedItems = [];
-      this.dataArr.forEach((item: CardField) => item.isSelected = false);
+      this.skipSelection();
       this.stylingService.clear();
     }
   }
@@ -185,6 +193,8 @@ export class MovableDirective implements OnInit {
       }
     }
     else this.removeResize();
+
+    this.undoRedoService.itemsChange(this.selectedItems.map(it => it.item));
   }
 
   //работаем с fieldResize

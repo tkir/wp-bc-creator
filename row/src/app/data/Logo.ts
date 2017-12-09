@@ -4,7 +4,7 @@ import {OptionsService} from "../services/options.service";
 
 export class Logo implements CardField {
 
-  constructor(fData: string, dData, private options:OptionsService) {
+  constructor(fData: string, dData, private options: OptionsService) {
     this.src = fData;
     Object.keys(dData).forEach(key => this[key] = dData[key]);
   }
@@ -98,6 +98,14 @@ export class Logo implements CardField {
       left_mm: this.left_mm,
       top_mm: this.top_mm
     }
+  }
+
+  set json(val) {
+    this.src = val.src;
+    this.width_mm = val.width_mm;
+    this.height_mm = val.height_mm;
+    this.left_mm = val.left_mm;
+    this.top_mm = val.top_mm;
   }
 
   get designData() {

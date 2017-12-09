@@ -74,6 +74,10 @@ export class Icon implements CardField {
     return `#${this.colorStr}`
   }
 
+  set color(val) {
+    this.colorStr = val.replace('#', '');
+  }
+
   get instanceOf(): string {
     return 'Icon';
   }
@@ -132,5 +136,13 @@ export class Icon implements CardField {
       left_mm: this.left_mm,
       top_mm: this.top_mm
     }
+  }
+
+  set json(val) {
+    this.fontFamily = val.fontFamily;
+    this.fontSize_mm = val.fontSize_mm;
+    this.color = val.color;
+    this.left_mm = val.left_mm;
+    this.top_mm = val.top_mm;
   }
 }

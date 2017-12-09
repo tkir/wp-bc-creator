@@ -20,6 +20,7 @@ export class UndoRedoService {
   private redoArr: { type: string, item, prev? }[] = [];
 
   private prev: any;
+  private selectionArray: { item: any, json: string }[] = [];
 
   public removeItem(item) {
     item.isSelected = false;
@@ -37,21 +38,52 @@ export class UndoRedoService {
     }
 
     if (curr != this.prev)
-      this.undoArr.push({type: 'textChange', item: item, prev: this.prev})
+      this.undoArr.push({type: 'textChange', item: item, prev: this.prev});
+
+    this.prev = null;
   }
 
-  public itemPositionChange(item, prev, curr) {
+  public setSelectionArray(items: any[]) {
+    this.selectionArray = [];
+    if (!items || !items.length) return;
 
+    this.selectionArray = items.map(item => {
+      return {item: item, json: JSON.stringify(item.json)};
+    });
   }
 
-  public itemSizeChange(item, prev, curr) {
+  public itemsChange(items: any[]) {
+    if (!items || !items.length || !this.selectionArray.length) {
+      this.selectionArray = [];
+      return;
+    }
 
+    let isSame = true;
+    for (let i = 0; i < items.length; i++) {
+      if (!isSame) break;
+
+      this.selectionArray.forEach((selectedItem) => {
+        if (items[i] == selectedItem.item)
+        isSame = JSON.stringify(items[i].json) == selectedItem.json
+      })
+    }
+
+    if (isSame) return;
+    if (this.undoArr.length &&
+      this.undoArr[this.undoArr.length - 1].type == 'itemsChange' &&
+      this.undoArr[this.undoArr.length - 1].item == this.selectionArray)
+      return;
+
+
+    //добавляем только если произошли изменения размера или положения
+    this.undoArr.push({type: 'itemsChange', item: this.selectionArray});
   }
 
   public undo() {
     if (!this.undoArr.length) return;
 
     let state = this.undoArr.pop();
+
     switch (state.type) {
       case 'remove':
         this.model.addItem(state.item);
@@ -64,10 +96,20 @@ export class UndoRedoService {
       case 'textChange':
         if (state.item.instanceOf == 'Text') state.item.text = state.prev;
         break;
+
+      case 'itemsChange':
+        state.item.forEach((it) => {
+          this.model.fields.forEach(field => {
+            if (field == it.item) {
+              field.json = JSON.parse(it.json);
+            }
+          })
+        });
+        this.selectionArray = [];
+        break;
     }
 
     this.redoArr.push(state);
     this.dataService.updateCard(this.model);
   }
-
 }

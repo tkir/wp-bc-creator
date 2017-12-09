@@ -5,6 +5,7 @@ import {AlignService} from "../../services/align.service";
 import {OptionsService} from "../../services/options.service";
 import {StylingService} from "../../services/styling.service";
 import {ItemService} from "../../services/item.service";
+import {UndoRedoService} from "../../services/undo-redo.service";
 
 let WebFont = require('webfontloader');
 
@@ -29,7 +30,8 @@ export class TextStyleComponent implements OnInit, OnDestroy {
   constructor(private options: OptionsService,
               public stylingService: StylingService,
               public alService: AlignService,
-              private itemService: ItemService) {
+              private itemService: ItemService,
+              private undoRedoService:UndoRedoService) {
   }
 
   ngOnInit() {
@@ -55,6 +57,7 @@ export class TextStyleComponent implements OnInit, OnDestroy {
 
   onMouseDown() {
     this.items.forEach(item => item.isStyling = true);
+    this.undoRedoService.setSelectionArray(this.items);
   }
 
   endStyling() {

@@ -4,7 +4,7 @@ import {OptionsService} from "../services/options.service";
 
 export class Line implements CardField {
 
-  constructor(obj, private options:OptionsService) {
+  constructor(obj, private options: OptionsService) {
     Object.keys(obj).forEach(key => this[key] = obj[key]);
   }
 
@@ -14,7 +14,7 @@ export class Line implements CardField {
   public _thickness: number;
   public isHorizontal: boolean = true;
   public design: string = 'solid';
-  public _color: string = '000';
+  public colorStr: string = '000';
 
   private k: number = this.options.settings.ratio;
   public isSelected: boolean = false;
@@ -66,7 +66,11 @@ export class Line implements CardField {
   }
 
   get color(): string {
-    return `#${this._color.replace('#', '')}`;
+    return `#${this.colorStr.replace('#', '')}`;
+  }
+
+  set color(val) {
+    this.colorStr = val.replace('#', '');
   }
 
   get style() {
@@ -106,6 +110,16 @@ export class Line implements CardField {
     }
   }
 
+  set json(val) {
+    this.color = val.color;
+    this.left_mm = val.left_mm;
+    this.top_mm = val.top_mm;
+    this.length_mm = val.length_mm;
+    this.thickness = val.thickness;
+    this.isHorizontal = val.isHorizontal;
+    this.design = val.design;
+  }
+
   get designData() {
     return {
       left_mm: this.left_mm,
@@ -114,7 +128,7 @@ export class Line implements CardField {
       _thickness: this._thickness,
       isHorizontal: this.isHorizontal,
       design: this.design,
-      _color: this._color
+      colorStr: this.colorStr
     }
   }
 }
