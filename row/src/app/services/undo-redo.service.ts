@@ -16,7 +16,7 @@ export class UndoRedoService {
       .subscribe((cardData: any) => this.model = cardData);
   }
 
-  private undoArr: { type: string, item, prev? }[] = [];
+  public undoArr: { type: string, item, prev? }[] = [];
   private redoArr: { type: string, item, prev? }[] = [];
 
   private prev: any;

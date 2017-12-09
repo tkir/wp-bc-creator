@@ -1,6 +1,5 @@
 import {AfterContentInit, Component, ElementRef} from '@angular/core';
 import {DataService} from "./services/data.service";
-import {UndoRedoService} from "./services/undo-redo.service";
 
 @Component({
   selector: 'business-card-editor',
@@ -20,21 +19,11 @@ export class AppComponent implements AfterContentInit {
   }
 
   constructor(private el: ElementRef,
-              public dataService: DataService,
-              private undoRedoService:UndoRedoService) {
+              public dataService: DataService) {
   }
 
   headChoice(event, choice: string) {
     this.buttons.forEach(el => (el == event.target) ? el.classList.add('active') : el.classList.remove('active'));
     this.tabContents.forEach(el => (el.dataset.tab == choice) ? el.classList.add('active') : el.classList.remove('active'));
-  }
-
-  onDrop(event){
-    console.log(event);
-  }
-
-
-  undo(){
-    this.undoRedoService.undo();
   }
 }

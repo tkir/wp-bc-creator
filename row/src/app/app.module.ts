@@ -47,6 +47,7 @@ import {DropTargetDirective} from "./services/drag-and-drop/drop-target.directiv
 import {StylingService} from "./services/styling.service";
 import {ItemService} from "./services/item.service";
 import {UndoRedoService} from "./services/undo-redo.service";
+import { UndoComponent } from './editor-container/undo/undo.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import {UndoRedoService} from "./services/undo-redo.service";
     HintSliderComponent,
     GraphicsContainerComponent,
     ControlContainerComponent,
-    ControlButtonsComponent
+    ControlButtonsComponent,
+    UndoComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [

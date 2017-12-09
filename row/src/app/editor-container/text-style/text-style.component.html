@@ -1,3 +1,7 @@
+<!--undo-->
+<card-undo></card-undo>
+
+<!--toggleStyle-->
 <button
   class="btn btn-default btn-sm"
   [ngClass]="{'disabled':(!items.length || !isTextStyling), 'active':(items.length && items[0].fontWeight=='bold')}"
