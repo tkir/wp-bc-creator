@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CardData} from "../data/CardData";
 import {Store} from "./store";
-import {NavigationStart, Router} from "@angular/router";
+import {ActivatedRoute, NavigationStart, Router} from "@angular/router";
 import {DesignService} from "./design.service";
 import {CardService} from "./card.service";
 import {OptionsService} from "./options.service";
@@ -15,7 +15,6 @@ export class DataService {
               private router: Router,
               private designService: DesignService) {
 
-    //вариант с router events
     router.events.subscribe((val: any) => {
       if (NavigationStart.prototype.isPrototypeOf(val)) {
 
@@ -43,26 +42,21 @@ export class DataService {
     });
   }
 
-  private setSlug(val): string {
-    val = (val[0] == '/') ? val.slice(1) : val;
+  private setSlug(val: string) {
+console.log(val);
+    let arr: string[] =
+      ~val.search(/&des=%2F.*/i) ?
+      val.split('%2F') :
+      val.match(/\/?(.*)\/(.*)/i);
 
-    let arr: string[] = val.split('/');
-    switch (arr.length) {
-      case 1:
-        this.side = 'front';
-        this.slug = arr[0];
-        this.router.navigate([`/${(arr[0].length) ? arr[0] : this.options.defaultDesign}/front`]);
-        return;
-      case 2:
-        this.slug = arr[0];
-        this.side = arr[1];
-        this.side = (this.side.match(/^front|back$/i)) ? this.side : 'front';
-        return;
-      default:
-        this.slug = this.options.defaultDesign;
-        this.side = 'front';
+    let slug = arr[1] ? arr[1] : this.options.defaultDesign;
+    let side = arr[2] && ~arr[2].search(/^(front|back)$/i) ? arr[2] : 'front';
+
+    if (this.slug != slug || this.side != side) {
+      this.slug = slug;
+      this.side = side;
+      this.router.navigate([`/${this.slug}/${this.side}`]);
     }
-    this.router.navigate([`/${this.options.defaultDesign}/front`]);
   }
 
   public isDesignLoad = false;
@@ -103,7 +97,7 @@ export class DataService {
   }
 
   public changeSide(side) {
-    if (this.side == side)return;
+    if (this.side == side) return;
 
     this.side = side;
     this.isChanginSide = true;

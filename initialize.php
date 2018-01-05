@@ -30,17 +30,20 @@ class BC_Creator_Initializer
         BC_Creator_DB::get_instance()->createTableOrderOptions();
 
 //    добавляем записи в опции: url & hash
-	    $config = json_decode( file_get_contents( __DIR__ . "/config.json" ) );
-	    update_option( 'BusinessCardCreator_url', 'business-card-creator' );
-	    update_option( 'BusinessCardCreator_hash', null );
-	    update_option( 'BusinessCardCreator_template', $config->template );
-	    update_option('BusinessCardCreator_defaultDesign', $config->defaultDesign);
+        $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
+        update_option('BusinessCardCreator_url', 'business-card-creator');
+        update_option('BusinessCardCreator_hash', null);
+        update_option('BusinessCardCreator_template', $config->template);
+        update_option('BusinessCardCreator_defaultDesign', $config->defaultDesign);
 //        TODO при создании страницы установить template
 
-	    include_once 'util.php';
-	    BC_Creator_util::createPage( get_option( 'BusinessCardCreator_url' ) );
+        include_once 'util.php';
+        $pageID = BC_Creator_util::createPage(get_option('BusinessCardCreator_url'));
 
-	    include_once 'db.php';
+//	    если permalink ?page_id= то добавляем строку в .htaccess
+        BC_Creator_util::htaccessAddRedirect($pageID);
+
+        include_once 'db.php';
         BC_Creator_DB::get_instance()->set_pageNotFound_design();
     }
 
@@ -120,8 +123,8 @@ class BC_Creator_Initializer
 
         delete_option('BusinessCardCreator_url');
         delete_option('BusinessCardCreator_hash');
-	    delete_option( 'BusinessCardCreator_template');
-	    delete_option('BusinessCardCreator_defaultDesign');
+        delete_option('BusinessCardCreator_template');
+        delete_option('BusinessCardCreator_defaultDesign');
         delete_option('BusinessCardCreator_email');
     }
 }
