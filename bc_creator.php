@@ -33,7 +33,7 @@ class BC_Creator
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         include_once 'db.php';
 
-        wp_enqueue_script('bc_creator_main', wp_normalize_path('/BusinessCardCreator/main.bundle.js'));
+        wp_enqueue_script('bc_creator_main', plugin_dir_url( __FILE__ ).'/BusinessCardCreator/main.bundle.js');
         wp_localize_script('bc_creator_main', 'bc_creator_config', array(
             'path' => esc_url_raw(rest_url()).'business-card-creator',
             'nonce' => wp_create_nonce('wp_rest'),

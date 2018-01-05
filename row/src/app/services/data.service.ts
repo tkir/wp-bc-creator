@@ -43,7 +43,7 @@ export class DataService {
   }
 
   private setSlug(val: string) {
-console.log(val);
+
     let arr: string[] =
       ~val.search(/&des=%2F.*/i) ?
       val.split('%2F') :
