@@ -36,7 +36,7 @@ class BC_Creator_MenuInit
             $o->isActive = ($o->value == $tpl) ? true : false;
         }
 
-        wp_enqueue_script('main_menu', plugin_dir_url( __FILE__ ).'/main.bundle.js');
+        wp_enqueue_script('main_menu', plugin_dir_url( __FILE__ ).'/menu/main.bundle.js');
         wp_localize_script('main_menu', 'bc_creator_menu_options', array(
             'path' => esc_url_raw(rest_url()) . 'business-card-creator/menu',
             'nonce' => wp_create_nonce('wp_rest'),

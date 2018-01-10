@@ -37,34 +37,37 @@ export function updateOffset(it: MovEl, event) {
 //return min & max element position
 export function getMax(instanceOf:string, element, bg:{width:number, height:number, indent:number}): { x: number, y: number } {
   switch (instanceOf) {
-    case 'Logo':
-    case 'Icon':
-    case 'Text':
-      return {
-        x: bg.width - bg.indent - parseInt(getComputedStyle(element).width),
-        y: bg.height - bg.indent - parseInt(getComputedStyle(element).height)
-      };
     case 'Line':
       return {
         x: bg.width - parseInt(getComputedStyle(element).width),
         y: bg.height - parseInt(getComputedStyle(element).height)
-      }
+      };
+
+    case 'Logo':
+    case 'Icon':
+    case 'Text':
+    default:
+      return {
+        x: bg.width - bg.indent - parseInt(getComputedStyle(element).width),
+        y: bg.height - bg.indent - parseInt(getComputedStyle(element).height)
+      };
   }
 }
 export function getMin(instanceOf, element, bg:{width:number, height:number, indent:number}): { x: number, y: number } {
   switch (instanceOf) {
-    case 'Logo':
-    case 'Icon':
-    case 'Text':
-      return {
-        x: bg.indent,
-        y: bg.indent
-      };
     case 'Line':
       return {
         x: 0,
         y: 0
-      }
+      };
+    case 'Logo':
+    case 'Icon':
+    case 'Text':
+    default:
+      return {
+        x: bg.indent,
+        y: bg.indent
+      };
   }
 }
 
@@ -83,21 +86,23 @@ export function getMaxSize(instanceOf:string, bgSize:{width:number, height:numbe
       };
   }
 }
+
 export function getMaxPosition(instanceOf:string,
                                el:{width:number, height:number},
                                bg:{width:number, height:number, indent:number}): { x: number, y: number } {
   switch (instanceOf) {
-    case 'Logo':
-    case 'Text':
-      return {
-        x: bg.width - bg.indent - el.width,
-        y: bg.height - bg.indent - el.height
-      };
     case 'Line':
       return {
         x: bg.width - el.width,
         y: bg.height - el.height
-      }
+      };
+    case 'Logo':
+    case 'Text':
+    default:
+      return {
+        x: bg.width - bg.indent - el.width,
+        y: bg.height - bg.indent - el.height
+      };
   }
 }
 
