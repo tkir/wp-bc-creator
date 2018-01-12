@@ -9,7 +9,7 @@ import {OptionsService} from "../../services/options.service";
 @Component({
   selector: 'card-background-editor',
   templateUrl: './background-editor.component.html',
-  styleUrls: ['./background-editor.component.css']
+  styleUrls: ['./background-editor.component.css', '../../css/btn.css']
 })
 export class BackgroundEditorComponent implements OnInit, OnDestroy {
 
