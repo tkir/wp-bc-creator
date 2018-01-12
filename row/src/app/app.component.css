@@ -1,4 +1,4 @@
-:host {
+.bc-page {
   background: #e2e2e2;
   padding-top: 1em;
   padding-bottom: 2em;
@@ -8,4 +8,19 @@
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
+}
+/*кнопки*/
+
+.step1 {
+  display: flex;
+  justify-content: space-around;
+}
+.head-choice-btn {
+  width: 100%;
+}
+button.headerbtnchoice {
+  padding: 10px 5px;
+  font-size: 15px;
+  text-transform: uppercase;
+  width: 100%;
 }

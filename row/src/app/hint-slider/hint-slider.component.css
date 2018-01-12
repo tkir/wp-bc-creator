@@ -1,4 +1,8 @@
 :host{
   display: block;
 }
-
+/*Подсказка*/
+.text-center.supporttext {
+  text-align: center;
+  text-transform: uppercase;
+}

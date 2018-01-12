@@ -1,9 +1,26 @@
+<div class="bc-page">
 <div class="container">
 
+
+<!--
   <nav>
     <button type="button" (click)="headChoice($event, 'editor')">Конструктор визиток</button>
     <button type="button" (click)="headChoice($event, 'design')">Каталог дизайнов</button>
   </nav>
+-->
+  <nav>
+  <div class="wrap">
+    <div class="head-choice">
+      <div class="step1">
+
+        <div type="button" (click)="headChoice($event, 'editor')" class="text-center head-choice-btn"><button class="headerbtnchoice">Конструктор визиток</button></div>
+        <div type="button" (click)="headChoice($event, 'design')" class="text-center head-choice-btn"><button class="headerbtnchoice">Каталог дизайнов</button></div>
+
+      </div>
+    </div>
+  </div>
+  </nav>
+
 
   <card-hint-slider></card-hint-slider>
 
@@ -20,4 +37,5 @@
   <card-control-container></card-control-container>
 
 
+</div>
 </div>
