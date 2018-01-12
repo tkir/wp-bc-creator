@@ -34,3 +34,8 @@ button.headerbtnchoice {
   width: 70%;
   padding-right: 7px;
 }
+.col2 {
+  height: auto;
+  width: 30%;
+  padding-left: 7px;
+}
