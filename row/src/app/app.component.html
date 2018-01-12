@@ -1,17 +1,23 @@
-<nav>
-  <button type="button" (click)="headChoice($event, 'editor')">Конструктор визиток</button>
-  <button type="button" (click)="headChoice($event, 'design')">Каталог дизайнов</button>
-</nav>
+<div class="container">
 
-<card-hint-slider></card-hint-slider>
+  <nav>
+    <button type="button" (click)="headChoice($event, 'editor')">Конструктор визиток</button>
+    <button type="button" (click)="headChoice($event, 'design')">Каталог дизайнов</button>
+  </nav>
 
-<div class="tab-content active" data-tab="editor">
-  <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
-  <card-graphics-container></card-graphics-container>
+  <card-hint-slider></card-hint-slider>
+
+  <div class="tab-content active" data-tab="editor">
+    <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
+    <card-graphics-container></card-graphics-container>
+
+  </div>
+
+  <div class="tab-content" data-tab="design">
+    <card-design-container></card-design-container>
+  </div>
+
+  <card-control-container></card-control-container>
+
+
 </div>
-
-<div class="tab-content" data-tab="design">
-  <card-design-container></card-design-container>
-</div>
-
-<card-control-container></card-control-container>
