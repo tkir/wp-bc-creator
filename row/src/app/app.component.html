@@ -28,11 +28,12 @@
 <!--Основной блок-->
     <div class="wrap">
       <div class="col">
+        <div class="col1">
 
     <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
 <!--Блок инструментов с выбором иконок, линий или картинок-->
     <card-graphics-container></card-graphics-container>
-
+        </div>
       </div>
     </div>
 
