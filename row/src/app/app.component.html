@@ -1,13 +1,12 @@
 <div class="bc-page">
 <div class="container">
-
-
 <!--
   <nav>
     <button type="button" (click)="headChoice($event, 'editor')">Конструктор визиток</button>
     <button type="button" (click)="headChoice($event, 'design')">Каталог дизайнов</button>
   </nav>
 -->
+<!--Кнопки-->
   <nav>
   <div class="wrap">
     <div class="head-choice">
@@ -20,15 +19,26 @@
     </div>
   </div>
   </nav>
-
-
+<!--Слайдкр-->
   <card-hint-slider></card-hint-slider>
 
+<!--То что отвечает за сам конструктор визитки-->
+
   <div class="tab-content active" data-tab="editor">
+<!--Основной блок-->
+    <div class="wrap">
+      <div class="col">
+
     <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
+<!--Блок инструментов с выбором иконок, линий или картинок-->
     <card-graphics-container></card-graphics-container>
 
+      </div>
+    </div>
+
   </div>
+
+<!--То что отвечает за каталог дизайнов-->
 
   <div class="tab-content" data-tab="design">
     <card-design-container></card-design-container>
