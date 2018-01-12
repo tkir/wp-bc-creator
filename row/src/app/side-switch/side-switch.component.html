@@ -3,6 +3,7 @@
 <!--Колонка1-->
 
 <!--Первый шаг выбора сторона и размещение-->
+<!--
   <div class="step2">
     <select class="sides2" name="bc-sides" id="">
       <option value="">Одна сторона</option>
@@ -13,7 +14,18 @@
       <option value="">Горизонтальная ориентация</option>
     </select>
   </div>
-<!--блок под инструменты над визиткой-->
+-->
+<!--переключатель-->
+  <div class="step2">
+    <div class="toggle">
+      <label class="switch">
+        <input type="checkbox" [checked]="options.isDoubleSide" (change)="setSideNum()">
+        <span class="slider"></span>
+      </label>
+      <span>{{options.isDoubleSide? 'Double side' : 'Single side'}}</span>
+    </div>
+  </div>
+  <!--блок под инструменты над визиткой-->
 
   <div class="step3">
 
@@ -37,14 +49,16 @@
 
 
 
-
+<!--
 
 <nav>
 <!--Переключатель передняя сторона-задняя сторона-->
+<!--
   <button type="button" (click)="changeTab($event, 'front')">front</button>
   <button type="button" (click)="changeTab($event, 'back')" [disabled]="!options.isDoubleSide">back</button>
-
+-->
   <!-- Rounded switch -->
+<!--
   <div class="toggle">
     <label class="switch">
       <input type="checkbox" [checked]="options.isDoubleSide" (change)="setSideNum()">
@@ -55,3 +69,4 @@
 
   <card-background-editor></card-background-editor>
 </nav>
+-->

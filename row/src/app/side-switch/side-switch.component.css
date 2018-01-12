@@ -72,6 +72,7 @@ input:checked + .slider:before {
   display: flex;
   justify-content: space-around;
   height: 30px;
+  margin-bottom: 2em;
 }
 .step3 {
   display: flex;
