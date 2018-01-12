@@ -1,78 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BC Page Creator</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-<!--Шапка выбора шаблона или конструктора-->
-	<section id="head-choice">
-		<div class="container">
-			<div class="col-md-12 col-sm-12 col-xs-12 step1">
-				<div class="col-md-6 col-sm-12 col-xs-12 text-center head-choice-btn"><button class="headerbtnchoice">Конструктор визиток</button></div>
-				<div class="col-md-6 col-sm-12 col-xs-12 text-center head-choice-btn"><button class="headerbtnchoice">Каталог дизайнов</button></div>
+<head>
+	<meta charset="UTF-8">
+	<title>BC flex creator</title>
+	<link rel="stylesheet" href="style.css">
+</head>		
+<body>
+<!--New-->
+<div class="bc1-page">
+	<div class="row1-2col">
+		<div class="row1-2col1">1</div>
+		<div class="row1-2col2">2</div>
+	</div>
+</div>
+<!--/New-->
+
+
+
+
+<div class="bc-page">
+	<div class="container">
+<!--Кнопки переключения-->
+	<div class="wrap">
+		<div class="head-choice">
+			<div class="step1">
+				<div class="text-center head-choice-btn"><button class="headerbtnchoice">Конструктор визиток</button></div>
+				<div class="text-center head-choice-btn"><button class="headerbtnchoice">Каталог дизайнов</button></div>
 			</div>
 		</div>
-	</section>
+	</div>
 <!--Листалка подсказок-->	
-	<section id="podskazka">
-		<div class="container">
-			<div class="col-md-12 text-center supporttext">
-				Test message
-			</div>
-		</div>
-	</section>
+	<div class="wrap">
+		<div class="text-center supporttext">
+			<p>Text message</p>
+		</div>	
+	</div>
 <!--Основной блок-->
-	<section id="mainplace">
-		<div class="container">
-
-			<div class="col-md-12 step2">
-
-
-
-				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 placeforbc">
-<!--блок под инструменты над визиткой-->				
-					<div class="tools text-center">
-						<div class="col-md-4 fsbtn">
-							<div class="col-md-6 btnlitso"><button class="frontside">Лицо</button></div>
-							<div class="col-md-6 btnoborot"><button class="frontside">Оборот</button></div>
-						</div>
-						<div class="col-md-2">
-							<select name="bc-sides" id="">
+	<div class="wrap">
+		<div class="col">
+<!--Первая колонка-->		
+			<div class="col1">
+			<div class="step2">
+				<select class="sides2" name="bc-sides" id="">
 								<option value="">Одна сторона</option>
 								<option value="">Две стороны</option>
-							</select>
+				</select>
+				<select class="position" name="bc-sides" id="">
+								<option value="">Вертикальная ориентация</option>
+								<option value="">Горизонтальная ориентация</option>
+				</select>
+			</div>
+<!--блок под инструменты над визиткой-->			
+			<div class="step3">
+				<div class="btnlitso">
+					<button class="frontside">Лицо</button>
+				</div>
+				<div class="btnoborot">
+					<button class="frontside">Оборот</button>
+				</div>
+				<select class="bc-sizes1" name="bc-sizes" id="">
+					<option value="">Размер 10*8</option>
+					<option value="">Размер 10*6</option>
+				</select>
+				<select class="bc-colors1" name="bc-colors" id="">
+					<option value="">Цвет1</option>
+					<option value="">цвет2</option>
+				</select>
+				<div class="picchoice">
+					<button class="picchoice1">Изображение</button>
+				</div>	
+			</div>
+<!--сама визитка-->			
+			<div class="step4">
+				<div class="businnescard">
+					<img src="img/bc-pic.jpg" alt="">
+				</div>				
+			</div>
+			<div class="step7">
+						<div class="bt-btn">
+							<button class="gr-btn">Изображения</button>
 						</div>
-						<div class="col-md-2">
-							<select name="bc-sizes" id="">
-								<option value="">10*8</option>
-								<option value="">10*6</option>
-							</select>							
+						<div class="bt-btn">
+							<button class="gr-btn">Графика</button>
 						</div>
-						<div class="col-md-2">
-							<select name="bc-sizes" id="">
-								<option value="">Цвет1</option>
-								<option value="">цвет2</option>
-							</select>	
+						<div class="bt-btn">
+							<button class="gr-btn">Иконки</button>
 						</div>
-						<div class="col-md-2 picchoice"><button>Изображение</button><a class="del_picchoice">x</a>
-							
-						</div>
+			</div>
+<!--/сама визитка-->			
+			</div>
+<!--Вторая колонка-->			
+			<div class="col2">
+				<div class="step5">
+					<div class="redfield">текстовые инструменты (выбор цвета шрифта, размер, шрифт, выравнивание, список, большими буквами, прочее)
 					</div>
-<!--сама визитка-->
-					<div class="businnescard">
-						<img src="img/bc-pic.jpg" alt="">
+				</div>
+				<div class="step6">
+					<div class="content-input-form">
+						 <form class="bcform" name="test" method="post" >
+						   <input type="text" placeholder=" Текст 1 "><a class="del_field">x</a>
+						   <input type="text" placeholder=" Текст 2 "><a class="del_field">x</a>
+						   <input type="text" placeholder=" Текст 3 "><a class="del_field">x</a>
+						   <input type="text" placeholder=" Текст 4 "><a class="del_field">x</a>
+						   <input type="text" placeholder=" Текст 5 "><a class="del_field">x</a>
+						   <input type="text" placeholder=" Текст 6 "><a class="del_field">x</a>
+						   <input type="text" placeholder=" Текст 7 "><a class="del_field">x</a>
+						   <input type="text" placeholder=" Текст 8 "><a class="del_field">x</a>
+						   <input type="reset" value="Добавить поле"></p>
+						   <input type="reset" value="Удалить элемент"></p>
+						 </form>
 					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+				<div class="placeforbc">
+<!--блок под инструменты над визиткой-->				
+
+
 <!--блок инструментов под визиткой-->
-					<div class="bottom-tools">
-						<div class="col-md-4 bt-btn"><button>Изображения</button></div>
-						<div class="col-md-4 bt-btn"><button>Графика</button></div>
-						<div class="col-md-4 bt-btn"><button>Иконки</button></div>
-					</div>
+
 					<div class="bt-pictures">
 							<button>Выбрать картинку</button>
 					</div>
@@ -107,64 +158,14 @@
 <!--блок под ввод данных-->
 
 
-				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 placeforcontent">
-<!--блок под инструменты над контентом-->				
-					<div class="tools-for-content">
-						текстовые инструменты (выбор цвета шрифта, размер, шрифт, выравнивание, список, большими буквами, прочее)
-					</div>
-
-<!--вводданных-->						
-					<div class="content-input-form">
-						 <form class="bcform" name="test" method="post" >
-						  
-						   <input type="text" placeholder=" Текст 1 "><a class="del_field">x</a>
-						   <input type="text" placeholder=" Текст 2 "><a class="del_field">x</a>
-						   <input type="text" placeholder=" Текст 3 "><a class="del_field">x</a>
-						   <input type="text" placeholder=" Текст 4 "><a class="del_field">x</a>
-						   <input type="text" placeholder=" Текст 5 "><a class="del_field">x</a>
-						   <input type="text" placeholder=" Текст 6 "><a class="del_field">x</a>
-						   <input type="text" placeholder=" Текст 7 "><a class="del_field">x</a>
-						   <input type="text" placeholder=" Текст 8 "><a class="del_field">x</a>
-						   <input type="reset" value="Добавить поле"></p>
-						   <input type="reset" value="Удалить элемент"></p>
-						 </form>
-					</div>
-					
-				</div>
+				
 			</div>
 			
 		</div>
-	</section>
-
-	<section id="quant">
-		<div class="container">
-			<div class="col-md-12 step3">
-				<div class="col-md-2 quant-quantbc">
-				<select name="quantbc" id="">
-								<option value="">100</option>
-								<option value="">200</option>
-								<option value="">300</option>
-				</select>
-				</div>
-				<div class="col-md-2 quant-price">500</div>
-				<div class="col-md-2 quant-savebtn"><button>Сохранить</button></div>
-				<div class="col-md-2 quant-bye"><button>Заказать</button></div>
-				<div class="col-md-2 quant-reset"><button>Сбросить макет</button></div>
-				<div class="col-md-2 quant-preview"><button>Предпросмотр</button></div>
-			</div>
-		</div>
-	</section>
+	</div>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-  </body>
+	</div>
+</div>
+</body>
 </html>
-
-
-
-
-
-
-
-

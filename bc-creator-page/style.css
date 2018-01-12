@@ -1,0 +1,225 @@
+/*Подложка*/
+body {
+	margin: 0;
+}
+/*new*/
+.row1-2col {
+	display: flex;
+	justify-content: space-around;
+}
+.row1-2col1 {
+	height: 40px;
+	background-color: #222;
+	width: 70%;
+}
+.row1-2col2 {
+	height: 40px;
+	background-color: #333;
+	width: 30%;
+}
+/*new*/
+
+
+
+
+
+
+.container {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bc-page {
+	background: #e2e2e2;
+    padding-top: 1em;
+    padding-bottom: 2em;
+}
+/*хедер с выбором макета или визитки*/
+.step1 {
+    display: flex;
+    justify-content: space-around;
+}
+.head-choice-btn {
+    width: 100%;
+}
+button.headerbtnchoice {
+    padding: 10px 5px;
+    font-size: 15px;
+    text-transform: uppercase;
+    width: 100%;
+}
+/*Подсказка*/
+.text-center.supporttext {
+    text-align: center;
+    text-transform: uppercase;
+}
+/*основной блок*/
+/*инструменты над визиткой*/
+.col {
+    display: flex;
+}
+.col1 {
+    width: 70%;
+    padding-right: 7px;
+}
+.col2 {
+    height: auto;
+    width: 30%;
+    padding-left: 7px;
+}
+.step2 {
+    display: flex;
+    justify-content: space-around;
+    height: 30px;
+}
+button.frontside {
+	padding: 5px 5px;
+    font-size: 15px;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.sides2 {
+	width: 50%;
+}
+.position {
+	width: 50%;
+}
+.step3 {
+    display: flex;
+    justify-content: space-around;
+    height: 30px;
+}
+.btnlitso {
+    width: 20%;
+}
+.bc-sizes1 {
+	width: 20%;
+}
+.btnoborot {
+    width: 20%;
+}
+.bc-colors1 	{
+	width: 20%;
+}
+button.picchoice1 {
+	padding: 5px 5px;
+    font-size: 15px;
+    text-transform: uppercase;
+    width: 100%;
+}
+.picchoice {
+	width: 20%;
+}
+.businnescard {
+    margin-top: 1.5em;
+    height: 350px;
+    background-color: #fff;
+    border: 1px solid #999; 
+}
+.step5 {
+	height: 60px;
+	display: flex;
+    justify-content: space-around;
+    border: 1px solid #999;
+}
+.step6 {
+	display: flex;
+    justify-content: space-around;
+}
+.step7 {
+	display: flex;
+    justify-content: space-around;
+}
+.bt-btn {
+    padding: 0;
+    width: 100%;
+}
+button.gr-btn {
+    width: 100%;
+}
+
+
+/*инструменты над контентом*/
+
+.tools-for-content {
+	height: 5em;
+	background-color: orange;
+}
+
+
+/*сама визитка*/
+
+
+.businnescard img {
+    display: none;
+}
+
+/*ввод данных*/
+
+.content-input-form {
+	margin-top: 1.5em;
+}
+
+.bcform input {
+    width: 85%;
+    margin-bottom: 3px;
+    height: 40px;
+}
+
+a.del_field {
+    padding: 5px 10px;
+    border: 1px solid red;
+    background-color: #455;
+}
+
+/*инструменты под визиткой*/
+
+.bottom-tools button {
+    width: 100%;
+}
+.bottom-tools {
+    padding: 0;
+}
+
+
+/*картинки*/
+.bt-pictures {
+	width: 100%;
+	height: 5em;
+	background-color: #999;
+}
+/*графика*/
+.bt-graphic {
+	width: 100%;
+	height: 5em;
+	background-color: #666;
+}
+/*иконки*/
+.bt-icons {
+	width: 100%;
+	height: 5em;
+	background-color: #333;
+}
+
+/*поле последнего выбора*/
+
+#quant {
+	background-color: olive;
+	height: 5em;
+}
+
+#quant button {
+	margin-top: 2em;
+}
+
+
+
+@media(min-width: 768px) and (max-width: 992px) {
+
+.step1 {
+    display: block;
+}
+
+}
