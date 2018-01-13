@@ -11,6 +11,7 @@ import {Background} from "../../data/Background";
 import {AlignService} from "../../services/align.service";
 import {TextField} from "../../data/TextField";
 import {StylingService} from "../../services/styling.service";
+import {GridService} from "../../services/grid.service";
 
 
 @Directive({
@@ -34,11 +35,22 @@ export class MovableDirective implements OnInit {
   constructor(private el: ElementRef,
               private componentFactoryResolver: ComponentFactoryResolver,
               private alService: AlignService,
-              private stylingService:StylingService) {
+              private stylingService: StylingService,
+              private gridService: GridService) {
   }
 
   ngOnInit(): void {
     this.background = this.dataArr.find((field: CardField) => field.instanceOf == 'Background');
+  }
+
+  private skipSelection() {
+    this.selectedItems = [];
+    this.dataArr.forEach((item: CardField) => item.isSelected = false);
+
+    this.alService.textFields = [];
+    this.alService.isMultiselection = false;
+
+    this.stylingService.clear();
   }
 
   onMouseDown(event) {
@@ -46,28 +58,27 @@ export class MovableDirective implements OnInit {
 
     //is click out of item
     if (this.el.nativeElement == event.target) {
-
-      //skip selection
-      this.selectedItems = [];
-      this.dataArr.forEach((item: CardField) => item.isSelected = false);
-
-      this.alService.textFields = [];
-      this.alService.isMultiselection = false;
-
-      this.stylingService.clear();
-
+      this.skipSelection();
       return;
     }
 
     //find .card-field
-    let target: Element = event.target;
+    let target: HTMLElement = event.target;
     while (target != this.el.nativeElement) {
-      if (target.classList.contains('card-field')) break;
+
+      //нажатие на поле с элементом
+      if (target.dataset.field = 'card-field') break;
 
       //если нажали на fieldResize
       if (target.tagName == 'CARD-FIELD-RESIZE') {
         this.startResizing = true;
         this.resizeComponent.fieldResize.updateMax();
+        return;
+      }
+
+      //если клик по сетке
+      if (target.tagName == 'CARD-GRID') {
+        this.skipSelection();
         return;
       }
 

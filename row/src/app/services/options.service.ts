@@ -89,7 +89,7 @@ export class OptionsService {
   }
 
   public set containerWidth(val: number) {
-    this._isFullContainer = val < 1000;
+    this._isFullContainer = val < 600;
     this.settings.ratio = (val / this.maxAllowedWidth) * ((this._isFullContainer) ? 1 : 0.7);
   }
 
@@ -111,7 +111,7 @@ export class OptionsService {
     paddings.left = paddings.right = (this.maxAllowedWidth - this.cardWidth) / 2;
     if (paddings.left < 1) paddings.left = paddings.right = 0;
     paddings.top = paddings.bottom = (paddings.left < 20) ? paddings.left : 20;
-    console.log(paddings);
+
     this._resultWrapperPadding = {
       'padding-top.px': paddings.top,
       'padding-bottom.px': paddings.bottom,
