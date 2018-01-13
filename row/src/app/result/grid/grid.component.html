@@ -1,4 +1,4 @@
-<div class="divTable">
+<div class="divTable" [ngClass]="{'disabled': !gridService.isGrid}">
   <div class="divTableBody">
 
     <div class="divTableRow" *ngFor="let row of rows">

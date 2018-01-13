@@ -53,21 +53,24 @@ export class MovableDirective implements OnInit {
     this.stylingService.clear();
   }
 
+  private findCardFieldByTarget(target: HTMLElement) {
+    let left = parseInt(getComputedStyle(target).left);
+    let top = parseInt(getComputedStyle(target).top);
+
+    let item: CardField = this.dataArr.find((it: CardField) => it.left == left && it.top == top);
+
+    return item;
+  }
+
   onMouseDown(event) {
     if (event.which != 1) return;
-
-    //is click out of item
-    if (this.el.nativeElement == event.target) {
-      this.skipSelection();
-      return;
-    }
 
     //find .card-field
     let target: HTMLElement = event.target;
     while (target != this.el.nativeElement) {
 
       //нажатие на поле с элементом
-      if (target.dataset.field = 'card-field') break;
+      if (target.classList.contains('card-field')) break;
 
       //если нажали на fieldResize
       if (target.tagName == 'CARD-FIELD-RESIZE') {
@@ -76,26 +79,32 @@ export class MovableDirective implements OnInit {
         return;
       }
 
-      //если клик по сетке
-      if (target.tagName == 'CARD-GRID') {
-        this.skipSelection();
-        return;
-      }
-
       target = target.parentElement;
+    }
+
+    //нажатие на background или grid
+    if (this.el.nativeElement == target) {
+      this.skipSelection();
+      return;
     }
 
     this.startMovingCoords = {x: event.pageX, y: event.pageY};
 
 
     //find item in dataArr by offset
-    let left = parseInt(getComputedStyle(target).left);
-    let top = parseInt(getComputedStyle(target).top);
+    // let left = parseInt(getComputedStyle(target).left);
+    // let top = parseInt(getComputedStyle(target).top);
+    //
+    // let item: CardField = this.dataArr.find((it: CardField) => it.left == left && it.top == top);
+    // if (!item) {
+    //   this.alService.textFields = [];
+    //   this.alService.isMultiselection = false;
+    //   return;
+    // }
 
-    let item: CardField = this.dataArr.find((it: CardField) => it.left == left && it.top == top);
+    let item: CardField = this.findCardFieldByTarget(target);
     if (!item) {
-      this.alService.textFields = [];
-      this.alService.isMultiselection = false;
+      this.skipSelection();
       return;
     }
 

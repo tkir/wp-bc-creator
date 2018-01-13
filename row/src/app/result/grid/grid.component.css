@@ -1,9 +1,3 @@
-:host{
-  /*display: block;*/
-  /*position: absolute;*/
-  /*z-index: -1;*/
-}
-
 *{
   box-sizing: border-box;
 }
@@ -21,4 +15,8 @@
 }
 .divTableBody {
   display: table-row-group;
+}
+
+.disabled{
+  display: none;
 }

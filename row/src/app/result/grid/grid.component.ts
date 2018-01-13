@@ -4,6 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {CardData} from "../../data/CardData";
 import {Store} from "../../services/store";
 import {OptionsService} from "../../services/options.service";
+import {GridService} from "../../services/grid.service";
 
 @Component({
   selector: 'card-grid',
@@ -28,10 +29,7 @@ export class GridComponent implements OnInit, OnDestroy {
 
         this.rows = new Array(Math.ceil(cardData.background.height_mm / 3));
         this.cols = new Array(Math.ceil(cardData.background.width_mm / 3));
-        this.size = {
-          'width.px': this.options.settings.ratio * 3,
-          'height.px': this.options.settings.ratio * 3
-        };
+        this.size['width.px'] = this.size['height.px'] = this.options.settings.ratio * 3;
       });
   }
 
@@ -41,7 +39,8 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   constructor(private store: Store,
-              private options: OptionsService) {
+              private options: OptionsService,
+              public gridService: GridService) {
   }
 
 }
