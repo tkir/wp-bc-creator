@@ -73,4 +73,37 @@ export class OptionsService {
     });
   }
 
+  //Растянуть result по ширине контейнера
+  private _isFullContainer: boolean;
+
+  //Максимальная возможная ширина визитки
+  private get maxAllowedWidth(): number {
+    return Math.max(...this.settings.allowedSizes.map(s => s.width));
+  }
+
+  public set containerWidth(val: number) {
+    this._isFullContainer = val < 1000;
+    this.settings.ratio = (val / this.maxAllowedWidth) * ((this._isFullContainer) ? 1 : 0.7);
+  }
+
+  public get resultWrapperPadding() {
+    let paddings = {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0
+    };
+
+    paddings.left = paddings.right = (this.maxAllowedWidth - this.cardWidth) / 2;
+    if (paddings.left < 1) paddings.left = paddings.right = 0;
+    paddings.top = paddings.bottom = (paddings.left < 20) ? paddings.left : 20;
+
+    return {
+      'padding-top.px': paddings.top,
+      'padding-bottom.px': paddings.bottom,
+      'padding-left.px': paddings.left,
+      'padding-right.px': paddings.right
+    };
+  }
+
 }

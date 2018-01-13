@@ -1,4 +1,6 @@
-.bc-page {
+:host {
+  display: block;
+  box-sizing: border-box;
   background: #e2e2e2;
   padding-top: 1em;
   padding-bottom: 2em;

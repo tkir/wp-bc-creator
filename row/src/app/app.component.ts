@@ -1,5 +1,6 @@
 import {AfterContentInit, Component, ElementRef} from '@angular/core';
 import {DataService} from "./services/data.service";
+import {OptionsService} from "./services/options.service";
 
 @Component({
   selector: 'business-card-editor',
@@ -16,9 +17,12 @@ export class AppComponent implements AfterContentInit {
 
     this.buttons = this.el.nativeElement.querySelectorAll('button');
     this.buttons[0].classList.add('active');
+
+    this.options.containerWidth = parseInt(this.el.nativeElement.getBoundingClientRect().width);
   }
 
   constructor(private el: ElementRef,
+              private options:OptionsService,
               public dataService: DataService) {
   }
 
@@ -26,9 +30,4 @@ export class AppComponent implements AfterContentInit {
     this.buttons.forEach(el => (el == event.target) ? el.classList.add('active') : el.classList.remove('active'));
     this.tabContents.forEach(el => (el.dataset.tab == choice) ? el.classList.add('active') : el.classList.remove('active'));
   }
-
-  onDrop(event){
-    console.log(event);
-  }
-
 }
