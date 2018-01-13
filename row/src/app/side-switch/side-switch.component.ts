@@ -22,10 +22,10 @@ export class SideSwitchComponent implements AfterContentInit {
 
   private currentSide: string;
 
-  changeTab(event, side) {
-    this.dataService.changeSide(side);
-    this.buttons.forEach(el => (el == event.target) ? el.classList.add('active') : el.classList.remove('active'));
-  }
+  // changeTab(event, side) {
+  //   this.dataService.changeSide(side);
+  //   this.buttons.forEach(el => (el == event.target) ? el.classList.add('active') : el.classList.remove('active'));
+  // }
 
   setSideNum() {
     this.dataService.changeSideNumber((this.options.isDoubleSide) ? 'single' : 'double');

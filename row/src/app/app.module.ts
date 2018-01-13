@@ -12,7 +12,7 @@ import {MovableDirective} from './result/directives/movable.directive';
 import {Store} from "./services/store";
 import {DroppableDirective} from './result/directives/droppable.directive';
 import {ImageService} from "./services/image.service";
-import {BackgroundEditorComponent} from './side-switch/background-editor/background-editor.component';
+import {BackgroundEditorComponent} from './background-editor/background-editor.component';
 import {ColorPickerComponent} from './color-picker/color-picker.component';
 import {HrComponent} from './result/hr/hr.component';
 import {HrEditorComponent} from './graphics-container/hr-editor/hr-editor.component';
@@ -46,6 +46,7 @@ import {DraggableDirective} from "./services/drag-and-drop/draggable.directive";
 import {DropTargetDirective} from "./services/drag-and-drop/drop-target.directive";
 import {StylingService} from "./services/styling.service";
 import {ItemService} from "./services/item.service";
+import { FrontBackComponent } from './front-back/front-back.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import {ItemService} from "./services/item.service";
     HintSliderComponent,
     GraphicsContainerComponent,
     ControlContainerComponent,
-    ControlButtonsComponent
+    ControlButtonsComponent,
+    FrontBackComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
