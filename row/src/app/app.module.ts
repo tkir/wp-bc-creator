@@ -46,7 +46,9 @@ import {DraggableDirective} from "./services/drag-and-drop/draggable.directive";
 import {DropTargetDirective} from "./services/drag-and-drop/drop-target.directive";
 import {StylingService} from "./services/styling.service";
 import {ItemService} from "./services/item.service";
-import { FrontBackComponent } from './front-back/front-back.component';
+import {GridComponent} from "./result/grid/grid.component";
+import {FrontBackComponent} from "./front-back/front-back.component";
+import {GridService} from "./services/grid.service";
 
 @NgModule({
   declarations: [
@@ -78,6 +80,7 @@ import { FrontBackComponent } from './front-back/front-back.component';
     GraphicsContainerComponent,
     ControlContainerComponent,
     ControlButtonsComponent,
+    GridComponent,
     FrontBackComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
@@ -101,7 +104,8 @@ import { FrontBackComponent } from './front-back/front-back.component';
     OrderService,
     StylingService,
     DragService,
-    ItemService
+    ItemService,
+    GridService
   ],
   bootstrap: [AppComponent]
 })

@@ -20,6 +20,7 @@ export class OptionsService {
     "allowedHrDesigns": string[],
     "ratio": number,
     "fontSizeStep": number,
+    "gridCellSize": number,
     "polygraphPadding": number,
     "imageUpload": {
       "resizeQuality": number,
@@ -32,8 +33,15 @@ export class OptionsService {
   private hints: string[];
   public fontIcons: {name:string, unicode:string}[];
 
-  public cardWidth:number;
-  public cardHeight:number;
+  private _cardWidth:number;
+  public set cardWidth(val:number){
+    this._cardWidth = val;
+    this.setResultWrapperPadding();
+  }
+  public get cardWidth():number{
+    return this._cardWidth
+  }
+  public cardHeight;
 
   private orderOptions: any;
   private _OrderOptions: [{ id: number, type: string, Name: string, Values: [{ Value: string, Rate: string, isSelected: boolean }] }];
@@ -71,6 +79,49 @@ export class OptionsService {
       } else
         o.Values[0].isSelected = true;
     });
+  }
+
+  //Растянуть result по ширине контейнера
+  private _isFullContainer: boolean;
+
+  //Максимальная возможная ширина визитки
+  private get maxAllowedWidth(): number {
+    return Math.max(...this.settings.allowedSizes.map(s => s.width));
+  }
+
+  public set containerWidth(val: number) {
+    this._isFullContainer = val < 600;
+    this.settings.ratio = (val / this.maxAllowedWidth) * ((this._isFullContainer) ? 1 : 0.7);
+  }
+
+  //Отступы wrapper над result.component
+  private _resultWrapperPadding:{
+    'padding-top.px': number;
+    'padding-bottom.px': number;
+    'padding-left.px': number;
+    'padding-right.px': number;
+  };
+  private setResultWrapperPadding(){
+    let paddings = {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0
+    };
+
+    paddings.left = paddings.right = (this.maxAllowedWidth - this.cardWidth) / 2;
+    if (paddings.left < 1) paddings.left = paddings.right = 0;
+    paddings.top = paddings.bottom = (paddings.left < 20) ? paddings.left : 20;
+
+    this._resultWrapperPadding = {
+      'padding-top.px': paddings.top,
+      'padding-bottom.px': paddings.bottom,
+      'padding-left.px': paddings.left,
+      'padding-right.px': paddings.right
+    };
+  }
+  public get resultWrapperPadding() {
+    return this._resultWrapperPadding;
   }
 
 }

@@ -1,10 +1,14 @@
-<div class="card-wrap unselectable">
+<div class="card-wrap unselectable" [ngStyle]="options.resultWrapperPadding">
+
   <div class="business-card"
        [ngStyle]="cardData.background.style"
        fieldMovable [dataArr]="dataArr"
        [card]="me"
        DropTarget (dropEvent)="onDrop($event)"
   >
+
+    <card-grid></card-grid>
+
     <div
       class="card-field"
       *ngFor="let item of dataArr"
@@ -13,7 +17,7 @@
     >
       <span *ngIf="item.instanceOf=='Text'" [ngStyle]="item.style" fieldAlignable [item]="item">{{item.text}}</span>
       <span *ngIf="item.instanceOf=='Icon'" [ngStyle]="item.style" fieldAlignable [item]="item">{{item.unicode}}</span>
-      <div  *ngIf="item.instanceOf=='Logo'" [ngStyle]="item.style" [logoItem]="item" cardAddResize imageDroppable></div>
+      <div *ngIf="item.instanceOf=='Logo'" [ngStyle]="item.style" [logoItem]="item" cardAddResize imageDroppable></div>
       <card-hr *ngIf="item.instanceOf=='Line'" [line]="item" cardAddResize></card-hr>
     </div>
 
