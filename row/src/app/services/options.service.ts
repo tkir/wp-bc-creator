@@ -20,6 +20,7 @@ export class OptionsService {
     "allowedHrDesigns": string[],
     "ratio": number,
     "fontSizeStep": number,
+    "gridCellSize": number,
     "polygraphPadding": number,
     "imageUpload": {
       "resizeQuality": number,

@@ -13,7 +13,6 @@ import {GridService} from "../../services/grid.service";
 })
 export class GridComponent implements OnInit, OnDestroy {
 
-  cardData: CardData = null;
   private subscription: Subscription;
   rows: any[] = [];
   cols: any[] = [];
@@ -21,15 +20,21 @@ export class GridComponent implements OnInit, OnDestroy {
     'width.px': 0,
     'height.px': 0
   };
+  outline = {
+    'outline-width.px': 0,
+    'outline-offset.px': 0
+  };
 
   ngOnInit() {
     this.subscription = this.store.changes
       .subscribe((cardData: any) => {
-        this.cardData = cardData;
 
-        this.rows = new Array(Math.ceil(cardData.background.height_mm / 3));
-        this.cols = new Array(Math.ceil(cardData.background.width_mm / 3));
-        this.size['width.px'] = this.size['height.px'] = this.options.settings.ratio * 3;
+        this.rows = new Array(Math.ceil(cardData.background.height_mm / this.options.settings.gridCellSize));
+        this.cols = new Array(Math.ceil(cardData.background.width_mm / this.options.settings.gridCellSize));
+
+        this.size['width.px'] = this.size['height.px'] = this.options.settings.ratio * this.options.settings.gridCellSize;
+        this.outline['outline-width.px'] = cardData.background.indent;
+        this.outline['outline-offset.px'] = - this.outline['outline-width.px'];
       });
   }
 

@@ -3,6 +3,7 @@
 }
 .divTable{
   display: table;
+  border-collapse: collapse;
   width: 100%;
 }
 .divTableRow {
@@ -11,7 +12,6 @@
 .divTableCell {
   border: 1px solid #999999;
   display: table-cell;
-  padding: 3px 10px;
 }
 .divTableBody {
   display: table-row-group;
@@ -19,4 +19,14 @@
 
 .disabled{
   display: none;
+}
+
+.indent{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  outline-style: solid;
+  outline-color: rgba(0,0,0,0.3);
 }

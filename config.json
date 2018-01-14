@@ -111,6 +111,7 @@
     ],
     "ratio": 5.8,
     "fontSizeStep": 0.2,
+    "gridCellSize": 3,
     "polygraphPadding": 5,
     "imageUpload": {
       "resizeQuality": 1,
