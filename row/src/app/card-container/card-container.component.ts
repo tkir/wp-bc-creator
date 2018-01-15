@@ -11,7 +11,7 @@ export class CardContainerComponent implements AfterContentInit{
   ngAfterContentInit(): void {
     this.options.containerWidth = parseInt(
       this.el.nativeElement
-        .querySelector('.step4')
+        .querySelector('[data-result-size]')
         .getBoundingClientRect().width
     );
   }
