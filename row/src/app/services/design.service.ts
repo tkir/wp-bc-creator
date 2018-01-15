@@ -39,7 +39,7 @@ export class DesignService {
   }
 
   deleteDesign(slug) {
-    return this.api.delete(`/design/${slug}`);
+    return this.api.delete<string>(`/design/${slug}`);
   }
 
   //TODO удалить в продакшен

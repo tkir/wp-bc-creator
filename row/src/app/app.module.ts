@@ -48,6 +48,7 @@ import {StylingService} from "./services/styling.service";
 import {ItemService} from "./services/item.service";
 import {UndoRedoService} from "./services/undo-redo.service";
 import { UndoComponent } from './editor-container/undo/undo.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -85,7 +86,7 @@ import { UndoComponent } from './editor-container/undo/undo.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [
