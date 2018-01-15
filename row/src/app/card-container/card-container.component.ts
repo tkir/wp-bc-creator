@@ -1,6 +1,5 @@
 import {AfterContentInit, Component, ElementRef} from '@angular/core';
 import {OptionsService} from "../services/options.service";
-import {Store} from "../services/store";
 
 @Component({
   selector: 'card-container',
@@ -12,12 +11,11 @@ export class CardContainerComponent implements AfterContentInit{
   ngAfterContentInit(): void {
     this.options.containerWidth = parseInt(
       this.el.nativeElement
-        // .querySelector('.card-wrap')
+        .querySelector('.step4')
         .getBoundingClientRect().width
     );
   }
 
   constructor(private el:ElementRef,
-              private store: Store,
               private options:OptionsService){}
 }

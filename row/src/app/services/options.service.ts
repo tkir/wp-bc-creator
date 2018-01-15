@@ -88,7 +88,6 @@ export class OptionsService {
 
   public set containerWidth(val: number) {
     this.settings.ratio = val / this.maxAllowedWidth;
-    console.log(this.settings.ratio);
   }
 
   //Отступы wrapper над result.component
