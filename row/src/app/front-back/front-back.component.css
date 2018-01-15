@@ -63,51 +63,15 @@ input:checked + .slider:before {
 
 
 
-.col2 {
-  height: auto;
-  width: 30%;
-  padding-left: 7px;
-}
-.step2 {
-  display: flex;
-  justify-content: space-around;
-  height: 30px;
-  margin-bottom: 2em;
-}
-.step3 {
-  display: flex;
-  justify-content: space-around;
-  height: 30px;
-  margin-bottom: 30px;
-}
+
+/*
 .btnlitso {
-  width: 20%;
-}
-.bc-sizes1 {
   width: 20%;
 }
 .btnoborot {
   width: 20%;
 }
-.bc-colors1 	{
-  width: 20%;
-}
-button.picchoice1 {
-  padding: 5px 5px;
-  font-size: 15px;
-  text-transform: uppercase;
-  width: 100%;
-}
-.picchoice {
-  width: 20%;
-}
-.step4 {
-  display: flex;
-  justify-content: space-around;
+*/
 
-}
-.step5 {
-  display: flex;
-  justify-content: space-around;
 
-}
+
