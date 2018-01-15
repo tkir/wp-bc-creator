@@ -19,15 +19,15 @@ export class ApiService {
     'Accept': 'application/json'
   });
 
-  get(path: string): Observable<any> {
-    return this.http.get(`${this.options.path}${path}`, {headers: this.headers})
+  get<T>(path: string): Observable<string | T> {
+    return this.http.get<T>(`${this.options.path}${path}`, {headers: this.headers})
       .pipe(
         catchError(this.handleError('get', ''))
       );
   }
 
-  post(path: string, body: any): Observable<any> {
-    return this.http.post(`${this.options.path}${path}`, JSON.stringify(body), {headers: this.headers})
+  post<T>(path: string, body: any): Observable<string | T> {
+    return this.http.post<T>(`${this.options.path}${path}`, JSON.stringify(body), {headers: this.headers})
       .pipe(
         catchError(this.handleError('post', ''))
       );

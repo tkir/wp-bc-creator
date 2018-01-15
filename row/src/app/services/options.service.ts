@@ -28,7 +28,7 @@ export class OptionsService {
       "allowedExtensions": string[]
     }
   };
-  public previews: [{ id: number, Name: string, Slug: string, Description: string, Preview: string, isActive: boolean }];
+  public previews: Preview[];//[{ id: number, Name: string, Slug: string, Description: string, Preview: string, isActive: boolean }];
   public price: number;
   private hints: string[];
   public fontIcons: { name: string, unicode: string }[];
@@ -74,4 +74,13 @@ export class OptionsService {
     });
   }
 
+}
+
+export interface Preview{
+  id: number,
+  Name: string,
+  Slug: string,
+  Description: string,
+  Preview: string,
+  isActive: boolean
 }

@@ -19,7 +19,7 @@ export class DesignService {
   }
 
   saveDesign(card: { front: CardData, back: CardData }) {
-    return this.api.post('/save', {
+    return this.api.post<any>('/save', {
       FieldsData: {front: card.front.fieldsData, back: card.back.fieldsData},
       DesignData: {front: card.front.designData, back: card.back.designData},
       card: {front: card.front.json, back: card.back.json},

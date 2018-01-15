@@ -3,7 +3,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
 import {ApiService} from "./api.service";
-import {OptionsService} from "./options.service";
+import {OptionsService, Preview} from "./options.service";
 import {DesignService} from "./design.service";
 
 @Injectable()
@@ -17,12 +17,12 @@ export class PreviewService {
   }
 
   setModalPreview(data) {
-    return this.api.post('/preview', {
+    return this.api.post<{ file: { front: string, back: string }, err: string }>('/preview', {
       front: data.front.json,
       back: data.back.json,
       isDoubleSide: this.options.isDoubleSide
     })
-      .map(res => res.file)
+      .map((res: { file: { front: string, back: string }, err: string }) => res.file)
       .subscribe(data => this.modalPreview = {
         front: "data:image/png;base64," + data.front,
         back: "data:image/png;base64," + data.back
@@ -35,8 +35,8 @@ export class PreviewService {
   }
 
   updatePreviews() {
-    return this.api.get('/previews')
-      .do(res => {
+    return this.api.get<Preview[]>('/previews')
+      .do((res: Preview[]) => {
         this.options.previews = res;
         this.designService.updateDesigns(res);
       })

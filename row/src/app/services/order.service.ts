@@ -13,7 +13,7 @@ export class OrderService {
   }
 
   orderCard(options, price, cost) {
-    return this.api.post('/order',
+    return this.api.post<{res:string, err:string}>('/order',
       {
         price: price,
         value: cost,

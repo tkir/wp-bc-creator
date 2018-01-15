@@ -66,7 +66,7 @@ export class OrderFormComponent implements OnInit {
       isFast ? this.fastOrderOptions : this.selectedOptions,
       this.price,
       this.cost)
-      .subscribe(resp => {
+      .subscribe((resp:{res:string, err:string}) => {
         if (resp.err) console.error(`Ordering error: ${resp.err}`);
         else console.log(`Order successful; ${resp.res}`);
       })
