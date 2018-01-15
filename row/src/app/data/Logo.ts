@@ -19,7 +19,7 @@ export class Logo implements CardField {
   public dataType: string;
   private _maxWidth: number;
   private _maxHeight: number;
-  private k: number = this.options.settings.ratio;
+  // private k: number = this.options.settings.ratio;
 
   get style() {
     return {
@@ -31,35 +31,35 @@ export class Logo implements CardField {
   }
 
   get width() {
-    return Math.round(this.width_mm * this.k);
+    return Math.round(this.width_mm * this.options.settings.ratio);
   }
 
   set width(val) {
-    this.width_mm = val / this.k;
+    this.width_mm = val / this.options.settings.ratio;
   }
 
   get height() {
-    return Math.round(this.height_mm * this.k);
+    return Math.round(this.height_mm * this.options.settings.ratio);
   }
 
   set height(val) {
-    this.height_mm = val / this.k;
+    this.height_mm = val / this.options.settings.ratio;
   }
 
   get left() {
-    return Math.round(this.left_mm * this.k);
+    return Math.round(this.left_mm * this.options.settings.ratio);
   }
 
   set left(val) {
-    this.left_mm = val / this.k;
+    this.left_mm = val / this.options.settings.ratio;
   }
 
   get top() {
-    return Math.round(this.top_mm * this.k);
+    return Math.round(this.top_mm * this.options.settings.ratio);
   }
 
   set top(val) {
-    this.top_mm = val / this.k;
+    this.top_mm = val / this.options.settings.ratio;
   }
 
 

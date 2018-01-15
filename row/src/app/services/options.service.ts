@@ -81,17 +81,14 @@ export class OptionsService {
     });
   }
 
-  //Растянуть result по ширине контейнера
-  private _isFullContainer: boolean;
-
   //Максимальная возможная ширина визитки
   private get maxAllowedWidth(): number {
     return Math.max(...this.settings.allowedSizes.map(s => s.width));
   }
 
   public set containerWidth(val: number) {
-    this._isFullContainer = val < 600;
-    this.settings.ratio = (val / this.maxAllowedWidth) * ((this._isFullContainer) ? 1 : 0.7);
+    this.settings.ratio = val / this.maxAllowedWidth;
+    console.log(this.settings.ratio);
   }
 
   //Отступы wrapper над result.component

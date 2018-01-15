@@ -17,12 +17,9 @@ export class AppComponent implements AfterContentInit {
 
     this.buttons = this.el.nativeElement.querySelectorAll('button');
     this.buttons[0].classList.add('active');
-
-    this.options.containerWidth = parseInt(this.el.nativeElement.getBoundingClientRect().width);
   }
 
   constructor(private el: ElementRef,
-              private options:OptionsService,
               public dataService: DataService) {
   }
 

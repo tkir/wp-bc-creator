@@ -16,7 +16,7 @@ export class Icon implements CardField {
   public left_mm: number;
   public top_mm: number;
 
-  private k: number = this.options.settings.ratio;
+  // private k: number = this.options.settings.ratio;
   private fontSizeStep: number = this.options.settings.fontSizeStep;
 
   public isSelected: boolean = false;
@@ -42,27 +42,27 @@ export class Icon implements CardField {
   }
 
   get left() {
-    return Math.round(this.left_mm * this.k);
+    return Math.round(this.left_mm * this.options.settings.ratio);
   }
 
   set left(val) {
-    this.left_mm = val / this.k;
+    this.left_mm = val / this.options.settings.ratio;
   }
 
   get top() {
-    return Math.round(this.top_mm * this.k);
+    return Math.round(this.top_mm * this.options.settings.ratio);
   }
 
   set top(val) {
-    this.top_mm = val / this.k;
+    this.top_mm = val / this.options.settings.ratio;
   }
 
   get fontSize(): number {
-    return Math.round(this.fontSize_mm * this.k);
+    return Math.round(this.fontSize_mm * this.options.settings.ratio);
   }
 
   set fontSize(val: number) {
-    this.fontSize_mm = val / this.k;
+    this.fontSize_mm = val / this.options.settings.ratio;
   }
 
   changeFontSize(dir: string) {
