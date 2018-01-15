@@ -1,9 +1,18 @@
-import {Directive, ElementRef, HostListener, Input, OnInit} from '@angular/core';
+import {Directive, ElementRef, Input, OnInit} from '@angular/core';
 import {Logo} from "../../data/Logo";
 import {ImageService} from "../../services/image.service";
 
 @Directive({
-  selector: '[imageDroppable]'
+  selector: '[imageDroppable]',
+  host: {
+    '(drag)': 'drag($event)',
+    '(dragstart)': 'dragstart($event)',
+    '(dragend)': 'dragend($event)',
+    '(dragover)': 'dragover($event)',
+    '(dragenter)': 'dragenter($event)',
+    '(dragleave)': 'dragleave($event)',
+    '(drop)': 'drop($event)'
+  }
 })
 export class DroppableDirective implements OnInit {
 
@@ -24,41 +33,34 @@ export class DroppableDirective implements OnInit {
       'FormData' in window && 'FileReader' in window;
   }
 
-  @HostListener('drag', ['$event'])
   drag(event: Event) {
     this._stopPropagation(event);
   }
 
-  @HostListener('dragstart', ['$event'])
   dragstart(event: Event) {
     this._stopPropagation(event);
   }
 
-  @HostListener('dragend', ['$event'])
   dragend(event: Event) {
     this._stopPropagation(event);
     this.el.nativeElement.classList.add('is-dragover');
   }
 
-  @HostListener('dragover', ['$event'])
   dragover(event: Event) {
     this._stopPropagation(event);
     this.el.nativeElement.classList.add('is-dragover');
   }
 
-  @HostListener('dragenter', ['$event'])
   dragenter(event: Event) {
     this._stopPropagation(event);
     this.el.nativeElement.classList.add('is-dragover');
   }
 
-  @HostListener('dragleave', ['$event'])
   dragleave(event: Event) {
     this._stopPropagation(event);
     this.el.nativeElement.classList.add('is-dragover');
   }
 
-  @HostListener('drop', ['$event'])
   drop(event: any) {
     this._stopPropagation(event);
 

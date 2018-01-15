@@ -1,4 +1,3 @@
-import 'rxjs/Rx';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Injectable} from "@angular/core";
 

@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {CardData} from "../data/CardData";
-import {CardDesignData, CardFieldsData, IconDesign, TextDesign} from "../data/interfaces"
+import {CardDesignData, CardFieldsData, TextDesign} from "../data/interfaces"
 import {Logo} from "../data/Logo";
 import {Line} from "../data/Line";
 import {Background} from "../data/Background";
 import {TextField} from "../data/TextField";
 import {OptionsService} from "./options.service";
 import {Icon} from "../data/IconField";
-let WebFont = require('webfontloader');
+const WebFont = require('webfontloader');
 
 @Injectable()
 export class CardService {

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CardData} from "../data/CardData";
 import {Store} from "./store";
-import {ActivatedRoute, NavigationStart, Router} from "@angular/router";
+import {NavigationStart, Router} from "@angular/router";
 import {DesignService} from "./design.service";
 import {CardService} from "./card.service";
 import {OptionsService} from "./options.service";

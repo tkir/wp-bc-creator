@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, Response, ResponseContentType} from '@angular/http';
+import {Headers, Http, Response} from '@angular/http';
 import {Observable} from "rxjs/Observable";
-import 'rxjs/Rx';
+import 'rxjs/add/operator/catch';
+
 import {OptionsService} from "./options.service";
 
 @Injectable()

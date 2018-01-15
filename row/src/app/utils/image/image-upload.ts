@@ -1,5 +1,3 @@
-import {EventEmitter} from '@angular/core';
-
 import {ImageResult, ResizeOptions} from './interfaces';
 import {createImage, resizeImage} from './utils';
 

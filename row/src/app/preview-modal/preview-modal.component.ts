@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
 import {PreviewService} from "../services/preview.service";
 import {OptionsService} from "../services/options.service";

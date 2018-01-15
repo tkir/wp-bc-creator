@@ -1,4 +1,7 @@
 import {Injectable} from '@angular/core';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+
 import {ApiService} from "./api.service";
 import {OptionsService} from "./options.service";
 import {DesignService} from "./design.service";

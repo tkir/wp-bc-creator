@@ -1,5 +1,5 @@
 import {
-  Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild,
+  Component, ComponentFactoryResolver, ComponentRef, OnDestroy, ViewChild,
   ViewContainerRef
 } from '@angular/core';
 import {PreviewModalComponent} from "../preview-modal/preview-modal.component";
@@ -13,15 +13,12 @@ import {PreviewService} from "../services/preview.service";
   templateUrl: './control-container.component.html',
   styleUrls: ['./control-container.component.css']
 })
-export class ControlContainerComponent implements OnInit, OnDestroy {
+export class ControlContainerComponent implements OnDestroy {
 
   constructor(private resolver: ComponentFactoryResolver,
               private orderService: OrderService,
               private cardService: CardService,
               private previewService: PreviewService) {
-  }
-
-  ngOnInit() {
   }
 
   ngOnDestroy() {

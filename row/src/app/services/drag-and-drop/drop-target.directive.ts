@@ -1,4 +1,4 @@
-import {AfterContentInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {AfterContentInit, Directive, ElementRef, EventEmitter, Input, Output} from '@angular/core';
 import {DragObject, DragService} from './drag.service'
 import {getElemCoords} from "../../utils/size.util";
 
