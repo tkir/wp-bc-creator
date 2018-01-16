@@ -1,11 +1,5 @@
 <!--<div class="bc-page">-->
 
-<!--
-  <nav>
-    <button type="button" (click)="headChoice($event, 'editor')">Конструктор визиток</button>
-    <button type="button" (click)="headChoice($event, 'design')">Каталог дизайнов</button>
-  </nav>
--->
 <!--Кнопки-->
   <nav>
   <div class="wrap">
@@ -19,20 +13,14 @@
     </div>
   </div>
   </nav>
-<!--Слайдeр-->
+<!--Слайдeр подсказок-->
   <card-hint-slider></card-hint-slider>
 
 <!--То что отвечает за сам конструктор визитки-->
 
   <div class="tab-content active" data-tab="editor">
 <!--Основной блок-->
-
     <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
-<!--Блок инструментов с выбором иконок, линий или картинок-->
-<!--Перенес на side-switch.component
-    <card-graphics-container></card-graphics-container>
--->
-
   </div>
 
 <!--То что отвечает за каталог дизайнов-->
@@ -41,7 +29,8 @@
     <card-design-container></card-design-container>
   </div>
 
+<!--Нижнее меню сохранить макет-->
   <card-control-container></card-control-container>
 
 
-<!--</div>-->
+
