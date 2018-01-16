@@ -1,73 +1,6 @@
 
-
-<!--Колонка1-->
-
-<!--Первый шаг выбора сторона и размещение-->
-<!--
-  <div class="step2">
-    <select class="sides2" name="bc-sides" id="">
-      <option value="">Одна сторона</option>
-      <option value="">Две стороны</option>
-    </select>
-    <select class="position" name="bc-sides" id="">
-      <option value="">Вертикальная ориентация</option>
-      <option value="">Горизонтальная ориентация</option>
-    </select>
-  </div>
--->
-<!--переключатель-->
-  <div class="step2">
-    <div class="toggle">
-      <label class="switch">
-        <input type="checkbox" [checked]="options.isDoubleSide" (change)="setSideNum()">
-        <span class="slider"></span>
-      </label>
-      <span>{{options.isDoubleSide? 'Double side' : 'Single side'}}</span>
-    </div>
-  </div>
-  <!--блок под инструменты над визиткой-->
-
-  <div class="step3">
-
-      <!--<div class="btnlitso">-->
-        <!--<nav>-->
-        <!--<button type="button" (click)="changeTab($event, 'front')" class="frontside">Лицо</button>-->
-        <!--</nav>-->
-      <!--</div>-->
-      <!--<div class="btnoborot">-->
-        <!--<nav>-->
-        <!--<button type="button" (click)="changeTab($event, 'back')" [disabled]="!options.isDoubleSide" class="frontside">Оборот</button>-->
-        <!--</nav>-->
-      <!--</div>-->
-
-    <card-front-back></card-front-back>
-
-    <card-background-editor></card-background-editor>
-
-  </div>
-
-  <div class="step4" data-result-size>
-    <div>
-      <card-result></card-result>
-    </div>
-  </div>
-
-  <div class="step5">
-    <div>
-      <card-graphics-container></card-graphics-container>
-    </div>
-  </div>
-
-<!--
-
 <nav>
-<!--Переключатель передняя сторона-задняя сторона-->
-<!--
-  <button type="button" (click)="changeTab($event, 'front')">front</button>
-  <button type="button" (click)="changeTab($event, 'back')" [disabled]="!options.isDoubleSide">back</button>
--->
   <!-- Rounded switch -->
-<!--
   <div class="toggle">
     <label class="switch">
       <input type="checkbox" [checked]="options.isDoubleSide" (change)="setSideNum()">
@@ -75,7 +8,4 @@
     </label>
     <span>{{options.isDoubleSide? 'Double side' : 'Single side'}}</span>
   </div>
-
-  <card-background-editor></card-background-editor>
 </nav>
--->
