@@ -13,11 +13,10 @@ export class Background {
   public width_mm: number;
   public height_mm: number;
 
-  private k: number = this.options.settings.ratio;
   private polygraphPadding: number = this.options.settings.polygraphPadding;
 
   get indent(): number {
-    return this.polygraphPadding * this.k;
+    return this.polygraphPadding * this.options.settings.ratio;
   }
 
   get style() {
@@ -32,11 +31,11 @@ export class Background {
   }
 
   get width(): number {
-    return this.width_mm * this.k;
+    return this.width_mm * this.options.settings.ratio;
   }
 
   get height(): number {
-    return this.height_mm * this.k;
+    return this.height_mm * this.options.settings.ratio;
   }
 
   get backgroundColor() {

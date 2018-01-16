@@ -8,7 +8,6 @@
 .card-wrap {
   display: block;
   float: left;
-  padding: 20px;
   background-color: darkgray;
 }
 
@@ -47,4 +46,8 @@
 /*иконка внесена в зону*/
 .drag-in{
 
+}
+
+.business-card{
+  overflow: hidden;
 }

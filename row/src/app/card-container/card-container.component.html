@@ -1,7 +1,29 @@
-<card-side-switch></card-side-switch>
-<div>
-  <card-result></card-result>
+<!--Основной блок-->
+<div class="col">
+<!--Первая колонка с визиткой и инструментами-->
+  <div class="col1">
+<!--Переключатель одна-две стороны-->
+    <div class="step2">
+      <card-side-switch></card-side-switch>
+    </div>
+<!--Переключатель сторон визитки-->
+<!--Инструменты размер визитки, фон, цвет-->
+    <div class="step3">
+      <card-front-back></card-front-back>
+      <card-background-editor></card-background-editor>
+    </div>
+<!--Блок визитки-->
+    <div class="step4" data-result-size>
+        <card-result></card-result>
+    </div>
+<!--Инструменты линия, графика, лого-->
+    <div class="step5">
+        <card-graphics-container></card-graphics-container>
+    </div>
+  </div>
+<!--Вторая колонка с текстовыми инструментами-->
+  <div class="col2">
+    <card-editor-container></card-editor-container>
+  </div>
 </div>
-<div>
-  <card-editor-container></card-editor-container>
-</div>
+

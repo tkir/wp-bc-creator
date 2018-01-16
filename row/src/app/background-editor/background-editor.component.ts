@@ -1,15 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 
-import {Store} from "../../services/store";
-import {ImageService} from "../../services/image.service";
-import {Background} from "../../data/Background";
-import {OptionsService} from "../../services/options.service";
+import {Store} from "../services/store";
+import {ImageService} from "../services/image.service";
+import {Background} from "../data/Background";
+import {OptionsService} from "../services/options.service";
 
 @Component({
   selector: 'card-background-editor',
   templateUrl: './background-editor.component.html',
-  styleUrls: ['./background-editor.component.css']
+  styleUrls: ['./background-editor.component.css', '../css/btn.css']
 })
 export class BackgroundEditorComponent implements OnInit, OnDestroy {
 

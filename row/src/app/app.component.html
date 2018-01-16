@@ -1,17 +1,36 @@
-<nav>
-  <button type="button" (click)="headChoice($event, 'editor')">Конструктор визиток</button>
-  <button type="button" (click)="headChoice($event, 'design')">Каталог дизайнов</button>
-</nav>
+<!--<div class="bc-page">-->
 
-<card-hint-slider></card-hint-slider>
+<!--Кнопки-->
+  <nav>
+  <div class="wrap">
+    <div class="head-choice">
+      <div class="step1">
 
-<div class="tab-content active" data-tab="editor">
-  <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
-  <card-graphics-container></card-graphics-container>
-</div>
+        <div type="button" (click)="headChoice($event, 'editor')" class="text-center head-choice-btn"><button class="headerbtnchoice">Конструктор визиток</button></div>
+        <div type="button" (click)="headChoice($event, 'design')" class="text-center head-choice-btn"><button class="headerbtnchoice">Каталог дизайнов</button></div>
 
-<div class="tab-content" data-tab="design">
-  <card-design-container></card-design-container>
-</div>
+      </div>
+    </div>
+  </div>
+  </nav>
+<!--Слайдeр подсказок-->
+  <card-hint-slider></card-hint-slider>
 
-<card-control-container></card-control-container>
+<!--То что отвечает за сам конструктор визитки-->
+
+  <div class="tab-content active" data-tab="editor">
+<!--Основной блок-->
+    <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
+  </div>
+
+<!--То что отвечает за каталог дизайнов-->
+
+  <div class="tab-content" data-tab="design">
+    <card-design-container></card-design-container>
+  </div>
+
+<!--Нижнее меню сохранить макет-->
+  <card-control-container></card-control-container>
+
+
+

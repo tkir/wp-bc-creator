@@ -1,5 +1,6 @@
 import {AfterContentInit, Component, ElementRef} from '@angular/core';
 import {DataService} from "./services/data.service";
+import {OptionsService} from "./services/options.service";
 
 @Component({
   selector: 'business-card-editor',

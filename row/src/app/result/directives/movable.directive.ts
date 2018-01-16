@@ -43,21 +43,34 @@ export class MovableDirective implements OnInit {
     this.background = this.dataArr.find((field: CardField) => field.instanceOf == 'Background');
   }
 
+  private skipSelection() {
+    this.selectedItems = [];
+    this.dataArr.forEach((item: CardField) => item.isSelected = false);
+
+    this.alService.textFields = [];
+    this.alService.isMultiselection = false;
+
+    this.stylingService.clear();
+  }
+
+  private findCardFieldByTarget(target: HTMLElement) {
+    let left = parseInt(getComputedStyle(target).left);
+    let top = parseInt(getComputedStyle(target).top);
+
+    let item: CardField = this.dataArr.find((it: CardField) => it.left == left && it.top == top);
+
+    return item;
+  }
+
+
   onMouseDown(event) {
     if (event.which != 1) return;
-
-    //is click out of item
-    if (this.el.nativeElement == event.target) {
-
-      //skip selection
-      this.skipSelection();
-      this.stylingService.clear();
-      return;
-    }
 
     //find .card-field
     let target: HTMLElement = event.target;
     while (target != this.el.nativeElement) {
+
+      //нажатие на поле с элементом
       if (target.classList.contains('card-field')) break;
 
       //если нажали на fieldResize
@@ -75,14 +88,27 @@ export class MovableDirective implements OnInit {
       }
     }
 
+    //нажатие на background или grid
+    if (this.el.nativeElement == target) {
+      this.skipSelection();
+      return;
+    }
+
     this.startMovingCoords = {x: event.pageX, y: event.pageY};
 
 
     //find item in dataArr by offset
-    let left = parseInt(getComputedStyle(target).left);
-    let top = parseInt(getComputedStyle(target).top);
+    // let left = parseInt(getComputedStyle(target).left);
+    // let top = parseInt(getComputedStyle(target).top);
+    //
+    // let item: CardField = this.dataArr.find((it: CardField) => it.left == left && it.top == top);
+    // if (!item) {
+    //   this.alService.textFields = [];
+    //   this.alService.isMultiselection = false;
+    //   return;
+    // }
 
-    let item: CardField = this.dataArr.find((it: CardField) => it.left == left && it.top == top);
+    let item: CardField = this.findCardFieldByTarget(target);
     if (!item) {
       this.skipSelection();
       return;
@@ -111,14 +137,6 @@ export class MovableDirective implements OnInit {
     if (item.instanceOf == 'Text' || item.instanceOf == 'Icon') this.stylingService.add(item);
   }
 
-  private skipSelection() {
-    this.selectedItems = [];
-    this.dataArr.forEach((item: CardField) => item.isSelected = false);
-
-    this.alService.textFields = [];
-    this.alService.isMultiselection = false;
-  }
-
   private multiselection(item: CardField) {
     let isMulti = false;
     this.selectedItems.forEach(obj => {
@@ -126,7 +144,6 @@ export class MovableDirective implements OnInit {
     });
     if (!isMulti) {
       this.skipSelection();
-      this.stylingService.clear();
     }
   }
 
