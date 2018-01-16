@@ -11,7 +11,6 @@ import {Background} from "../../data/Background";
 import {AlignService} from "../../services/align.service";
 import {TextField} from "../../data/TextField";
 import {StylingService} from "../../services/styling.service";
-import {GridService} from "../../services/grid.service";
 
 
 @Directive({
@@ -35,8 +34,7 @@ export class MovableDirective implements OnInit {
   constructor(private el: ElementRef,
               private componentFactoryResolver: ComponentFactoryResolver,
               private alService: AlignService,
-              private stylingService: StylingService,
-              private gridService: GridService) {
+              private stylingService: StylingService) {
   }
 
   ngOnInit(): void {
