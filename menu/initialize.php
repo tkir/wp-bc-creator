@@ -27,6 +27,7 @@ class BC_Creator_MenuInit
     //    регистрируем скипты admin
     public function localize_admin_scripts()
     {
+        $i18n = json_decode(file_get_contents(dirname(__DIR__) . "/languages/" . get_option('BusinessCardCreator_language') . '.json'));
         $config = json_decode(file_get_contents(dirname(__DIR__) . "/config.json"));
         include_once dirname(__DIR__) . '/db.php';
 
@@ -34,6 +35,12 @@ class BC_Creator_MenuInit
         $tpl = get_option('BusinessCardCreator_template');
         foreach ($aTpl as &$o){
             $o->isActive = ($o->value == $tpl) ? true : false;
+        }
+
+        $aLn=$config->allowedLanguages;
+        $ln = get_option('BusinessCardCreator_language');
+        foreach ($aLn as &$o){
+            $o->isActive = ($o->abbreviation == $ln) ? true : false;
         }
 
         wp_enqueue_script('main_menu', plugin_dir_url( __FILE__ ).'/menu/main.bundle.js');
@@ -45,9 +52,11 @@ class BC_Creator_MenuInit
             'email' => get_option('BusinessCardCreator_email'),
             'defaultDesign'=> get_option('BusinessCardCreator_defaultDesign'),
             'allowedTemplates' => $aTpl,
+            'allowedLanguages' => $aLn,
             'previews' => BC_Creator_DB::get_instance()->getPreviews(true),
             'orderOptions' => BC_Creator_DB::get_instance()->getOrderOptions(),
             'price' => BC_Creator_DB::get_instance()->getPrice()
         ));
+        wp_localize_script('main_menu', 'bc_creator_menu_i18n', (array)$i18n->menu);
     }
 }

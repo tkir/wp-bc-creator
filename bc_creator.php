@@ -30,21 +30,23 @@ class BC_Creator
 //    регистрируем скипты page
     public static function localize_page_scripts()
     {
+        $i18n = json_decode(file_get_contents(__DIR__ . "/languages/" . get_option('BusinessCardCreator_language') . '.json'));
         $config = json_decode(file_get_contents(__DIR__ . "/config.json"));
         include_once 'db.php';
 
-        wp_enqueue_script('bc_creator_main', plugin_dir_url( __FILE__ ).'/BusinessCardCreator/main.bundle.js');
+        wp_enqueue_script('bc_creator_main', plugin_dir_url(__FILE__) . '/BusinessCardCreator/main.bundle.js');
         wp_localize_script('bc_creator_main', 'bc_creator_config', array(
-            'path' => esc_url_raw(rest_url()).'business-card-creator',
+            'path' => esc_url_raw(rest_url()) . 'business-card-creator',
             'nonce' => wp_create_nonce('wp_rest'),
             'previews' => BC_Creator_DB::get_instance()->getPreviews(false, get_current_user_id()),
-            'defaultDesign'=> get_option('BusinessCardCreator_defaultDesign'),
+            'defaultDesign' => get_option('BusinessCardCreator_defaultDesign'),
             'settings' => $config->creatorSettings,
             'orderOptions' => BC_Creator_DB::get_instance()->getOrderOptions(),
             'price' => BC_Creator_DB::get_instance()->getPrice(),
             'hints' => $config->hints,
-	        'fontIcons' => $config->fontIcons
+            'fontIcons' => $config->fontIcons
         ));
+        wp_localize_script('bc_creator_main', 'bc_creator_i18n', (array)$i18n->creator);
     }
 
 }

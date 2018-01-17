@@ -121,6 +121,7 @@ export class DataAccess {
         });
     }
 
+    //TODO удалить в prodaction
     public test(cb) {
         if(!this.connection)this.connect();
 

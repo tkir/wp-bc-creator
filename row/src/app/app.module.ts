@@ -51,6 +51,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {GridComponent} from "./result/grid/grid.component";
 import {FrontBackComponent} from "./front-back/front-back.component";
 import {GridService} from "./services/grid.service";
+import {I18nService} from "./services/i18n.service";
 
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import {GridService} from "./services/grid.service";
     DragService,
     ItemService,
     GridService,
-    UndoRedoService
+    UndoRedoService,
+    I18nService
   ],
   bootstrap: [AppComponent]
 })

@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const classes_1 = require("./classes");
 const svg_creator_1 = require("./svg-creator");
 let pdf = require('html-pdf');
-let fs = require('fs');
 let config = require('config');
 class PdfCreator {
     static getHTML(obj, k) {

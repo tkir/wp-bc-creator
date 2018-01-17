@@ -17,6 +17,7 @@ export class OptionsService {
   public email: string;
   public defaultDesign: string;
   public allowedTemplates: [{ name: string, value: string, isActive: boolean }];
+  public allowedLanguages: [{name: string, abbreviation:string, isActive: boolean }];
   public previews: [{ id: number, Name: string, Slug: string, Description: string, Preview: string, isActive: boolean }];
   public price: number;
   private orderOptions: any;

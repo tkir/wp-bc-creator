@@ -1,5 +1,6 @@
 import {PdfCreator} from "./pdf-creator";
 import {DataAccess} from './dataAccess';
+import {getLanguage} from './i18n';
 
 let express = require('express');
 let cors = require('cors');
@@ -79,6 +80,13 @@ app.post('/bc-creator/designs/:hash', (req, res) => {
         res.send(`{"err": ${JSON.stringify(err)}, ${desResult}}`);
 
         DataAccess.Instance.closeConnection();
+    });
+});
+
+app.get('/bc-creator/language/:ln', (req, res) =>{
+    getLanguage(req.params.ln, (err, path)=>{
+        if(err)res.send('');
+        else res.sendFile(path);
     });
 });
 

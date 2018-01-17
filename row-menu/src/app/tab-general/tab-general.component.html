@@ -1,4 +1,4 @@
-<h3>General</h3>
+<h3>{{i18n.get('tab-general.general')}}</h3>
 
 <label><input type="text" name="page_url"
               required
@@ -17,9 +17,26 @@
             [selected]="template.isActive">
       {{template.name}}
     </option>
-  </select>Page template</label><br>
+  </select>Page template</label>
+<br>
+
+<label>
+  <select #ln>
+    <option *ngFor="let ln of options.allowedLanguages"
+            [value]="ln.abbreviation"
+            [selected]="ln.isActive">
+      {{ln.name}}
+    </option>
+  </select>Language</label>
+<br>
+
 <button type="button"
-        (click)="onGeneralUpdate(pageUrl.value, hash.value, email.value, template.options.selectedIndex)">
+        (click)="onGeneralUpdate(
+        pageUrl.value,
+        hash.value,
+        email.value,
+        template.options.selectedIndex,
+        ln.options.selectedIndex)">
   Update
 </button>
 

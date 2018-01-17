@@ -35,6 +35,7 @@ class BC_Creator_Initializer
         update_option('BusinessCardCreator_hash', null);
         update_option('BusinessCardCreator_template', $config->template);
         update_option('BusinessCardCreator_defaultDesign', $config->defaultDesign);
+        update_option('BusinessCardCreator_language', $config->defaultLanguage);
 //        TODO при создании страницы установить template
 
         include_once 'util.php';
@@ -126,5 +127,6 @@ class BC_Creator_Initializer
         delete_option('BusinessCardCreator_template');
         delete_option('BusinessCardCreator_defaultDesign');
         delete_option('BusinessCardCreator_email');
+        delete_option('BusinessCardCreator_language');
     }
 }

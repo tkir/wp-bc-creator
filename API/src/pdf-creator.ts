@@ -1,7 +1,6 @@
 import {Background, Line, Logo, TextField, IconField} from "./classes";
 import {SVG_Creator} from './svg-creator';
 let pdf = require('html-pdf');
-let fs = require('fs');
 let config = require('config');
 
 export class PdfCreator {

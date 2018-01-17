@@ -42,6 +42,12 @@ class BC_Creator_RouterMenuAPI {
 			'permission_callback' => array( $this, 'checkAdminPermission' )
 		) );
 
+        register_rest_route( 'business-card-creator/menu/general/language/', '/(?P<ln>\S+)/', array(
+            'methods'             => WP_REST_Server::READABLE,
+            'callback'            => array( $this, 'updateLanguage' ),
+            'permission_callback' => array( $this, 'checkAdminPermission' )
+        ) );
+
 		register_rest_route( 'business-card-creator/menu/', '/updateDesigns/', array(
 			'methods'             => WP_REST_Server::EDITABLE,
 			'callback'            => array( $this, 'updateDesigns' ),
@@ -99,6 +105,18 @@ class BC_Creator_RouterMenuAPI {
 
 		return get_option( 'BusinessCardCreator_template' );
 	}
+
+	public function updateLanguage($request){
+        include_once dirname(__DIR__) . '/api.php';
+        $res = BC_Creator_API::get('/language/' . $request['ln']);
+
+        if ($res != '') {
+            file_put_contents(dirname(__DIR__) . "/languages/" . $request['ln'] . ".json", $res);
+            update_option('BusinessCardCreator_language', $request['ln']);
+        }
+
+        return get_option('BusinessCardCreator_language');
+    }
 
 	public function updateDesigns() {
 		include_once dirname( __DIR__ ) . '/api.php';

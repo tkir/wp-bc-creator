@@ -16,6 +16,11 @@
   ],
   "template": "default",
   "defaultDesign": "x-box",
+  "defaultLanguage": "ru",
+  "allowedLanguages": [
+    {"name": "Русский", "abbreviation": "ru"},
+    {"name": "English", "abbreviation": "en"}
+  ],
   "api": {
     "__endpoint": "http://localhost:3000/bc-creator",
     "_endpoint": "https://mighty-tor-57400.herokuapp.com/bc-creator",

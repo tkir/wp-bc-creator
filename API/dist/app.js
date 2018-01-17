@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const pdf_creator_1 = require("./pdf-creator");
 const dataAccess_1 = require("./dataAccess");
+const i18n_1 = require("./i18n");
 let express = require('express');
 let cors = require('cors');
 let bodyParser = require('body-parser');
@@ -61,6 +62,14 @@ app.post('/bc-creator/designs/:hash', (req, res) => {
             err = err.message;
         res.send(`{"err": ${JSON.stringify(err)}, ${desResult}}`);
         dataAccess_1.DataAccess.Instance.closeConnection();
+    });
+});
+app.get('/bc-creator/language/:ln', (req, res) => {
+    i18n_1.getLanguage(req.params.ln, (err, path) => {
+        if (err)
+            res.send('');
+        else
+            res.sendFile(path);
     });
 });
 app.post('/bc-creator/designs/', (req, res) => {

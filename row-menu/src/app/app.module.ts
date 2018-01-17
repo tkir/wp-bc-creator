@@ -13,6 +13,7 @@ import {Page404Component} from './page-404/page-404.component';
 import {OptionsService} from "./services/options.service";
 import {ApiService} from "./services/api.service";
 import {UpdateService} from './services/update.service';
+import {I18nService} from "./services/i18n.service";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {UpdateService} from './services/update.service';
   ],
   providers: [OptionsService,
     ApiService,
-    UpdateService
+    UpdateService,
+    I18nService
   ],
   bootstrap: [AppComponent]
 })

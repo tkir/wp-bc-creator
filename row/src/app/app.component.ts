@@ -1,6 +1,6 @@
 import {AfterContentInit, Component, ElementRef} from '@angular/core';
 import {DataService} from "./services/data.service";
-import {OptionsService} from "./services/options.service";
+import {I18nService} from "./services/i18n.service";
 
 @Component({
   selector: 'business-card-editor',
@@ -20,7 +20,8 @@ export class AppComponent implements AfterContentInit {
   }
 
   constructor(private el: ElementRef,
-              public dataService: DataService) {
+              public dataService: DataService,
+              public i18n:I18nService) {
   }
 
   headChoice(event, choice: string) {

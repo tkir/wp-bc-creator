@@ -1,0 +1,9 @@
+{
+  "menu":{
+    "tab-general.general": "Общие"
+  },
+  "creator":{
+    "test":"тест",
+    "test_2": "Тест 2"
+  }
+}

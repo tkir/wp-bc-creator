@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {OptionsService} from '../services/options.service';
 import {UpdateService} from '../services/update.service';
+import {I18nService} from "../services/i18n.service";
 
 @Component({
   selector: 'menu-tab-general',
@@ -15,11 +16,18 @@ export class TabGeneralComponent implements OnInit {
   }
 
   constructor(public options: OptionsService,
+              public i18n: I18nService,
               private updateService: UpdateService) {
   }
 
-  public onGeneralUpdate(pageUrl, hash, email, templIndex) {
-    this.updateService.generalUpdate(pageUrl, hash, email, this.options.allowedTemplates[+templIndex].value);
+  public onGeneralUpdate(pageUrl, hash, email, templIndex, lnIndex) {
+    this.updateService.generalUpdate(
+      pageUrl,
+      hash,
+      email,
+      this.options.allowedTemplates[+templIndex].value,
+      this.options.allowedLanguages[+lnIndex].abbreviation
+    );
   }
 
 }

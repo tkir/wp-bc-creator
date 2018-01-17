@@ -9,7 +9,7 @@ export class UpdateService {
   constructor(private api: ApiService,
               private options:OptionsService) { }
 
-  public generalUpdate(page_url, hash, email, templValue) {
+  public generalUpdate(page_url, hash, email, templValue, lnAbbreviation) {
     const path='/general';
 
     if (this.options.page_url != page_url.trim()) {
@@ -32,6 +32,13 @@ export class UpdateService {
         .subscribe(templ =>
           this.options.allowedTemplates.forEach(t =>
             t.value == templ ? t.isActive = true : t.isActive = false));
+    }
+
+    if (this.options.allowedLanguages.find(l => l.isActive).abbreviation != lnAbbreviation) {
+      this.api.get(`${path}/language/${lnAbbreviation}`)
+        .subscribe(ln =>
+          this.options.allowedLanguages.forEach(l =>
+            l.abbreviation == ln ? l.isActive = true : l.isActive = false));
     }
   }
 
