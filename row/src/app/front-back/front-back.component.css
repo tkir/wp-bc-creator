@@ -73,5 +73,9 @@ input:checked + .slider:before {
 }
 */
 
+.bront-back-btn {
+  display: flex;
+}
+
 
 

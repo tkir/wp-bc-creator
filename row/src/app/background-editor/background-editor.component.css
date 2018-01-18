@@ -13,3 +13,15 @@
 #background-image-input{
   display: none;
 }
+
+.step3btn-group-size {
+  display: flex;
+}
+
+.step3btn-group-color {
+  display: flex;
+}
+
+.step3btn-group-pic {
+  display: flex;
+}

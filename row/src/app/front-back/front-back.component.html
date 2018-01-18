@@ -1,5 +1,5 @@
 <!--Переключатель Лицо-Оборот-->
-  <nav>
+  <nav class="bront-back-btn">
     <button type="button" (click)="changeTab($event, 'front')" class="frontside">Лицо</button>
 
     <button type="button" (click)="changeTab($event, 'back')" [disabled]="!options.isDoubleSide" class="frontside">Оборот</button>

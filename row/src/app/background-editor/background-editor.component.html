@@ -1,7 +1,7 @@
 <div class="btn-group" role="group" aria-label="...">
-  <div class="btn-group">
-    <button type="button" class="btn btn-default btn-sm">Size {{background.width_mm}}x{{background.height_mm}}</button>
-    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+  <div class="btn-group step3btn-group-size">
+    <button type="button" class="">Размер {{background.width_mm}}x{{background.height_mm}}</button>
+    <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
       <span class="caret"></span>
     </button>
@@ -9,10 +9,10 @@
       <li *ngFor="let size of allowedSizes; let i=index"><a (click)="updateCardSize(i)">{{size.width}}x{{size.height}}</a></li>
     </ul>
 
-    <div class="btn-group">
-      <button class="btn btn-default btn-sm">
+    <div class="btn-group step3btn-group-color">
+      <button class="">
         <div class="background-color-preview" [ngStyle]="{'background-color': background.backgroundColor}"></div></button>
-      <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
@@ -20,12 +20,12 @@
       </ul>
     </div>
 
-    <div class="btn-group">
+    <div class="btn-group step3btn-group-pic">
       <div class="background-image-upload">
-        <label for="background-image-input" class="btn btn-sm btn-default">Выбрать изображение</label>
+        <label for="background-image-input" class="">Выбрать изображение</label>
         <input type="file" id="background-image-input" (change)="uploadImage($event)">
       </div>
-      <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
