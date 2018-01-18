@@ -52,6 +52,7 @@ import {GridComponent} from "./result/grid/grid.component";
 import {FrontBackComponent} from "./front-back/front-back.component";
 import {GridService} from "./services/grid.service";
 import {I18nService} from "./services/i18n.service";
+import {ErrorService} from "./services/error.service";
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import {I18nService} from "./services/i18n.service";
     ItemService,
     GridService,
     UndoRedoService,
-    I18nService
+    I18nService,
+    ErrorService
   ],
   bootstrap: [AppComponent]
 })

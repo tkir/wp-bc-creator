@@ -5,6 +5,7 @@ import {NavigationStart, Router} from "@angular/router";
 import {DesignService} from "./design.service";
 import {CardService} from "./card.service";
 import {OptionsService} from "./options.service";
+import {ErrorService} from "./error.service";
 
 @Injectable()
 export class DataService {
@@ -13,7 +14,8 @@ export class DataService {
               private cardService: CardService,
               private store: Store,
               private router: Router,
-              private designService: DesignService) {
+              private designService: DesignService,
+              private errorService: ErrorService) {
 
     router.events.subscribe((val: any) => {
       if (NavigationStart.prototype.isPrototypeOf(val)) {
@@ -30,8 +32,20 @@ export class DataService {
         if (this.options.Designs.indexOf(this.slug) !== -1) {
           this.designService.getDesign(this.slug)
             .subscribe(d => {
-              this.setCardData(d);
-              this.updateCard((this.side == 'front') ? this.cardService.userFront : this.cardService.userBack);
+              if (this.errorService.error) {
+                this.errorService.error.message = this.options.errorMessage.loadDesign;
+                return;
+              }
+
+              try {
+                this.setCardData(d);
+                this.updateCard((this.side == 'front') ? this.cardService.userFront : this.cardService.userBack);
+              }
+              catch (err) {
+                err.message = this.options.errorMessage.loadDesign;
+                this.errorService.error = err;
+                return;
+              }
             });
         }
         //если роут неизвестен - грузим pageNotFound
@@ -46,8 +60,8 @@ export class DataService {
 
     let arr: string[] =
       ~val.search(/&des=%2F.*/i) ?
-      val.split('%2F') :
-      val.match(/\/?(.*)\/(.*)/i);
+        val.split('%2F') :
+        val.match(/\/?(.*)\/(.*)/i);
 
     let slug = arr[1] ? arr[1] : this.options.defaultDesign;
     let side = arr[2] && ~arr[2].search(/^(front|back)$/i) ? arr[2] : 'front';

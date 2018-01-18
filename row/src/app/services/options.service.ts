@@ -31,7 +31,8 @@ export class OptionsService {
   public previews: Preview[];
   public price: number;
   private hints: string[];
-  public fontIcons: {name:string, unicode:string}[];
+  public fontIcons: { name: string, unicode: string }[];
+  public errorMessage: any;
 
   private _cardWidth:number;
   public set cardWidth(val:number){
