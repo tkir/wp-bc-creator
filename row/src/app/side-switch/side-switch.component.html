@@ -1,11 +1,16 @@
 <!--Переключатель Одна сторона-Две стороны-->
-<nav>
+<nav class="sideswitcer">
   <!-- Rounded switch -->
   <div class="toggle">
     <label class="switch">
       <input type="checkbox" [checked]="options.isDoubleSide" (change)="setSideNum()">
       <span class="slider"></span>
     </label>
-    <span>{{options.isDoubleSide? 'Double side' : 'Single side'}}</span>
+    <span class="nameside">{{options.isDoubleSide? 'Double side' : 'Single side'}}</span>
   </div>
 </nav>
+
+
+
+
+

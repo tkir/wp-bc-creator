@@ -80,18 +80,7 @@ input:checked + .slider:before {
   height: 30px;
   margin-bottom: 30px;
 }
-.btnlitso {
-  width: 20%;
-}
-.bc-sizes1 {
-  width: 20%;
-}
-.btnoborot {
-  width: 20%;
-}
-.bc-colors1 	{
-  width: 20%;
-}
+
 button.picchoice1 {
   padding: 5px 5px;
   font-size: 15px;
@@ -101,13 +90,15 @@ button.picchoice1 {
 .picchoice {
   width: 20%;
 }
-.step4 {
-  display: flex;
-  justify-content: space-around;
 
-}
-.step5 {
-  display: flex;
-  justify-content: space-around;
 
+span.nameside {
+  display: none;
 }
+
+/*naw-style*/
+.sideswitcer {
+  border: none;
+  background-color: transparent;
+}
+
