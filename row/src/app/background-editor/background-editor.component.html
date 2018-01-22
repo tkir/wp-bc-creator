@@ -1,11 +1,10 @@
 <div class="btn-group" role="group" aria-label="...">
   <div class="btn-group step3btn-group-size">
     <button type="button" class="">Размер {{background.width_mm}}x{{background.height_mm}}</button>
-    <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+    <button type="button" class="dropdown-toggle dropdown-attr" (click)="isSizesShow=!isSizesShow" >
       <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu menu-attr" [ngClass]="{'show': isSizesShow}">
       <li *ngFor="let size of allowedSizes; let i=index"><a (click)="updateCardSize(i)">{{size.width}}x{{size.height}}</a></li>
     </ul>
 

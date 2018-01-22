@@ -18,6 +18,8 @@ export class BackgroundEditorComponent implements OnInit, OnDestroy {
   cardData: any = null;
   allowedSizes: { width: number, height: number }[] = [];
 
+  isSizesShow: boolean = false;
+
   constructor(private options: OptionsService,
               private store: Store,
               private imageService: ImageService) {
@@ -52,8 +54,8 @@ export class BackgroundEditorComponent implements OnInit, OnDestroy {
 
   uploadImage(event) {
     if (event.target.files.length)
-    this.imageService.uploadImage(event.target.files[0], false)
-      .then(res => this.background.src = res.resized.dataURL)
+      this.imageService.uploadImage(event.target.files[0], false)
+        .then(res => this.background.src = res.resized.dataURL)
   }
 
   removeBeckgroundImage() {

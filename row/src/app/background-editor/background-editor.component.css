@@ -25,3 +25,10 @@
 .step3btn-group-pic {
   display: flex;
 }
+
+.menu-attr{
+  display: none;
+}
+.show{
+  display: block;
+}
