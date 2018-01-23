@@ -106,7 +106,7 @@ export class OptionsService {
       right: 0
     };
 
-    paddings.left = paddings.right = (this.maxAllowedWidth - this.cardWidth) / 2;
+    paddings.left = paddings.right = ((this.maxAllowedWidth * this.settings.ratio) - this.cardWidth) / 2;
     if (paddings.left < 1) paddings.left = paddings.right = 0;
     paddings.top = paddings.bottom = (paddings.left < 20) ? paddings.left : 20;
 
