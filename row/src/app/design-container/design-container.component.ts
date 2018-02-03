@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 import {DesignService} from "../services/design.service";
 import {Preview} from "../services/design-store";
@@ -10,6 +10,7 @@ import {Preview} from "../services/design-store";
 })
 export class DesignContainerComponent implements OnInit, OnDestroy {
 
+  @Output() designSelected: EventEmitter<string> = new EventEmitter<string>();
   private subscription: Subscription = null;
 
   public previews: Preview[];
@@ -27,5 +28,9 @@ export class DesignContainerComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
       this.subscription = null;
     }
+  }
+
+  onDesignSelected(des: string) {
+    this.designSelected.emit(des);
   }
 }

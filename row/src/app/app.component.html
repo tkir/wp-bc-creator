@@ -6,8 +6,8 @@
     <div class="head-choice">
       <div class="step1">
 
-        <div type="button" (click)="headChoice($event, 'editor')" class="text-center head-choice-btn"><button class="headerbtnchoice">Конструктор визиток</button></div>
-        <div type="button" (click)="headChoice($event, 'design')" class="text-center head-choice-btn"><button class="headerbtnchoice">Каталог дизайнов</button></div>
+        <div type="button" (click)="headChoice('editor')" class="text-center head-choice-btn"><button data-tab="editor" class="headerbtnchoice">Конструктор визиток</button></div>
+        <div type="button" (click)="headChoice('design')" class="text-center head-choice-btn"><button data-tab="design" class="headerbtnchoice">Каталог дизайнов</button></div>
 
       </div>
     </div>
@@ -26,7 +26,7 @@
 <!--То что отвечает за каталог дизайнов-->
 
   <div class="tab-content" data-tab="design">
-    <card-design-container></card-design-container>
+    <card-design-container (designSelected)="headChoice('editor')"></card-design-container>
   </div>
 
 <!--Нижнее меню сохранить макет-->

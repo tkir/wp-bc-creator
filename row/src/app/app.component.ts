@@ -8,8 +8,8 @@ import {I18nService} from "./services/i18n.service";
   styleUrls: ['./app.component.css', './css/tabs.css']
 })
 export class AppComponent implements AfterContentInit {
-  private buttons: Element[];
-  private tabContents: any[];
+  private buttons: HTMLElement[];
+  private tabContents: HTMLElement[];
 
   ngAfterContentInit(): void {
     this.tabContents = this.el.nativeElement.querySelectorAll('.tab-content');
@@ -24,8 +24,8 @@ export class AppComponent implements AfterContentInit {
               public i18n:I18nService) {
   }
 
-  headChoice(event, choice: string) {
-    this.buttons.forEach(el => (el == event.target) ? el.classList.add('active') : el.classList.remove('active'));
+  headChoice(choice: string) {
+    this.buttons.forEach(el => (el.dataset.tab == choice) ? el.classList.add('active') : el.classList.remove('active'));
     this.tabContents.forEach(el => (el.dataset.tab == choice) ? el.classList.add('active') : el.classList.remove('active'));
   }
 }

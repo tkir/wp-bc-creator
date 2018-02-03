@@ -45,12 +45,10 @@ export class DataService {
   private setSlug(val: string) {
 
     let arr: string[] =
-      ~val.search(/&des=%2F.*/i) ?
-      val.split('%2F') :
-      val.match(/\/?(.*)\/(.*)/i);
+      ~val.search(/&des=%2F.*/i) ? val.split('%2F') : val.split('/');
 
-    let slug = arr[1] ? arr[1] : this.options.defaultDesign;
-    let side = arr[2] && ~arr[2].search(/^(front|back)$/i) ? arr[2] : 'front';
+    let slug = (arr && arr[1]) ? arr[1] : this.options.defaultDesign;
+    let side = (arr && arr[2] && ~arr[2].search(/^(front|back)$/i)) ? arr[2] : 'front';
 
     if (this.slug != slug || this.side != side) {
       this.slug = slug;
