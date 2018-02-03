@@ -23,8 +23,8 @@ import {DataService} from "../services/data.service";
   animations:[
     trigger('sideTrigger', [
       state('front', style({transform: 'rotateX(0deg)'})),
-      state('back', style({transform: 'rotateX(180deg)'})),
-      transition('front <=> back', animate('0.6s'))
+      state('back', style({transform: 'rotateX(360deg)'})),
+      transition('front <=> back', animate('0.5s'))
     ])
   ]
 })
