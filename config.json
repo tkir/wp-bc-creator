@@ -202,5 +202,8 @@
     {"name": "fa-address-book", "unicode": "\uf2b9"},
     {"name": "fa-address-book", "unicode": "\uf2b9"},
     {"name": "fa-address-book", "unicode": "\uf2b9"}
-  ]
+  ],
+  "errorMessage":{
+    "loadDesign": "Error during loading design from host, please try again in a 5 minute"
+  }
 }

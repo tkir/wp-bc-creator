@@ -44,7 +44,8 @@ class BC_Creator
             'orderOptions' => BC_Creator_DB::get_instance()->getOrderOptions(),
             'price' => BC_Creator_DB::get_instance()->getPrice(),
             'hints' => $config->hints,
-            'fontIcons' => $config->fontIcons
+            'fontIcons' => $config->fontIcons,
+            'errorMessage' => $config->errorMessage
         ));
         wp_localize_script('bc_creator_main', 'bc_creator_i18n', (array)$i18n->creator);
     }
