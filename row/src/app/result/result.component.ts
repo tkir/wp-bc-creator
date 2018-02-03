@@ -1,4 +1,11 @@
 import {Component, OnDestroy, OnInit, ViewChildren} from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 import {Subscription} from "rxjs/Subscription";
 
 import {Store} from "../services/store";
@@ -7,11 +14,19 @@ import {AddResizeDirective} from "./directives/add-resize.directive";
 import {DragObject} from "../services/drag-and-drop/drag.service";
 import {ItemService} from "../services/item.service";
 import {OptionsService} from "../services/options.service";
+import {DataService} from "../services/data.service";
 
 @Component({
   selector: 'card-result',
   templateUrl: './result.component.html',
-  styleUrls: ['./result.component.css']
+  styleUrls: ['./result.component.css'],
+  animations:[
+    trigger('sideTrigger', [
+      state('front', style({transform: 'rotateX(0deg)'})),
+      state('back', style({transform: 'rotateX(180deg)'})),
+      transition('front <=> back', animate('0.6s'))
+    ])
+  ]
 })
 export class ResultComponent implements OnInit, OnDestroy {
 
@@ -21,6 +36,7 @@ export class ResultComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store,
               private itemService: ItemService,
+              public dataService:DataService,
               public options: OptionsService) {
   }
 

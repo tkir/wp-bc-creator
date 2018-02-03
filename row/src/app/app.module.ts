@@ -1,6 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from "@angular/common/http";
 
 import {AppComponent} from './app.component';
 import {EditorComponent} from './editor-container/editor/editor.component';
@@ -38,16 +40,15 @@ import {HintSliderComponent} from './hint-slider/hint-slider.component';
 import {GraphicsContainerComponent} from './graphics-container/graphics-container.component';
 import {LogoEditorComponent} from './graphics-container/logo-editor/logo-editor.component';
 import {IconEditorComponent} from './graphics-container/icon-editor/icon-editor.component';
-import { ControlContainerComponent } from './control-container/control-container.component';
-import { ControlButtonsComponent } from './control-container/control-buttons/control-buttons.component';
+import {ControlContainerComponent} from './control-container/control-container.component';
+import {ControlButtonsComponent} from './control-container/control-buttons/control-buttons.component';
 import {DragService} from "./services/drag-and-drop/drag.service";
 import {DraggableDirective} from "./services/drag-and-drop/draggable.directive";
 import {DropTargetDirective} from "./services/drag-and-drop/drop-target.directive";
 import {StylingService} from "./services/styling.service";
 import {ItemService} from "./services/item.service";
 import {UndoRedoService} from "./services/undo-redo.service";
-import { UndoComponent } from './editor-container/undo/undo.component';
-import {HttpClientModule} from "@angular/common/http";
+import {UndoComponent} from './editor-container/undo/undo.component';
 import {GridComponent} from "./result/grid/grid.component";
 import {FrontBackComponent} from "./front-back/front-back.component";
 import {GridService} from "./services/grid.service";
@@ -90,6 +91,7 @@ import {I18nService} from "./services/i18n.service";
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule

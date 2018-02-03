@@ -5,6 +5,7 @@
        fieldMovable [dataArr]="dataArr"
        [card]="me"
        DropTarget (dropEvent)="onDrop($event)"
+       [@sideTrigger]="dataService.side"
   >
 
     <card-grid></card-grid>
