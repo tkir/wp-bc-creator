@@ -56,3 +56,5 @@ fabric.properties
 *.iml
 */dist/*
 .idea/
+
+*/bc-creator-page

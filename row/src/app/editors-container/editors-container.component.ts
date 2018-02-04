@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 import {GraphicService} from "../services/graphic.service";
 
 @Component({
-  selector: 'card-graphics-container',
-  templateUrl: './graphics-container.component.html',
-  styleUrls: ['./graphics-container.component.css', '../css/tabs.css']
+  selector: 'card-editors-container',
+  templateUrl: './editors-container.component.html',
+  styleUrls: ['./editors-container.component.css', '../css/tabs.css']
 })
-export class GraphicsContainerComponent {
+export class EditorsContainerComponent {
 
   constructor(public graphicService: GraphicService) {
   }
