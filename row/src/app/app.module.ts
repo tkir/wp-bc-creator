@@ -5,8 +5,6 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from "@angular/common/http";
 
 import {AppComponent} from './app.component';
-import {EditorComponent} from './editor-container/editor/editor.component';
-import {EditorContainerComponent} from './editor-container/editor-container.component';
 import {DataService} from "./services/data.service";
 import {ResultComponent} from './result/result.component';
 import {MovableDirective} from './result/directives/movable.directive';
@@ -34,7 +32,6 @@ import {OrderFormComponent} from "./order-form/order-form.component";
 import {OptionsService} from "./services/options.service";
 import {OrderOptionComponent} from './order-form/order-option/order-option.component';
 import {OrderService} from "./services/order.service";
-import {TextStyleComponent} from './editor-container/text-style/text-style.component';
 import {SideSwitchComponent} from './side-switch/side-switch.component';
 import {HintSliderComponent} from './hint-slider/hint-slider.component';
 import {GraphicsContainerComponent} from './graphics-container/graphics-container.component';
@@ -48,18 +45,24 @@ import {DropTargetDirective} from "./services/drag-and-drop/drop-target.directiv
 import {StylingService} from "./services/styling.service";
 import {ItemService} from "./services/item.service";
 import {UndoRedoService} from "./services/undo-redo.service";
-import {UndoComponent} from './editor-container/undo/undo.component';
+import {UndoComponent} from './undo/undo.component';
 import {GridComponent} from "./result/grid/grid.component";
 import {FrontBackComponent} from "./front-back/front-back.component";
 import {GridService} from "./services/grid.service";
 import {I18nService} from "./services/i18n.service";
 import {ErrorService} from "./services/error.service";
+import {StylingContainerComponent} from './styling-container/styling-container.component';
+import {GeneralStylingComponent} from './styling-container/general-styling/general-styling.component';
+import {FontStylingComponent} from './styling-container/font-styling/font-styling.component';
+import {IconStylingComponent} from './styling-container/icon-styling/icon-styling.component';
+import { HrStylingComponent } from './styling-container/hr-styling/hr-styling.component';
+import {GraphicService} from "./services/graphic.service";
+import {TextEditorComponent} from "./graphics-container/text-editor/text-editor.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    EditorComponent,
-    EditorContainerComponent,
+    TextEditorComponent,
     ResultComponent,
     MovableDirective,
     DroppableDirective,
@@ -79,7 +82,6 @@ import {ErrorService} from "./services/error.service";
     PreviewModalComponent,
     OrderFormComponent,
     OrderOptionComponent,
-    TextStyleComponent,
     SideSwitchComponent,
     HintSliderComponent,
     GraphicsContainerComponent,
@@ -87,7 +89,12 @@ import {ErrorService} from "./services/error.service";
     ControlButtonsComponent,
     UndoComponent,
     GridComponent,
-    FrontBackComponent
+    FrontBackComponent,
+    StylingContainerComponent,
+    GeneralStylingComponent,
+    FontStylingComponent,
+    IconStylingComponent,
+    HrStylingComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
@@ -115,7 +122,8 @@ import {ErrorService} from "./services/error.service";
     GridService,
     UndoRedoService,
     I18nService,
-    ErrorService
+    ErrorService,
+    GraphicService
   ],
   bootstrap: [AppComponent]
 })

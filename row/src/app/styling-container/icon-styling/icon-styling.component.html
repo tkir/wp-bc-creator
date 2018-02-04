@@ -1,0 +1,30 @@
+<!--text color-->
+<span class="dropdown">
+  <button [disabled]="!items.length"
+          [ngStyle]="{'color': items.length? items[0].color : '#a8a8a8'}"><i class="glyphicon glyphicon-text-color"></i>
+  </button>
+  <label>
+    <input type="checkbox" [disabled]="!items.length">
+    <ul>
+      <card-color-picker (colorSelected)="setColor($event)"></card-color-picker>
+    </ul>
+  </label>
+</span>
+
+<!--font-size-->
+<div class="btn-group" role="group" aria-label="...">
+  <button
+    type="button" class="btn btn-default"
+    [ngClass]="{'disabled':!items.length}"
+    (click)="setFontSize('increase')"
+  ><i class="glyphicon glyphicon-text-size"></i></button>
+  <button
+    type="button" class="btn btn-default text-decrease"
+    [ngClass]="{'disabled':!items.length}"
+    (click)="setFontSize('decrease')"
+  ><i class="glyphicon glyphicon-text-size"></i></button>
+</div>
+
+
+
+

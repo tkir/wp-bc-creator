@@ -1,0 +1,57 @@
+<div *ngFor="let hr of model.lines">
+
+  <div class="btn-group">
+    <span>Design</span><br>
+    <div>
+      <hr class="hr-editor-preview" [ngStyle]="{'border-top-style': hr.design}">
+    </div>
+    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li *ngFor="let design of options.settings.allowedHrDesigns">
+        <a (click)="updateHr(hr, 'design' ,design)">
+          <hr [style.border-top]="design">
+        </a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <span>Thickness</span><br>
+    <div>
+      <hr class="hr-editor-preview" [ngStyle]="{
+           'border-top-style': hr.design,
+           'border-top-width.px': hr.thickness}">
+    </div>
+    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li *ngFor="let thickness of [1,2, 3, 4, 5]">
+        <a (click)="updateHr(hr, 'thickness', thickness)">
+          <hr [style.border-width.px]="thickness">
+        </a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <span>Color</span><br>
+    <div>
+      <hr class="hr-editor-preview" [ngStyle]="{
+    'border-top-style': hr.design,
+    'border-top-color': hr.color}">
+    </div>
+    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <card-color-picker (colorSelected)="updateHr(hr, 'color', $event)"></card-color-picker>
+    </ul>
+  </div>
+
+  <button class="btn btn-default btn-sm" (click)="changeOrientation(hr)"><i class="glyphicon glyphicon-repeat"></i>
+  </button>
+</div>

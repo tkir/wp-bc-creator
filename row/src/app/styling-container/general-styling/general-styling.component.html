@@ -1,0 +1,27 @@
+<!--general styling for all tabs-->
+<div>
+  <!--undo-->
+  <card-undo></card-undo>
+
+  <!--Delete item-->
+  <button class="btn btn-default" [disabled]="!items.length" (click)="removeItems()"><span class="fa fa-trash-o"></span></button>
+
+  <!--alignation-->
+  <div class="btn-group" role="group" aria-label="...">
+    <button
+      type="button" class="btn btn-default"
+      [ngClass]="{'disabled':!alService.isMultiselection}"
+      (click)="setAlignment('left')"
+    ><i class="glyphicon glyphicon-align-left"></i></button>
+    <button
+      type="button" class="btn btn-default"
+      [ngClass]="{'disabled':!alService.isMultiselection}"
+      (click)="setAlignment('middle')"
+    ><i class="glyphicon glyphicon-align-center"></i></button>
+    <button
+      type="button" class="btn btn-default"
+      [ngClass]="{'disabled':!alService.isMultiselection}"
+      (click)="setAlignment('right')"
+    ><i class="glyphicon glyphicon-align-right"></i></button>
+  </div>
+</div>

@@ -1,28 +1,18 @@
-import {AfterContentInit, Component, ElementRef} from '@angular/core';
+import {Component} from '@angular/core';
+import {GraphicService} from "../services/graphic.service";
 
 @Component({
   selector: 'card-graphics-container',
   templateUrl: './graphics-container.component.html',
   styleUrls: ['./graphics-container.component.css', '../css/tabs.css']
 })
-export class GraphicsContainerComponent implements AfterContentInit {
-  private buttons: Element[];
-  private tabContents: any[];
+export class GraphicsContainerComponent {
 
-  ngAfterContentInit(): void {
-    this.tabContents = this.el.nativeElement.querySelectorAll('.tab-content');
-    this.tabContents[0].classList.add('active');
-
-    this.buttons = this.el.nativeElement.querySelectorAll('button');
-    this.buttons[0].classList.add('active');
+  constructor(public graphicService: GraphicService) {
   }
 
-  constructor(private el: ElementRef) {
-  }
-
-  changeTab(event, tab) {
-    this.buttons.forEach(el => (el == event.target) ? el.classList.add('active') : el.classList.remove('active'));
-    this.tabContents.forEach(el => (el.dataset.tab == tab) ? el.classList.add('active') : el.classList.remove('active'));
+  changeTab(tab) {
+    this.graphicService.activeTab = tab;
   }
 
 }

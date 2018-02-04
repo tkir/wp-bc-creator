@@ -11,11 +11,11 @@ import {TextField} from "../../data/TextField";
 
 
 @Component({
-  selector: 'card-editor',
-  templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css']
+  selector: 'card-text-editor',
+  templateUrl: './text-editor.component.html',
+  styleUrls: ['./text-editor.component.css']
 })
-export class EditorComponent implements OnInit, OnDestroy {
+export class TextEditorComponent implements OnInit, OnDestroy {
 
   model: CardData = null;
   selectedInput: any = null;

@@ -1,17 +1,32 @@
 <nav>
-  <button type="button" (click)="changeTab($event, 'logos')">Logos</button>
-  <button type="button" (click)="changeTab($event, 'lines')">Lines</button>
-  <button type="button" (click)="changeTab($event, 'icons')">Icons</button>
+  <button type="button"
+          (click)="changeTab('Text')"
+          [ngClass]="{'active':graphicService.activeTab=='Text'}">Text Fields</button>
+  <button type="button"
+          (click)="changeTab('Logo')"
+          [ngClass]="{'active':graphicService.activeTab=='Logo'}">Logos</button>
+  <button type="button"
+          (click)="changeTab('Hr')"
+          [ngClass]="{'active':graphicService.activeTab=='Hr'}">Lines</button>
+  <button type="button"
+          (click)="changeTab('Icon')"
+          [ngClass]="{'active':graphicService.activeTab=='Icon'}">Icons</button>
 </nav>
 
-<div class="tab-content active" data-tab="logos">
+<card-styling-container></card-styling-container>
+
+<div class="tab-content" [ngClass]="{'active':graphicService.activeTab=='Text'}">
+  <card-text-editor></card-text-editor>
+</div>
+
+<div class="tab-content" [ngClass]="{'active':graphicService.activeTab=='Logo'}">
   <card-logo-editor></card-logo-editor>
 </div>
 
-<div class="tab-content" data-tab="lines">
+<div class="tab-content" [ngClass]="{'active':graphicService.activeTab=='Hr'}">
   <card-hr-editor></card-hr-editor>
 </div>
 
-<div class="tab-content" data-tab="icons">
+<div class="tab-content" [ngClass]="{'active':graphicService.activeTab=='Icon'}">
   <card-icon-editor></card-icon-editor>
 </div>

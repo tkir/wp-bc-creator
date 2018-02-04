@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {UndoRedoService} from "../../services/undo-redo.service";
+import {UndoRedoService} from "../services/undo-redo.service";
 
 @Component({
   selector: 'card-undo',
