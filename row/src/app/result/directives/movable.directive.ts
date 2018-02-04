@@ -124,7 +124,7 @@ export class MovableDirective implements OnInit {
 
     item.isSelected = true;
 
-    if (item.instanceOf == 'Text' || item.instanceOf == 'Icon') this.stylingService.add(item);
+    this.stylingService.add(item);
     this.tabService.activeEditorTab = item.instanceOf;
   }
 
