@@ -1,26 +1,15 @@
-:host{
-  display: block;
-}
-/*
-div{
-  float:left;
-}
-*/
-
-/*Общее поле*/
-.col {
+:host {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
   border: 1px solid red;
-}
-/*Колонка1*/
-.col1 {
-  width: 70%;
   padding-right: 7px;
 }
-.col2 {
-  height: auto;
-  width: 30%;
-  padding-left: 7px;
+
+:host::before, :host::after {
+  content: '';
+  width: 100%;
+  order: 1;
 }
 
 .step3 {
@@ -28,4 +17,14 @@ div{
   justify-content: space-around;
   height: 30px;
   margin-bottom: 30px;
+}
+
+.step4 {
+  width: 100%;
+  order: 1;
+}
+
+.step5 {
+  width: 100%;
+  order: 2;
 }

@@ -1,26 +1,19 @@
-<!--Основной блок-->
-<div class="col">
-<!--Первая колонка с визиткой и инструментами-->
-  <div class="col1">
 <!--Переключатель одна-две стороны-->
-    <div class="step2">
-      <card-side-switch></card-side-switch>
-    </div>
+<div class="step2">
+  <card-side-switch></card-side-switch>
+</div>
 <!--Переключатель сторон визитки-->
 <!--Инструменты размер визитки, фон, цвет-->
-    <div class="step3">
-      <card-front-back></card-front-back>
-      <card-background-editor></card-background-editor>
-      <button (click)="grid()" class="btn btn-default">#</button>
-    </div>
-<!--Блок визитки-->
-    <div class="step4" data-result-size>
-        <card-result></card-result>
-    </div>
-<!--Инструменты линия, графика, лого-->
-    <div class="step5">
-        <card-editors-container></card-editors-container>
-    </div>
-  </div>
+<div class="step3">
+  <card-front-back></card-front-back>
+  <card-background-editor></card-background-editor>
+  <button (click)="grid()" class="btn btn-default">#</button>
 </div>
-
+<!--Блок визитки-->
+<div class="step4" data-result-size>
+  <card-result></card-result>
+</div>
+<!--Инструменты линия, графика, лого-->
+<div class="step5">
+  <card-editors-container></card-editors-container>
+</div>

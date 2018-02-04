@@ -56,7 +56,7 @@ import {GeneralStylingComponent} from './styling-container/general-styling/gener
 import {FontStylingComponent} from './styling-container/font-styling/font-styling.component';
 import {IconStylingComponent} from './styling-container/icon-styling/icon-styling.component';
 import { HrStylingComponent } from './styling-container/hr-styling/hr-styling.component';
-import {GraphicService} from "./services/graphic.service";
+import {TabService} from "./services/tab.service";
 import {TextEditorComponent} from "./editors-container/text-editor/text-editor.component";
 
 @NgModule({
@@ -123,7 +123,7 @@ import {TextEditorComponent} from "./editors-container/text-editor/text-editor.c
     UndoRedoService,
     I18nService,
     ErrorService,
-    GraphicService
+    TabService
   ],
   bootstrap: [AppComponent]
 })

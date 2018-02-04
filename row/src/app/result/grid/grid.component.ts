@@ -1,10 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 
-import {CardData} from "../../data/CardData";
 import {Store} from "../../services/store";
 import {OptionsService} from "../../services/options.service";
-import {GridService} from "../../services/grid.service";
 
 @Component({
   selector: 'card-grid',
@@ -44,8 +42,7 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   constructor(private store: Store,
-              private options: OptionsService,
-              public gridService: GridService) {
+              private options: OptionsService) {
   }
 
 }

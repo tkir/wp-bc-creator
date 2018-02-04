@@ -17,10 +17,6 @@
   display: table-row-group;
 }
 
-.disabled{
-  display: none;
-}
-
 .indent{
   position: absolute;
   top: 0;

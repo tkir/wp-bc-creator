@@ -1,6 +1,6 @@
 <card-general-styling></card-general-styling>
 
-<card-font-styling *ngIf="graphicService.activeTab=='Text'"></card-font-styling>
-<card-icon-styling *ngIf="graphicService.activeTab=='Text' || graphicService.activeTab=='Icon'"></card-icon-styling>
+<card-font-styling *ngIf="tabService.activeEditorTab=='Text'"></card-font-styling>
+<card-icon-styling *ngIf="tabService.activeEditorTab=='Text' || tabService.activeEditorTab=='Icon'"></card-icon-styling>
 
-<card-hr-styling *ngIf="graphicService.activeTab=='Hr'"></card-hr-styling>
+<card-hr-styling *ngIf="tabService.activeEditorTab=='Line'"></card-hr-styling>

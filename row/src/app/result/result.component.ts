@@ -15,12 +15,13 @@ import {DragObject} from "../services/drag-and-drop/drag.service";
 import {ItemService} from "../services/item.service";
 import {OptionsService} from "../services/options.service";
 import {DataService} from "../services/data.service";
+import {GridService} from "../services/grid.service";
 
 @Component({
   selector: 'card-result',
   templateUrl: './result.component.html',
   styleUrls: ['./result.component.css'],
-  animations:[
+  animations: [
     trigger('sideTrigger', [
       state('front', style({transform: 'rotateX(0deg)'})),
       state('back', style({transform: 'rotateX(360deg)'})),
@@ -36,8 +37,9 @@ export class ResultComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store,
               private itemService: ItemService,
-              public dataService:DataService,
-              public options: OptionsService) {
+              public dataService: DataService,
+              public options: OptionsService,
+              public gridService: GridService) {
   }
 
   cardData: CardData = null;

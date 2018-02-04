@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 
 @Injectable()
-export class GraphicService {
+export class TabService {
 
   constructor() {
   }
 
-  public activeTab: string = 'Text';
+  public activeEditorTab: string = 'Text';
 
 }

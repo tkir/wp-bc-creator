@@ -12,6 +12,7 @@ import {AlignService} from "../../services/align.service";
 import {TextField} from "../../data/TextField";
 import {StylingService} from "../../services/styling.service";
 import {UndoRedoService} from "../../services/undo-redo.service";
+import {TabService} from "../../services/tab.service";
 
 
 @Directive({
@@ -36,7 +37,8 @@ export class MovableDirective implements OnInit {
               private componentFactoryResolver: ComponentFactoryResolver,
               private alService: AlignService,
               private stylingService: StylingService,
-              private undoRedoService: UndoRedoService) {
+              private undoRedoService: UndoRedoService,
+              private tabService: TabService) {
   }
 
   ngOnInit(): void {
@@ -96,18 +98,6 @@ export class MovableDirective implements OnInit {
 
     this.startMovingCoords = {x: event.pageX, y: event.pageY};
 
-
-    //find item in dataArr by offset
-    // let left = parseInt(getComputedStyle(target).left);
-    // let top = parseInt(getComputedStyle(target).top);
-    //
-    // let item: CardField = this.dataArr.find((it: CardField) => it.left == left && it.top == top);
-    // if (!item) {
-    //   this.alService.textFields = [];
-    //   this.alService.isMultiselection = false;
-    //   return;
-    // }
-
     let item: CardField = this.findCardFieldByTarget(target);
     if (!item) {
       this.skipSelection();
@@ -135,6 +125,7 @@ export class MovableDirective implements OnInit {
     item.isSelected = true;
 
     if (item.instanceOf == 'Text' || item.instanceOf == 'Icon') this.stylingService.add(item);
+    this.tabService.activeEditorTab = item.instanceOf;
   }
 
   private multiselection(item: CardField) {

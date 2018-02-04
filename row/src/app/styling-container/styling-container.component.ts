@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {GraphicService} from "../services/graphic.service";
+import {TabService} from "../services/tab.service";
 
 @Component({
   selector: 'card-styling-container',
@@ -8,7 +8,7 @@ import {GraphicService} from "../services/graphic.service";
 })
 export class StylingContainerComponent {
 
-  constructor(public graphicService: GraphicService) {
+  constructor(public tabService: TabService) {
   }
 
 }

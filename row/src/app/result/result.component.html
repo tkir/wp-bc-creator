@@ -8,7 +8,7 @@
        [@sideTrigger]="dataService.side"
   >
 
-    <card-grid></card-grid>
+    <card-grid *ngIf="gridService.isGrid"></card-grid>
 
     <div
       class="card-field"
