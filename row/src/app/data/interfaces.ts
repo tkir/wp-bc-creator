@@ -3,6 +3,7 @@ export interface CardField {
   middle: number;
   right: number;
   top: number;
+  positionLimits:{left:number, top:number, right:number, bottom:number};
   isSelected: boolean;
 
   style: {};

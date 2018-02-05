@@ -1,10 +1,11 @@
 import {CardField} from "./interfaces";
-import {getMaxPosition, getMaxSize} from "../utils/size.util";
+import {getMaxPosition} from "../utils/size.util";
 import {OptionsService} from "../services/options.service";
+import {Background} from "./Background";
 
 export class Icon implements CardField {
 
-  constructor(unicode: string, dData, private options:OptionsService) {
+  constructor(unicode: string, dData, private options: OptionsService) {
     this.unicode = unicode;
     Object.keys(dData).forEach(key => this[key] = dData[key]);
   }
@@ -15,20 +16,38 @@ export class Icon implements CardField {
   public colorStr: string = '000000';
   public left_mm: number;
   public top_mm: number;
-
-  // private k: number = this.options.settings.ratio;
   private fontSizeStep: number = this.options.settings.fontSizeStep;
 
   public isSelected: boolean = false;
   public isStyling: boolean = false;
-  public div: Element = null;
 
-  public onChangeBgSize(bg: { width, height, indent }) {
-    if(!this.div)return;
+  private bg: Background;
+  private _div: HTMLElement = null;
+  public get div(){return this._div;}
+  public set div(val){
+    this._div = val;
+    this.updatePositionLimits(this.bg);
+  }
+  public positionLimits: { left: number, top: number, right: number, bottom: number };
+  public updatePositionLimits(bg: Background) {
+    this.bg = bg;
+    if (!this.div || !this.bg) return;
+    this.positionLimits = {
+      left: this.bg.indent,
+      top: this.bg.indent,
+      right: this.bg.width - parseInt(getComputedStyle(this.div).width) - this.bg.indent,
+      bottom: this.bg.height - parseInt(getComputedStyle(this.div).height) - this.bg.indent
+    };
+  }
+
+  public onChangeBgSize(bg: Background) {
+    if (!this.div) return;
 
     let maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
     if (maxPosition.x < this.left) this.left = maxPosition.x;
     if (maxPosition.y < this.top) this.top = maxPosition.y;
+
+    this.updatePositionLimits(bg);
   }
 
   get style() {

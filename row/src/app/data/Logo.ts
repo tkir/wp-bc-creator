@@ -1,6 +1,7 @@
 import {CardField} from "./interfaces";
 import {getMaxPosition, getMaxSize} from "../utils/size.util";
 import {OptionsService} from "../services/options.service";
+import {Background} from "./Background";
 
 export class Logo implements CardField {
 
@@ -19,7 +20,19 @@ export class Logo implements CardField {
   public dataType: string;
   private _maxWidth: number;
   private _maxHeight: number;
-  private maxPosition: { x: number; y: number };
+
+  private bg: Background;
+  public positionLimits: { left: number, top: number, right: number, bottom: number };
+  public updatePositionLimits(bg: Background) {
+    this.bg = bg;
+    if (!this.bg) return;
+    this.positionLimits = {
+      left: this.bg.indent,
+      top: this.bg.indent,
+      right: this.bg.width - this.width - this.bg.indent,
+      bottom: this.bg.height - this.height - this.bg.indent
+    };
+  }
 
   get style() {
     return {
@@ -95,14 +108,16 @@ export class Logo implements CardField {
     return 'Logo';
   }
 
-  public onChangeBgSize(bg: { width, height, indent }) {
+  public onChangeBgSize(bg: Background) {
     let maxSize = getMaxSize(this.instanceOf, bg);
     if (this.width > maxSize.x) this.width = maxSize.x;
     if (this.height > maxSize.y) this.height = maxSize.y;
 
-    this.maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
-    if (this.maxPosition.x < this.left) this.left = this.maxPosition.x;
-    if (this.maxPosition.y < this.top) this.top = this.maxPosition.y;
+    let maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
+    if (maxPosition.x < this.left) this.left = maxPosition.x;
+    if (maxPosition.y < this.top) this.top = maxPosition.y;
+
+    this.updatePositionLimits(bg);
   }
 
   get json() {

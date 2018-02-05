@@ -29,7 +29,7 @@ export class CardData {
         else this.fields.push(this[key]);
       }
     });
-    // this.onChangeBgSize();
+
     this.updateSize();
   }
 
@@ -44,6 +44,10 @@ export class CardData {
     this.logos.forEach(logo => logo.setMax(this.background.width, this.background.height));
     this.options.cardWidth = this.background.width;
     this.options.cardHeight = this.background.height;
+
+    this.fields.forEach(field => {
+      if (field.instanceOf !== 'Background') field.updatePositionLimits(this.background);
+    });
   }
 
   public get json() {
