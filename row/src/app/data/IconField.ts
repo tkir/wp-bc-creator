@@ -24,9 +24,7 @@ export class Icon implements CardField {
   public div: Element = null;
 
   public onChangeBgSize(bg: { width, height, indent }) {
-    let max = getMaxSize(this.instanceOf, bg);
-    if (this.width > max.x) this.width = max.x;
-    if (this.height > max.y) this.height = max.y;
+    if(!this.div)return;
 
     let maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
     if (maxPosition.x < this.left) this.left = maxPosition.x;

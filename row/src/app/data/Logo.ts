@@ -19,7 +19,7 @@ export class Logo implements CardField {
   public dataType: string;
   private _maxWidth: number;
   private _maxHeight: number;
-  // private k: number = this.options.settings.ratio;
+  private maxPosition: { x: number; y: number };
 
   get style() {
     return {
@@ -62,6 +62,21 @@ export class Logo implements CardField {
     this.top_mm = val / this.options.settings.ratio;
   }
 
+  get middle() {
+    return Math.round(this.left + this.width / 2);
+  }
+
+  set middle(val) {
+    this.left += val - this.middle;
+  }
+
+  get right(): number {
+    return Math.round(this.left + this.width);
+  }
+
+  set right(val) {
+    this.left += val - this.right;
+  }
 
   public setMax(maxWidth, maxHeight) {
     this._maxWidth = maxWidth * 0.8;
@@ -85,9 +100,9 @@ export class Logo implements CardField {
     if (this.width > maxSize.x) this.width = maxSize.x;
     if (this.height > maxSize.y) this.height = maxSize.y;
 
-    let maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
-    if (maxPosition.x < this.left) this.left = maxPosition.x;
-    if (maxPosition.y < this.top) this.top = maxPosition.y;
+    this.maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
+    if (this.maxPosition.x < this.left) this.left = this.maxPosition.x;
+    if (this.maxPosition.y < this.top) this.top = this.maxPosition.y;
   }
 
   get json() {

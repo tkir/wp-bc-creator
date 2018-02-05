@@ -49,7 +49,7 @@ export class MovableDirective implements OnInit {
     this.selectedItems = [];
     this.dataArr.forEach((item: CardField) => item.isSelected = false);
 
-    this.alService.textFields = [];
+    this.alService.fields = [];
     this.alService.isMultiselection = false;
 
     this.stylingService.clear();
@@ -59,9 +59,7 @@ export class MovableDirective implements OnInit {
     let left = parseInt(getComputedStyle(target).left);
     let top = parseInt(getComputedStyle(target).top);
 
-    let item: CardField = this.dataArr.find((it: CardField) => it.left == left && it.top == top);
-
-    return item;
+    return this.dataArr.find((it: CardField) => it.left == left && it.top == top);
   }
 
 
@@ -115,14 +113,12 @@ export class MovableDirective implements OnInit {
     //  установить мульти alService, отправить в alService selectionArray
     if (this.selectedItems.length > 1) {
       this.alService.isMultiselection = true;
-      this.selectedItems.forEach(obj => this.alService.textFields.push(<TextField>obj.item));
+      this.selectedItems.forEach(obj => this.alService.fields.push(obj.item));
     }
     else {
-      this.alService.textFields = [];
+      this.alService.fields = [];
       this.alService.isMultiselection = false;
     }
-
-    item.isSelected = true;
 
     this.stylingService.add(item);
     this.tabService.activeEditorTab = item.instanceOf;

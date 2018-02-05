@@ -1,5 +1,7 @@
 export interface CardField {
   left: number;
+  middle: number;
+  right: number;
   top: number;
   isSelected: boolean;
 

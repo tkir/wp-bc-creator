@@ -15,16 +15,31 @@ export class Line implements CardField {
   public isHorizontal: boolean = true;
   public design: string = 'solid';
   public colorStr: string = '000';
-
-  // private k: number = this.options.settings.ratio;
   public isSelected: boolean = false;
+  private maxPosition: { x: number, y: number };
 
   get left() {
     return Math.round(this.left_mm * this.options.settings.ratio);
   }
 
   set left(val) {
-    this.left_mm = val / this.options.settings.ratio
+    this.left_mm = val / this.options.settings.ratio;
+  }
+
+  get middle() {
+    return Math.round(this.left + this.width / 2);
+  }
+
+  set middle(val) {
+    this.left += val - this.middle;
+  }
+
+  get right(): number {
+    return Math.round(this.left + this.width);
+  }
+
+  set right(val) {
+    this.left += val - this.right;
   }
 
   get top() {
@@ -93,9 +108,9 @@ export class Line implements CardField {
     if (this.width > max.x) this.width = max.x;
     if (this.height > max.y) this.height = max.y;
 
-    let maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
-    if (maxPosition.x < this.left) this.left = maxPosition.x;
-    if (maxPosition.y < this.top) this.top = maxPosition.y;
+    this.maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
+    if (this.maxPosition.x < this.left) this.left = this.maxPosition.x;
+    if (this.maxPosition.y < this.top) this.top = this.maxPosition.y;
   }
 
   get json() {

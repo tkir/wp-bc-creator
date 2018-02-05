@@ -29,12 +29,13 @@ export class CardData {
         else this.fields.push(this[key]);
       }
     });
+    // this.onChangeBgSize();
     this.updateSize();
   }
 
   onChangeBgSize() {
     this.fields.forEach(field => {
-      if (field.instanceOf == 'Text' || field.instanceOf == 'Logo' || field.instanceOf == 'Line' || field.instanceOf == 'Icon')
+      if (field.instanceOf !== 'Background')
         field.onChangeBgSize(this.background);
     })
   }
