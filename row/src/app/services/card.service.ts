@@ -22,7 +22,9 @@ export class CardService {
 
   private getCard(fData: CardFieldsData, dData: CardDesignData, isEditable: boolean, slug: string): CardData {
 
-    let texts: TextField[] = this.createText(fData.texts, dData.texts);
+    let bg: Background = new Background(dData.background, this.options);
+
+    let texts: TextField[] = this.createText(fData.texts, dData.texts, bg);
 
     let logos: Logo[] = dData.logos.map((d, i) => {
       if (fData.logos[i]) return new Logo(
@@ -31,9 +33,7 @@ export class CardService {
 
     let lines: Line[] = dData.lines.map((d, i) => new Line(d, this.options));
 
-    let icons: Icon[]= dData.icons.map((d, i) => new Icon(fData.icons[i], d, this.options));
-
-    let bg: Background = new Background(dData.background, this.options);
+    let icons: Icon[]= dData.icons.map((d, i) => new Icon(fData.icons[i], d, this.options, bg));
 
     //подгружаем уникальные шрифты
     this.loadedFonts = this.loadedFonts.filter(this.onlyUnique);
@@ -49,13 +49,13 @@ export class CardService {
     );
   }
 
-  private createText(fStrs: string[], tDsns: TextDesign[]): TextField[] {
+  private createText(fStrs: string[], tDsns: TextDesign[], bg:Background): TextField[] {
 
     let fonts = tDsns.map(d => d.fontFamily);
     this.loadedFonts.push(...fonts);
 
     return tDsns.map((d, i) => {
-      if (fStrs[i])return new TextField(fStrs[i], d, this.options);
+      if (fStrs[i])return new TextField(fStrs[i], d, this.options, bg);
     });
   }
 

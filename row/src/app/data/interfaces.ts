@@ -1,9 +1,11 @@
+import {OptionsService} from "../services/options.service";
+import {Background} from "./Background";
+
 export interface CardField {
   left: number;
   middle: number;
   right: number;
   top: number;
-  positionLimits:{left:number, top:number, right:number, bottom:number};
   isSelected: boolean;
 
   style: {};
@@ -12,6 +14,7 @@ export interface CardField {
   width: number;
   height: number;
 }
+
 
 export class CardFieldsData {
   constructor(obj) {

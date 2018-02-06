@@ -5,49 +5,123 @@ import {Background} from "./Background";
 
 export class Icon implements CardField {
 
-  constructor(unicode: string, dData, private options: OptionsService) {
-    this.unicode = unicode;
+  constructor(public unicode: string, dData, private options: OptionsService, private bg:Background) {
     Object.keys(dData).forEach(key => this[key] = dData[key]);
   }
 
-  public unicode: string;
   public fontFamily: string = "FontAwesome";
   public fontSize_mm: number = 5;
   public colorStr: string = '000000';
   public left_mm: number;
   public top_mm: number;
-  private fontSizeStep: number = this.options.settings.fontSizeStep;
 
   public isSelected: boolean = false;
   public isStyling: boolean = false;
 
-  private bg: Background;
-  private _div: HTMLElement = null;
-  public get div(){return this._div;}
-  public set div(val){
-    this._div = val;
-    this.updatePositionLimits(this.bg);
-  }
+  public div: HTMLElement = null;
   public positionLimits: { left: number, top: number, right: number, bottom: number };
-  public updatePositionLimits(bg: Background) {
-    this.bg = bg;
+  private updatePositionLimits() {
     if (!this.div || !this.bg) return;
+
+    this._width = parseInt(getComputedStyle(this.div).width);
+    this._height = parseInt(getComputedStyle(this.div).height);
     this.positionLimits = {
       left: this.bg.indent,
       top: this.bg.indent,
-      right: this.bg.width - parseInt(getComputedStyle(this.div).width) - this.bg.indent,
-      bottom: this.bg.height - parseInt(getComputedStyle(this.div).height) - this.bg.indent
+      right: this.bg.width - this._width - this.bg.indent,
+      bottom: this.bg.height - this._height - this.bg.indent
     };
   }
 
-  public onChangeBgSize(bg: Background) {
-    if (!this.div) return;
+  //TODO test after imposition
+  public onChangeBgSize() {
+    this.updatePositionLimits();
 
-    let maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
-    if (maxPosition.x < this.left) this.left = maxPosition.x;
-    if (maxPosition.y < this.top) this.top = maxPosition.y;
+    this.left = this.left;
+    this.top = this.top;
+  }
 
-    this.updatePositionLimits(bg);
+  get left() {
+    return Math.round(this.left_mm * this.options.settings.ratio);
+  }
+  set left(val) {
+    if (val < this.positionLimits.left) val = this.positionLimits.left;
+    if (val > this.positionLimits.right) val = this.positionLimits.right;
+
+    this.left_mm = val / this.options.settings.ratio;
+  }
+
+  get top() {
+    return Math.round(this.top_mm * this.options.settings.ratio);
+  }
+  set top(val) {
+    if (val < this.positionLimits.top) val = this.positionLimits.top;
+    if (val > this.positionLimits.bottom) val = this.positionLimits.bottom;
+
+    this.top_mm = val / this.options.settings.ratio;
+  }
+
+  get middle(): number {
+    return this.left + Math.round(this.width / 2);
+  }
+  set middle(val) {
+    if(val - Math.round(this.width / 2) < this.positionLimits.left) val = this.positionLimits.left + Math.round(this.width / 2);
+    if(val - Math.round(this.width / 2) > this.positionLimits.right) val = this.positionLimits.right + Math.round(this.width / 2);
+
+    this.left = val - Math.round(this.width / 2);
+  }
+
+  get right(): number {
+    return this.left + this.width;
+  }
+  set right(val) {
+    if (val - this.width > this.positionLimits.right) val = this.positionLimits.right + this.width;
+    if (val - this.width < this.positionLimits.left) val = this.positionLimits.left + this.width;
+
+    this.left = val - this.width;
+  }
+
+  private _width:number;
+  get width() {
+    if (!this._width) this.updatePositionLimits();
+    return this._width;
+  }
+  // set width(val) {
+  // }
+
+  private _height;
+  get height() {
+    if (!this._height) this.updatePositionLimits();
+    return this._height
+  }
+  // set height(val) {
+  // }
+
+  get fontSize(): number {
+    return Math.round(this.fontSize_mm * this.options.settings.ratio);
+  }
+  set fontSize(val: number) {
+    this.fontSize_mm = val / this.options.settings.ratio;
+    this.updatePositionLimits();
+  }
+  public changeFontSize(dir: string) {
+    if (dir == 'increase') this.fontSize_mm += this.options.settings.fontSizeStep;
+    if (dir == 'decrease') this.fontSize_mm -= this.options.settings.fontSizeStep;
+  }
+
+  get color(): string {
+    return `#${this.colorStr}`;
+  }
+  set color(val) {
+    this.colorStr = val.replace('#', '');
+  }
+
+  get fontName(): string {
+    return this.fontFamily;
+  }
+
+  get instanceOf(): string {
+    return 'Icon';
   }
 
   get style() {
@@ -56,82 +130,6 @@ export class Icon implements CardField {
       'font-size.px': this.fontSize,
       'color': this.color
     }
-  }
-
-  get left() {
-    return Math.round(this.left_mm * this.options.settings.ratio);
-  }
-
-  set left(val) {
-    this.left_mm = val / this.options.settings.ratio;
-  }
-
-  get top() {
-    return Math.round(this.top_mm * this.options.settings.ratio);
-  }
-
-  set top(val) {
-    this.top_mm = val / this.options.settings.ratio;
-  }
-
-  get fontSize(): number {
-    return Math.round(this.fontSize_mm * this.options.settings.ratio);
-  }
-
-  set fontSize(val: number) {
-    this.fontSize_mm = val / this.options.settings.ratio;
-  }
-
-  changeFontSize(dir: string) {
-    if (dir == 'increase') this.fontSize_mm += this.fontSizeStep;
-    if (dir == 'decrease') this.fontSize_mm -= this.fontSizeStep;
-  }
-
-  get color(): string {
-    return `#${this.colorStr}`
-  }
-
-  set color(val) {
-    this.colorStr = val.replace('#', '');
-  }
-
-  get instanceOf(): string {
-    return 'Icon';
-  }
-
-  //для выравнивания
-  get middle(): number {
-    return this.left + Math.round(parseInt(getComputedStyle(this.div).width) / 2);
-  }
-
-  set middle(val) {
-    this.left += val - this.middle;
-  }
-
-  get right(): number {
-    return this.left + parseInt(getComputedStyle(this.div).width);
-  }
-
-  set right(val) {
-    this.left += val - this.right;
-  }
-
-  get fontName(): string {
-    return this.fontFamily;
-  }
-
-  get width() {
-    return parseInt(getComputedStyle(this.div).width);
-  }
-
-  set width(val) {
-  }
-
-  get height() {
-    return parseInt(getComputedStyle(this.div).height);
-  }
-
-  set height(val) {
   }
 
   get json() {

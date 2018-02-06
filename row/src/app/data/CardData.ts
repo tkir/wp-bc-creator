@@ -36,7 +36,7 @@ export class CardData {
   onChangeBgSize() {
     this.fields.forEach(field => {
       if (field.instanceOf !== 'Background')
-        field.onChangeBgSize(this.background);
+        field.onChangeBgSize();
     })
   }
 
@@ -44,10 +44,6 @@ export class CardData {
     this.logos.forEach(logo => logo.setMax(this.background.width, this.background.height));
     this.options.cardWidth = this.background.width;
     this.options.cardHeight = this.background.height;
-
-    this.fields.forEach(field => {
-      if (field.instanceOf !== 'Background') field.updatePositionLimits(this.background);
-    });
   }
 
   public get json() {
@@ -137,7 +133,7 @@ export class CardData {
   }
 
   public addIcon(unicode: string, x: number, y: number) {
-    let icon = new Icon(unicode, {}, this.options);
+    let icon = new Icon(unicode, {}, this.options, this.background);
     icon.left = x;
     icon.top = y;
 
@@ -160,7 +156,7 @@ export class CardData {
         left_mm: 30,
         top_mm: 5
       },
-      this.options
+      this.options, this.background
     );
 
     this.texts.push(textField);
