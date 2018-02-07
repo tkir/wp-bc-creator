@@ -45,6 +45,7 @@ export class MovableDirective implements OnInit, OnDestroy {
 
   cardData: CardData = null;
   private subscription: Subscription;
+
   ngOnInit() {
     this.subscription = this.store.changes
       .subscribe((cardData: any) => {
@@ -155,8 +156,6 @@ export class MovableDirective implements OnInit, OnDestroy {
         x: event.pageX - obj.item.left,
         y: event.pageY - obj.item.top
       };
-      obj.max = getMax(obj.item.instanceOf, target, this.cardData.background);
-      obj.min = getMin(obj.item.instanceOf, target, this.cardData.background);
       if (obj.item == item) {
         isDublingItems = true;
       }
@@ -171,7 +170,7 @@ export class MovableDirective implements OnInit, OnDestroy {
         },
         max: getMax(item.instanceOf, target, this.cardData.background),
         min: getMin(item.instanceOf, target, this.cardData.background)
-      });console.log(this.selectedItems);
+      });
   }
 
   onMouseMove(event: MouseEvent) {
