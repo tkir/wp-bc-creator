@@ -23,8 +23,8 @@ export class Icon implements CardField {
     this._div = val;
     this.updatePositionLimits();
   }
-  public positionLimits: { left: number, top: number, right: number, bottom: number };
-  private updatePositionLimits() {
+  private positionLimits: { left: number, top: number, right: number, bottom: number };
+  public updatePositionLimits() {
     if (!this.bg) return;
 
     this._width = this._div ? parseInt(getComputedStyle(this._div).width) : 0;

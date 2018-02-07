@@ -17,7 +17,7 @@ export class Line implements CardField {
   public colorStr: string = '000';
   public isSelected: boolean = false;
 
-  public positionLimits: { left: number, top: number, right: number, bottom: number };
+  private positionLimits: { left: number, top: number, right: number, bottom: number };
   public updatePositionLimits() {
     if (!this.bg) return;
     this.positionLimits = {

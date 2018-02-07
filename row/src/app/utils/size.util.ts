@@ -13,22 +13,12 @@ export interface MovEl {
   item: CardField;
   elem: Element;
   dev: { x: number, y: number };
-  max: { x: number, y: number };
-  min: { x: number, y: number };
 }
 
 export function updateOffset(it: MovEl, event) {
 
   let pageX = event.pageX - it.dev.x;
   let pageY = event.pageY - it.dev.y;
-
-  if (pageX < it.min.x || pageX > it.max.x) {
-    pageX = pageX < it.min.x ? it.min.x : it.max.x;
-  }
-
-  if (pageY < it.min.y || pageY > it.max.y) {
-    pageY = pageY < it.min.y ? it.min.y : it.max.y;
-  }
 
   if (it.item.left != pageX) it.item.left = pageX;
   if (it.item.top != pageY) it.item.top = pageY;

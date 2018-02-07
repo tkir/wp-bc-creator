@@ -13,6 +13,7 @@ export interface CardField {
 
   width: number;
   height: number;
+  updatePositionLimits();
 }
 
 

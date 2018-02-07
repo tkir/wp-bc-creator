@@ -160,17 +160,17 @@ export class MovableDirective implements OnInit, OnDestroy {
         isDublingItems = true;
       }
     });
-    if (!isDublingItems)
+    if (!isDublingItems){
       this.selectedItems.push({
         item: item,
         elem: target,
         dev: {
           x: event.pageX - item.left,
           y: event.pageY - item.top
-        },
-        max: getMax(item.instanceOf, target, this.cardData.background),
-        min: getMin(item.instanceOf, target, this.cardData.background)
+        }
       });
+      item.updatePositionLimits();
+    }
   }
 
   onMouseMove(event: MouseEvent) {
