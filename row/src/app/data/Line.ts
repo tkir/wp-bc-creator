@@ -29,7 +29,6 @@ export class Line implements CardField {
   }
 
 
-
   get width() {
     return this.isHorizontal ? Math.round(this.length_mm) * this.options.settings.ratio : 0;
   }
@@ -101,7 +100,6 @@ export class Line implements CardField {
   get color(): string {
     return `#${this.colorStr.replace('#', '')}`;
   }
-
   set color(val) {
     this.colorStr = val.replace('#', '');
   }
@@ -124,6 +122,29 @@ export class Line implements CardField {
   //
   //   this.updatePositionLimits();
   // }
+
+  public changeOrientation() {
+    let nLeft: number;
+    let nTop: number;
+
+    if (this.isHorizontal) {
+      nLeft = this.left + Math.round(this.length_mm * this.options.settings.ratio / 2);
+      nTop = this.top - Math.round(this.length_mm * this.options.settings.ratio / 2);
+
+      this.isHorizontal = !this.isHorizontal;
+      this.height = Math.round(this.length_mm * this.options.settings.ratio);
+    }
+    else {
+      nLeft = this.left - Math.round(this.length_mm * this.options.settings.ratio / 2);
+      nTop = this.top + Math.round(this.length_mm * this.options.settings.ratio / 2);
+
+      this.isHorizontal = !this.isHorizontal;
+      this.width = Math.round(this.length_mm * this.options.settings.ratio);
+    }
+
+    this.left = nLeft;
+    this.top = nTop;
+  }
 
   get style() {
     let direction = this.isHorizontal ? 'top' : 'right';

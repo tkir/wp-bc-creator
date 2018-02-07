@@ -25,6 +25,7 @@
 
 <div class="tab-content" [ngClass]="{'active':tabService.activeEditorTab=='Line'}">
   <card-hr-editor></card-hr-editor>
+  <button class="btn btn-default btn-sm" (click)="addHr()">Add line</button>
 </div>
 
 <div class="tab-content" [ngClass]="{'active':tabService.activeEditorTab=='Icon'}">

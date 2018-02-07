@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {TabService} from "../services/tab.service";
+import {ItemService} from "../services/item.service";
 
 @Component({
   selector: 'card-editors-container',
@@ -8,11 +9,16 @@ import {TabService} from "../services/tab.service";
 })
 export class EditorsContainerComponent {
 
-  constructor(public tabService: TabService) {
+  constructor(public tabService: TabService,
+              private itemService: ItemService) {
   }
 
   changeTab(tab) {
     this.tabService.activeEditorTab = tab;
+  }
+
+  addHr() {
+    this.itemService.addHr();
   }
 
 }

@@ -39,8 +39,7 @@ export class HrStylingComponent implements OnInit, OnDestroy {
   }
 
   changeOrientation(hr) {
-    hr.isHorizontal = !hr.isHorizontal;
-    hr.onChangeBgSize(this.model.background);
+    hr.changeOrientation();
   }
 }
 
