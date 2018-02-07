@@ -28,10 +28,10 @@ export class CardService {
 
     let logos: Logo[] = dData.logos.map((d, i) => {
       if (fData.logos[i]) return new Logo(
-        fData.logos[i], d, this.options);
+        fData.logos[i], d, this.options, bg);
     });
 
-    let lines: Line[] = dData.lines.map((d, i) => new Line(d, this.options));
+    let lines: Line[] = dData.lines.map((d, i) => new Line(d, this.options, bg));
 
     let icons: Icon[]= dData.icons.map((d, i) => new Icon(fData.icons[i], d, this.options, bg));
 

@@ -223,19 +223,25 @@ export class TextField implements CardField {
   public isSelected: boolean = false;
   public isStyling: boolean = false;
 
-  public div: HTMLElement = null;
-  private positionLimits: { left: number, top: number, right: number, bottom: number };
+  private _div: HTMLElement = null;
+  public set div(val) {
+    this._div = val;
+    this.updatePositionLimits();
+  }
+  public positionLimits: { left: number, top: number, right: number, bottom: number };
   private updatePositionLimits() {
-    if (!this.div || !this.bg) return;
+    if (!this.bg) return;
 
-    this._width = parseInt(getComputedStyle(this.div).width);
-    this._height = parseInt(getComputedStyle(this.div).height);
+    this._width = this._div ? parseInt(getComputedStyle(this._div).width) : 0;
+    this._height = this._div ? parseInt(getComputedStyle(this._div).height) : 0;
     this.positionLimits = {
       left: this.bg.indent,
       top: this.bg.indent,
       right: this.bg.width - this._width - this.bg.indent,
       bottom: this.bg.height - this._height - this.bg.indent
     };
+    this.left = this.left;
+    this.top = this.top;
   }
 
   //TODO test after imposition
@@ -250,6 +256,7 @@ export class TextField implements CardField {
     return Math.round(this.left_mm * this.options.settings.ratio);
   }
   set left(val) {
+    if (!this.positionLimits) this.updatePositionLimits();
     if (val < this.positionLimits.left) val = this.positionLimits.left;
     if (val > this.positionLimits.right) val = this.positionLimits.right;
 
@@ -260,6 +267,7 @@ export class TextField implements CardField {
     return Math.round(this.top_mm * this.options.settings.ratio);
   }
   set top(val) {
+    if (!this.positionLimits) this.updatePositionLimits();
     if (val < this.positionLimits.top) val = this.positionLimits.top;
     if (val > this.positionLimits.bottom) val = this.positionLimits.bottom;
 
@@ -270,8 +278,9 @@ export class TextField implements CardField {
     return this.left + Math.round(this.width / 2);
   }
   set middle(val) {
-    if(val - Math.round(this.width / 2) < this.positionLimits.left) val = this.positionLimits.left + Math.round(this.width / 2);
-    if(val - Math.round(this.width / 2) > this.positionLimits.right) val = this.positionLimits.right + Math.round(this.width / 2);
+    // if (!this.positionLimits) this.updatePositionLimits();
+    // if(val - Math.round(this.width / 2) < this.positionLimits.left) val = this.positionLimits.left + Math.round(this.width / 2);
+    // if(val - Math.round(this.width / 2) > this.positionLimits.right) val = this.positionLimits.right + Math.round(this.width / 2);
 
     this.left = val - Math.round(this.width / 2);
   }
@@ -280,8 +289,9 @@ export class TextField implements CardField {
     return this.left + this.width;
   }
   set right(val) {
-    if (val - this.width > this.positionLimits.right) val = this.positionLimits.right + this.width;
-    if (val - this.width < this.positionLimits.left) val = this.positionLimits.left + this.width;
+    // if (!this.positionLimits) this.updatePositionLimits();
+    // if (val - this.width > this.positionLimits.right) val = this.positionLimits.right + this.width;
+    // if (val - this.width < this.positionLimits.left) val = this.positionLimits.left + this.width;
 
     this.left = val - this.width;
   }

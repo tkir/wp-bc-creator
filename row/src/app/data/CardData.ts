@@ -15,33 +15,20 @@ export class CardData {
               public isEditable: boolean,
               public slug: string,
               private options: OptionsService) {
-    this.update();
+    this.logos.forEach(logo => logo.setMax(this.background.width, this.background.height));
+    this.options.cardWidth = this.background.width;
+    this.options.cardHeight = this.background.height;
   }
 
-  public fields = [];
-
-  public update() {
-    this.fields = [];
-    Object.keys(this).forEach(key => {
-      if (key != 'fields' && key != 'isEditable' && key != 'slug' && key != 'options') {
-        if (Array.isArray(this[key]))
-          this.fields.push(...this[key]);
-        else this.fields.push(this[key]);
-      }
-    });
-
-    this.updateSize();
+  public get fields():any[]{
+    return [].concat(...this.texts, ...this.logos, ...this.lines, ...this.icons, this.background);
   }
 
   onChangeBgSize() {
     this.fields.forEach(field => {
-      if (field.instanceOf !== 'Background')
         field.onChangeBgSize();
-    })
-  }
+    });
 
-  private updateSize() {
-    this.logos.forEach(logo => logo.setMax(this.background.width, this.background.height));
     this.options.cardWidth = this.background.width;
     this.options.cardHeight = this.background.height;
   }
@@ -95,8 +82,6 @@ export class CardData {
         break;
     }
 
-    this.update();
-
     return item;
   }
 
@@ -104,11 +89,10 @@ export class CardData {
     let logo=new Logo(
       src,
       {width: width, height: height, left_mm: 5, top_mm: 5},
-      this.options
+      this.options, this.background
     );
 
     this.logos.push(logo);
-    this.update();
 
     return logo;
   }
@@ -124,10 +108,9 @@ export class CardData {
         design: 'solid',
         _color: '00f'
       },
-      this.options
+      this.options, this.background
     );
     this.lines.push(line);
-    this.update();
 
     return line;
   }
@@ -138,7 +121,6 @@ export class CardData {
     icon.top = y;
 
     this.icons.push(icon);
-    this.update();
 
     return icon;
   }
@@ -160,7 +142,6 @@ export class CardData {
     );
 
     this.texts.push(textField);
-    this.update();
 
     return textField;
   }
@@ -185,8 +166,6 @@ export class CardData {
         if (i !== -1) this.lines.splice(i, 1);
         break;
     }
-
-    this.update();
   }
 }
 

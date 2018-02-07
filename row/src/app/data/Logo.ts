@@ -1,16 +1,13 @@
 import {CardField} from "./interfaces";
-import {getMaxPosition, getMaxSize} from "../utils/size.util";
 import {OptionsService} from "../services/options.service";
 import {Background} from "./Background";
 
 export class Logo implements CardField {
 
-  constructor(fData: string, dData, private options: OptionsService) {
-    this.src = fData;
+  constructor(public src: string, dData, private options: OptionsService, private bg: Background) {
     Object.keys(dData).forEach(key => this[key] = dData[key]);
   }
 
-  public src: string;
   public width_mm: number;
   public height_mm: number;
   public left_mm: number;
@@ -21,10 +18,8 @@ export class Logo implements CardField {
   private _maxWidth: number;
   private _maxHeight: number;
 
-  private bg: Background;
   public positionLimits: { left: number, top: number, right: number, bottom: number };
-  public updatePositionLimits(bg: Background) {
-    this.bg = bg;
+  public updatePositionLimits() {
     if (!this.bg) return;
     this.positionLimits = {
       left: this.bg.indent,
@@ -34,72 +29,76 @@ export class Logo implements CardField {
     };
   }
 
-  get style() {
-    return {
-      'width.px': this.width,
-      'height.px': this.height,
-      'background-image': `url(${this.src})`,
-      'background-size': 'cover'
-    };
-  }
+
 
   get width() {
     return Math.round(this.width_mm * this.options.settings.ratio);
   }
-
   set width(val) {
+    if (val > this.bg.width - this.bg.indent) val = this.bg.width - this.bg.indent;
     this.width_mm = val / this.options.settings.ratio;
+
+    this.updatePositionLimits();
   }
 
   get height() {
     return Math.round(this.height_mm * this.options.settings.ratio);
   }
-
   set height(val) {
+    if (val > this.bg.height - this.bg.indent) val = this.bg.height - this.bg.indent;
     this.height_mm = val / this.options.settings.ratio;
+
+    this.updatePositionLimits();
   }
 
   get left() {
     return Math.round(this.left_mm * this.options.settings.ratio);
   }
-
   set left(val) {
+    if (!this.positionLimits) this.updatePositionLimits();
+    if (val < this.positionLimits.left) val = this.positionLimits.left;
+    if (val > this.positionLimits.right) val = this.positionLimits.right;
     this.left_mm = val / this.options.settings.ratio;
   }
 
   get top() {
     return Math.round(this.top_mm * this.options.settings.ratio);
   }
-
   set top(val) {
+    if (!this.positionLimits) this.updatePositionLimits();
+    if (val < this.positionLimits.top) val = this.positionLimits.top;
+    if (val > this.positionLimits.bottom) val = this.positionLimits.bottom;
     this.top_mm = val / this.options.settings.ratio;
   }
 
   get middle() {
     return Math.round(this.left + this.width / 2);
   }
-
   set middle(val) {
-    this.left += val - this.middle;
+    // if (!this.positionLimits) this.updatePositionLimits();
+    // if(val - Math.round(this.width / 2) < this.positionLimits.left) val = this.positionLimits.left + Math.round(this.width / 2);
+    // if(val - Math.round(this.width / 2) > this.positionLimits.right) val = this.positionLimits.right + Math.round(this.width / 2);
+
+    this.left = val - Math.round(this.width / 2);
   }
 
   get right(): number {
     return Math.round(this.left + this.width);
   }
-
   set right(val) {
-    this.left += val - this.right;
+    this.left = val - this.width;
   }
+
+
+
 
   public setMax(maxWidth, maxHeight) {
     this._maxWidth = maxWidth * 0.8;
     this._maxHeight = maxHeight * 0.8;
   }
-
   get maxWidth(): number {
     return this._maxWidth;
   }
-
   get maxHeight(): number {
     return this._maxHeight;
   }
@@ -108,16 +107,33 @@ export class Logo implements CardField {
     return 'Logo';
   }
 
-  public onChangeBgSize(bg: Background) {
-    let maxSize = getMaxSize(this.instanceOf, bg);
-    if (this.width > maxSize.x) this.width = maxSize.x;
-    if (this.height > maxSize.y) this.height = maxSize.y;
 
-    let maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
-    if (maxPosition.x < this.left) this.left = maxPosition.x;
-    if (maxPosition.y < this.top) this.top = maxPosition.y;
+  //TODO test after imposition
+  public onChangeBgSize() {
+    this.updatePositionLimits();
 
-    this.updatePositionLimits(bg);
+    this.left = this.left;
+    this.top = this.top;
+  }
+  // public onChangeBgSize() {
+  //   let maxSize = getMaxSize(this.instanceOf, this.bg);
+  //   if (this.width > maxSize.x) this.width = maxSize.x;
+  //   if (this.height > maxSize.y) this.height = maxSize.y;
+  //
+  //   let maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
+  //   if (maxPosition.x < this.left) this.left = maxPosition.x;
+  //   if (maxPosition.y < this.top) this.top = maxPosition.y;
+  //
+  //   this.updatePositionLimits();
+  // }
+
+  get style() {
+    return {
+      'width.px': this.width,
+      'height.px': this.height,
+      'background-image': `url(${this.src})`,
+      'background-size': 'cover'
+    };
   }
 
   get json() {
@@ -136,6 +152,8 @@ export class Logo implements CardField {
     this.height_mm = val.height_mm;
     this.left_mm = val.left_mm;
     this.top_mm = val.top_mm;
+
+    this.updatePositionLimits();
   }
 
   get designData() {

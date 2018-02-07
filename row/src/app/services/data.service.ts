@@ -77,7 +77,6 @@ export class DataService {
   private isChanginSide: boolean = false;
 
   updateCard(state): CardData {
-    state.update();
     let currentState = state;
     return this.store.state = currentState;
   }

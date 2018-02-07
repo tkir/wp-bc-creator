@@ -13,10 +13,8 @@ export class Background {
   public width_mm: number;
   public height_mm: number;
 
-  private polygraphPadding: number = this.options.settings.polygraphPadding;
-
   get indent(): number {
-    return this.polygraphPadding * this.options.settings.ratio;
+    return this.options.settings.polygraphPadding * this.options.settings.ratio;
   }
 
   get style() {
@@ -53,6 +51,8 @@ export class Background {
   get instanceOf(): string {
     return 'Background';
   }
+
+  onChangeBgSize(){}
 
   get json() {
     return {
