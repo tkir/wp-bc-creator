@@ -1,6 +1,7 @@
 import {
-  ComponentFactoryResolver, Directive, ElementRef, Input, OnInit, Type
+  ComponentFactoryResolver, Directive, ElementRef, Input, OnDestroy, OnInit, Type
 } from '@angular/core';
+import {Subscription} from "rxjs/Subscription";
 
 import {CardField} from "../../data/interfaces";
 import {AddResizeDirective} from "./add-resize.directive";
@@ -9,10 +10,11 @@ import {ResultComponent} from "../result.component";
 import {getMax, getMin, MovEl, updateOffset} from '../../utils/size.util';
 import {Background} from "../../data/Background";
 import {AlignService} from "../../services/align.service";
-import {TextField} from "../../data/TextField";
 import {StylingService} from "../../services/styling.service";
 import {UndoRedoService} from "../../services/undo-redo.service";
 import {TabService} from "../../services/tab.service";
+import {CardData} from "../../data/CardData";
+import {Store} from "../../services/store";
 
 
 @Directive({
@@ -23,17 +25,17 @@ import {TabService} from "../../services/tab.service";
     '(window:mouseup)': 'onMouseUp()'
   }
 })
-export class MovableDirective implements OnInit {
+export class MovableDirective implements OnInit, OnDestroy {
 
   @Input() dataArr = [];
   @Input() card: ResultComponent = null;
-  private background: Background = null;
 
   selectedItems: MovEl[] = [];
   private startMovingCoords: { x: number, y: number } = null;
   private startResizing = false;
 
   constructor(private el: ElementRef,
+              private store: Store,
               private componentFactoryResolver: ComponentFactoryResolver,
               private alService: AlignService,
               private stylingService: StylingService,
@@ -41,8 +43,18 @@ export class MovableDirective implements OnInit {
               private tabService: TabService) {
   }
 
-  ngOnInit(): void {
-    this.background = this.dataArr.find((field: CardField) => field.instanceOf == 'Background');
+  cardData: CardData = null;
+  private subscription: Subscription;
+  ngOnInit() {
+    this.subscription = this.store.changes
+      .subscribe((cardData: any) => {
+        this.cardData = cardData;
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription)
+      this.subscription.unsubscribe();
   }
 
   private skipSelection() {
@@ -143,8 +155,8 @@ export class MovableDirective implements OnInit {
         x: event.pageX - obj.item.left,
         y: event.pageY - obj.item.top
       };
-      obj.max = getMax(obj.item.instanceOf, target, this.background);
-      obj.min = getMin(obj.item.instanceOf, target, this.background);
+      obj.max = getMax(obj.item.instanceOf, target, this.cardData.background);
+      obj.min = getMin(obj.item.instanceOf, target, this.cardData.background);
       if (obj.item == item) {
         isDublingItems = true;
       }
@@ -157,9 +169,9 @@ export class MovableDirective implements OnInit {
           x: event.pageX - item.left,
           y: event.pageY - item.top
         },
-        max: getMax(item.instanceOf, target, this.background),
-        min: getMin(item.instanceOf, target, this.background)
-      });
+        max: getMax(item.instanceOf, target, this.cardData.background),
+        min: getMin(item.instanceOf, target, this.cardData.background)
+      });console.log(this.selectedItems);
   }
 
   onMouseMove(event: MouseEvent) {

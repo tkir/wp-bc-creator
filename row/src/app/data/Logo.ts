@@ -15,8 +15,6 @@ export class Logo implements CardField {
 
   public isSelected: boolean;
   public dataType: string;
-  private _maxWidth: number;
-  private _maxHeight: number;
 
   public positionLimits: { left: number, top: number, right: number, bottom: number };
   public updatePositionLimits() {
@@ -75,10 +73,6 @@ export class Logo implements CardField {
     return Math.round(this.left + this.width / 2);
   }
   set middle(val) {
-    // if (!this.positionLimits) this.updatePositionLimits();
-    // if(val - Math.round(this.width / 2) < this.positionLimits.left) val = this.positionLimits.left + Math.round(this.width / 2);
-    // if(val - Math.round(this.width / 2) > this.positionLimits.right) val = this.positionLimits.right + Math.round(this.width / 2);
-
     this.left = val - Math.round(this.width / 2);
   }
 
@@ -90,17 +84,11 @@ export class Logo implements CardField {
   }
 
 
-
-
-  public setMax(maxWidth, maxHeight) {
-    this._maxWidth = maxWidth * 0.8;
-    this._maxHeight = maxHeight * 0.8;
-  }
   get maxWidth(): number {
-    return this._maxWidth;
+    return this.bg.width * 0.8;
   }
   get maxHeight(): number {
-    return this._maxHeight;
+    return this.bg.height * 0.8;
   }
 
   get instanceOf(): string {

@@ -15,7 +15,6 @@ export class CardData {
               public isEditable: boolean,
               public slug: string,
               private options: OptionsService) {
-    this.logos.forEach(logo => logo.setMax(this.background.width, this.background.height));
     this.options.cardWidth = this.background.width;
     this.options.cardHeight = this.background.height;
   }
@@ -23,6 +22,7 @@ export class CardData {
   public get fields():any[]{
     return [].concat(...this.texts, ...this.logos, ...this.lines, ...this.icons, this.background);
   }
+
 
   onChangeBgSize() {
     this.fields.forEach(field => {
