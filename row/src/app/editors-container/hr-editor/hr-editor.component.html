@@ -1,5 +1,8 @@
-<div *ngFor="let hr of model.lines">
-  <card-hr [line]="hr"></card-hr>
-
+<div
+  *ngFor="let hr of model.lines"
+  class="wrap"
+  [ngClass]="{'selected': hr.isSelected}"
+  (click)="hr.isSelected=true">
+  <div [ngStyle]="hr.style" class="preview"></div>
   <button class="btn btn-default btn-sm" (click)="removeItem(hr)">-</button>
 </div>

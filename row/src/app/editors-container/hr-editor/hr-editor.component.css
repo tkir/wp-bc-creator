@@ -1,6 +1,14 @@
-.hr-editor-preview{
-  float: left;
-  width: 50px;
-  border-top-color: #000;
-  border-top-width: 3px;
+.wrap{
+  display: flex;
+}
+
+.preview{
+  display: flex;
+  align-self: center;
+  width: 50px !important;
+  height: 0 !important;
+}
+
+.selected{
+  outline: 2px dashed red;
 }
