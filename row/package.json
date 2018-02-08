@@ -19,7 +19,7 @@
     "@angular/compiler": "latest",
     "@angular/core": "latest",
     "@angular/forms": "latest",
-    "@angular/http": "latest",
+    "@angular/material": "latest",
     "@angular/platform-browser": "latest",
     "@angular/platform-browser-dynamic": "latest",
     "@angular/router": "latest",
