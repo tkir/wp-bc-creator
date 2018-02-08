@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "../../services/store";
 import {Subscription} from "rxjs/Subscription";
 import {OptionsService} from "../../services/options.service";
-import {CardData} from "../../data/CardData";
+import {Line} from "../../data/Line";
 
 @Component({
   selector: 'card-hr-styling',
@@ -12,7 +12,7 @@ import {CardData} from "../../data/CardData";
 export class HrStylingComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = null;
-  model: CardData = null;
+  lines: Line[] = [];
 
   constructor(public options: OptionsService,
               private store: Store) {
@@ -20,7 +20,7 @@ export class HrStylingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.store.changes
-      .subscribe((cardData: any) => this.model = cardData);
+      .subscribe((cardData: any) => this.lines = cardData.lines.filter(l => l.isSelected));
   }
 
   ngOnDestroy(): void {
@@ -29,17 +29,17 @@ export class HrStylingComponent implements OnInit, OnDestroy {
     this.subscription = null;
   }
 
-  updateHr(hr, param: string, res: any) {
+  updateHr(param: string, res: any) {
     if (param == 'design')
-      hr.design = res;
+      this.lines.forEach(line => line.design = res);
     else if (param == 'thickness')
-      hr.thickness = res;
+      this.lines.forEach(line => line.thickness = res);
     else if (param == 'color')
-      hr._color = res;
+      this.lines.forEach(line => line.color = res);
   }
 
-  changeOrientation(hr) {
-    hr.changeOrientation();
+  changeOrientation() {
+    this.lines.forEach(line => line.changeOrientation());
   }
 }
 
