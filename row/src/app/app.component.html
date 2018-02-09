@@ -1,36 +1,14 @@
-<!--<div class="bc-page">-->
-
-<!--Кнопки-->
-  <nav>
-  <div class="wrap">
-    <div class="head-choice">
-      <div class="step1">
-
-        <div type="button" (click)="headChoice('editor')" class="text-center head-choice-btn"><button data-tab="editor" class="headerbtnchoice">Конструктор визиток</button></div>
-        <div type="button" (click)="headChoice('design')" class="text-center head-choice-btn"><button data-tab="design" class="headerbtnchoice">Каталог дизайнов</button></div>
-
-      </div>
+<mat-tab-group [dynamicHeight]="true">
+  <mat-tab label="{{i18n.get('headerTab.tabConstructor')}}">
+    <div>
+      <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
+      <card-control-container></card-control-container>
     </div>
-  </div>
-  </nav>
-<!--Слайдeр подсказок-->
-  <card-hint-slider></card-hint-slider>
+  </mat-tab>
 
-<!--То что отвечает за сам конструктор визитки-->
-
-  <div class="tab-content active" data-tab="editor">
-<!--Основной блок-->
-    <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
-  </div>
-
-<!--То что отвечает за каталог дизайнов-->
-
-  <div class="tab-content" data-tab="design">
-    <card-design-container (designSelected)="headChoice('editor')"></card-design-container>
-  </div>
-
-<!--Нижнее меню сохранить макет-->
-  <card-control-container></card-control-container>
-
-
-
+  <mat-tab label="{{i18n.get('headerTab.tabDesign')}}">
+    <div>
+      <card-design-container (designSelected)="headChoice('editor')"></card-design-container>
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -3,6 +3,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from "@angular/common/http";
+import {MatTabsModule} from "@angular/material";
 
 import {AppComponent} from './app.component';
 import {DataService} from "./services/data.service";
@@ -55,7 +56,7 @@ import {StylingContainerComponent} from './styling-container/styling-container.c
 import {GeneralStylingComponent} from './styling-container/general-styling/general-styling.component';
 import {FontStylingComponent} from './styling-container/font-styling/font-styling.component';
 import {IconStylingComponent} from './styling-container/icon-styling/icon-styling.component';
-import { HrStylingComponent } from './styling-container/hr-styling/hr-styling.component';
+import {HrStylingComponent} from './styling-container/hr-styling/hr-styling.component';
 import {TabService} from "./services/tab.service";
 import {TextEditorComponent} from "./editors-container/text-editor/text-editor.component";
 
@@ -102,7 +103,8 @@ import {TextEditorComponent} from "./editors-container/text-editor/text-editor.c
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatTabsModule
   ],
   providers: [
     OptionsService,

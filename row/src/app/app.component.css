@@ -8,38 +8,3 @@
   padding-right: 10%;
 }
 
-
-/*кнопки*/
-
-.step1 {
-  display: flex;
-  justify-content: space-around;
-}
-.head-choice-btn {
-  width: 100%;
-}
-button.headerbtnchoice {
-  padding: 10px 5px;
-  font-size: 15px;
-  text-transform: uppercase;
-  width: 100%;
-}
-
-/*Общее поле*/
-
-.col {
-  display: flex;
-}
-
-/*Колонка1*/
-
-.col1 {
-  width: 70%;
-  padding-right: 7px;
-}
-.col2 {
-  height: auto;
-  width: 30%;
-  padding-left: 7px;
-}
-
