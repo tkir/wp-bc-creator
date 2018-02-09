@@ -134,7 +134,7 @@ export class MovableDirective implements OnInit, OnDestroy {
     }
 
     this.stylingService.add(item);
-    this.tabService.activeEditorTab = item.instanceOf;
+    this.tabService.selectedField = item.instanceOf;
   }
 
   private multiselection(item: CardField) {

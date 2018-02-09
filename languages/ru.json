@@ -4,6 +4,11 @@
   },
   "creator":{
     "headerTab.tabConstructor": "Конструктор",
-    "headerTab.tabDesign": "Дизайны"
+    "headerTab.tabDesign": "Дизайны",
+
+    "editor.tabs.textFields": "Текстовые Поля",
+    "editor.tabs.logos": "Логотипы",
+    "editor.tabs.lines": "Линии",
+    "editor.tabs.icons": "Иконки"
   }
 }

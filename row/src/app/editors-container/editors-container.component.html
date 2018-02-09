@@ -1,33 +1,23 @@
-<nav>
-  <button type="button"
-          (click)="changeTab('Text')"
-          [ngClass]="{'active':tabService.activeEditorTab=='Text'}">Text Fields</button>
-  <button type="button"
-          (click)="changeTab('Logo')"
-          [ngClass]="{'active':tabService.activeEditorTab=='Logo'}">Logos</button>
-  <button type="button"
-          (click)="changeTab('Line')"
-          [ngClass]="{'active':tabService.activeEditorTab=='Line'}">Lines</button>
-  <button type="button"
-          (click)="changeTab('Icon')"
-          [ngClass]="{'active':tabService.activeEditorTab=='Icon'}">Icons</button>
-</nav>
+<mat-tab-group [dynamicHeight]="true" [(selectedIndex)]="tabService.editorTabIndex">
 
-<card-styling-container></card-styling-container>
+  <mat-tab label="{{i18n.get('editor.tabs.textFields')}}">
+    <card-styling-container></card-styling-container>
+    <card-text-editor></card-text-editor>
+  </mat-tab>
 
-<div class="tab-content" [ngClass]="{'active':tabService.activeEditorTab=='Text'}">
-  <card-text-editor></card-text-editor>
-</div>
+  <mat-tab label="{{i18n.get('editor.tabs.logos')}}">
+    <card-styling-container></card-styling-container>
+    <card-logo-editor></card-logo-editor>
+  </mat-tab>
 
-<div class="tab-content" [ngClass]="{'active':tabService.activeEditorTab=='Logo'}">
-  <card-logo-editor></card-logo-editor>
-</div>
+  <mat-tab label="{{i18n.get('editor.tabs.lines')}}">
+    <card-styling-container></card-styling-container>
+    <card-hr-editor></card-hr-editor>
+  </mat-tab>
 
-<div class="tab-content" [ngClass]="{'active':tabService.activeEditorTab=='Line'}">
-  <card-hr-editor></card-hr-editor>
-  <button class="btn btn-default btn-sm" (click)="addHr()">Add line</button>
-</div>
+  <mat-tab label="{{i18n.get('editor.tabs.icons')}}">
+    <card-styling-container></card-styling-container>
+    <card-icon-editor></card-icon-editor>
+  </mat-tab>
 
-<div class="tab-content" [ngClass]="{'active':tabService.activeEditorTab=='Icon'}">
-  <card-icon-editor></card-icon-editor>
-</div>
+</mat-tab-group>

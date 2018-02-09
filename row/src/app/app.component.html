@@ -1,4 +1,4 @@
-<mat-tab-group [dynamicHeight]="true">
+<mat-tab-group [dynamicHeight]="true" [selectedIndex]="tabIndex">
   <mat-tab label="{{i18n.get('headerTab.tabConstructor')}}">
     <div>
       <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
@@ -8,7 +8,7 @@
 
   <mat-tab label="{{i18n.get('headerTab.tabDesign')}}">
     <div>
-      <card-design-container (designSelected)="headChoice('editor')"></card-design-container>
+      <card-design-container (designSelected)="tabIndex = 0"></card-design-container>
     </div>
   </mat-tab>
 </mat-tab-group>

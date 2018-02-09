@@ -29,7 +29,9 @@ export class HrEditorComponent implements OnInit, OnDestroy {
     this.subscription = null;
   }
 
-
+  addHr() {
+    this.itemService.addHr();
+  }
 
   removeItem(hr) {
     this.itemService.removeItem(hr);

@@ -1,24 +1,18 @@
 import {Component} from '@angular/core';
 import {TabService} from "../services/tab.service";
-import {ItemService} from "../services/item.service";
+import {I18nService} from "../services/i18n.service";
 
 @Component({
   selector: 'card-editors-container',
   templateUrl: './editors-container.component.html',
-  styleUrls: ['./editors-container.component.css', '../css/tabs.css']
+  styleUrls: ['./editors-container.component.css']
 })
 export class EditorsContainerComponent {
 
   constructor(public tabService: TabService,
-              private itemService: ItemService) {
+              public i18n: I18nService) {
   }
 
-  changeTab(tab) {
-    this.tabService.activeEditorTab = tab;
-  }
 
-  addHr() {
-    this.itemService.addHr();
-  }
 
 }
