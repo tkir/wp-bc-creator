@@ -1,16 +1,25 @@
-<ul>
-  <li *ngFor="let item of model.texts; let i = index" class="">
-    <input
-      type="text"
-      class="form-control"
-      [class.text-field-selected]="item.isSelected"
-      [(ngModel)]="item.text"
-      (focus)="focusItem($event, i)"
-      (blur)="blurItem()">
-    <button class="btn btn-warning" (click)="removeItem(model.texts, i)">-</button>
-  </li>
-</ul>
+<ng-container *ngIf="textFields">
+  <div *ngFor="let field of textFields; let i=index" [ngClass]="{'selected': field.isSelected}">
+    <mat-form-field class="example-full-width">
+      <input matInput
+             [placeholder]="placeholders[i] || ''"
+             [(ngModel)]="field.text"
+             (focus)="focusItem(field)"
+             (blur)="blurItem()">
+    </mat-form-field>
+    <button mat-raised-button (click)="removeItem(field)">-</button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="textFields && placeholders.length > textFields.length">
+  <div *ngFor="let ph of placeholders; let j=index">
+    <mat-form-field class="example-full-width" *ngIf="j >= textFields.length">
+      <input matInput [placeholder]="ph" (focus)="addTextField()">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="addTextField()" *ngIf="j >= textFields.length">+</button>
+  </div>
+</ng-container>
 
 <div>
-  <button class="btn btn-success" (click)="addTextField()">Add text field</button>
+  <button mat-raised-button color="primary" (click)="addTextField()">{{i18n.get("editor.text.addTextField")}}</button>
 </div>

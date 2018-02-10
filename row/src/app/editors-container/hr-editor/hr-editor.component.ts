@@ -3,6 +3,7 @@ import {Store} from "../../services/store";
 import {Subscription} from "rxjs/Subscription";
 import {CardData} from "../../data/CardData";
 import {ItemService} from "../../services/item.service";
+import {I18nService} from "../../services/i18n.service";
 
 @Component({
   selector: 'card-hr-editor',
@@ -15,6 +16,7 @@ export class HrEditorComponent implements OnInit, OnDestroy {
   model: CardData = null;
 
   constructor(private store: Store,
+              public i18n: I18nService,
               private itemService: ItemService) {
   }
 

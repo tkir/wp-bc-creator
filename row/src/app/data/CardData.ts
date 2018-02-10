@@ -127,7 +127,7 @@ export class CardData {
 
   public addTextField(){
     let textField=new TextField(
-      'new text',
+      '',
       {
         fontFamily: this.options.settings.allowedFonts[0],
         fontSize_mm: 4,

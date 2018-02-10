@@ -5,6 +5,7 @@ import {CardData} from "../../data/CardData";
 import {ImageService} from "../../services/image.service";
 import {ImageResult} from "../../utils/image/interfaces";
 import {ItemService} from "../../services/item.service";
+import {I18nService} from "../../services/i18n.service";
 
 @Component({
   selector: 'card-logo-editor',
@@ -17,6 +18,7 @@ export class LogoEditorComponent implements OnInit, OnDestroy {
   model: CardData = null;
 
   constructor(private store: Store,
+              public i18n: I18nService,
               private itemService: ItemService,
               private imageService: ImageService) {
   }

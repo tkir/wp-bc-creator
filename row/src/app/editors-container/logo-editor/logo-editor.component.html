@@ -1,7 +1,6 @@
 <ul *ngIf="model.logos">
   <li *ngFor="let item of model.logos" class="">
     <label class="fileContainer">
-      <!--<input type="file" (change)="uploadImage(item, $event)">-->
       <img [src]="item.src" class="thumb">
     </label>
     <button class="btn btn-sm btn-default" (click)="removeItem(item)">-</button>
@@ -10,6 +9,6 @@
 
 
 <label class="fileContainer">
-  <button class="btn btn-sm btn-default">+</button>
+  <button class="btn btn-sm btn-default">{{i18n.get("editor.logo.addLogo")}}</button>
   <input type="file" (change)="uploadImage($event)">
 </label>

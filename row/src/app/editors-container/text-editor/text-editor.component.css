@@ -1,13 +1,3 @@
-ul{
-  list-style: none;
-}
-
-input{
-  display: inline-block;
-  float: left;
-  width: 83%;
-}
-
-.text-field-selected{
+.selected{
   outline: dashed red;
 }

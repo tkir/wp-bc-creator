@@ -9,7 +9,7 @@ export class I18nService {
     Object.keys(bc_creator_i18n).forEach(key => this[key] = bc_creator_i18n[key]);
   }
 
-  get(str: string): string {
+  get(str: string): any {
     return this[str] || '';
   }
 

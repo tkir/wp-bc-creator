@@ -1,13 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 
-import {CardData} from "../../data/CardData";
 import {Store} from "../../services/store";
-import {ImageService} from "../../services/image.service";
 import {StylingService} from "../../services/styling.service";
 import {ItemService} from "../../services/item.service";
 import {UndoRedoService} from "../../services/undo-redo.service";
 import {TextField} from "../../data/TextField";
+import {I18nService} from "../../services/i18n.service";
 
 
 @Component({
@@ -17,22 +16,23 @@ import {TextField} from "../../data/TextField";
 })
 export class TextEditorComponent implements OnInit, OnDestroy {
 
-  model: CardData = null;
-  selectedInput: any = null;
-  private selectedItem:TextField=null;
-
+  textFields: TextField[] = null;
+  placeholders: string[] = [];
+  private selectedItem: TextField = null;
   private subscription: Subscription;
 
   constructor(private store: Store,
-              private imageService: ImageService,
+              public i18n: I18nService,
               private stylingService: StylingService,
               private itemService: ItemService,
-              private undoRedoService:UndoRedoService) {
+              private undoRedoService: UndoRedoService) {
   }
 
   ngOnInit() {
+    this.placeholders = this.i18n.get("editor.text.placeholders");
     this.subscription = this.store.changes
-      .subscribe((cardData: any) => this.model = cardData);
+      .subscribe((cardData: any) => this.textFields = cardData.texts)
+
   }
 
   ngOnDestroy(): void {
@@ -44,46 +44,20 @@ export class TextEditorComponent implements OnInit, OnDestroy {
     this.itemService.addTextField();
   }
 
-  private getItemFont(): string {
-    let fontFamily;
-    this.model.fields.forEach(item => {
-      if (item.instanceOf == 'Text') fontFamily = item.fontFamily;
-    });
-
-    return fontFamily;
+  removeItem(field) {
+    this.itemService.removeItem(field);
   }
 
-  removeItem(items, i) {
-    this.itemService.removeItem(items[i]);
-  }
-
-  focusItem(event, i) {
-    this.model.fields.forEach(item => {
-      if (item.isSelected) item.isSelected = false;
-    });
-
-    this.selectedInput = event.target;
-
+  focusItem(field) {
 
     this.stylingService.clear();
-    this.stylingService.add(this.model.texts[i]);
+    this.stylingService.add(field);
 
-    this.selectedItem=this.model.texts[i];
-    this.undoRedoService.textChange(this.model.texts[i], this.model.texts[i].text, null);
+    this.selectedItem = field;
+    this.undoRedoService.textChange(field, field.text, null);
   }
 
   blurItem() {
-    this.selectedInput = null;
-
     this.undoRedoService.textChange(this.selectedItem, null, this.selectedItem.text);
-  }
-
-  onFocusReturn() {
-    this.selectedInput.focus();
-  }
-
-  uploadImage(item, event) {
-    if (event.target.files.length)
-      this.imageService.uploadImage(item, event.target.files[0]);
   }
 }

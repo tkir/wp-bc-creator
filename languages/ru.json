@@ -9,6 +9,20 @@
     "editor.tabs.textFields": "Текстовые Поля",
     "editor.tabs.logos": "Логотипы",
     "editor.tabs.lines": "Линии",
-    "editor.tabs.icons": "Иконки"
+    "editor.tabs.icons": "Иконки",
+
+    "editor.text.addTextField": "Добавить текстовое поле",
+    "editor.logo.addLogo": "Добавить логотип",
+    "editor.hr.addHr": "Добавить линию",
+    "editor.icon.addIcon": "Добавить иконку",
+    "editor.text.placeholders":[
+      "ФИО",
+      "Должность",
+      "Место работы",
+      "Адрес",
+      "Телефон",
+      "Email",
+      "Сайт"
+    ]
   }
 }
