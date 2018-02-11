@@ -3,7 +3,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from "@angular/common/http";
-import {MatButtonModule, MatInputModule, MatTabsModule} from "@angular/material";
+import {MatButtonModule, MatInputModule, MatSlideToggleModule, MatTabsModule} from "@angular/material";
 
 import {AppComponent} from './app.component';
 import {DataService} from "./services/data.service";
@@ -106,7 +106,8 @@ import {TextEditorComponent} from "./editors-container/text-editor/text-editor.c
     AppRoutingModule,
     MatTabsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSlideToggleModule
   ],
   providers: [
     OptionsService,

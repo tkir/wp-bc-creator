@@ -87,11 +87,6 @@ export class DataService {
     d['FieldsData'] = JSON.parse(d['FieldsData']);
 
     let fieldsData = d['FieldsData'];
-    if (this.isDesignLoad && !this.cardService.isPristine) {
-      fieldsData = (this.side == 'front') ?
-        this.cardService.userFront.fieldsData :
-        this.cardService.userBack.fieldsData;
-    }
 
     this.cardService.keepLoadedCard(d['FieldsData'], d['DesignData'], d['isEditable'], d['Slug']);
     this.cardService.keepUserCard(fieldsData, d['DesignData'], d['isEditable'], d['Slug']);

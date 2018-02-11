@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {OptionsService} from "../services/options.service";
 import {DataService} from "../services/data.service";
+import {I18nService} from "../services/i18n.service";
 
 @Component({
   selector: 'card-side-switch',
@@ -10,6 +11,7 @@ import {DataService} from "../services/data.service";
 export class SideSwitchComponent {
 
   constructor(public options: OptionsService,
+              public i18n: I18nService,
               private dataService: DataService) {
   }
 

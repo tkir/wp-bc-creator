@@ -23,6 +23,9 @@
       "Телефон",
       "Email",
       "Сайт"
-    ]
+    ],
+
+    "sideSwitch.singlesSide": "Односторонняя",
+    "sideSwitch.doublesSide": "Двухсторонняя"
   }
 }
