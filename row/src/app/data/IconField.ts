@@ -1,5 +1,4 @@
 import {CardField} from "./interfaces";
-// import {getMaxPosition} from "../utils/size.util";
 import {OptionsService} from "../services/options.service";
 import {Background} from "./Background";
 
@@ -73,10 +72,6 @@ export class Icon implements CardField {
     return this.left + Math.round(this.width / 2);
   }
   set middle(val) {
-    // if (!this.positionLimits) this.updatePositionLimits();
-    // if(val - Math.round(this.width / 2) < this.positionLimits.left) val = this.positionLimits.left + Math.round(this.width / 2);
-    // if(val - Math.round(this.width / 2) > this.positionLimits.right) val = this.positionLimits.right + Math.round(this.width / 2);
-
     this.left = val - Math.round(this.width / 2);
   }
 
@@ -84,10 +79,6 @@ export class Icon implements CardField {
     return this.left + this.width;
   }
   set right(val) {
-    // if (!this.positionLimits) this.updatePositionLimits();
-    // if (val - this.width > this.positionLimits.right) val = this.positionLimits.right + this.width;
-    // if (val - this.width < this.positionLimits.left) val = this.positionLimits.left + this.width;
-
     this.left = val - this.width;
   }
 
@@ -96,16 +87,12 @@ export class Icon implements CardField {
     if (!this._width) this.updatePositionLimits();
     return this._width;
   }
-  // set width(val) {
-  // }
 
   private _height;
   get height() {
     if (!this._height) this.updatePositionLimits();
     return this._height
   }
-  // set height(val) {
-  // }
 
   get fontSize(): number {
     return Math.round(this.fontSize_mm * this.options.settings.ratio);
