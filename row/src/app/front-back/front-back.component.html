@@ -1,6 +1,1 @@
-<!--Переключатель Лицо-Оборот-->
-  <nav>
-    <button type="button" [ngClass]="{'active': dataService.side == 'front'}" (click)="changeTab($event, 'front')" class="frontside">Лицо</button>
-
-    <button type="button" [ngClass]="{'active': dataService.side == 'back'}" (click)="changeTab($event, 'back')" [disabled]="!options.isDoubleSide" class="frontside">Оборот</button>
-  </nav>
+<button mat-icon-button [disabled]="!options.isDoubleSide" (click)="toggleSide()"><i class="fa fa-refresh"></i></button>

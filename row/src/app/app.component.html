@@ -1,14 +1,37 @@
-<mat-tab-group [dynamicHeight]="true" [(selectedIndex)]="tabIndex">
-  <mat-tab label="{{i18n.get('headerTab.tabConstructor')}}">
-    <div>
-      <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
-      <card-control-container></card-control-container>
-    </div>
-  </mat-tab>
+<mat-sidenav-container class="all-wrap" fullscreen>
+  <mat-sidenav #sidenav>
+    <card-design-container (designSelected)="sidenav.toggle()"></card-design-container>
+  </mat-sidenav>
 
-  <mat-tab label="{{i18n.get('headerTab.tabDesign')}}">
-    <div>
-      <card-design-container (designSelected)="tabIndex = 0"></card-design-container>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+  <div class="page-wrap">
+
+    <header role="banner">
+      <mat-toolbar color="primary">
+        <button
+          type="button"
+          mat-icon-button
+          (click)="sidenav.open()"
+          title="Open sidenav">
+          <i class="fa fa-2x fa-bars"></i>
+        </button>
+        Your Toolbar
+      </mat-toolbar>
+    </header>
+
+    <main class="content">
+      <router-outlet *ngIf="dataService.isDesignLoad"></router-outlet>
+    </main>
+
+    <footer>
+      <card-side-switch></card-side-switch>
+      <mat-divider [vertical]="true"></mat-divider>
+      <button mat-button (click)="grid()">Show grid</button>
+      <mat-divider [vertical]="true" class="vertical"></mat-divider>
+      <card-bg-size></card-bg-size>
+      <mat-divider [vertical]="true" class="vertical"></mat-divider>
+      <card-background-editor></card-background-editor>
+      <card-control-container class="right"></card-control-container>
+    </footer>
+
+  </div>
+</mat-sidenav-container>

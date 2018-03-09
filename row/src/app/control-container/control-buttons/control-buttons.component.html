@@ -1,7 +1,9 @@
-<button type="button" class="btn btn-info" (click)="reset()">Reset design</button>
-<button type="button" class="btn btn-success" (click)="save()">Save design</button>
-<button type="button" class="btn btn-warning" (click)="getPreview()">Preview</button>
-<button type="button" class="btn btn-danger" *ngIf="model.isEditable" (click)="delete()">Delete</button>
+<button mat-raised-button (click)="reset()">Reset</button>
+
+
+<button mat-raised-button *ngIf="model.isEditable" (click)="delete()" class="btn-delete">Delete</button>
+<button mat-raised-button (click)="getPreview()" class="btn-preview">Preview</button>
+<button mat-raised-button (click)="save()" class="btn-save">Save</button>
 
 <!--TODO удалить в релизе-->
-<button type="button" class="btn btn-default" (click)="adminSaveDesign()">Admin save design</button>
+<!--<button type="button" class="btn btn-default" (click)="adminSaveDesign()">Admin save design</button>-->

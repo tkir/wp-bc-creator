@@ -13,8 +13,7 @@ export class FrontBackComponent {
               public dataService: DataService) {
   }
 
-  changeTab(event, side) {
-    this.dataService.changeSide(side);
+  toggleSide() {
+    this.dataService.toggleSide();
   }
-
 }

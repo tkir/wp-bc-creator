@@ -1,6 +1,6 @@
 import {AfterContentInit, Component, ElementRef} from '@angular/core';
 import {OptionsService} from "../services/options.service";
-import {GridService} from "../services/grid.service";
+// import {GridService} from "../services/grid.service";
 
 @Component({
   selector: 'card-container',
@@ -18,11 +18,12 @@ export class CardContainerComponent implements AfterContentInit {
   }
 
   constructor(private el: ElementRef,
-              private options: OptionsService,
-              private gridService: GridService) {
+              private options: OptionsService
+              // private gridService: GridService
+  ) {
   }
 
-  grid() {
-    this.gridService.isGrid = !this.gridService.isGrid;
-  }
+  // grid() {
+  //   this.gridService.isGrid = !this.gridService.isGrid;
+  // }
 }

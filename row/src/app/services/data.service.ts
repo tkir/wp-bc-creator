@@ -102,18 +102,15 @@ export class DataService {
     this.updateCard((this.side == 'front') ? this.cardService.userFront : this.cardService.userBack);
   }
 
-  public changeSide(side) {
-    if (this.side == side) return;
-
-    this.side = side;
+  public toggleSide(){
+    this.side =(this.side=='front')?'back':'front';
     this.isChanginSide = true;
     this.router.navigate([`/${this.slug}/${this.side}`]);
-
   }
 
   public changeSideNumber(sideNum) {
     this.options.isDoubleSide = (sideNum == 'double');
     this.options.setOrderOptionsDefaultValues();
-    if (this.side == 'back') this.changeSide('front');
+    if (this.side == 'back') this.toggleSide();
   }
 }

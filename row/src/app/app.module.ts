@@ -3,7 +3,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from "@angular/common/http";
-import {MatButtonModule, MatInputModule, MatSlideToggleModule, MatTabsModule} from "@angular/material";
+import {
+  MatButtonModule, MatCheckboxModule, MatDividerModule, MatInputModule, MatMenuModule, MatSelectModule,
+  MatSidenavModule,
+  MatSlideToggleModule,
+  MatTabsModule, MatToolbarModule
+} from "@angular/material";
 
 import {AppComponent} from './app.component';
 import {DataService} from "./services/data.service";
@@ -59,6 +64,7 @@ import {IconStylingComponent} from './styling-container/icon-styling/icon-stylin
 import {HrStylingComponent} from './styling-container/hr-styling/hr-styling.component';
 import {TabService} from "./services/tab.service";
 import {TextEditorComponent} from "./editors-container/text-editor/text-editor.component";
+import { BgSizeComponent } from './bg-size/bg-size.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +101,8 @@ import {TextEditorComponent} from "./editors-container/text-editor/text-editor.c
     GeneralStylingComponent,
     FontStylingComponent,
     IconStylingComponent,
-    HrStylingComponent
+    HrStylingComponent,
+    BgSizeComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
@@ -107,7 +114,13 @@ import {TextEditorComponent} from "./editors-container/text-editor/text-editor.c
     MatTabsModule,
     MatInputModule,
     MatButtonModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSidenavModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatSelectModule,
+    MatMenuModule
   ],
   providers: [
     OptionsService,

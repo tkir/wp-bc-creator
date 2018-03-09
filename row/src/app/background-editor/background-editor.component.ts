@@ -15,10 +15,8 @@ export class BackgroundEditorComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = null;
   background: Background;
-  cardData: any = null;
-  allowedSizes: { width: number, height: number }[] = [];
 
-  constructor(private options: OptionsService,
+  constructor(public options: OptionsService,
               private store: Store,
               private imageService: ImageService) {
   }
@@ -26,11 +24,8 @@ export class BackgroundEditorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.store.changes
       .subscribe((cardData: any) => {
-        this.cardData = cardData;
         this.background = cardData.background;
       });
-
-    this.allowedSizes = this.options.settings.allowedSizes;
   }
 
   ngOnDestroy(): void {
@@ -39,21 +34,14 @@ export class BackgroundEditorComponent implements OnInit, OnDestroy {
     this.subscription = null;
   }
 
-  updateCardSize(i) {
-    this.background.width_mm = this.allowedSizes[i].width;
-    this.background.height_mm = this.allowedSizes[i].height;
-
-    this.cardData.onChangeBgSize();
-  }
-
   setColor(color: string) {
     this.background._backgroundColor = color;
   }
 
   uploadImage(event) {
     if (event.target.files.length)
-    this.imageService.uploadImage(event.target.files[0], false)
-      .then(res => this.background.src = res.resized.dataURL)
+      this.imageService.uploadImage(event.target.files[0], false)
+        .then(res => this.background.src = res.resized.dataURL)
   }
 
   removeBeckgroundImage() {
