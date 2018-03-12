@@ -3,7 +3,7 @@ import {createImage, resizeImage} from './utils';
 
 export class ImageUpload {
 
-  resizeOptions: ResizeOptions;
+  // resizeOptions: ResizeOptions;
   private _allowedExtensions: string[];
 
   get allowedExtensions() {
@@ -20,7 +20,6 @@ export class ImageUpload {
 
   readFiles(file, resizeOptions: ResizeOptions, allowedExtensions) {
     this.allowedExtensions = allowedExtensions;
-    this.resizeOptions = resizeOptions;
 
     let result: ImageResult = {
       file: file,
@@ -35,19 +34,20 @@ export class ImageUpload {
       });
     } else {
       return this.fileToDataURL(file, result)
-        .then(r => this.resize(r));
+        .then(r => this.resize(r, resizeOptions));
     }
   }
 
-  private resize(result: ImageResult): Promise<ImageResult> {
-    if (!this.resizeOptions) return Promise.resolve(result);
-    return createImage(result.url).then(image => {
-      let dataUrl = resizeImage(image, this.resizeOptions);
+  private resize(result: ImageResult, resizeOptions: ResizeOptions): Promise<ImageResult> {
+    if (!resizeOptions) return Promise.resolve(result);
+    return createImage(result.url)
+      .then(image => {
+      let dataUrl = resizeImage(image, resizeOptions);
       result.resized = {
         dataURL: dataUrl,
         type: dataUrl.match(/:(.+\/.+;)/)[1],
-        width: this.resizeOptions.resizedToWidth,
-        height: this.resizeOptions.resizedToHeight
+        width: resizeOptions.resizedToWidth,
+        height: resizeOptions.resizedToHeight
       };
       return result;
     });
@@ -63,6 +63,25 @@ export class ImageUpload {
       reader.readAsDataURL(file);
     });
   }
+
+
+  //пока не работает
+  // public getBlobFromURL(url:string, resizeOptions: ResizeOptions, allowedExtensions){
+  //   this.allowedExtensions = allowedExtensions;
+  //
+  //   return createImage(url)
+  //     .then(image => {
+  //     let dataUrl = resizeImage(image, this.resizeOptions);
+  //     let result:ImageResult;
+  //     result.resized = {
+  //       dataURL: dataUrl,
+  //       type: dataUrl.match(/:(.+\/.+;)/)[1],
+  //       width: resizeOptions.resizedToWidth,
+  //       height: resizeOptions.resizedToHeight
+  //     };
+  //     return result;
+  //   });
+  // }
 }
 
 

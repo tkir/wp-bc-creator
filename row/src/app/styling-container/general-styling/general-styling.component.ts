@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 
-import {AlignService} from "../../services/align.service";
 import {StylingService} from "../../services/styling.service";
 import {ItemService} from "../../services/item.service";
 import {UndoRedoService} from "../../services/undo-redo.service";
@@ -18,7 +17,6 @@ export class GeneralStylingComponent implements OnInit {
   items: any[] = [];
 
   constructor(public stylingService: StylingService,
-              public alService: AlignService,
               private itemService: ItemService,
               private undoRedoService: UndoRedoService) {
   }
@@ -32,10 +30,6 @@ export class GeneralStylingComponent implements OnInit {
   onMouseDown() {
     this.items.forEach(item => item.isStyling = true);
     this.undoRedoService.setSelectionArray(this.items);
-  }
-
-  setAlignment(alLine: string) {
-    this.alService.alignTextFields(alLine);
   }
 
   removeItems() {

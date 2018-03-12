@@ -1,3 +1,5 @@
-<mat-select [(value)]="bgSizeNum" *ngIf="background" (selectionChange)="updateCardSize()">
-  <mat-option *ngFor="let size of options.settings.allowedSizes; let i=index" [value]="i">{{size.width}}x{{size.height}}</mat-option>
-</mat-select>
+<span>{{orientation}}</span>
+<mat-slide-toggle
+  [checked]="orientation == 'landscape'"
+  color="primary"
+  (change)="updateCardSize()"></mat-slide-toggle>

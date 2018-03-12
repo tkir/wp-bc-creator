@@ -1,5 +1,5 @@
 export interface ImageResult {
-    file: File;
+    file?: File;
     url: string;
     dataURL?: string;
     error?: string;

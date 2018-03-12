@@ -31,7 +31,7 @@ function getResizeArea() {
 }
 
 export function resizeImage(origImage: HTMLImageElement, resizeOptions: ResizeOptions = {}) {
-
+  origImage.setAttribute('crossOrigin', 'anonymous');
   let canvas = getResizeArea();
 
   let height = origImage.height;

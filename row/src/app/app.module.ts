@@ -4,10 +4,16 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from "@angular/common/http";
 import {
-  MatButtonModule, MatCheckboxModule, MatDividerModule, MatInputModule, MatMenuModule, MatSelectModule,
+  MatButtonModule, MatButtonToggleModule,
+  MatCheckboxModule,
+  MatDividerModule,
+  MatInputModule,
+  MatMenuModule,
+  MatSelectModule,
   MatSidenavModule,
   MatSlideToggleModule,
-  MatTabsModule, MatToolbarModule
+  MatTabsModule,
+  MatToolbarModule
 } from "@angular/material";
 
 import {AppComponent} from './app.component';
@@ -65,6 +71,8 @@ import {HrStylingComponent} from './styling-container/hr-styling/hr-styling.comp
 import {TabService} from "./services/tab.service";
 import {TextEditorComponent} from "./editors-container/text-editor/text-editor.component";
 import { BgSizeComponent } from './bg-size/bg-size.component';
+import { ImageImportComponent } from './image-import/image-import.component';
+import { AlignStylingComponent } from './styling-container/align-styling/align-styling.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +110,9 @@ import { BgSizeComponent } from './bg-size/bg-size.component';
     FontStylingComponent,
     IconStylingComponent,
     HrStylingComponent,
-    BgSizeComponent
+    BgSizeComponent,
+    ImageImportComponent,
+    AlignStylingComponent
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
@@ -120,7 +130,8 @@ import { BgSizeComponent } from './bg-size/bg-size.component';
     MatToolbarModule,
     MatDividerModule,
     MatSelectModule,
-    MatMenuModule
+    MatMenuModule,
+    MatButtonToggleModule
   ],
   providers: [
     OptionsService,

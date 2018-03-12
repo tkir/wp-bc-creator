@@ -1,43 +1,8 @@
-<!--<div class="btn-group" role="group" aria-label="...">-->
-  <!--<div class="btn-group">-->
-    <!--<button type="button" class="btn btn-default btn-sm">Size {{background.width_mm}}x{{background.height_mm}}</button>-->
-    <!--<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
-            <!--aria-expanded="false">-->
-      <!--<span class="caret"></span>-->
-    <!--</button>-->
-    <!--<ul class="dropdown-menu">-->
-      <!--<li *ngFor="let size of options.settings.allowedSizes; let i=index"><a (click)="updateCardSize(i)">{{size.width}}x{{size.height}}</a></li>-->
-    <!--</ul>-->
-
-    <!--<div class="btn-group">-->
-      <!--<button class="btn btn-default btn-sm">-->
-        <!--<div class="background-color-preview" [ngStyle]="{'background-color': background.backgroundColor}"></div></button>-->
-      <!--<button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-        <!--<span class="caret"></span>-->
-      <!--</button>-->
-      <!--<ul class="dropdown-menu">-->
-        <!--<card-color-picker (colorSelected)="setColor($event)"></card-color-picker>-->
-      <!--</ul>-->
-    <!--</div>-->
-
 <button mat-icon-button [matMenuTriggerFor]="cardBgColor">
-  <i class="fa fa-home" [ngStyle]="{color:background.backgroundColor}" *ngIf="background"></i>
+  <i class="fa fa-home fa-border" [ngStyle]="{color:background.backgroundColor}" *ngIf="background"></i>
 </button>
-<mat-menu #menu="cardBgColor">
+<mat-menu #cardBgColor="matMenu">
   <card-color-picker (colorSelected)="setColor($event)"></card-color-picker>
 </mat-menu>
 
-    <!--<div class="btn-group">-->
-      <!--<div class="background-image-upload">-->
-        <!--<label for="background-image-input" class="btn btn-sm btn-default">Выбрать изображение</label>-->
-        <!--<input type="file" id="background-image-input" (change)="uploadImage($event)">-->
-      <!--</div>-->
-      <!--<button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-        <!--<span class="caret"></span>-->
-      <!--</button>-->
-      <!--<ul class="dropdown-menu">-->
-        <!--<a (click)="removeBeckgroundImage()">none</a>-->
-      <!--</ul>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
+

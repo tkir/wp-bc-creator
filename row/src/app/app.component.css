@@ -14,12 +14,13 @@ mat-sidenav{
 
 .all-wrap {
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .page-wrap {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  overflow: hidden;
 }
 
 .content {

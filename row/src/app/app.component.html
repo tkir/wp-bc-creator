@@ -14,7 +14,12 @@
           title="Open sidenav">
           <i class="fa fa-2x fa-bars"></i>
         </button>
-        Your Toolbar
+
+        <card-styling-container></card-styling-container>
+        <!--<card-text-editor></card-text-editor>-->
+        <card-align-styling></card-align-styling>
+        <card-general-styling class="right"></card-general-styling>
+
       </mat-toolbar>
     </header>
 
@@ -25,10 +30,12 @@
     <footer>
       <card-side-switch></card-side-switch>
       <mat-divider [vertical]="true"></mat-divider>
-      <button mat-button (click)="grid()">Show grid</button>
-      <mat-divider [vertical]="true" class="vertical"></mat-divider>
       <card-bg-size></card-bg-size>
-      <mat-divider [vertical]="true" class="vertical"></mat-divider>
+      <mat-divider [vertical]="true"></mat-divider>
+      <mat-checkbox [(ngModel)]="gridService.isGrid" align="end">grid</mat-checkbox>
+      <mat-divider [vertical]="true"></mat-divider>
+      <card-image-import></card-image-import>
+      <mat-divider [vertical]="true"></mat-divider>
       <card-background-editor></card-background-editor>
       <card-control-container class="right"></card-control-container>
     </footer>
