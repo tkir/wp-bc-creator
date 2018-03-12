@@ -1,0 +1,16 @@
+<mat-button-toggle-group
+  #group="matButtonToggleGroup"
+  (change)="setAlignment(group.value)"
+  *ngIf="alService.isMultiselection"
+  [value]="align"
+>
+  <mat-button-toggle value="left">
+    <i class="fa fa-align-left"></i>
+  </mat-button-toggle>
+  <mat-button-toggle value="middle">
+    <i class="fa fa-align-center"></i>
+  </mat-button-toggle>
+  <mat-button-toggle value="right">
+    <i class="fa fa-align-right"></i>
+  </mat-button-toggle>
+</mat-button-toggle-group>

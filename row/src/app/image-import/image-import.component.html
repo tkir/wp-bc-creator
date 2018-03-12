@@ -1,0 +1,12 @@
+<button mat-icon-button [matMenuTriggerFor]="imgUpload">
+  <i class="fa fa-image"></i>
+</button>
+<mat-menu #imgUpload="matMenu">
+  <button mat-menu-item (click)="clearImage()">none</button>
+  <label>
+    <button mat-menu-item>
+      <i class="fa fa-download"></i><span> select file</span>
+      <input type="file" (change)="blobFromFile($event)">
+    </button>
+  </label>
+</mat-menu>
