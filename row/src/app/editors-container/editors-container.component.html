@@ -1,23 +1,33 @@
-<mat-tab-group [dynamicHeight]="true" [(selectedIndex)]="tabService.editorTabIndex">
+<!--<mat-tab-group [dynamicHeight]="true" [(selectedIndex)]="tabService.editorTabIndex">-->
 
-  <mat-tab label="{{i18n.get('editor.tabs.textFields')}}">
-    <card-styling-container></card-styling-container>
-    <card-text-editor></card-text-editor>
-  </mat-tab>
+<!--<mat-tab label="{{i18n.get('editor.tabs.textFields')}}">-->
+<!--<card-styling-container></card-styling-container>-->
+<!--<card-text-editor></card-text-editor>-->
+<!--</mat-tab>-->
 
-  <mat-tab label="{{i18n.get('editor.tabs.logos')}}">
-    <card-styling-container></card-styling-container>
-    <card-logo-editor></card-logo-editor>
-  </mat-tab>
+<!--<mat-tab label="{{i18n.get('editor.tabs.logos')}}">-->
+<!--<card-styling-container></card-styling-container>-->
+<!--<card-logo-editor></card-logo-editor>-->
+<!--</mat-tab>-->
 
-  <mat-tab label="{{i18n.get('editor.tabs.lines')}}">
-    <card-styling-container></card-styling-container>
-    <card-hr-editor></card-hr-editor>
-  </mat-tab>
+<!--<mat-tab label="{{i18n.get('editor.tabs.lines')}}">-->
+<!--<card-styling-container></card-styling-container>-->
+<!--<card-hr-editor></card-hr-editor>-->
+<!--</mat-tab>-->
 
-  <mat-tab label="{{i18n.get('editor.tabs.icons')}}">
-    <card-styling-container></card-styling-container>
-    <card-icon-editor></card-icon-editor>
-  </mat-tab>
+<!--<mat-tab label="{{i18n.get('editor.tabs.icons')}}">-->
+<!--<card-styling-container></card-styling-container>-->
+<!---->
+<!--</mat-tab>-->
 
-</mat-tab-group>
+<!--</mat-tab-group>-->
+
+
+<card-text-editor2 *ngIf="selectedFields && selectedFields.length==1 && selectedFields[0].instanceOf=='Text'"
+                   [textField]="selectedFields[0]"></card-text-editor2>
+
+<card-icon-editor *ngIf="selectedFields && selectedFields.length==1 && selectedFields[0].instanceOf=='Icon'"
+                  [iconField]="selectedFields[0]"></card-icon-editor>
+
+<card-logo-editor *ngIf="selectedFields && selectedFields.length==1 && selectedFields[0].instanceOf=='Logo'"
+                  [logoField]="selectedFields[0]"></card-logo-editor>

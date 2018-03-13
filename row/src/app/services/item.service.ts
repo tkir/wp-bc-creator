@@ -4,6 +4,7 @@ import {Store} from "./store";
 import {CardData} from "../data/CardData";
 import {Subscription} from "rxjs/Subscription";
 import {UndoRedoService} from "./undo-redo.service";
+import {StylingService} from "./styling.service";
 
 @Injectable()
 export class ItemService {
@@ -13,7 +14,8 @@ export class ItemService {
 
   constructor(private dataService: DataService,
               private store: Store,
-              private undoRedoService:UndoRedoService) {
+              private undoRedoService:UndoRedoService,
+              private stylingService: StylingService) {
     this.subscription = this.store.changes
       .subscribe((cardData: any) => this.model = cardData);
   }
@@ -21,6 +23,7 @@ export class ItemService {
   public removeItem(item) {
     this.model.removeItem(item);
     this.dataService.updateCard(this.model);
+    this.stylingService.remove(item);
 
     this.undoRedoService.removeItem(item);
   }

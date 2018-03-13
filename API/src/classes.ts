@@ -75,9 +75,15 @@ export class Logo {
     height_mm: number;
     left_mm: number;
     top_mm: number;
+    backgroundColor:string;
+    opacity:number;
+    rotate:number;
 
     getDivStyle(k: number, z: number) {
         return `
+      background-color: ${this.backgroundColor},
+      opacity: ${this.opacity},
+      transform: rotate(${this.rotate}deg),
       width: ${this.width_mm * k}px;
       height: ${this.height_mm * k}px;
       background-image: url('${this.src}');

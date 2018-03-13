@@ -8,7 +8,7 @@ import {ImageService} from "../services/image.service";
 })
 export class ImageImportComponent {
 
-  @Input() isLogo: boolean;
+  @Input() isLogo: boolean = false;
   @Output() dataUrlReady: EventEmitter<string> = new EventEmitter();
 
   constructor(private imageService: ImageService) {
@@ -17,7 +17,7 @@ export class ImageImportComponent {
 
   blobFromFile(event) {
     if (event.target.files.length)
-      this.imageService.uploadImage(event.target.files[0], false)
+      this.imageService.uploadImage(event.target.files[0], this.isLogo)
         .then(res => this.dataUrlReady.emit(res.resized.dataURL));
   }
 

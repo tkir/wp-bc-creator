@@ -10,7 +10,7 @@ import {
   MatInputModule,
   MatMenuModule,
   MatSelectModule,
-  MatSidenavModule,
+  MatSidenavModule, MatSliderModule,
   MatSlideToggleModule,
   MatTabsModule,
   MatToolbarModule
@@ -73,6 +73,7 @@ import {TextEditorComponent} from "./editors-container/text-editor/text-editor.c
 import { BgSizeComponent } from './bg-size/bg-size.component';
 import { ImageImportComponent } from './image-import/image-import.component';
 import { AlignStylingComponent } from './styling-container/align-styling/align-styling.component';
+import { TextEditor2Component } from './editors-container/text-editor2/text-editor2.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { AlignStylingComponent } from './styling-container/align-styling/align-s
     HrStylingComponent,
     BgSizeComponent,
     ImageImportComponent,
-    AlignStylingComponent
+    AlignStylingComponent,
+    TextEditor2Component
   ],
   entryComponents: [FieldResizeComponent, PreviewModalComponent],
   imports: [
@@ -131,7 +133,8 @@ import { AlignStylingComponent } from './styling-container/align-styling/align-s
     MatDividerModule,
     MatSelectModule,
     MatMenuModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatSliderModule
   ],
   providers: [
     OptionsService,

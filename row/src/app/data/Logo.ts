@@ -8,6 +8,10 @@ export class Logo implements CardField {
     Object.keys(dData).forEach(key => this[key] = dData[key]);
   }
 
+  public _backgroundColor: string = '';
+  public _opacity: number = 1;
+  public rotate: number = 0;
+
   public width_mm: number;
   public height_mm: number;
   public left_mm: number;
@@ -28,6 +32,20 @@ export class Logo implements CardField {
   }
 
 
+  set opacity(val) {
+    this._opacity = Math.round(val * 100) / 100;
+  }
+  get opacity() {
+    return Math.round(this._opacity * 100) / 100;
+  }
+
+  set backgroundColor(val) {
+    this._backgroundColor = val;
+  }
+  get backgroundColor() {
+    if(this._backgroundColor=='' || this._backgroundColor=='#')return '';
+    return `#${this._backgroundColor.replace('#', '')}`;
+  }
 
   get width() {
     return Math.round(this.width_mm * this.options.settings.ratio);
@@ -103,20 +121,12 @@ export class Logo implements CardField {
     this.left = this.left;
     this.top = this.top;
   }
-  // public onChangeBgSize() {
-  //   let maxSize = getMaxSize(this.instanceOf, this.bg);
-  //   if (this.width > maxSize.x) this.width = maxSize.x;
-  //   if (this.height > maxSize.y) this.height = maxSize.y;
-  //
-  //   let maxPosition = getMaxPosition(this.instanceOf, {width: this.width, height: this.height}, bg);
-  //   if (maxPosition.x < this.left) this.left = maxPosition.x;
-  //   if (maxPosition.y < this.top) this.top = maxPosition.y;
-  //
-  //   this.updatePositionLimits();
-  // }
 
   get style() {
     return {
+      'background-color': this.backgroundColor,
+      'opacity': this.opacity,
+      'transform': `rotate(${this.rotate}deg)`,
       'width.px': this.width,
       'height.px': this.height,
       'background-image': `url(${this.src})`,
@@ -126,6 +136,9 @@ export class Logo implements CardField {
 
   get json() {
     return {
+      backgroundColor: this.backgroundColor,
+      opacity: this.opacity,
+      rotate: this.rotate,
       src: this.src,
       width_mm: this.width_mm,
       height_mm: this.height_mm,
@@ -136,6 +149,9 @@ export class Logo implements CardField {
 
   set json(val) {
     this.src = val.src;
+    this._backgroundColor = val.backgroundColor;
+    this.opacity = val.opacity;
+    this.rotate = val.rotate;
     this.width_mm = val.width_mm;
     this.height_mm = val.height_mm;
     this.left_mm = val.left_mm;
@@ -146,6 +162,9 @@ export class Logo implements CardField {
 
   get designData() {
     return {
+      backgroundColor: this.backgroundColor,
+      opacity: this.opacity,
+      rotate: this.rotate,
       width_mm: this.width_mm,
       height_mm: this.height_mm,
       left_mm: this.left_mm,

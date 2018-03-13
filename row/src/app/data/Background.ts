@@ -19,7 +19,7 @@ export class Background {
 
   get style() {
     return {
-      'background-color': `#${this._backgroundColor.replace('#', '')}`,
+      'background-color': this.backgroundColor,
       'background-image': `url('${this.src}')`,
       'background-repeat': 'no-repeat',
       'background-size': 'cover',
@@ -54,6 +54,12 @@ export class Background {
 
   onChangeBgSize(){}
 
+  set json(val) {
+    this._backgroundColor = val.backgroundColor;
+    this.src = val.src;
+    this.width_mm = val.width_mm;
+    this.height_mm = val.height_mm;
+  }
   get json() {
     return {
       backgroundColor: this.backgroundColor,

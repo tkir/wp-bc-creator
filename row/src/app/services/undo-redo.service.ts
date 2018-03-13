@@ -43,6 +43,16 @@ export class UndoRedoService {
     this.prev = null;
   }
 
+  public iconChange(item, prev, curr) {
+    if (curr != prev)
+      this.undoArr.push({type: 'iconChange', item: item, prev: prev});
+  }
+
+  public logoChange(item, prev, curr){
+    if(prev!=curr)
+      this.undoArr.push({type: 'logoChange', item: item, prev: prev});
+  }
+
   public setSelectionArray(items: any[]) {
     this.selectionArray = [];
     if (!items || !items.length) return;
@@ -95,6 +105,14 @@ export class UndoRedoService {
 
       case 'textChange':
         if (state.item.instanceOf == 'Text') state.item.text = state.prev;
+        break;
+
+      case 'iconChange':
+        if (state.item.instanceOf == 'Icon') state.item.json = state.prev;
+        break;
+
+      case 'logoChange':
+        if (state.item.instanceOf == 'Logo') state.item.json = state.prev;
         break;
 
       case 'itemsChange':

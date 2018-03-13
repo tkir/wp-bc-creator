@@ -1,13 +1,21 @@
-<div class="divTable blueTable">
-  <div class="divTableBody">
-    <div *ngFor="let row of rows; let i=index" class="divTableRow">
-      <div *ngFor="let cell of columns let j=index" class="divTableCell">
-        <div [fieldDraggable]="{data:options.fontIcons[i*rows.length+j]}" class="draggable">
-          <a class="thumbnail">
-            <span class="font-awesome">{{options.fontIcons[i*rows.length+j].unicode}}</span>
-          </a>
+<button mat-icon-button [matMenuTriggerFor]="iconReplace">
+  Replace <i class="fa fa-image"></i>
+</button>
+
+<mat-menu #iconReplace="matMenu">
+  <div class="divTable blueTable">
+    <div class="divTableBody">
+      <div *ngFor="let row of rows; let i=index" class="divTableRow">
+        <div *ngFor="let cell of columns let j=index" class="divTableCell">
+          <div [fieldDraggable]="{data:options.fontIcons[i*rows.length+j]}" class="draggable">
+            <a class="thumbnail">
+              <span class="font-awesome" (click)="selectIcon(options.fontIcons[i*rows.length+j].unicode)">
+                {{options.fontIcons[i*rows.length+j].unicode}}
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</mat-menu>

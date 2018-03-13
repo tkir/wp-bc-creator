@@ -1,49 +1,41 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Store} from "../../services/store";
-import {Subscription} from "rxjs/Subscription";
-import {CardData} from "../../data/CardData";
-import {ImageService} from "../../services/image.service";
-import {ImageResult} from "../../utils/image/interfaces";
+import {Component, Input} from '@angular/core';
+import {Logo} from "../../data/Logo";
+import {UndoRedoService} from "../../services/undo-redo.service";
 import {ItemService} from "../../services/item.service";
-import {I18nService} from "../../services/i18n.service";
 
 @Component({
   selector: 'card-logo-editor',
   templateUrl: './logo-editor.component.html',
   styleUrls: ['./logo-editor.component.css']
 })
-export class LogoEditorComponent implements OnInit, OnDestroy {
-  private subscription: Subscription;
+export class LogoEditorComponent {
 
-  model: CardData = null;
+  @Input() logoField: Logo;
 
-  constructor(private store: Store,
-              public i18n: I18nService,
-              private itemService: ItemService,
-              private imageService: ImageService) {
+  constructor(private undoRedoService: UndoRedoService,
+              private itemService: ItemService) {
   }
 
-  ngOnInit() {
-    this.subscription = this.store.changes
-      .subscribe((cardData: any) => this.model = cardData);
+  replace(src) {
+    if (src == null) {
+      this.itemService.removeItem(this.logoField);
+      return;
+    }
+
+    let json = this.logoField.json;
+    this.logoField.src = src;
+    this.undoRedoService.logoChange(this.logoField, json, this.logoField.json);
   }
 
-  ngOnDestroy(): void {
-    if (this.subscription)
-      this.subscription.unsubscribe();
+  setColor(color){
+    let json = this.logoField.json;
+    this.logoField.backgroundColor = color;
+    this.undoRedoService.logoChange(this.logoField, json, this.logoField.json);
   }
 
-  uploadImage(event) {
-    if (event.target.files.length)
-      this.imageService.uploadImage(event.target.files[0], true)
-        .then((res: ImageResult) => {
-          this.itemService.addLogo(res.resized.dataURL, res.resized.width, res.resized.height);
-        })
-        .catch(err => console.log(err));
+  rotate(deg){
+    let json = this.logoField.json;
+    this.logoField.rotate += deg;
+    this.undoRedoService.logoChange(this.logoField, json, this.logoField.json);
   }
-
-  removeItem(logo) {
-    this.itemService.removeItem(logo);
-  }
-
 }

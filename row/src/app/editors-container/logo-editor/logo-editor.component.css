@@ -1,23 +1,15 @@
-.thumb{
-  max-width: 120px;
-  max-height: 120px;
+.fa{
+  transition: all .85s linear 0s;
 }
 
-.fileContainer {
-  overflow: hidden;
-  position: relative;
+.fa:hover {
+  color:  #009FFF;
+  transform: rotate(360deg) scale(1.5);
 }
 
-.fileContainer [type=file] {
-  cursor: inherit;
-  display: block;
-  font-size: 999px;
-  filter: alpha(opacity=0);
-  min-height: 100%;
-  min-width: 100%;
-  opacity: 0;
-  position: absolute;
-  right: 0;
-  text-align: right;
-  top: 0;
+.rotate{
+  display: inline-block;
+}
+mat-divider{
+  display: inline-block;
 }

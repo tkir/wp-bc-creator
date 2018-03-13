@@ -1,14 +1,26 @@
-<ul *ngIf="model.logos">
-  <li *ngFor="let item of model.logos" class="">
-    <label class="fileContainer">
-      <img [src]="item.src" class="thumb">
-    </label>
-    <button class="btn btn-sm btn-default" (click)="removeItem(item)">-</button>
-  </li>
-</ul>
+<button mat-button [matMenuTriggerFor]="cardLogoColor">
+  Overlay color
+  <i class="fa fa-image"></i>
+</button>
+<mat-menu #cardLogoColor="matMenu">
+  <card-color-picker (colorSelected)="setColor($event)"></card-color-picker>
+</mat-menu>
 
+<mat-divider vertical="true"></mat-divider>
 
-<label class="fileContainer">
-  <button class="btn btn-sm btn-default">{{i18n.get("editor.logo.addLogo")}}</button>
-  <input type="file" (change)="uploadImage($event)">
-</label>
+<span>Opacity </span>
+<mat-slider max="1"
+            min="0"
+            step="0.01"
+            [(ngModel)]="logoField.opacity"></mat-slider>
+<span>{{logoField.opacity}}</span>
+
+<mat-divider vertical="true"></mat-divider>
+
+<div class="rotate">
+  <span>Rotate </span>
+  <button mat-icon-button (click)="rotate(+90)"><i class="fa fa-undo" data-fa-transform="flip-h"></i></button>
+  <button mat-icon-button (click)="rotate(-90)"><i class="fa fa-undo"></i></button>
+</div>
+
+<card-image-import [isLogo]="true" (dataUrlReady)="replace($event)"></card-image-import>
