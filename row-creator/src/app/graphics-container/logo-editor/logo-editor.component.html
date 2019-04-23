@@ -1,0 +1,15 @@
+<ul *ngIf="model.logos">
+  <li *ngFor="let item of model.logos" class="">
+    <label class="fileContainer">
+      <!--<input type="file" (change)="uploadImage(item, $event)">-->
+      <img [src]="item.src" class="thumb">
+    </label>
+    <button class="btn btn-sm btn-default" (click)="removeItem(item)">-</button>
+  </li>
+</ul>
+
+
+<label class="fileContainer">
+  <button class="btn btn-sm btn-default">+</button>
+  <input type="file" (change)="uploadImage($event)">
+</label>

@@ -1,0 +1,19 @@
+table {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 2px;
+  border-color: grey;
+}
+.table1 .td {
+  border: 1px black solid;
+  padding: 5px;
+}
+.table1 .hov {
+  border: 2px black solid;
+  padding: 4px;
+}
+.table1 tr td {
+  width: 30px;
+  height: 30px;
+  cursor: default;
+}

@@ -1,0 +1,18 @@
+<button type="button" class="btn" (click)="orderDetailClick()">Detail</button>
+<br>
+
+<div class="order-form-container">
+  <div class="table-cell options">Product Options</div>
+  <div class="table-cell options">
+    <div id="options-container">
+
+      <div class="select-wrapper clearfix" *ngFor="let option of model">
+        <card-order-option [option]="option" (optionSelected)="onOptionSelected($event)"></card-order-option>
+      </div>
+      <button type="button" class="btn btn-success" (click)="order(false)">Order ${{cost}}</button>
+
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-success" (click)="order(true)">Fast order ${{fastOrderCost}}</button>

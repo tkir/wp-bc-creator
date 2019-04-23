@@ -1,0 +1,14 @@
+<label>
+  {{option.Name}}
+  <select [(ngModel)]="selectedOption" (ngModelChange)="onChange($event)"
+          *ngIf="option.type!='fixed'">
+    <option *ngFor="let val of option.Values" [ngValue]="val">{{val.Value}}</option>
+  </select>
+
+  <!--только для фиксированных опций-->
+  <select [(ngModel)]="selectedOption"
+          (ngModelChange)="onChange($event)"
+          *ngIf="option.type=='fixed'" disabled>
+    <option *ngFor="let val of option.Values" [ngValue]="val">{{val.Value}}</option>
+  </select>
+</label>
