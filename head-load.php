@@ -11,14 +11,4 @@
     })();
 </script>
 
-<link href="<?= getStyleName( 'styles' ); ?>" rel="stylesheet"/>
-
-
-<?php
-function getStyleName( $name ) {
-	return str_replace( WP_PLUGIN_DIR,
-		plugins_url(),
-		glob( WP_PLUGIN_DIR . "/business-card-creator/BusinessCardCreator/$name*.*" )[0] );
-}
-
-?>
+<link href="<?= plugin_dir_url(__FILE__)."/creator/styles.css"; ?>" rel="stylesheet"/>
