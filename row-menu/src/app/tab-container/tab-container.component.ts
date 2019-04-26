@@ -26,6 +26,5 @@ export class TabContainerComponent implements AfterContentInit {
     if (event === null)
       this.buttons[0].classList.add('active');
     else event.target.classList.add('active');
-
   }
 }

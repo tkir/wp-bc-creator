@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
 import {OptionsService} from './options.service';
 import {Observable} from 'rxjs/Observable';
@@ -7,10 +7,11 @@ import {Observable} from 'rxjs/Observable';
 export class UpdateService {
 
   constructor(private api: ApiService,
-              private options:OptionsService) { }
+              private options: OptionsService) {
+  }
 
   public generalUpdate(page_url, hash, email, templValue, lnAbbreviation) {
-    const path='/general';
+    const path = '/general';
 
     if (this.options.page_url != page_url.trim()) {
       this.api.get(`${path}/page_url/${page_url}`)
@@ -42,23 +43,23 @@ export class UpdateService {
     }
   }
 
-  public previewsUpdate():Observable<any>{
+  public previewsUpdate(): Observable<any> {
     return this.api.post('/updateDesigns', this.options.previews);
   }
 
-  public toggleActive(id):Observable<any>{
+  public toggleActive(id): Observable<any> {
     return this.api.get(`/toggleActive/${id}`);
   }
 
-  public defaultSelected(slug:string):Observable<any>{
+  public defaultSelected(slug: string): Observable<any> {
     return this.api.get(`/updateDefault/${slug}`);
   }
 
-  public updatePrice(price):Observable<any>{
+  public updatePrice(price): Observable<any> {
     return this.api.post('/price', price);
   }
 
-  public updateOrderOptions(options:Observable<any>){
+  public updateOrderOptions(options: Observable<any>) {
     return this.api.post('/options', options);
   }
 }

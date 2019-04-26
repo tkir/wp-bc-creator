@@ -1,4 +1,4 @@
-<base href="<?= site_url() . '/' . get_option('BusinessCardCreator_url'); ?>">
+<base href="<?= site_url() . '/wp-admin/'; ?>">
 <link href="<?= plugin_dir_url(__FILE__)."/js/styles.css"; ?>" rel="stylesheet"/>
 
 <app-root></app-root>
