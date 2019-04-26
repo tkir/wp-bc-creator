@@ -10,7 +10,7 @@ const names = [
   {oldName: RegExp(/^styles\.[a-f0-9]{20}\.css/, 'g'), newName: "styles.css"}
 ];
 
-files = fs.readdirSync(dir);
+let files = fs.readdirSync(dir);
 fs.unlinkSync(path.join(dir, '3rdpartylicenses.txt'));
 fs.unlinkSync(path.join(dir, 'favicon.ico'));
 fs.unlinkSync(path.join(dir, 'index.html'));
